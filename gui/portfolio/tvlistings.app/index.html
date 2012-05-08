@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>swm.cc | Portfolio >> TVListings.app</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	
+	<!-- Stylesheets -->
+	<link rel="stylesheet" href="/gui/css/reset.css" />
+	<link rel="stylesheet" href="/gui/css/styles.css" />
+	
+	<!-- Scripts -->
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+	<script type="text/javascript" src="/gui/js/jquery.roundabout-1.0.min.js"></script> 
+	<script type="text/javascript" src="/gui/js/jquery.easing.1.3.js"></script>
+	<script type="text/javascript" src="/gui/js/jquery.roundabout-shapes-1.1.js"></script>
+	<script type="text/javascript">			
+		$(document).ready(function() { //Start up our Project Preview Carosuel
+			$('ul#folio_scroller').roundabout({
+				easing: 'easeOutInCirc',
+				shape: 'waterWheel',
+				duration: 600
+			});
+		});
+	</script>  
+	<!--[if IE 6]>
+	<script src="js/DD_belatedPNG_0.0.8a-min.js"></script>
+	<script>
+	  /* EXAMPLE */
+	  DD_belatedPNG.fix('.button');
+	  
+	  /* string argument can be any CSS selector */
+	  /* .png_bg example is unnecessary */
+	  /* change it to what suits you! */
+	</script>
+	<![endif]-->
+</head>
+
+<body>
+
+	<div id="wrapper" class="container_12 clearfix">
+
+		<!-- Text Logo -->
+		<h1 id="logo" class="grid_4"><a href="/gui/">swm.cc</a></h1>
+		
+		<!-- Navigation Menu -->
+		<ul id="navigation" class="grid_8">
+			<li><a href="/gui/contact.html"><span class="meta">Get in touch</span><br />Contact Us</a></li>
+			<li><a href="/gui/blog.html"><span class="meta">Latest news</span><br />Blog</a></li>
+			<li><a href="/gui/portfolio.html" class="current"><span class="meta">Our latest work</span><br />Portfolio</a></li>
+			<li><a href="/gui/about.html"><span class="meta">Who are we?</span><br />About</a></li>
+			<li><a href="/gui/"><span class="meta">Homepage</span><br />Home</a></li>
+		</ul>
+		
+		<div class="hr grid_12 clearfix">&nbsp;</div>
+			
+		<!-- Catch Line and Link -->
+			<h2 class="grid_12 caption clearfix">My <span>portfolio</span> of projects. Some old, some new and some soon to be.</h2>
+		
+		<div class="hr grid_12 clearfix">&nbsp;</div>
+		
+		<!-- Column 1 / Project Information -->
+		<div class="grid_4">
+		<h4 class="title">TVListings</h4>
+		<a class="meta" href="#">perl</a>
+		<div class="hr dotted clearfix">&nbsp;</div>
+			<p>This is mainly a legacy project. Back in 2002 I got Sky in but found their planner to be pretty much useless. It never told me when things were on and I don't even think they had a series link back then. So instead of trawling through the radio times and the like I decided to write my own. I used the data provided by the <a href="http://wiki.xmltv.org/index.php/Main_Page">XMLTV.org</a> people and parse the information on a semily regular basis. This way I could then do what I wanted with the data.</p>
+			<p>I created various things with it - an email reminder to email me of when my shows would be on or coming up. A watchlist so I could keep an eye when a certain star was going to appear on tv as a guest or a recurring character. I then extended it to take episode information - with the grand idea that I could use something to say "show me all the episodes from the X-Files that include the cigaratte smoking man". I was partially successful. However as it was a one man band project I couldn't keep up with the advent of sky+, tivo and other sites.</p>
+			<p>I gave it a major re-write in 2005 and used <a href="https://github.com/mirod/xmltwig">XML::Twig</a>. It still uses Class::DBI for its db interface (MySQL) - it should be re-written to use DBIx::Class as it is still supported. it still works. I don't really have a use case for it now as I either use 'On Demand' or 'Sky+' now to catch what I want to watch. So every three days a cron runs to collect the information and put it into a database. At the time of writing I have every tv listings/star information from the start of 2011 until now (May 2012). It might come in useful some time.</p>
+			<p>I just use it now to test a data set with something new - JSON parsing etc. Feel free to fork it on github.</p>
+			<p class="clearfix">
+				<a href="/gui/portfolio.html" class="button float">&lt;&lt; Back to Portfolio</a>
+				<a href="https://github.com/swmcc/TV-Listings" class="button float right">Visit Site</a>
+			</p>
+		</div>
+		
+		<!-- Column 2 / Image Carosuel -->
+		<div id="folio_scroller_container" class="grid_8 cleafix">
+			<ul id="folio_scroller"> 
+					<li><span>Code</span><a href="#"><img alt="" src="/gui/images/portfolio/tvlistings.app/tvlistings.app.main.1.png" /></a></li> 
+					<li><span>XML</span><a href="#"><img alt="" src="/gui/images/portfolio/tvlistings.app/tvlistings.app.main.2.png" /></a></li> 
+					<li><span>Database</span><a href="#"><img alt="" src="/gui/images/portfolio/tvlistings.app/tvlistings.app.main.3.png" /></a></li> 
+			</ul> 
+		</div>
+
+		<div class="hr grid_12 clearfix">&nbsp;</div>
+		
+		<!-- Client pickup line -->
+		<h2 class="grid_12 caption">Like this project? <a href="https://github.com/swmcc/TV-Listings/">Fork it on github</a> or <a href="/gui/contact.html"><span>Get in touch...</span></a></h2>
+		
+		<div class="hr grid_12 clearfix">&nbsp;</div>
+		
+		<!-- Footer -->
+		<p class="grid_12 footer clearfix">
+			<span class="float"><b>&copy; Copyright</b> <a href="">QwibbleDesigns</a></span>
+			<a class="float right" href="#">top</a>
+		</p>
+		
+	</div><!--end wrapper-->
+
+</body>
+</html>
