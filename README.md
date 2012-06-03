@@ -1,39 +1,37 @@
-swm.cc
-======
+# swm.cc 
+
 
 This is the source to my personal site - http://swm.cc
 
 The site is in two parts:
 
+	-  a normal site 
+	
 	-  a 'terminal' emulator written in javascipt with basic functionality.
 
-	-  a 'gui'
 
-terminal
-========
+### Prerequisites
 
-The terminal emulates a BASH enviroment. Here are a list of commands:
+- [jekyll](http://jekyllrb.com)
+- [grunt ](https://github.com/cowboy/grunt) `npm install -g grunt`
 
-blog		link to my blog.	
-clear		clear the creen.
-cd		change Directroy.
-contact		contact info.
-cv		displays a compact cv.
-exit		exit the session.
-git		link to my github address.
-goto		jump to other sites (blog delicious linkedin githb).
-help		displays this list.
-linkedin	link to LinkedIn profile.
-ls		list directories.
-projects	list of projects.
-skills		list of professional skills.
-startx		start the GUI version of this website.
-wget		download files to your desktop.
-whois		whoami?
 
-gui
-===
+### Compile
 
-An extra layer that goes into more detail than you can get from the 'terminal'.
+1. Open the current folder in Terminal.
+2. `jekyll --server --auto` to auto update on file change.
+3. `grunt watch` in a new tab to compile on file change.
 
-This is heavily inspired by Tom Gallacher (tomg.co).
+
+## Built with
+
+- [jQuery](http://jquery.com)
+- [HTML5 Boilerplate](http://html5boilerplate.com)
+- [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
+- [jekyll](http://jekyllrb.com)
+
+
+## Attribution
+
+- [Social Media Icons](http://paulrobertlloyd.com/2009/06/social_media_icons)
+

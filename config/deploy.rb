@@ -1,5 +1,5 @@
 # replace these with your server's information
-set :domain,  "swm.cc"
+set :domain,  "www.swm.cc"
 set :user,    "root"
 
 # name this the same thing as the directory on your server

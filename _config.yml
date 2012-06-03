@@ -1,0 +1,5 @@
+# Jekyll
+paginate: 10
+exclude: [less]
+name: Stephen McCullough
+basepath: /
