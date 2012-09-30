@@ -241,7 +241,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'exit') {
-			window.location.href = "http://swm.cc";
+			window.location.href = "http://www.swm.cc";
 			return;
 		}
 		
@@ -266,7 +266,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'git') {
-			this.out('<a target="_blank" href="http://github.com/swmcc">http://github.com/swmcc</a> - I use bitbucket for most things but publish stuff here now and again');
+			this.out('<a target="_blank" href="http://github.com/swmcc">http://github.com/swmcc</a> - Where I host my code');
 			this.prompt();
 			return;
 		}
@@ -280,7 +280,7 @@ var Terminal = new Class({
 		if (command.substr(0,2) == 'ls') {
    			var dir = [
         		"How.to.kill.hipsters.by.thought.alone.mp4.nzb",
-      			"node-v0.6.16.tar.gz",
+      			"node-v0.8.9.tar.gz",
       			"<span class='dir'>porn/</span>",
       			"me.jpg",
       			"cv.doc",
@@ -302,8 +302,6 @@ var Terminal = new Class({
 			this.out('<br /><br /><b>COMING VERY SOON</b>');
 			this.out('------------------');
 			this.out('<b>theotherdomain.com</b> - A vanity site to hold my projects together [node.js] (<a target="_blank" href="http://theotherdomain.com">http://theotherdomain.com</a>)');
-			this.out('<b>searchforaproperty.com</b> - A vanity site powered in part by Nestoria to get property listings [ruby] (<a target="_blank" href="http://searchforproperty.com">http://searchforproperty.com</a>)');
-			this.out('<b>bunrun</b> - A quick app that can be tuned to sort out who in the office makes tea or gets the buns [node.js] (<a target="_blank" href="https://github.com/swmcc/Bunrun>">https://github.com/swmcc/Bunrun</a>)');
 			this.out('<b>the-mcculloughs.org</b> - An app that allows the sharing of home photos/videos with logins from various social media sites [ruby/node.js] (<a target="_blank" href="http://www.the-mcculloughs.org">http://the-mcculloughs.org</a>)');
 			this.prompt();
 			return;
@@ -320,7 +318,7 @@ var Terminal = new Class({
 		}
 
 		if ( command == 'whereami') {
-			this.out('<br /><b>www.swm.cc</b><br /><br />');
+			this.out('<br /><b>http://swm.cc</b><br /><br />');
 			this.prompt();
 			return;
 		}
@@ -333,7 +331,7 @@ var Terminal = new Class({
 
 		if ( command.substr(0,4) == 'wget') {
 			var what = command.substr(5);
-			if (what == 'cv.doc') { this.out('Warning: request denied. Contact me and I will send it to you, promise.. Do not trust recruiters :)'); }
+			if (what == 'cv.doc') { window.location.href = "/!/cv.doc"; return; }
 			if (what == '') { this.out('wget cv.doc'); }
 			this.prompt();
 			return;
