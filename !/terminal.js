@@ -324,7 +324,7 @@ var Terminal = new Class({
 		}
 		
 		if (command == 'whois') {
-			this.out('<img src="me.jpg"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland.<br />I currently work for a great software conulstancy based in Hillsborough called Tascomi.');
+			this.out('<img src="/img/me.jpg"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland.<br />I currently work for a great software conulstancy based in Hillsborough called Tascomi.');
 			this.prompt();
 			return;
 		}

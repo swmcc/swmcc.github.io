@@ -114,7 +114,7 @@ $(function() {
 	loadTweets();
 
 	$('#social-icons').find('.email')
-		.attr( 'href', 'mailto:stephen.mcculloughASDFFDSAgmail.com'.replace('ASDFFDSA', '@') );
+		.attr( 'href', 'mailto:meASDFFDSAswm.cc'.replace('ASDFFDSA', '@') );
 
 	if ( !Modernizr.touch ) {
 		$('.tip, #social-icons a').tooltip();
