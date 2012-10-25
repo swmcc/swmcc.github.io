@@ -229,7 +229,8 @@ var Terminal = new Class({
 		}
 
 		if (command == 'cv') {
-			this.out(' - <b><i>Senior Programmer</i></b> at Tascomi from June 2009 to present');
+			this.out(' - <b><i>Senior Developer</i></b> at Repknight from Oct2012 to the present');
+			this.out(' - <b><i>Senior Programmer</i></b> at Tascomi from June 2009 to Oct 2012');
 			this.out(' - <b><i>Technical Lead</i></b> at Rehabstudio from December 2008 to June 2009');
 			this.out(' - <b><i>Senior Software Engineer</i></b> at Maildistiller from September 2007 to December 2008');
 			this.out(' - <b><i>Development Manager</i></b> at the Pilton Group from April 2002 to September 2007');
@@ -324,7 +325,7 @@ var Terminal = new Class({
 		}
 		
 		if (command == 'whois') {
-			this.out('<img src="/img/me.jpg"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland.<br />I currently work for a great software conulstancy based in Hillsborough called Tascomi.');
+			this.out('<img src="/img/me.jpg"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland. I work for a great start up called Repknight.');
 			this.prompt();
 			return;
 		}
