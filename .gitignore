@@ -1,3 +1,23 @@
-.DS_Store
+# Mac - *nix systems
+*.DS_Store
+*.swp
+*.out
+
+# Jekyll
 _site/
+
+# Node
 node_modules/
+
+# Capistrano
+config/
+Capfile
+
+# Generic log file
+*.log
+log/
+tmp/
+
+# Rails - you'd be suprised at how many times i have commited this
+database.yml 
+
