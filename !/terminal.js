@@ -216,7 +216,7 @@ var Terminal = new Class({
 		if (command == 'contact') {
 			this.out('Feel free to contact me on <a href="http://www.twitter.com">twitter</a> via a shout at <a href="http://www.twitter.com/swmcc">@swmcc</a> or DM. Or you can email me.');
 			this.out('-----------------------------')
-			this.out('stephen.mccullough@gmail.com');
+			this.out('me@swm.cc');
 			this.out('http://www.twitter.com/swmcc');
 			this.prompt();
 			return;
