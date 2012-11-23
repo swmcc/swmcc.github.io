@@ -187,7 +187,7 @@ var Terminal = new Class({
 		// ---------------------
 		
 		if (command == 'blog') {
-			this.out('<a target="_blank" href="http://swmcc.wordpress.com">swmcc.wordpress.com</a> - My inane ramblings');
+			this.out('<a target="_blank" href="http://blog.swm.cc">blog.swm.cc</a> - My inane ramblings');
 			this.prompt();
 			return;
 		}
@@ -224,7 +224,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'copy') {
-			this.out('Copyright &copy; 2012 swm.cc');
+			this.out('Copyright &copy; 2002 - 2012 swm.cc');
 			this.prompt();
 			return;
 		}
@@ -251,7 +251,7 @@ var Terminal = new Class({
 		if (command.substr(0,4) == 'goto') {
 			var dest = command.substr(5);
 			if (dest == 'blog') {
-				window.location.href = 'http://swmcc.wordpress.com';
+				window.location.href = 'http://blog.swm.cc';
 			} else if ( dest == 'delicious' ) {
 				window.location.href = 'http://delicious.com/swmcc'; 
 			} else if ( dest == 'linkedin' ) {
@@ -324,9 +324,8 @@ var Terminal = new Class({
 			this.prompt();
 			return;
 		}
-		
 		if (command == 'whois') {
-			this.out('<img src="/img/me.jpg"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland. I work for a great start up called Repknight.');
+			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland. I work for a great start up called Repknight.');
 			this.prompt();
 			return;
 		}
