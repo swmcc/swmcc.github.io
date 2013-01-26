@@ -224,7 +224,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'copy') {
-			this.out('Copyright &copy; 2002 - 2012 swm.cc');
+			this.out('Copyright &copy; 2002 - 2013 swm.cc');
 			this.prompt();
 			return;
 		}
