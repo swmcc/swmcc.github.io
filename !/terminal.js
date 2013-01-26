@@ -243,7 +243,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'exit') {
-			window.location.href = "http://swm.cc";
+			window.location.href = "http://www.swm.cc";
 			return;
 		}
 		
