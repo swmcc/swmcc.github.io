@@ -17,7 +17,3 @@ Capfile
 *.log
 log/
 tmp/
-
-# Rails - you'd be suprised at how many times i have commited this
-database.yml 
-
