@@ -304,10 +304,8 @@ var Terminal = new Class({
 
 		if (command == 'projects') {
 			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
-			this.out('<br /><br /><b>COMING VERY SOON</b>');
-			this.out('------------------');
-			this.out('<b>theotherdomain.com</b> - A vanity site to hold my projects together [node.js] (<a target="_blank" href="http://theotherdomain.com">http://theotherdomain.com</a>)');
-			this.out('<b>the-mcculloughs.org</b> - An app that allows the sharing of home photos/videos with logins from various social media sites [ruby/node.js] (<a target="_blank" href="http://www.the-mcculloughs.org">http://the-mcculloughs.org</a>)');
+			this.out('<b>rnilapp.com</b> - An app that sits on top of github to offer an agile experince [rails] (<a target="_blank" href="http://rnilapp.com">http://rnilapp.com</a>)');
+			this.out('<b>artdigiland.com</b> - Video sharing site for the arts [ruby] (<a target="_blank" href="http://www.artdigiland.com">http://artdigiland.com</a>)');
 			this.prompt();
 			return;
 		}
