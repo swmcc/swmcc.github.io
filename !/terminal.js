@@ -237,7 +237,8 @@ var Terminal = new Class({
 			this.out(' - <b><i>Development Manager</i></b> at the Pilton Group from April 2002 to September 2007');
 			this.out(' - <b><i>Systems Administrator</i></b> at Bytel.net.uk from April 2001 to April 2002');
 			this.out(' - <b><i>Programmer</i></b> at Blackstar.co.uk - January 2000 to November 2000');
-			this.out('<br />For more details use the wget command (wget cv.doc)');
+			this.out('<br />For an up to date cv use the wget command (wget cv.doc)');
+			this.out('For my github resume use goto (goto resume)');
 			this.prompt();
 			return;
 		}
@@ -258,8 +259,10 @@ var Terminal = new Class({
 				window.location.href = 'http://swmcc.wordpress.com'; 
 			} else if ( dest == 'github' ) {
 				window.location.href = 'http://www.github.com/swmcc';
+			} else if ( dest == 'resume' ) {
+				window.location.href = 'http://resume.github.com/?swmcc'
 			} else if ( dest == '') {
-				this.out('-bash: goto: blog delicious linkedin github');
+				this.out('-bash: goto: blog delicious linkedin github resume');
 			} else {
 				this.out('-bash: goto: ' + dest + ': No such destination');
 			}
