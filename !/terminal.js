@@ -262,7 +262,7 @@ var Terminal = new Class({
 			} else if ( dest == 'resume' ) {
 				window.location.href = 'http://resume.github.com/?swmcc'
 			} else if ( dest == '') {
-				this.out('-bash: goto: blog delicious linkedin github resume');
+				this.out('-bash: goto: blog linkedin github resume');
 			} else {
 				this.out('-bash: goto: ' + dest + ': No such destination');
 			}
