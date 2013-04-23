@@ -177,6 +177,7 @@ var Terminal = new Class({
 			this.out('<span class="commandhelp">ls</span>List directories.');
 			this.out('<span class="commandhelp">projects</span>List of projects swmcc is involved with.');
 			this.out('<span class="commandhelp">skills</span>Professional skills.');
+			this.out('<span class="commandhelp">talks</span>List of my talks.');
 			this.out('<span class="commandhelp">whereami</span>Where are you?');
 			this.out('<span class="commandhelp">wget</span>Download files to your desktop.');
 			this.out('<span class="commandhelp">whois</span>Who is swmcc?');
@@ -260,9 +261,11 @@ var Terminal = new Class({
 			} else if ( dest == 'github' ) {
 				window.location.href = 'http://www.github.com/swmcc';
 			} else if ( dest == 'resume' ) {
-				window.location.href = 'http://resume.github.com/?swmcc'
+				window.location.href = 'http://resume.github.com/?swmcc';
+			} else if ( dest == 'talks' ) {
+				window.location.href = 'http://swm.cc/#talks';		
 			} else if ( dest == '') {
-				this.out('-bash: goto: blog linkedin github resume');
+				this.out('-bash: goto: blog linkedin github resume talks');
 			} else {
 				this.out('-bash: goto: ' + dest + ': No such destination');
 			}
@@ -318,6 +321,13 @@ var Terminal = new Class({
 			this.out('server administration, soap, sqlite, xmlrpc');
 			this.prompt();
 			return;
+		}
+
+		if (command == 'talks') {
+			this.out(' - <b><i>Giants are made....</i></b> lightning talk in London May 2012');
+			this.out('<br />To see more info on the talks please use goto (goto talks)');
+			this.prompt();
+		return;
 		}
 
 		if ( command == 'whereami') {
