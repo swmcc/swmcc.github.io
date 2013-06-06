@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-jekyll && rsync -avz --delete _site/ swm@swm.cc:/web/swm.cc
+jekyll && rsync -avz --delete _site/ swm@swm.cc:/web/swm.cc2
