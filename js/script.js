@@ -109,10 +109,6 @@ function loadTweets() {
 
 $(function() {
 
-	loadGitHubRepos();
-	loadGitHubActivities();
-	loadTweets();
-
 	$('#social-icons').find('.email')
 		.attr( 'href', 'mailto:meASDFFDSAswm.cc'.replace('ASDFFDSA', '@') );
 
