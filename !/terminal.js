@@ -1,4 +1,4 @@
-
+ep
 function dbg(txt) { if (window.console) console.log(txt); }
 
 var Terminal = new Class({
@@ -337,7 +337,7 @@ var Terminal = new Class({
 			return;
 		}
 		if (command == 'whois') {
-			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland. I work for a great start up called Repknight.');
+			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy, Northern Ireland.');
 			this.prompt();
 			return;
 		}
