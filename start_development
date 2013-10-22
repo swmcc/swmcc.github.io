@@ -27,7 +27,7 @@ tmux send-keys -t $PROJECT:console.2 "cd $BASE;" C-m
 tmux resize-pane -L -t $PROJECT:console.2 20
  
 # run guard -c clears shell after each change
-tmux send-keys -t $PROJECT:console.0 "cd $BASE; guard -c" C-m
+tmux send-keys -t $PROJECT:console.0 "cd $BASE; jekyll --server --auto" C-m
  
 # start rails server
 tmux send-keys -t $PROJECT:console.1 "cd $BASE;" C-m
