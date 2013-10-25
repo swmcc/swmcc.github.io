@@ -173,7 +173,6 @@ var Terminal = new Class({
 			this.out('<span class="commandhelp">git</span>github address.')
 			this.out('<span class="commandhelp">goto</span>Jump to other pages.');
 			this.out('<span class="commandhelp">help</span>Displays this list.');
-			this.out('<span class="commandhelp">linkedin</span>Link to LinkedIn profile.');
 			this.out('<span class="commandhelp">ls</span>List directories.');
 			this.out('<span class="commandhelp">projects</span>List of projects swmcc is involved with.');
 			this.out('<span class="commandhelp">skills</span>Professional skills.');
@@ -256,8 +255,6 @@ var Terminal = new Class({
 				window.location.href = 'http://blog.swm.cc';
 			} else if ( dest == 'delicious' ) {
 				window.location.href = 'http://delicious.com/swmcc'; 
-			} else if ( dest == 'linkedin' ) {
-				window.location.href = 'http://swmcc.wordpress.com'; 
 			} else if ( dest == 'github' ) {
 				window.location.href = 'http://www.github.com/swmcc';
 			} else if ( dest == 'resume' ) {
@@ -265,7 +262,7 @@ var Terminal = new Class({
 			} else if ( dest == 'talks' ) {
 				window.location.href = 'http://swm.cc/#talks';		
 			} else if ( dest == '') {
-				this.out('-bash: goto: blog linkedin github resume talks');
+				this.out('-bash: goto: blog github resume talks');
 			} else {
 				this.out('-bash: goto: ' + dest + ': No such destination');
 			}
