@@ -321,6 +321,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'talks') {
+			this.out(' - <b><i>Tmux lightning talk</i></b> Belfast Ruby Oct 2013');
 			this.out(' - <b><i>A brief intro to Neo4j</i></b> Belfast Ruby June 2013');
 			this.out(' - <b><i>Giants are made....</i></b> lightning talk in London May 2012');
 			this.out('<br />To see more info on the talks please use goto (goto talks)');
