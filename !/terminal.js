@@ -1,4 +1,3 @@
-ep
 function dbg(txt) { if (window.console) console.log(txt); }
 
 var Terminal = new Class({
