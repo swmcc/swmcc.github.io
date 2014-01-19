@@ -9,7 +9,7 @@ var Terminal = new Class({
 		this.terminal = container;
 		this.out('Welcome to Ubuntu 12.04 (GNU/Linux 2.6.18-274.7.1.el5.028stab095.1 x86_64)');
 		this.out('<br />');
-		this.out('Last login: Sun May  6 22:18:00 2012 from host68-194-277-14.range86-184.btcentralplus.com');
+		this.out('Last login: Sun May 6 22:18:00 2012 from host68-194-277-14.range86-184.btcentralplus.com');
 		this.out('<br />');
 		this.out('Type <b>\'help\'</b> for a list of available commands.');	
 		this.out('&nbsp;');
@@ -305,7 +305,7 @@ var Terminal = new Class({
 		if (command == 'projects') {
 			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
 			this.out('<b>rnilapp.com</b> - An app that sits on top of github to offer an agile experince [rails] (<a target="_blank" href="http://rnilapp.com">http://rnilapp.com</a>)');
-			this.out('<b>artdigiland.com</b> - Video sharing site for the arts [ruby] (<a target="_blank" href="http://www.artdigiland.com">http://artdigiland.com</a>)');
+			this.out('<b>quantum</b> -A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
 			this.prompt();
 			return;
 		}
