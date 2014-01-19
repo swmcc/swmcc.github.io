@@ -229,7 +229,8 @@ var Terminal = new Class({
 		}
 
 		if (command == 'cv') {
-			this.out(' - <b><i>Senior Developer</i></b> at Repknight from Oct 2012 to the present');
+                        this.out(' - <b><i>Head Tea Maker</i></b> at Mission IQ from Sep 2013 to the present');
+			this.out(' - <b><i>Senior Developer</i></b> at Repknight from Oct 2012 from Sep 2013');
 			this.out(' - <b><i>Senior Programmer</i></b> at Tascomi from June 2009 to Oct 2012');
 			this.out(' - <b><i>Technical Lead</i></b> at Rehabstudio from December 2008 to June 2009');
 			this.out(' - <b><i>Senior Software Engineer</i></b> at Maildistiller from September 2007 to December 2008');
