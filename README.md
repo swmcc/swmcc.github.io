@@ -12,7 +12,7 @@ The site is in two parts:
 ## Prerequisites
 
 - [jekyll](http://jekyllrb.com)
-- [grunt ](https://github.com/cowboy/grunt) `npm install -g grunt`
+- [mocha ](http://visionmedia.github.io/mocha/) `npm install mocha` # testing 
 
 ## Running locally
 	
@@ -21,13 +21,9 @@ The site is in two parts:
 	- npm install
 	- jekyll serve
 
-## Deployment
+## Running tests
 
-Ensure that you have amended the sync script with your details
-
-	- sync
-
-This will build the site and then deploy the static files to your remote server.	
+    - mocha
 
 ## Built with
 
