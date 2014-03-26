@@ -19,7 +19,7 @@ The site is in two parts:
 	- git clone https://github.com/swmcc/swm.cc.git
 	- cd swm.cc
 	- npm install
-	- jekyll --server --auto
+	- jekyll serve
 
 ## Deployment
 
