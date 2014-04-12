@@ -138,7 +138,7 @@ var Terminal = new Class({
 		if (this.currentPrompt)
 		this.currentPrompt.getElement('.cursor').destroy();
 		this.currentPrompt = new Element('div');
-		this.currentPrompt.grab(new Element('span').addClass('prompt').set('text', time + ' [Stevies-Site]: ~ $'));
+		this.currentPrompt.grab(new Element('span').addClass('prompt').set('text', time + ' [swm.cc]: ~ $'));
 		this.currentCommand = new Element('span').addClass('command');
 		this.currentPrompt.grab(this.currentCommand);
 		this.currentPrompt.grab(new Element('span').addClass('cursor'));
@@ -186,7 +186,7 @@ var Terminal = new Class({
 		// ---------------------
 		
 		if (command == 'blog') {
-			this.out('<a target="_blank" href="http://blog.swm.cc">blog.swm.cc</a> - My inane ramblings');
+			this.out('<a target="_blank" href="http://swm.cc/blog">swm.cc/blog</a> - My inane ramblings');
 			this.prompt();
 			return;
 		}
@@ -304,7 +304,6 @@ var Terminal = new Class({
 
 		if (command == 'projects') {
 			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
-			this.out('<b>rnilapp.com</b> - An app that sits on top of github to offer an agile experince [rails] (<a target="_blank" href="http://rnilapp.com">http://rnilapp.com</a>)');
 			this.out('<b>quantum</b> -A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
 			this.prompt();
 			return;
