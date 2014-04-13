@@ -1,0 +1,44 @@
+--- 
+type: post
+tags: 
+- Server
+published: true
+title: Backing Up
+layout: post
+status: publish
+meta: 
+  original_post_id: "20"
+  _wp_old_slug: "20"
+---
+<div>
+<div>
+<div>
+<div>
+
+I was looking at my old domain on the <a href="http://www.archive.org/" target="_blank">Internet Archive</a> at lunchtime today and got a bit nostalgic. I have my old server that I bought from Computastore back in 2001 in my spare room it is an old e-machine and it served me well. However around 2006 I suffered a huge database crash and yup – never backed up <img src="../wp-includes/images/smilies/icon_sad.gif" alt=":(" /> It now only exists in that archive which is a real shame. Maybe if I have enough time I might<a href="http://en.wikipedia.org/wiki/Data_scraping" target="_blank"> screen scrape</a> it – but even then it wont be exactly the same and it is an awful lot of effort.
+
+I have the old e-machine in my spare room, its just sitting there with no power to it. I didn’t really do much back then (2006-2007) – I have the old <a href="https://github.com/swmcc/TV-Listings" target="_blank">tvlistings</a> site but that isn’t up to much. I never backed up my mail either.. Shame shame shame. So I have to get some sort of backup strategy going for my new server as long as it works.
+
+While watching <a href="http://www.bbc.co.uk/apprentice/" target="_blank">The Apprentice</a> I came up with the following solution. Basically using my <a href="http://www.dropbox.com/" target="_blank">dropbox</a> account. I toyed with the idea of using <a href="http://www.gmail.com/" target="_blank">Gmail</a> by emailing archives – mainly because searching the archive would be dead easy and it would store. However emailing the data over wouldn’t be brilliant – its not really a long term option. I know my solution is only for personal use but that’s probably too dodgy. So dropbox it is.
+
+My first port of call was the usual – the oul faithful <a href="http://search.cpan.org/" target="_blank">CPAN</a> and found <a href="http://search.cpan.org/%7Enorbu/Net-Dropbox-API-0.9/lib/Net/Dropbox/API.pm" target="_blank">Net::Dropbox::API</a>. It might have done what I wanted – but I searched googled ‘dropbox linux’ and found <a href="http://wiki.dropbox.com/TipsAndTricks/TextBasedLinuxInstall" target="_blank">this</a>. As usual here is a copy of the .bash_history from this session.
+<pre>sudo yum install dropbox.x86_64
+vim /etc/sysconfig/dropbox
+sudo /etc/init.d/dropbox start
+</pre>
+Once you install dropbox it will complain that this machine isn’t linked to a drop box account and give you a URL to paste in and link. When it does it will take your home directory and create a Dropbox/ directory. You can move the directory to wherever you want you can. I didn’t. It will also complain about not having <a href="http://en.wikipedia.org/wiki/Nautilus_%28file_manager%29" target="_blank">Nautilus</a> at the first – its been 30mins so far and it hasn’t complained after the initial one.
+
+I then wrote a dirty bash script to backup my websites and the mysql databases. No doubt there will be more added to it such as postgres databases when I start to use them. This is just my first dirty attempt and it works. I probably need to tar up my mysql databases – but for the time being it will do.
+<pre>#!/bin/sh -f
+
+rsync -a /www/ /home/swm/Dropbox/backups/www
+
+mysqlhotcopy db1 /home/swm/Dropbox/backups/db/db1 -u xxx -p xxx --keepold
+mysqlhotcopy db2 /home/swm/Dropbox/backups/db/db2 -u xxx -p xxx --keepold
+</pre>
+Runs every night.
+
+</div>
+</div>
+</div>
+</div>

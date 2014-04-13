@@ -12,22 +12,16 @@ The site is in two parts:
 ## Prerequisites
 
 - [jekyll](http://jekyllrb.com)
-- [grunt ](https://github.com/cowboy/grunt) `npm install -g grunt`
 
 ## Running locally
 	
-	- git clone https://github.com/swmcc/swm.cc.git
+	- git clone https://github.com/swmcc/swmcc.github.io
 	- cd swm.cc
-	- npm install
-	- jekyll --server --auto
+	- jekyll --serve
 
 ## Deployment
 
-Ensure that you have amended the sync script with your details
-
-	- sync
-
-This will build the site and then deploy the static files to your remote server.	
+Push to the master branch. The site now uses [GitHub Pages](http://pages.github.com)
 
 ## Built with
 
@@ -40,3 +34,6 @@ This will build the site and then deploy the static files to your remote server.
 
 - [Social Media Icons](http://paulrobertlloyd.com/2009/06/social_media_icons)
 
+## TODO 
+
+- [See Issues](https://github.com/swmcc/swmcc.github.io/issues)

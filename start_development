@@ -1,7 +1,7 @@
 #!/bin/sh
 
 BASE=`pwd`
-PROJECT='swm.cc'
+PROJECT='swmcc'
 
 tmux start-server
  
@@ -26,8 +26,8 @@ tmux send-keys -t $PROJECT:console.2 "cd $BASE;" C-m
 # widen the vim editor pane by 20 cells
 tmux resize-pane -L -t $PROJECT:console.2 20
  
-# run guard -c clears shell after each change
-tmux send-keys -t $PROJECT:console.0 "cd $BASE; jekyll --server --auto" C-m
+# run the server 
+tmux send-keys -t $PROJECT:console.0 "cd $BASE; jekyll serve -w" C-m
  
 # start rails server
 tmux send-keys -t $PROJECT:console.1 "cd $BASE;" C-m

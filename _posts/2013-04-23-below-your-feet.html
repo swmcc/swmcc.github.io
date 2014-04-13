@@ -1,0 +1,60 @@
+---
+type: post
+tags: site, jekyll, heroku 
+published: true
+title: Not knowing what is below your feet
+layout: post
+status: publish
+---
+
+<p>So my <a href="http://swm.cc">site</a> is no longer hosted on <a href="http://www.heroku.com">Heroku</a>. I moved it back at lunchtime. My site is low traffic enough that one dyno was more than capable of coping with it. However I am a firm believer that a good developer knows what lies below their feet. I pride myself on knowing the full 'web' stack. Granted my 'front end' knowledge is somewhat sparse in comparison to my 'back end' but I still know my way around it, kinda ;).</p>
+
+<p>Having developers who don't really know the eco system beneath their feet is quite dangerous. It is quite common though - not knowing the virtues of the command line, relying too much on an IDE or strapped to a GUI so much so that moving away from one part of their toolchain renders them next to useless. I am as guilty as this as anyone, but I understand what the GUI or IDE is doing beneath the hood and I would much prefer it that way. I can always point and click and find my way around a GUI.</p>
+
+<p>Obviously if I am doing some Java dev I use an IDE, albeit reluctantly. <a href="http://www.jetbrains.com/idea/">IntelliJ</a> is my choice for that but you can hear me complain the whole time. I usually bounce on <a href="http://www.vim.org/">vim</a>, <a href="https://code.google.com/p/macvim/">macvim</a> or <a href="http://www.sublimetext.com/2">sublime 2</a> depending on my mood. Anyway I am getting off topic here, I should blog about my toolchain all the same - maybe someone will find it useful.</p>  
+
+<p>So… I moved back to hosting my site on my own <a href="http://www.bigwetfish.co.uk/">server</a>. Mainly because I moved a few things over there at the weekend and I noticed that I hardly used it anymore… Heroku doesn't offer web sockets on the cedar stack so I had no choice but to use my server. When I went to deploy the app on Sunday morning I found out that my version of <a href="http://www.nodejs.org">node</a> was **really** out of date.</p>
+
+<blockquote class="twitter-tweet"><p>You wouldn’t half know I’ve been using PaaS a good bit recently…. <a href="https://twitter.com/search/%23node">#node</a>.js <a href="http://t.co/509l79u3c8" title="http://twitter.com/swmcc/status/325893941385900033/photo/1">twitter.com/swmcc/status/3…</a></p>&mdash; Stephen McCullough (@swmcc) <a href="https://twitter.com/swmcc/status/325893941385900033">April 21, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Luckily I solved that in less than a minute.. But still I was shocked at how out of date node (at the time of writing the current stable version of node is 0.10.4 and my server was on 0.6!).</p>
+
+<blockquote class="twitter-tweet"><p>….. and now I’m back up to date… Managing your own server is a pain.. <a href="http://t.co/LXdgRRTaSK" title="http://twitter.com/swmcc/status/325894276250746880/photo/1">twitter.com/swmcc/status/3…</a></p>&mdash; Stephen McCullough (@swmcc) <a href="https://twitter.com/swmcc/status/325894276250746880">April 21, 2013</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Job done, app deployed and working… I installed <a href="http://mmonit.com/">monit</a> to monitor the processes and alert me when/if they are down.</p>
+
+<p>
+<pre>
+check process nginx with pidfile /var/run/nginx.pid
+  start program = "/etc/init.d/nginx start"
+  stop program  = "/etc/init.d/nginx stop"
+  group www-data
+</pre>
+</p>
+
+<p>and inside your app.js (or whatever)</p>
+
+<p>
+<pre>
+var fs = require('fs');
+fs.writeFile("/var/run/app.pid", process.pid);
+</pre>
+</p>
+
+<p>and</p>
+
+<p>
+<pre>
+check process app with pidfile /var/run/app.pid
+  start program = "/path/to/app start"
+  stop program  = "/path/tp/app stop"
+  group www-data
+</pre>
+</p>
+
+<p>I should look into installing <a href="https://github.com/nodejitsu/forever">forever</a> and used it for my node apps… But I like my monitoring layer to be agnostic to the native language of the app that is being monitored.</p>
+
+<p>I think all this is good practise for a developer to do.</p>
+
