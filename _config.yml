@@ -4,4 +4,4 @@ paginate: 10
 exclude: [less]
 name: Stephen McCullough
 baseurl:  
-exclude: [".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
+exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
