@@ -12,29 +12,20 @@ The site is in two parts:
 ## Prerequisites
 
 - [jekyll](http://jekyllrb.com)
-<<<<<<< HEAD
 - [mocha ](http://visionmedia.github.io/mocha/) `npm install mocha` # testing 
-=======
->>>>>>> master
 
 ## Running locally
 	
 	- git clone https://github.com/swmcc/swmcc.github.io
 	- cd swm.cc
-<<<<<<< HEAD
 	- npm install
 	- jekyll serve
-=======
-	- jekyll --serve
->>>>>>> master
 
 ## Running tests
 
-<<<<<<< HEAD
     - mocha
-=======
+
 Push to the master branch. The site now uses [GitHub Pages](http://pages.github.com)
->>>>>>> master
 
 ## Built with
 
