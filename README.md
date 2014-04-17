@@ -12,18 +12,29 @@ The site is in two parts:
 ## Prerequisites
 
 - [jekyll](http://jekyllrb.com)
+<<<<<<< HEAD
 - [mocha ](http://visionmedia.github.io/mocha/) `npm install mocha` # testing 
+=======
+>>>>>>> master
 
 ## Running locally
 	
-	- git clone https://github.com/swmcc/swm.cc.git
+	- git clone https://github.com/swmcc/swmcc.github.io
 	- cd swm.cc
+<<<<<<< HEAD
 	- npm install
 	- jekyll serve
+=======
+	- jekyll --serve
+>>>>>>> master
 
 ## Running tests
 
+<<<<<<< HEAD
     - mocha
+=======
+Push to the master branch. The site now uses [GitHub Pages](http://pages.github.com)
+>>>>>>> master
 
 ## Built with
 
@@ -36,3 +47,6 @@ The site is in two parts:
 
 - [Social Media Icons](http://paulrobertlloyd.com/2009/06/social_media_icons)
 
+## TODO 
+
+- [See Issues](https://github.com/swmcc/swmcc.github.io/issues)

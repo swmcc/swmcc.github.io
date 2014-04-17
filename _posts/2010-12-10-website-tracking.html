@@ -1,0 +1,26 @@
+--- 
+type: post
+tags: 
+- Server
+published: true
+title: Website Tracking
+layout: post
+status: publish
+meta: 
+  original_post_id: "18"
+  _wp_old_slug: "18"
+---
+<div>
+<div>
+<div>
+<div>
+<p>
+I am not big headed enough to think that anyone visits this site. Frankly I don’t care either but the fact is I simply don’t know. I used to use <a href="http://www.google.com/analytics/" target="_blank">visitors</a> but I don’t it is that powerful. I gave it a bit of a go about ten minutes ago but I found myself getting rather heavy into the command line syntax to get what I wanted out. I didn’t care about any hits from my home IP or the two work IP’s I can go out on. I also looked at the access logs, and since my email is hosted by <a href="../2010/10/31/did-and-done/" target="_blank">google</a> I tend to get them looking for the <a href="http://www.google.com/support/forum/p/Google%20Apps/thread?tid=1dc1a861ee885393&amp;hl=en" target="_blank">googlehostedservices.html</a> in my access logs. I haven’t a clue why because I opted to put the verification code in my DNS Zone file. I also have the usual robots.txt file that I don’t care about. So to get all the above working I had to do this:</p>
+<pre>visitors -A -m 30 /var/log/httpd/xxxxxx.com-access_log -o html –trails –ignore-404 –exclude 1.2.3.4.5.6 –exclude 87.56.34.21 –exclude 12.34.56.78 –exclude googlehosted –exclude wp-admin –exclude robot –prefix http://xxxxxx.com&gt; /www/xxxxxx.com/www/stats.html.html</pre>
+<p>
+Even after that I didn’t get what I wanted out. I did a quick search and saw a <a href="http://wordpress.org/extend/plugins/google-analytics-for-wordpress/" target="_blank">plugin</a> was available for <a href="http://wordpress.org/" target="_blank">wordpress</a> I installed it – configured it and its doing its thing now. I will see what its like later. According to <a href="http://www.google.com/analytics/" target="_blank">Google Analytics</a> I signed up for it before as it was mapped to my old domain – I vaguely remember signing up to it now – I tried going through the report for the old domain – but I am sure it was 2005/6 when I gave it a go – and the oul interface aint up to that sortta anal searching <img src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /></p>
+
+</div>
+</div>
+</div>
+</div>

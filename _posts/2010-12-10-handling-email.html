@@ -1,0 +1,31 @@
+--- 
+type: post
+tags: 
+- Server
+published: true
+title: Handling Email
+layout: post
+status: publish
+meta: 
+  original_post_id: "6"
+  _wp_old_slug: "6"
+---
+<div>
+<div>
+<div>
+<div>
+
+When building this server I didn’t want to the hassle of having to run my own mail server. I did that before and it was a pain. I started off with <a title="Qmail" href="http://en.wikipedia.org/wiki/Qmail" target="_blank">Qmail </a>back in the day (2001-2004) – then moved onto <a title="Postfix" href="http://en.wikipedia.org/wiki/Postfix_%28software%29" target="_blank">Postfix</a>. Both do relatively mundane jobs for me – I don’t want much.. I just want something to take any email in, check it for spam and then guff it to the person(s) it can be. That would mean having to install spam filters and the like and I really couldn’t be bothered with that. Instead of installing it again and having the hassle of maintaining it I just opted for a third party.
+
+I used to work for a third party that offered the above called <a title="Maildistiller" href="http://www.maildistiller.com/" target="_blank">Maildistiller</a> but I wouldn’t want to pay for it, after all its only me. Email (to me anyway) isn’t that important anymore, not personally anyway. Most of my communication is done by face or as much as I hate to admit it – social networking sites like <a title="Facebook" href="http://www.facebook.com/" target="_blank">facebook</a> or <a title="twitter" href="http://www.twitter.com/" target="_blank">twitter</a>. Gone are the days of reading tons of email a day for digest, instead I just subscribe to the site’s RSS feed and bung it in <a title="Google Reader" href="http://www.google.com/reader" target="_blank">Google Reader</a> for consumption later. I do subscribe to a few mailing lists now – but they are fairly low volume these days. So email isn’t all that important to me anymore but I still need it.. Just don’t want to pay for it.. So <a title="Google Apps" href="http://www.google.com/apps/intl/en-GB/business/" target="_blank">Google Apps</a> it is then.
+
+The transfer was just as standard as anything else – change the MX record to point to them – make sure its set up on their side and just wait. While I was there changing the MX record I put in the google verification in the zone file as well and just waited for the DNS to resolve.. Google Apps allowed me to set up the users in the interim. All good. Apart from one silly fact – I never checked the TTL to live on the zone file and it was set to one day!! It has since been changed back to one hour – I have no idea why it was set so high – I don’t even remember it being a concern years back..
+
+I now have email delivered to my Iphone, Laptop and Desktop without any hassle.. Number of emails I have got from the new domain – ’0′ which I don’t think is going to change anytime soon. I will still use my gmail address for everything – which isn’t much. The spam is a bit bigger than that.. So job done and all that <img src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" />
+
+While I am here I must point out that I am using <a href="../../www.sparrowmailapp.com/" target="_blank">Sparrow Mail</a> for my gmail/domain emails now.. And its feckin great! Just as nice as <a href="http://www.mutt.org/" target="_blank">mutt</a> if you use it with keystrokes.. Finding a good mail client as good as mutt is proving to be very troublesome. <a href="http://en.wikipedia.org/wiki/Mail_%28application%29" target="_blank">Mail</a> isn’t bad.. The rest I wouldn’t even rate.
+
+</div>
+</div>
+</div>
+</div>

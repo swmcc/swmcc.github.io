@@ -1,0 +1,31 @@
+---
+layout: default
+is_index: false 
+---
+<section id="about">
+	<div class="page-header">
+		<h1>Blog</h1>
+	</div>
+<section id="project_swmcc">
+	<div class="row">
+		<div class="span11">
+		
+      <h2>{{ page.title }}</h2>
+
+{{ content }}
+
+{% assign tags_list = page.tags %}
+
+{% if tags_list.first[0] == null %}
+  <ul id="tech-words">
+  {% for tag in tags_list %} 
+   <li>{{ tag }} <span>({{ site.tags[tag].size }})</span></a></li>
+  {% endfor %}
+  </ul>
+{% endif %}
+
+    </div>
+  </div>
+</section>
+</section>
+{% include post %}
