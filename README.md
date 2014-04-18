@@ -18,12 +18,13 @@ The site is in two parts:
 	
 	- git clone https://github.com/swmcc/swmcc.github.io
 	- cd swm.cc
-	- npm install
+  - bundle install
 	- jekyll serve
 
 ## Running tests
 
-    - mocha
+  - npm install
+  - mocha
 
 Push to the master branch. The site now uses [GitHub Pages](http://pages.github.com)
 
