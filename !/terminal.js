@@ -335,7 +335,7 @@ var Terminal = new Class({
 			return;
 		}
 		if (command == 'whois') {
-			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy and work in Belfast, Northern Ireland. I work for a great start-up company called <a href="http://missioniq.com">MissionIQ">MissionIQ</a>.');
+			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy and work in Belfast, Northern Ireland. I work for a great start-up company called <a href="http://missioniq.com">MissionIQ</a>.');
 			this.prompt();
 			return;
 		}
