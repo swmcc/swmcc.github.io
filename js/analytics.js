@@ -1,3 +1,4 @@
+
 logging = true;
 
 $('a').click(function(){
@@ -8,7 +9,7 @@ $('a').click(function(){
       console.warn('no data-ga for clicked element: ', $(this));
     }
   } else {
-    var gaArray = $(this).data('ga').replace(/\s/g,'').split(',');
+    var gaArray = $(this).data('ga').split(',');
     _gaq.push(['_trackEvent', gaArray[0], gaArray[1], gaArray[2]]);
     if (logging == true) {
       console.log('fired GA: ', ['_trackEvent', gaArray[0], gaArray[1], gaArray[2]]);
