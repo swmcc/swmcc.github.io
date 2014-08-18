@@ -303,7 +303,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'projects') {
-			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
+			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db.');
 			this.out('<b>quantum</b> - A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
             this.out('<b>nestoria-python</b> - A wrapper written in python for the Nestoria API.');
 			this.prompt();
