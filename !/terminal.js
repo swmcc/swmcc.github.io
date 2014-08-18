@@ -229,7 +229,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'cv') {
-                        this.out(' - <b><i>Head Tea Maker</i></b> at Mission IQ from Sep 2013 to the present');
+            this.out(' - <b><i>Head Tea Maker</i></b> at Mission IQ from Sep 2013 to the present');
 			this.out(' - <b><i>Senior Developer</i></b> at Repknight from Oct 2012 from Sep 2013');
 			this.out(' - <b><i>Senior Programmer</i></b> at Tascomi from June 2009 to Oct 2012');
 			this.out(' - <b><i>Technical Lead</i></b> at Rehabstudio from December 2008 to June 2009');
@@ -304,7 +304,8 @@ var Terminal = new Class({
 
 		if (command == 'projects') {
 			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
-			this.out('<b>quantum</b> -A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
+			this.out('<b>quantum</b> - A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
+            this.out('<b>nestoria-python</b> - A wrapper written in python for the Nestoria API.');
 			this.prompt();
 			return;
 		}
