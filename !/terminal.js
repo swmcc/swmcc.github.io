@@ -9,7 +9,7 @@ var Terminal = new Class({
 		this.terminal = container;
 		this.out('Welcome to Ubuntu 12.04 (GNU/Linux 2.6.18-274.7.1.el5.028stab095.1 x86_64)');
 		this.out('<br />');
-		this.out('Last login: Sun May 6 22:18:00 2012 from host68-194-277-14.range86-184.btcentralplus.com');
+		this.out('Last login: Sun May 6 22:18:00 2012 from swm.cc');
 		this.out('<br />');
 		this.out('Type <b>\'help\'</b> for a list of available commands.');	
 		this.out('&nbsp;');
