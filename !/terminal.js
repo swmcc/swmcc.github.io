@@ -9,7 +9,7 @@ var Terminal = new Class({
 		this.terminal = container;
 		this.out('Welcome to Ubuntu 12.04 (GNU/Linux 2.6.18-274.7.1.el5.028stab095.1 x86_64)');
 		this.out('<br />');
-		this.out('Last login: Sun May 6 22:18:00 2012 from host68-194-277-14.range86-184.btcentralplus.com');
+		this.out('Last login: Sun May 6 22:18:00 2012 from swm.cc');
 		this.out('<br />');
 		this.out('Type <b>\'help\'</b> for a list of available commands.');	
 		this.out('&nbsp;');
@@ -229,7 +229,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'cv') {
-                        this.out(' - <b><i>Head Tea Maker</i></b> at Mission IQ from Sep 2013 to the present');
+            this.out(' - <b><i>Head Tea Maker</i></b> at Mission IQ from Sep 2013 to the present');
 			this.out(' - <b><i>Senior Developer</i></b> at Repknight from Oct 2012 from Sep 2013');
 			this.out(' - <b><i>Senior Programmer</i></b> at Tascomi from June 2009 to Oct 2012');
 			this.out(' - <b><i>Technical Lead</i></b> at Rehabstudio from December 2008 to June 2009');
@@ -303,8 +303,9 @@ var Terminal = new Class({
 		}
 
 		if (command == 'projects') {
-			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db [perl] (<a target="_blank" href="https://github.com/swmcc/TV-Listings">https://github.com/swmcc/TV-Listings</a>)');
-			this.out('<b>quantum</b> -A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
+			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db.');
+			this.out('<b>quantum</b> - A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
+            this.out('<b>nestoria-python</b> - A wrapper written in python for the Nestoria API.');
 			this.prompt();
 			return;
 		}

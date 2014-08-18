@@ -9,24 +9,20 @@ The site is in two parts:
 	-  a normal site 
 	-  a 'terminal' emulator written in javascipt with basic functionality.
 
-## Prerequisites
-
-- [jekyll](http://jekyllrb.com)
-- [mocha ](http://visionmedia.github.io/mocha/) `npm install mocha` # testing 
-
 ## Running locally
 	
-	- git clone https://github.com/swmcc/swmcc.github.io
-	- cd swm.cc
-  - bundle install
-	- jekyll serve
+    - git clone https://github.com/swmcc/swmcc.github.io
+    - cd swm.cc
+    - make init 
+    - make run 
 
 ## Running tests
 
-  - npm install
-  - mocha
+    - make tests 
 
-Push to the master branch. The site now uses [GitHub Pages](http://pages.github.com)
+## Deploying
+
+Push to gh-pages then a Jenkins job will run tests and if that is successful a push to master will occur.
 
 ## Built with
 
