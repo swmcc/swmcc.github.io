@@ -1,3 +1,7 @@
+init:
+	bundle install
+	npm install
+
 run:
 	jekyll serve
 
