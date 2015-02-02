@@ -1,6 +1,6 @@
 # swm.cc 
 
-This is the source to my personal site - http://swm.cc
+This is the source to my personal site - http://theonlystephen.com
 
 ![Screenshot](http://f.cl.ly/items/3C2E0k1K1T3D391u3S1R/Screen%20Shot%202013-05-11%20at%2016.29.20.png "Screenshot")
 
@@ -12,7 +12,7 @@ The site is in two parts:
 ## Running locally
 	
     - git clone https://github.com/swmcc/swmcc.github.io
-    - cd swm.cc
+    - cd swmcc.github.io 
     - make init 
     - make run 
 
