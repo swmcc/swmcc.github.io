@@ -9,7 +9,7 @@ var Terminal = new Class({
 		this.terminal = container;
 		this.out('Welcome to Ubuntu 12.04 (GNU/Linux 2.6.18-274.7.1.el5.028stab095.1 x86_64)');
 		this.out('<br />');
-		this.out('Last login: Sun May 6 22:18:00 2012 from swm.cc');
+		this.out('Last login: Sun May 6 22:18:00 2012 from theonlystephen.com');
 		this.out('<br />');
 		this.out('Type <b>\'help\'</b> for a list of available commands.');	
 		this.out('&nbsp;');
@@ -138,7 +138,7 @@ var Terminal = new Class({
 		if (this.currentPrompt)
 		this.currentPrompt.getElement('.cursor').destroy();
 		this.currentPrompt = new Element('div');
-		this.currentPrompt.grab(new Element('span').addClass('prompt').set('text', time + ' [swm.cc]: ~ $'));
+		this.currentPrompt.grab(new Element('span').addClass('prompt').set('text', time + ' [theonlystephen.com]: ~ $'));
 		this.currentCommand = new Element('span').addClass('command');
 		this.currentPrompt.grab(this.currentCommand);
 		this.currentPrompt.grab(new Element('span').addClass('cursor'));
@@ -162,7 +162,7 @@ var Terminal = new Class({
 
 		if (command == 'help') {
 			this.out('List of available commands:');
-			this.out('<span class="commandhelp">blog</span>swmcc\'s blog.');
+			this.out('<span class="commandhelp">blog</span>stephen\'s blog.');
 			this.out('<span class="commandhelp">clear</span>Clear screen.');
 			this.out('<span class="commandhelp">cd</span>Change Directroy.');
 			this.out('<span class="commandhelp">contact</span>Contact info.');
@@ -173,12 +173,12 @@ var Terminal = new Class({
 			this.out('<span class="commandhelp">goto</span>Jump to other pages.');
 			this.out('<span class="commandhelp">help</span>Displays this list.');
 			this.out('<span class="commandhelp">ls</span>List directories.');
-			this.out('<span class="commandhelp">projects</span>List of projects swmcc is involved with.');
+			this.out('<span class="commandhelp">projects</span>List of projects stephen is involved with.');
 			this.out('<span class="commandhelp">skills</span>Professional skills.');
 			this.out('<span class="commandhelp">talks</span>List of my talks.');
 			this.out('<span class="commandhelp">whereami</span>Where are you?');
 			this.out('<span class="commandhelp">wget</span>Download files to your desktop.');
-			this.out('<span class="commandhelp">whois</span>Who is swmcc?');
+			this.out('<span class="commandhelp">whois</span>Who is stephen ?');
 			this.prompt();
 			return;
 		}
@@ -214,9 +214,8 @@ var Terminal = new Class({
 		}
 
 		if (command == 'contact') {
-			this.out('Feel free to contact me on <a href="http://www.twitter.com">twitter</a> via a shout at <a href="http://www.twitter.com/swmcc">@swmcc</a> or DM. Or you can email me.');
+			this.out('Feel free to contact me on <a href="http://www.twitter.com">twitter</a> via a shout at <a href="http://www.twitter.com/swmcc">@swmcc</a> or DM.');
 			this.out('-----------------------------')
-			this.out('me@swm.cc');
 			this.out('http://www.twitter.com/swmcc');
 			this.prompt();
 			return;
@@ -244,7 +243,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'exit') {
-			window.location.href = "http://www.swm.cc";
+			window.location.href = "http://theonlystephen.com";
 			return;
 		}
 		
@@ -252,7 +251,7 @@ var Terminal = new Class({
 		if (command.substr(0,4) == 'goto') {
 			var dest = command.substr(5);
 			if (dest == 'blog') {
-				window.location.href = 'http://blog.swm.cc';
+				window.location.href = 'http://theonlystephen.com/blog';
 			} else if ( dest == 'delicious' ) {
 				window.location.href = 'http://delicious.com/swmcc'; 
 			} else if ( dest == 'github' ) {
@@ -272,12 +271,6 @@ var Terminal = new Class({
 
 		if (command == 'git') {
 			this.out('<a target="_blank" href="http://github.com/swmcc">http://github.com/swmcc</a> - Where I host my code');
-			this.prompt();
-			return;
-		}
-
-		if (command == 'linkedin') {
-			this.out('<a target="_blank" href="http://www.linkedin.com/in/swmcc" target="_blank">http://www.linkedin.com/in/swmcc</a>');
 			this.prompt();
 			return;
 		}
@@ -305,7 +298,7 @@ var Terminal = new Class({
 		if (command == 'projects') {
 			this.out('<b>TV-Listings</b> - Uses a daily feed from XMLTV.org and puts the data into a db.');
 			this.out('<b>quantum</b> - A mini app that will take my tweets from the twitter archive and produce stats on it. Basically.'); 
-            this.out('<b>nestoria-python</b> - A wrapper written in python for the Nestoria API.');
+			this.out('<b>nestoria-python</b> - A wrapper written in python for the Nestoria API.');
 			this.prompt();
 			return;
 		}
@@ -321,7 +314,7 @@ var Terminal = new Class({
 		}
 
 		if (command == 'talks') {
-      this.out(' - <b><i>Life outside rails</i></b> Belfast Ruby May 2014');
+			this.out(' - <b><i>Life outside rails</i></b> Belfast Ruby May 2014');
 			this.out(' - <b><i>Tmux lightning talk</i></b> Belfast Ruby Oct 2013');
 			this.out(' - <b><i>A brief intro to Neo4j</i></b> Belfast Ruby June 2013');
 			this.out(' - <b><i>Giants are made....</i></b> lightning talk in London May 2012');
@@ -331,12 +324,12 @@ var Terminal = new Class({
 		}
 
 		if ( command == 'whereami') {
-			this.out('<br /><b>http://swm.cc</b><br /><br />');
+			this.out('<br /><b>http://theonlystephen.com</b><br /><br />');
 			this.prompt();
 			return;
 		}
 		if (command == 'whois') {
-			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen McCullough" itemprop="image"><b>Stephen McCullough</b> I\'m a software developer and mainly specialise in web applications, based in Glenavy and work in Belfast, Northern Ireland. I work for a great start-up company called <a href="http://missioniq.com">MissionIQ</a>.');
+			this.out('<img src="https://secure.gravatar.com/avatar/4e1bdb1052b8faf5b72e93eca9af9c5b?s=420" width="73" height="92" alt="Stephen" itemprop="image"><b>Stephen</b> I\'m a software developer and mainly specialise in web applications. I work for a great start-up company called <a href="http://missioniq.com">MissionIQ</a>.');
 			this.prompt();
 			return;
 		}
