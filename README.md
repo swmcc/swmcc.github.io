@@ -24,7 +24,8 @@ The site is in two parts:
 
 ## Deploying
 
-Push to gh-pages then a Jenkins job will run tests and if that is successful a push to master will occur.
+    - git push origin master
+
 
 ## Built with
 
