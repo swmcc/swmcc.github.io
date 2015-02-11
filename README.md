@@ -26,6 +26,9 @@ The site is in two parts:
 
     - git push origin master
 
+## Creating a new blog entry
+
+    - make newEntry # VIM snippet is then used - this just creates the file
 
 ## Built with
 
