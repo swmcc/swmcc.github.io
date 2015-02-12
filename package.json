@@ -1,11 +1,10 @@
 {
-    "name" : "swm.cc", 
+    "name" : "theonlystephen.com", 
     "description" : "homepage",
-    "homepage" : "http://swm.cc",
+    "homepage" : "http://theonlystephen.com",
     "author" : {
-        "name" : "Stephen McCullough",
-        "email" : "me@swm.cc",
-        "url" : "http://swm.cc"
+        "name" : "Stephen",
+        "url" : "http://theonlystephen.com"
     },
     "repository" : {
         "type" : "git",

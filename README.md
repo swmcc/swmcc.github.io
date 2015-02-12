@@ -1,4 +1,4 @@
-# swm.cc 
+# theonlystephen.com 
 
 [ ![Codeship Status for swmcc/swmcc.github.io](https://codeship.com/projects/51d870f0-8d0d-0132-ea50-7671d147512f/status?branch=master)](https://codeship.com/projects/60559)
 
