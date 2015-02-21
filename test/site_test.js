@@ -16,12 +16,10 @@ posts.forEach(function(post) {
 
     it('ensure that the YAML is correct', function(){
       assert.equal(typeof metadata, 'object');
-      assert.ok('type' in metadata, 'the type element exists');
-      assert.ok('layout' in metadata, 'the layout element exists');
-      assert.ok('title' in metadata, 'the title element exists');
-      assert.ok('tags' in metadata, 'the tag element exists');
-      assert.ok('published' in metadata, 'the published exists');
-      assert.ok('status' in metadata, 'the status exists');
+      var meta_keys = ['type', 'layout', 'published', 'status'];
+      for (var key in meta_keys) { 
+        assert.ok(meta_keys[key] in metadata, 'exists')
+      }
     });
   });
 });
