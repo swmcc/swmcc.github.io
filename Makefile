@@ -6,7 +6,7 @@ init:
 	npm install
 
 run:
-	jekyll serve
+	jekyll build --watch
 
 tests:
 	mocha 
