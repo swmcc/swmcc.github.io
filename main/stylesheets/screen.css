@@ -1,0 +1,358 @@
+/* line 1, ../sass/reset.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+/* line 22, ../sass/reset.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+/* line 26, ../sass/reset.scss */
+body {
+  line-height: 1;
+  overflow-x: hidden !important;
+}
+
+/* line 30, ../sass/reset.scss */
+ol, ul {
+  list-style: none;
+}
+
+/* line 33, ../sass/reset.scss */
+blockquote, q {
+  quotes: none;
+}
+
+/* line 36, ../sass/reset.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* line 41, ../sass/reset.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* line 46, ../sass/reset.scss */
+html {
+  color: #454444;
+  font-family: 'Lato', sans-serif;
+  font-size: 62.5%;
+  height: 100%;
+  width: 100%;
+  background: white;
+}
+
+/* line 55, ../sass/reset.scss */
+label {
+  display: block;
+  font-family: 'Lato', sans-serif;
+  color: #3a3a3a;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* line 63, ../sass/reset.scss */
+a, button {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* line 69, ../sass/reset.scss */
+input, textarea {
+  font-family: "Lato", sans-serif !important;
+}
+
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+/* line 5, ../sass/screen.scss */
+body {
+  background: #ffffff;
+  font-size: 16px;
+  color: #454545;
+  width: 100%;
+  height: 100%;
+  font-family: 'Titillium Web', sans-serif;
+  letter-spacing: 2px;
+  height: 100%;
+  width: 100%;
+}
+
+/* line 17, ../sass/screen.scss */
+h1, h2, h3 {
+  text-align: center;
+  display: block;
+}
+
+/* line 22, ../sass/screen.scss */
+p {
+  text-align: center;
+  line-height: 1.3;
+  font-weight: 100;
+  font-size: 1.2em;
+}
+/* line 27, ../sass/screen.scss */
+p span {
+  font-weight: 400;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes typing {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+@-webkit-keyframes opac {
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-moz-keyframes opac {
+  99% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@-webkit-keyframes blink-caret {
+  from, to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #454545;
+  }
+}
+@-moz-keyframes typing {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0;
+  }
+}
+@-moz-keyframes blink-caret {
+  from, to {
+    border-color: #454545;
+  }
+  50% {
+    border-color: transparent;
+  }
+}
+/* line 74, ../sass/screen.scss */
+h1 {
+  position: relative;
+  font-size: 5em;
+  font-family: 'Inconsolata';
+  text-align: center;
+  display: inline-block;
+  float: left;
+  margin: 0 auto;
+  opacity: 0;
+  -webkit-animation: opac 2.9s linear forwards;
+  -moz-animation: opac 2.9s linear forwards;
+}
+
+/* line 87, ../sass/screen.scss */
+.writecode {
+  width: 510px;
+  margin: 0 auto;
+}
+/* line 14, ../sass/mixins.scss */
+.writecode:before, .writecode:after {
+  content: "";
+  display: table;
+}
+/* line 19, ../sass/mixins.scss */
+.writecode:after {
+  clear: both;
+}
+
+/* line 93, ../sass/screen.scss */
+h1 span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 0px;
+  background: white;
+  /* same as background */
+  border-left: .08em solid transparent;
+  border-left-style: inset;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-animation: typing 3s steps(12, end), blink-caret 1s step-end infinite;
+  -moz-animation: typing 3s steps(12, end), blink-caret 1s step-end infinite;
+  -webkit-animation-delay: 2s;
+  /* Chrome, Safari, Opera */
+  animation-delay: 3s;
+  margin-right: -1px;
+}
+
+/* line 114, ../sass/screen.scss */
+h2 {
+  font-size: 2em;
+  margin-bottom: 30px;
+  font-weight: 100;
+}
+/* line 118, ../sass/screen.scss */
+h2 span {
+  font-weight: 700;
+}
+
+/* line 123, ../sass/screen.scss */
+h3 {
+  font-size: 1.5em;
+}
+/* line 125, ../sass/screen.scss */
+h3 span {
+  color: #e68925;
+  font-weight: 600;
+}
+
+/* line 131, ../sass/screen.scss */
+header {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin-top: -120px;
+}
+/* line 137, ../sass/screen.scss */
+header h3 {
+  -webkit-animation: fade 2.9s linear forwards;
+  -moz-animation: fade 2.9s linear forwards;
+  margin: 0px 0 20px 0;
+}
+
+/* line 143, ../sass/screen.scss */
+ul {
+  text-align: center;
+  top: 56%;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+/* line 149, ../sass/screen.scss */
+ul span {
+  opacity: 0.3;
+}
+/* line 152, ../sass/screen.scss */
+ul li {
+  display: inline-block;
+  opacity: 0.6;
+  cursor: pointer;
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  -ms-transition: all 0.75s ease;
+  -o-transition: all 0.75s ease;
+  transition: all 0.75s ease;
+}
+/* line 157, ../sass/screen.scss */
+ul li:hover {
+  opacity: 1;
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  -ms-transition: all 0.75s ease;
+  -o-transition: all 0.75s ease;
+  transition: all 0.75s ease;
+}
+
+/* line 164, ../sass/screen.scss */
+.top {
+  width: 100%;
+  height: 100%;
+}
+
+/* line 169, ../sass/screen.scss */
+main {
+  width: 100%;
+}
+/* line 171, ../sass/screen.scss */
+main section {
+  padding: 50px 0;
+}
+/* line 174, ../sass/screen.scss */
+main p {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.4;
+}

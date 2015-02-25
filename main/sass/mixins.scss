@@ -1,0 +1,98 @@
+
+
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+
+@mixin clearfix() {
+  &:before,
+  &:after {
+      content: "";
+      display: table;
+  }
+  &:after {
+      clear: both;
+  }
+}
+
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+
+@mixin icon($src, $size) {
+	background-image: url('../img/'+$src+'.svg');
+	background-repeat:no-repeat;
+	background-position:center center;
+	background-size: $size;
+}
+
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+
+@mixin transition($time, $method) {
+	-webkit-transition: all $time $method;
+	-moz-transition: all $time $method;
+	-ms-transition: all $time $method;
+	transition: all $time $method;
+}
+
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+
+@mixin placeholder($colour) {
+  &::-webkit-input-placeholder {
+     color: $colour;
+  }
+
+  &:-moz-placeholder {
+     color: $colour;
+  }
+
+  &::-moz-placeholder {
+     color: $colour;
+  }
+
+  &:-ms-input-placeholder {
+     color: $colour;
+  }
+}
+
+@mixin borderradius{
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+}
+
+@mixin easing{
+  -webkit-transition: all 0.75s ease;
+  -moz-transition: all 0.75s ease;
+  -ms-transition: all 0.75s ease;
+  -o-transition: all 0.75s ease;
+  transition: all 0.75s ease;
+}

@@ -1,0 +1,179 @@
+@import "reset";
+@import "mixins";
+@import "basecolours";
+
+body{
+    background: $white;
+    font-size: 16px;
+    color: $dark;
+    width: 100%;
+    height: 100%;
+    font-family: 'Titillium Web', sans-serif;
+    letter-spacing: 2px;
+    height: 100%;
+    width: 100%;
+}
+
+h1,h2,h3{
+    text-align: center;
+    display: block;
+}
+
+p{
+    text-align: center;
+    line-height: 1.3;
+    font-weight: 100;
+    font-size: 1.2em;
+    span{
+        font-weight: 400;
+    }
+}
+
+
+@-webkit-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-moz-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+
+@-webkit-keyframes typing {
+    from { width: 100% }
+    to { width:0 }
+}
+
+@-webkit-keyframes opac {
+    99% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-moz-keyframes opac {
+    99% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-webkit-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: $dark}
+}
+
+@-moz-keyframes typing {
+    from { width: 100% }
+    to { width:0 }
+}
+
+@-moz-keyframes blink-caret {
+    from, to { border-color: $dark }
+    50% { border-color: transparent}
+}
+
+h1{
+    position: relative; 
+    font-size:5em;
+    font-family: 'Inconsolata';
+    text-align:center;
+    display: inline-block;
+    float:left;
+    margin: 0 auto;
+    opacity: 0;
+    -webkit-animation: opac 2.9s linear forwards;
+    -moz-animation: opac 2.9s linear forwards;
+}
+
+.writecode{
+    @include clearfix();
+    width: 510px;
+    margin: 0 auto;
+}
+
+h1 span {
+    position:absolute;
+    top:0;
+    right:0;
+    width:0px;
+    background: white; /* same as background */
+    border-left: .08em solid transparent;
+    border-left-style:inset;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    
+    -webkit-animation: typing 3s steps(12, end), /* # of steps = # of characters */
+                        blink-caret 1s step-end infinite ;
+    -moz-animation: typing 3s steps(12, end), /* # of steps = # of characters */
+                        blink-caret 1s step-end infinite;
+    -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
+    animation-delay: 3s;
+    margin-right: -1px;
+}
+
+
+h2{
+    font-size: 2em;
+    margin-bottom: 30px;
+    font-weight: 100;
+    span{
+        font-weight: 700;
+    }
+}
+
+h3{
+    font-size: 1.5em;
+    span{
+        color: $orange;
+        font-weight: 600;
+    }
+}
+
+header{
+    position: absolute;
+    left:0;
+    right:0;
+    top: 50%;
+    margin-top: -120px;
+    h3{
+        -webkit-animation: fade 2.9s linear forwards;
+        -moz-animation: fade 2.9s linear forwards;
+        margin: 0px 0 20px 0;
+    }
+}
+ul{
+    text-align:center;
+    top: 56%;
+    left: 0;
+    right: 0;
+    position: absolute;
+    span{
+        opacity: 0.3;
+    }
+    li{
+        display: inline-block;
+        opacity: 0.6;
+        cursor: pointer;
+        @include easing();
+        &:hover{
+            opacity: 1;
+            @include easing();
+        }
+    }
+}
+
+.top{
+    width: 100%;
+    height: 100%;
+}
+
+main{
+    width: 100%;
+    section{
+        padding: 50px 0;
+    }
+    p{
+        max-width: 700px;
+        margin: 0 auto;
+        line-height: 1.4;
+    }
+}
