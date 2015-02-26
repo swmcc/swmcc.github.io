@@ -17,3 +17,7 @@ Capfile
 *.log
 log/
 tmp/
+
+# sass
+**/.sass-cache
+**/.sass-cache/*
