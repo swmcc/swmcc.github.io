@@ -5,3 +5,9 @@ run:
 
 build:
 	jekyll build
+
+push:
+	git push origin new
+
+pull:
+	git pull origin new
