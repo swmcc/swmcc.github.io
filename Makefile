@@ -13,3 +13,9 @@ tests:
 
 newEntry:
 	touch _posts/${now}-${title}.html
+
+run:
+	jekyll serve --watch
+
+build:
+	jekyll build
