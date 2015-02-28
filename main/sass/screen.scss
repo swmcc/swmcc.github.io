@@ -101,9 +101,9 @@ h1 span {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     
-    -webkit-animation: typing 3s steps(12, end), /* # of steps = # of characters */
+    -webkit-animation: typing 3s steps(13, end), /* # of steps = # of characters */
                         blink-caret 1s step-end infinite ;
-    -moz-animation: typing 3s steps(12, end), /* # of steps = # of characters */
+    -moz-animation: typing 3s steps(13, end), /* # of steps = # of characters */
                         blink-caret 1s step-end infinite;
     -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
     animation-delay: 3s;
