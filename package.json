@@ -1,0 +1,17 @@
+{
+    "name" : "theonlystephen.com", 
+    "description" : "homepage",
+    "homepage" : "http://theonlystephen.com",
+    "author" : {
+        "name" : "Stephen",
+        "url" : "http://theonlystephen.com"
+    },
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/swmcc/swmcc.github.io.git"
+    },
+    "devDependencies" : { 
+      "mocha": ">= 1.18.x",
+      "js-yaml": ">= 3.0.2" 
+    }
+}
