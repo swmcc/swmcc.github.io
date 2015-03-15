@@ -393,54 +393,93 @@ main p {
   line-height: 1.4;
 }
 
-/* line 208, ../sass/screen.scss */
+/* line 209, ../sass/screen.scss */
+#blog.individualpost h1 {
+  font-size: 2em;
+  margin-bottom: 15px;
+}
+/* line 213, ../sass/screen.scss */
+#blog.individualpost h2 {
+  margin-bottom: 15px;
+}
+/* line 216, ../sass/screen.scss */
+#blog.individualpost article {
+  padding: 25px 22px;
+}
+/* line 218, ../sass/screen.scss */
+#blog.individualpost article a {
+  float: left;
+}
+/* line 221, ../sass/screen.scss */
+#blog.individualpost article p {
+  margin-bottom: 20px;
+}
+/* line 225, ../sass/screen.scss */
+#blog.individualpost .sidebar {
+  position: absolute;
+  top: 50px;
+}
+/* line 228, ../sass/screen.scss */
+#blog.individualpost .sidebar article {
+  padding: 25px 0px;
+}
+/* line 230, ../sass/screen.scss */
+#blog.individualpost .sidebar article p {
+  margin-bottom: 0px;
+}
+/* line 235, ../sass/screen.scss */
+#blog.individualpost .published {
+  font-size: 0.8em;
+  margin-left: 22px;
+}
+/* line 241, ../sass/screen.scss */
 #blog .sidebar {
   position: fixed;
   top: 205px;
   left: 70%;
   padding-left: 50px;
 }
-/* line 214, ../sass/screen.scss */
+/* line 247, ../sass/screen.scss */
 #blog .sidebar article h2 {
   font-size: 1.1em;
 }
-/* line 217, ../sass/screen.scss */
+/* line 250, ../sass/screen.scss */
 #blog .sidebar article div {
   width: calc(100% - 50px);
 }
-/* line 222, ../sass/screen.scss */
+/* line 255, ../sass/screen.scss */
 #blog .sidebar ul li {
   padding: 5px;
 }
-/* line 224, ../sass/screen.scss */
+/* line 257, ../sass/screen.scss */
 #blog .sidebar ul li:hover {
   color: #e68925;
   cursor: pointer;
 }
-/* line 231, ../sass/screen.scss */
+/* line 264, ../sass/screen.scss */
 #blog main {
   float: left;
   margin: 0 100px;
   width: calc(70% - 200px);
 }
-/* line 236, ../sass/screen.scss */
+/* line 269, ../sass/screen.scss */
 #blog h1 {
   font-family: 'Titillium Web', sans-serif;
   float: none;
   margin: 50px 0 50px 22px;
 }
-/* line 241, ../sass/screen.scss */
+/* line 274, ../sass/screen.scss */
 #blog h2 {
   text-align: left;
 }
-/* line 244, ../sass/screen.scss */
+/* line 277, ../sass/screen.scss */
 #blog p {
   text-align: left;
   margin: 0;
   max-width: initial;
   font-size: 1em;
 }
-/* line 250, ../sass/screen.scss */
+/* line 283, ../sass/screen.scss */
 #blog article {
   padding: 25px 0;
 }
@@ -453,7 +492,7 @@ main p {
 #blog article:after {
   clear: both;
 }
-/* line 253, ../sass/screen.scss */
+/* line 286, ../sass/screen.scss */
 #blog article aside {
   text-align: right;
   float: left;
@@ -461,12 +500,12 @@ main p {
   font-size: 2em;
   margin-right: 50px;
 }
-/* line 259, ../sass/screen.scss */
+/* line 292, ../sass/screen.scss */
 #blog article aside span {
   display: block;
   font-weight: 100;
 }
-/* line 264, ../sass/screen.scss */
+/* line 297, ../sass/screen.scss */
 #blog article div {
   float: left;
   width: calc(100% - 150px);
@@ -480,9 +519,9 @@ main p {
 #blog article div:after {
   clear: both;
 }
-/* line 268, ../sass/screen.scss */
+/* line 301, ../sass/screen.scss */
 #blog article div a {
-  float: right;
+  float: left;
   color: #e68925;
   background: url(../img/arrow.svg) right center no-repeat;
   background-size: 15%;

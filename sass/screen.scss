@@ -205,6 +205,39 @@ main{
 
 #blog{
 	
+	&.individualpost{
+		h1{
+			font-size: 2em;
+			margin-bottom: 15px;
+		}
+		h2{
+			margin-bottom:15px;
+		}
+		article{
+			padding: 25px 22px;
+			a{
+				float:left;
+			}
+			p{
+			margin-bottom: 20px;
+			}
+		}
+		.sidebar{
+			position: absolute;
+			top: 50px;
+			article{
+				padding: 25px 0px;
+				p{
+					margin-bottom: 0px;
+				}
+			}
+		}
+		.published{
+			font-size: 0.8em;
+			margin-left: 22px;
+		}
+	}
+	
 	.sidebar{
 			position: fixed;
 			top:205px;
@@ -266,7 +299,7 @@ main{
 			float: left;
 			width: calc(100% - 150px);
 			a{
-				float:right;
+				float:left;
 				color: $orange;
 				background: url(../img/arrow.svg) right center no-repeat;
 				background-size: 15%;
