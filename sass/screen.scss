@@ -2,20 +2,35 @@
 @import "mixins";
 @import "basecolours";
 
+@font-face {
+    font-family: proxima;
+    src: url(../fonts/ProximaNova-Regular.otf);
+}
+
+@font-face {
+    font-family: proximalight;
+    src: url(../fonts/ProximaNova-Light.otf);
+}
+
+@font-face {
+    font-family: proximabold;
+    src: url(../fonts/ProximaNova-Bold.otf);
+}
+
 body{
     background: $white;
     font-size: 16px;
     color: $dark;
     width: 100%;
     height: 100%;
-    font-family: 'Titillium Web', sans-serif;
-    letter-spacing: 2px;
+    font-family: 'proxima';
     height: 100%;
     width: 100%;
 }
 
+
 .titleIcon{
-	margin: 20px auto;
+	margin: 0px auto 20px auto;
 	display: block;
 }
 
@@ -95,60 +110,60 @@ p{
     50% { border-color: transparent}
 }
 
-h1{
-    position: relative; 
-    font-size:5em;
-    font-family: 'Inconsolata';
-    text-align:center;
-    display: inline-block;
-    float:left;
-    margin: 0 auto;
-    opacity: 0;
-    -webkit-animation: opac 2.9s linear forwards;
-    -moz-animation: opac 2.9s linear forwards;
-}
-
 .writecode{
     @include clearfix();
-    width: 510px;
+    width: 422px;
     margin: 0 auto;
+		h1 { 
+    font-size:4em;
+    width:422px;
+    white-space:nowrap;
+    overflow:hidden;
+    border-right: .1em solid black;
+			font-family: 'Inconsolata';
+    
+    -webkit-animation: typing 2s steps(13, end), /* # of steps = # of characters */
+                        blink-caret 1s step-end infinite;
+    -moz-animation: typing 2s steps(13, end), /* # of steps = # of characters */
+                        blink-caret 1s step-end infinite;
+}
 }
 
-h1 span {
-    position:absolute;
-    top:0;
-    right:0;
-    width:0px;
-    background: white; /* same as background */
-    border-left: .08em solid transparent;
-    border-left-style:inset;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    
-    -webkit-animation: typing 3s steps(13, end), /* # of steps = # of characters */
-                        blink-caret 1s step-end infinite ;
-    -moz-animation: typing 3s steps(13, end), /* # of steps = # of characters */
-                        blink-caret 1s step-end infinite;
-    -webkit-animation-delay: 2s; /* Chrome, Safari, Opera */
-    animation-delay: 3s;
-    margin-right: -1px;
+
+@-webkit-keyframes typing {
+    from { width: 0 }
+    to { width:422px; }
+}
+
+@-moz-keyframes typing {
+    from { width: 0 }
+    to { width:422px; }
+}
+
+@-webkit-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@-moz-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
 }
 
 
 h2{
+		font-family: proximalight;
     font-size: 2em;
     margin-bottom: 30px;
-    font-weight: 100;
     span{
-        font-weight: 700;
+        font-family: proximabold;
     }
 }
 
 h3{
-    font-size: 1.5em;
+    font-size: 1.8em;
     span{
         color: $orange;
-        font-weight: 600;
     }
 }
 
@@ -157,27 +172,55 @@ header{
     left:0;
     right:0;
     top: 50%;
-    margin-top: -120px;
+    margin-top: -175px;
     h3{
+			font-family: proximalight;
         -webkit-animation: fade 2.9s linear forwards;
         -moz-animation: fade 2.9s linear forwards;
-        margin: 0px 0 20px 0;
+        margin: 0px 0 10px 0;
     }
+	p{
+		font-family: proximalight;
+		font-size: 1.2em;
+		padding-top: 20px;
+		width: 480px;
+		line-height: 1.6;
+		margin: 0 auto;
+	}
+	img{
+		margin: 0 auto;
+		width: 50px;
+		display:block;
+		margin-top: 40px;
+	}
+}
+nav{
+	position: fixed;
+	width: 100%;
+	margin-top:30px;
+	z-index: 5000000;
+	div{
+		@include clearfix();
+		max-width: 1280px;
+		margin: 0 auto;
+		padding: 0 30px;
+	}
+	h1{
+		font-family: proximabold;
+		float:left;
+	}
 }
 ul.homenav{
-    text-align:center;
-    top: 56%;
-    left: 0;
-    right: 0;
-    position: absolute;
-    span{
-        opacity: 0.3;
-    }
+	font-family: proximabold;
+	text-transform: uppercase;
+	float:right;
+	font-size: 0.7em;
     li{
         display: inline-block;
-        opacity: 0.6;
+        opacity: 0.8;
         cursor: pointer;
         @include easing();
+				margin: 0 8px;
         &:hover{
             opacity: 1;
             @include easing();
@@ -188,19 +231,54 @@ ul.homenav{
 .top{
     width: 100%;
     height: 100%;
+		background: url(../img/macbook4.jpg);
+		background-size: cover;
 }
 
 main{
     width: 100%;
     section{
-        padding: 50px 0;
 				@include clearfix();
     }
     p{
-        max-width: 700px;
+        max-width: 600px;
         margin: 0 auto;
-        line-height: 1.4;
+        line-height: 1.8;
+				font-family: proximalight;
+				text-align:center;
     }
+	.aboutMe{
+		    background:$white;
+    width:100% !important;
+		position:relative;
+	}
+	.mywork{
+		background: $grey;
+		padding-top: 250px;
+		padding-bottom: 250px;
+	}
+	
+	.social{
+		position:relative;
+	}
+	.arrowup {
+		top:-150px;
+   	width: 100%;
+		background: url(../img/arrowup2.png);
+		background-size: 100% 150px;
+		position: absolute; 
+		height: 150px;
+	}
+	
+	.arrowdown {
+		bottom:-150px;
+   	width: 100%;
+		background: url(../img/arrowup3.png);
+		background-size: 100% 150px;
+		position: absolute; 
+		height: 150px;
+	}
+	
 }
 
 #blog{
@@ -309,4 +387,13 @@ main{
 			}
 		}
 	}
+}
+
+
+.social{
+	padding: 0 0 100px 0;
+}
+
+.blogsummary{
+	padding: 0 0 150px 0;
 }
