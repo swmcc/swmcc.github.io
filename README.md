@@ -42,17 +42,6 @@ cd swmcc.gitub.io
 
     - make newEntry # VIM snippet is then used - this just creates the file
 
-## Built with
-
-- [jQuery](http://jquery.com)
-- [HTML5 Boilerplate](http://html5boilerplate.com)
-- [Twitter Bootstrap](http://twitter.github.com/bootstrap/)
-- [jekyll](http://jekyllrb.com)
-
-## Attribution
-
-- [Social Media Icons](http://paulrobertlloyd.com/2009/06/social_media_icons)
-
 ## TODO 
 
 - [See Issues](https://github.com/swmcc/swmcc.github.io/issues)
