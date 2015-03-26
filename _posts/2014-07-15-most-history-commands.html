@@ -1,0 +1,50 @@
+---
+type: post
+tags: work, workflow 
+published: true
+title: Annoted history of my top 20 commands Part Deux
+layout: post
+status: publish
+---
+<p>In November I <a href="/blog/2013/11/30/most-history-commands/">posted</a> about my twenty most used commands. So here I am six months later and I am doing it agian.</p>
+
+<p>
+<pre>
+➜  ~  history | awk '{a[$2]++ } END{for(i in a){print a[i] " " i}}'|sort -rn |head -n 20
+</pre>
+</p>
+<p>
+<table cellpacing="0">
+<tr><td>2227</td><td>vim</td><td># I *love* this editior </td></tr>
+<tr><td>1646</td><td>ls</td><td># hardly a shocker</td></tr>  
+<tr><td>1402</td><td>cd</td><td># not very suprising at all</td></tr> 
+<tr><td>691</td><td>make</td><td># in work all our tasks are in Makefiles (test, build)</td></tr> 
+<tr><td>645</td><td><a href="https://github.com/swmcc/dotfiles/tree/master/git">gs</a></td><td># My alias for git status</td></tr> 
+<tr><td>515</td><td>git</td><td># I wonder what command this is as I have aliases most git commands</td></tr> 
+<tr><td>207</td><td><a href="https://github.com/swmcc/dotfiles/tree/master/git">gcm</a></td><td># My alias for git commit</td></tr> 
+<tr><td>184</td><td>mr</td><td># My alias for running a server in work</td></tr> 
+<tr><td>159</td><td>jekyll</td><td># I have moved most of my sites to jekyll now.</td></tr> 
+<tr><td>142</td><td>fgrep</td><td># Where the fook is this being called? ;)</td></tr> 
+<tr><td>118</td><td>./bin/rails</td><td># With RAILS 4 you now get spring my default. Guess I use it :)</td></tr> 
+<tr><td>82</td><td>ssh</td><td># I've moved most of my infrastrucutre to Digital Ocean so setting servers up I guess.</td></tr> 
+<tr><td>80</td><td>pwd</td><td># Where the fook am I? ;)</td></tr> 
+<tr><td>76</td><td>./bin/rake</td><td># Ahhh running tests or migrations</td></tr> 
+<tr><td>72</td><td>rm</td><td># Get the fook out of my system!</td></tr> 
+<tr><td>71</td><td><a href="https://github.com/swmcc/dotfiles/tree/master/git">ga</a></td><td># Alias for git add</td></tr> 
+<tr><td>57</td><td>cp</td><td># Copy copy copy!!!</td></tr> 
+<tr><td>55</td><td>sqlite3</td><td># The wee light database engine that could</td></tr> 
+<tr><td>54</td><td>grunt</td><td># Some of my own tasks are now in grunt</td></tr> 
+</table>
+</p>
+
+<p>I stopped using <a href="http://tmux.sourceforge.net/">tmux</a> at the start of the year. So my <a href="https://gist.github.com/swmcc/5657497">start_development</a> script doesn't make an appearance. I liked tmux but it wasn't the handiest for paging so I decided to leave it - albeit reluctantly.</p>
+
+<p>Last time ssh wasn't in the running at all. This time it has made a big comeback. I've recently moved most of my stuff to <a href="https://www.digitalocean.com/">Digital Ocean</a>. So I guess I was setting up things a fair bit. I don't really expect it to stay around much longer.</p>
+
+<p>sqlite3 made it in but no other db's. I'll keep an eye out for this again next time around.</p>
+
+<p>In work we use <a href="http://en.wikipedia.org/wiki/Make_(software)">make</a> for lots of things so that's probably why heroku isn't in there too much. For my own stuff I now have a CI server that handles going off to staging/deploying so I don't really need to go near it. Grunt is used for running tests suites and the like.. and probably why node is nowhere to be seen.</p>
+
+<p>I am alos suprised that <a href="https://github.com/jonas/tig">tig</a> didn't make it in.</p>
+
+<p>I am pretty happy with it. I would like to see the use of the git command completly handled by alias requests.. Same with rails - but I guess if I am using scaffolding to prototype something I can't get away from it.</p> 

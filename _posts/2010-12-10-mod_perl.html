@@ -1,0 +1,62 @@
+--- 
+type: post
+tags: 
+- Server
+published: true
+title: mod_perl
+layout: post
+status: publish
+meta: 
+  original_post_id: "26"
+  _wp_old_slug: "26"
+---
+<div>
+<div>
+<div>
+<div>
+
+I have several domains that I want to use. One of them is this site – but it just hosts a blog and various things under the hood that enable me to play with things. There is one domain that I actually want to use in order for me to do this I have to setup the infra-structure right.
+
+I want it to use <a href="http://perl.apache.org/" target="_blank">mod_per</a>l and not the usual <a href="http://httpd.apache.org/docs/current/mod/mod_cgi.html" target="_blank">cgi</a> way. One it is faster than cgi, two it allows me to have full control over all the phases of the request cycle and three I want to <img src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /> I worked in a rather large internet <a href="http://web.archive.org/web/20040319005458/http://blackstar.co.uk/" target="_blank">shop</a> that ran on mod_perl for a time it was Europe’s biggest DVD store. Even then with only four wee servers doing its business it ran without any trouble at all! Now I don’t think my new venture will need the power of mod_perl but its best to start out with the best intentions!
+
+I installed mod_perl back when I first got this server, so all I had to do was tell apache to do its thang. I will build my own handler in time, this was just to get it working.
+<blockquote>
+<pre>PerlModule ModPerl::Registry
+PerlSwitches -T</pre>
+</blockquote>
+Then further down:
+<blockquote>
+<pre>&lt;Directory /www/xxxxxxxx.com/www/&gt;
+   SetHandler perl-script
+   PerlResponseHandler ModPerl::Registry
+ &lt;/Directory&gt;</pre>
+</blockquote>
+Seemed to work – wrote a very quick test, thing that annoys me is that the docs still refer to send_http_header but its not needed and caused it to break. Took it out – all grand.
+<blockquote>
+<pre>#!/usr/bin/perl
+use strict;
+use warnings;
+
+use Apache2::RequestUtil;
+</pre>
+<pre>my $r = Apache2::RequestUtil-&gt;request;</pre>
+<pre>$r-&gt;content_type("text/html");</pre>
+<pre>$r-&gt;print("mod_perl rules!");</pre>
+</blockquote>
+While I was here I got to thinking about my problems earlier in the week with seeing <a href="../2010/12/07/web-site-tracking/" target="_blank">website tracking</a>. So far so good on the <a href="http://www.google.com/analytics" target="_blank">Google Analytics</a> front. It is very comprehensive and does way more than I want it to – but I’ll continue on using it. Now and again I will want to tail the access logs just to see who was where and doing what. My access logs were full of guff from me being on the admin section of the blog and just bombing about. I don’t want to have to use visitors just for seeing what was happening on a given day so while I was doing the above I shoved in a few rules to my custom log. Namely that I don’t care about my two work ip’s or my home one and images, css and javascript files are of little interest to me as well. I called the rule no_log for obvious reasons then just appened them onto my custom_log parameter. Now I can easily tail or view the access logs.
+<blockquote>
+<pre>SetEnvIf Remote_Host 82.68.249.126 no_log
+SetEnvIf Remote_Host 93.97.246.200 no_log
+SetEnvIf Remote_Host 80.76.195.116 no_log
+SetEnvIf Request_URI .gif no_log
+SetEnvIf Request_URI .jpg no_log
+SetEnvIf Request_URI .png no_log
+SetEnvIf Request_URI .js no_log
+</pre>
+</blockquote>
+Now to set up <a href="http://en.wikipedia.org/wiki/Capistrano" target="_blank">capistrano</a> and a dev server for this site. I am not developing on live code as tempting as it is for a sole project. Its best to start of this way even though it is a pain <img src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /> The real question is will I adpot my test first policy… Doubtful <img src="../wp-includes/images/smilies/icon_wink.gif" alt=";)" />
+
+</div>
+</div>
+</div>
+</div>

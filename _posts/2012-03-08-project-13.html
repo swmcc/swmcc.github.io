@@ -1,0 +1,53 @@
+--- 
+type: post
+tags: 
+- Programming
+published: true
+title: Project
+layout: post
+status: publish
+meta: 
+  tagazine-media: a:7:{s:7:"primary";s:0:"";s:6:"images";a:0:{}s:6:"videos";a:0:{}s:11:"image_count";s:1:"0";s:6:"author";s:7:"4543440";s:7:"blog_id";s:7:"4307903";s:9:"mod_stamp";s:19:"2012-03-08 09:16:02";}
+  _edit_last: "4543440"
+  jabber_published: "1331197888"
+---
+<p>
+As <a title="Project" href="/personal-tv-project-part-one/">previously</a> discussed I have a personal project. I don't use it much - TV Listings have moved on since it was first written - sky+, tivo, iplayer et all - basically any on demand service has relegated this project to basically useless. However the first incarnation of this project was written back in 2002 so I am not too hard on myself. Then in 2006 I decided to give <a title="XML::Twig" href="http://search.cpan.org/~mirod/XML-Twig-3.39/Twig_pm.slow">XML::Twig</a> a go and <a title="Code" href="https://github.com/swmcc/TV-Listings">rewrote</a> it.</p>
+
+<p>
+To be honest I got it up and running at the <a title="Server Crash" href="/2011/01/24/server-crash-of-2011/">start</a> of 2011 and have left running ever since. I just wanted to see if it could sit there and run for about a year without me going anywhere near it. It did :) I really have no use for it and was thinking of shutting it down after I hit the year mark. However I recently started getting into <a title="Ruby on Rails" href="http://rubyonrails.org/">Rails</a> and other 'hipster' type languages. My problem though is I need something solid to work on - something to get my teeth into - a real life problem. I've never been good at the 'hello world' type development.</p>
+
+<p>
+So after over a year of the machine running I have the following data set to get my teeth into..</p>
+
+<pre>mysql&gt; select count(*) from programme; select count(*) from broadcasts; select count(*) from star; select count(*) from director;
++----------+
+| count(*) |
++----------+
+| 66203 |
++----------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+| 586307 |
++----------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+| 71854 |
++----------+
+1 row in set (0.00 sec)
+
++----------+
+| count(*) |
++----------+
+| 10089 |
++----------+
+1 row in set (0.00 sec)</pre>
+
+<p>It'll be interesting if nothing else. Obviously there are more tables besides these ones like synopsis, categories, channels etc... I pretty much think the channel portion of the project is dead - but there is bound to be something interesting to do with the rest of the data..
+</p>

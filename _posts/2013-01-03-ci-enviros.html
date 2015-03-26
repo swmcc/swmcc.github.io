@@ -1,0 +1,72 @@
+--- 
+type: post
+tags: php, codeigniter, Programming
+published: true
+title: Code Igniter Multi Environments
+layout: post
+status: publish
+---
+<p>I've been used having mutli stage environments in my code for years now. To me at least it is a 'must have'. Recently I had to port an oldish version of <a href="http://ellislab.com/codeigniter">Code Igniter</a> to this sort of function to allow automatic deploys. An undocumneted (or at least I think it is undocumented from what I could see) is the ability to do this in CI. However it only allows three environments - production, development and testing. Now this is about 90% of the cases but I am an anal sortta fella and I like the following stages on my systems:
+
+<ul>
+<li>LIVE - obvious</li>
+<li>UAT - customer facing or internal qa</li>
+<li>TESTING - obvious</li>
+<li>SANDBOX - staff/team facing</li>
+<li>LOCAL - what others call 'dev' I suppose</li>
+</ul>
+<p>
+Some of the above are carbon copies of each other - for instance in anything I do the difference between LIVE, UAT and TESTING is negligible. SANDBOX is mainly where I would shove up daft ideas or proof of concepts and LOCAL is just for me to do whatever I want. However they should all be technically different environments as each one is subtly different.</p>
+<p>As it happens the version of CI I was using didn't have the ability to do the different environments - not that it would have mattered anyway as I wanted to have the five different enviros. I don't want to re-write anything in the CI core package - that way lies trouble. So I just hacked in the most elegant way I could.</p>
+
+#### index.php
+<pre>
+/*
+|---------------------------------------------------------------
+| EVNIRONMENT NAME
+|---------------------------------------------------------------
+| 
+| Basically what server are we on and then set the ENVIRONMENT
+| accordingly.
+|
+*/
+
+if ((!empty($_SERVER['SERVER_NAME'])) && preg_match('^/your\.domain\.com$/', $_SERVER['SERVER_NAME']) > 0) {
+        DEFINE ('ENVIRONMENT', 'live');
+} elseif ((!empty($_SERVER['SERVER_NAME'])) && preg_match('/whateverconvention\.domain\.com$/', $_SERVER['SERVER_NAME']) > 0) {
+    DEFINE ('ENVIRONMENT', 'uat');
+} elseif ((!empty($_SERVER['SERVER_NAME'])) && preg_match('/whateverconvention\.domain\.com$/', $_SERVER['SERVER_NAME']) > 0) {
+    DEFINE ('ENVIRONMENT', 'sandbox');
+} else {
+    DEFINE ('ENVIRONMENT', 'local');
+}
+</pre>
+
+#### application/config/config.php
+<pre>
+$base_url = array(
+        'live'          => 'http://your.yourdomain.com',
+        'local'         => 'http://localhost:3000',
+        'uat'           => 'http://whateverconvention.yourdomain.com',
+        'sandbox'       => 'http:/whateverconvention.yourdomain.com',
+        'testing'       => 'http://localhost',
+);
+
+$config['base_url'] = $base_url[ENVIRONMENT];
+</pre>
+
+#### application/config/db.php
+<pre>
+$connection = array(
+        'live'  => array( 'host' => '44.22.33.11', 'username' => 'user', 'password' => 'password'),
+        'local' => array( 'host' => 'localhost', 'username' => 'user', 'password' => 'password'),
+        'uat'   => array( 'host' => '23.56.78.11', 'username' => 'user', 'password' => 'password'),
+        'sandbox' => array( 'host' => 'localhost', 'username' => 'user', 'password' => 'password'),
+);
+
+$db['default']['hostname'] = $connection[ENVIRONMENT]['host'];
+$db['default']['username'] = $connection[ENVIRONMENT]['username'];
+$db['default']['password'] = $connection[ENVIRONMENT]['password'];
+</pre>
+
+<p>It isn't very sophistcated but it would be gret if CI could take whatever you define as the ENVIRONMENT inside index.php and then it looks for the files in application/config/ENVIRONMENT. But sure - this works and maybe it will help someone else out.</p>

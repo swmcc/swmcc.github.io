@@ -1,0 +1,39 @@
+--- 
+type: post
+tags: 
+- Server
+published: true
+title: Tailing Logs
+layout: post
+status: publish
+meta: 
+  original_post_id: "33"
+  _wp_old_slug: "33"
+---
+am going to be starting a project soon and being the messy programmer I am I will no doubt put in lots of DEBUG messages into my code. Also now that my server is starting to do more things I want to be able to look at various logs and what not to see if everything is running as it should. Just now and again. I’ve set up <a href="../2010/12/02/munin-and-monit/" target="_blank">monit and monin</a> to keep me informed off most things, but its good to go walking round and seeing what’s happening.
+
+So I want it to be able to view my DEBUG messages /and/ see other log files without any hassle. <a href="http://en.wikipedia.org/wiki/Tail_%28Unix%29" target="_blank">Tail</a> is the defacto tool for this job but while it does the job I want to be able see nice pretty lines of colour so that the logs are easily read. The first thing that popped into my head was <a href="http://www.freshmeat.net/projects/ccze/" target="_blank">ccze</a> – however that site looks dead and the project from what I can gather is also dead. I am sure if I looked hard enough I could find something somewhere that would install it. But that’s too much faffing about. If it can’t be done in 2mins I am not interested.
+
+A quick search in google brought me to <a href="http://codaset.com/elubow/colortail" target="_blank">colortail</a> – a ruby gem. Seems to do the trick. The only thing I don’t like is that you can’t (from the little I can see tail back a number of lines – tail -n 20 -f /var/log/xxx.log). I can forgive it that though. The thing I do like is the .colortailrc file you have to write. It will end up being quite powerful I think – a hash of regular expressions linked to a colour and several attributes.
+
+Below is the command to install (thought I might as well give it – might help someone via googling for something) as well as my very first .colourtailrc file. My apache grouping is a bit dirty but it’ll do the job. I’ll post an update once I have used it a bit more.
+<pre>gem install colortail</pre>
+<pre>[swm@a ~]# cat .colortailrc
+Groupings = {
+ 'default' =&gt; [
+ { :match =&gt; /SWM::/,      :color =&gt; :red,     :attribute =&gt; :reverse },
+ { :match =&gt; /ERROR::/,        :color =&gt; :red,     :attribute =&gt; :bright },
+ { :match =&gt; /CRITICAL::/,     :color =&gt; :red },
+ { :match =&gt; /DEBUG::/,        :color =&gt; :green },
+ { :match =&gt; /ERROR::/,        :color =&gt; :green },
+ { :match =&gt; /DIE::/,         :color =&gt; :yellow },
+ ],
+
+ 'apache' =&gt; [
+ { :match =&gt; /" 302/,        :color =&gt; :yellow },
+ { :match =&gt; /" 400/,        :color =&gt; :red, :attribute =&gt; :bright },
+ { :match =&gt; /" 401/,        :color =&gt; :green, :attribute =&gt; :reverse },
+ { :match =&gt; /" 404/,        :color =&gt; :pink, :attribute =&gt; :reverse },
+ ],
+}</pre>
+As I said the apache grouping is a bit dirty – but it works <img src="../wp-includes/images/smilies/icon_smile.gif" alt=":)" /> You can get an example of working groups on their <a href="http://codaset.com/elubow/colortail/wiki/example-groupings" target="_blank">wiki</a>.
