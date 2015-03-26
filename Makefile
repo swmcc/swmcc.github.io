@@ -15,7 +15,7 @@ newEntry:
 	touch _posts/${now}-${title}.html
 
 run:
-	jekyll serve --watch
+	bundle exec jekyll serve	
 
 build:
 	jekyll build
