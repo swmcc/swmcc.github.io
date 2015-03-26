@@ -18,7 +18,7 @@ run:
 	bundle exec jekyll serve	
 
 build:
-	jekyll build
+	bundle exec jekyll build 
 
 push:
 	git push origin new
