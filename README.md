@@ -1,6 +1,6 @@
 # theonlystephen.com 
 
-**swm·cc**  */ˈswmˌcc/*
+**theonlystephen·**  */ˈtheˌonlystephen/*
 
 *Noun:*  
 A developer from Belfast.
