@@ -19,13 +19,14 @@ is_index: true
 	</main>
 	<section class="sidebar">
 		<h2>Categories</h2>
-		<ul>
-			<li>All</li>
-			<li>Personal</li>
-			<li>Work</li>
-			<li>Talks</li>
-			<li>Rants</li>
-		</ul>
+{% assign tags_list = page.tags %}
+{% if tags_list.first[0] == null %}
+  <ul>
+  {% for tag in tags_list %} 
+   <li>{{ tag }} <span>({{ site.tags[tag].size }})</span></li>
+  {% endfor %}
+  </ul>
+{% endif %}
 	</section>
 </body>
 </html>
