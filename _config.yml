@@ -1,7 +1,7 @@
 # Jekyll
 permalink: /blog/:year/:month/:day/:title
 paginate: 10
-exclude: [less]
+max_blog_list: 5
 name: Stephen 
 baseurl:  
 exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]

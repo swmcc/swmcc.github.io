@@ -6,9 +6,9 @@ is_index: true
 <body id="blog">
 	<main>
 		<h1>Blog</h1>
-		{% for post in site.posts %}
+		{% for post in site.posts limit:page.max_portfolio_list %}
 		<article>
-			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%B" }}</span></aside>
+			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>
 				<div>
 				    <h2>{{ post.title }}</h2>
 				    <p>{{ post.excerpt }}</p>
