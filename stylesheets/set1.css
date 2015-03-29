@@ -140,7 +140,7 @@ figure.effect-oscar figcaption::before {
   right: 30px;
   bottom: 30px;
   left: 30px;
-  border: 1px solid #454545;
+  border: 1px solid #2a2a2a;
   content: '';
 }
 
@@ -180,7 +180,7 @@ figure.effect-oscar:hover p, figure.effect-oscar:hover h2:before {
 /* line 164, ../sass/set1.scss */
 figure.effect-oscar:hover figcaption {
   background-color: rgba(58, 52, 42, 0);
-  color: #454545;
+  color: #2a2a2a;
 }
 
 /* line 169, ../sass/set1.scss */

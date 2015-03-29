@@ -139,7 +139,7 @@ USAGE: @include placeholder($black); // Makes the placeholder coloured black as 
 body {
   background: #ffffff;
   font-size: 16px;
-  color: #454545;
+  color: #2a2a2a;
   width: 100%;
   height: 100%;
   font-family: 'proxima';
@@ -172,7 +172,7 @@ p span {
 }
 /* line 49, ../sass/screen.scss */
 p span.account {
-  color: #e68925;
+  color: #f66600;
 }
 /* line 54, ../sass/screen.scss */
 p.account {
@@ -180,7 +180,7 @@ p.account {
 }
 /* line 56, ../sass/screen.scss */
 p.account span {
-  color: #e68925;
+  color: #f66600;
 }
 /* line 60, ../sass/screen.scss */
 p.tweet {
@@ -189,7 +189,7 @@ p.tweet {
 /* line 62, ../sass/screen.scss */
 p.tweet span {
   font-weight: 100;
-  color: #e68925;
+  color: #f66600;
 }
 
 @-webkit-keyframes fade {
@@ -237,7 +237,7 @@ p.tweet span {
     border-color: transparent;
   }
   50% {
-    border-color: #454545;
+    border-color: #2a2a2a;
   }
 }
 @-moz-keyframes typing {
@@ -250,7 +250,7 @@ p.tweet span {
 }
 @-moz-keyframes blink-caret {
   from, to {
-    border-color: #454545;
+    border-color: #2a2a2a;
   }
   50% {
     border-color: transparent;
@@ -258,7 +258,7 @@ p.tweet span {
 }
 /* line 113, ../sass/screen.scss */
 .writecode {
-  width: 422px;
+  width: 630px;
   margin: 0 auto;
 }
 /* line 14, ../sass/mixins.scss */
@@ -272,14 +272,23 @@ p.tweet span {
 }
 /* line 117, ../sass/screen.scss */
 .writecode h1 {
-  font-size: 4em;
-  width: 422px;
+  font-size: 5em;
+  width: 630px;
   white-space: nowrap;
+  text-transform: uppercase;
   overflow: hidden;
   border-right: .1em solid black;
-  font-family: 'Inconsolata';
+  font-family: "PT Mono";
   -webkit-animation: typing 2s steps(13, end), blink-caret 1s step-end infinite;
   -moz-animation: typing 2s steps(13, end), blink-caret 1s step-end infinite;
+}
+
+/* line 133, ../sass/screen.scss */
+.hrule {
+  width: 200px;
+  height: 4px;
+  background: #2a2a2a;
+  margin: 30px auto;
 }
 
 @-webkit-keyframes typing {
@@ -287,7 +296,7 @@ p.tweet span {
     width: 0;
   }
   to {
-    width: 422px;
+    width: 630px;
   }
 }
 @-moz-keyframes typing {
@@ -295,7 +304,7 @@ p.tweet span {
     width: 0;
   }
   to {
-    width: 422px;
+    width: 630px;
   }
 }
 @-webkit-keyframes blink-caret {
@@ -314,51 +323,64 @@ p.tweet span {
     border-color: black;
   }
 }
-/* line 154, ../sass/screen.scss */
+/* line 160, ../sass/screen.scss */
 h2 {
-  font-family: proximalight;
-  font-size: 2em;
+  font-family: proxima;
+  font-size: 1.2em;
   margin-bottom: 30px;
+  color: #f66600;
+  text-transform: uppercase;
 }
-/* line 158, ../sass/screen.scss */
+/* line 166, ../sass/screen.scss */
 h2 span {
-  font-family: proximabold;
+  font-family: proxima;
+  color: #2a2a2a;
+  font-size: 2em;
+  display: block;
+  margin-top: 5px;
 }
 
-/* line 163, ../sass/screen.scss */
+/* line 175, ../sass/screen.scss */
 h3 {
   font-size: 1.8em;
+  text-transform: uppercase;
 }
-/* line 165, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 h3 span {
-  color: #e68925;
+  font-family: proxima;
+  color: #f66600;
 }
 
-/* line 170, ../sass/screen.scss */
+/* line 184, ../sass/screen.scss */
 header {
   position: absolute;
   left: 0;
   right: 0;
-  top: 50%;
+  top: 45%;
   margin-top: -175px;
 }
-/* line 176, ../sass/screen.scss */
+/* line 190, ../sass/screen.scss */
 header h3 {
   font-family: proximalight;
   -webkit-animation: fade 2.9s linear forwards;
   -moz-animation: fade 2.9s linear forwards;
-  margin: 0px 0 10px 0;
+  margin: 0px 0 20px 0;
 }
-/* line 182, ../sass/screen.scss */
+/* line 196, ../sass/screen.scss */
 header p {
   font-family: proximalight;
   font-size: 1.2em;
-  padding-top: 20px;
   width: 480px;
   line-height: 1.6;
   margin: 0 auto;
 }
-/* line 190, ../sass/screen.scss */
+/* line 202, ../sass/screen.scss */
+header p span {
+  color: #f66600;
+  text-decoration: underline;
+  font-family: proxima;
+}
+/* line 208, ../sass/screen.scss */
 header img {
   margin: 0 auto;
   width: 50px;
@@ -366,14 +388,14 @@ header img {
   margin-top: 40px;
 }
 
-/* line 197, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 nav {
   position: fixed;
   width: 100%;
   margin-top: 30px;
   z-index: 5000000;
 }
-/* line 202, ../sass/screen.scss */
+/* line 220, ../sass/screen.scss */
 nav div {
   max-width: 1280px;
   margin: 0 auto;
@@ -388,20 +410,20 @@ nav div:before, nav div:after {
 nav div:after {
   clear: both;
 }
-/* line 208, ../sass/screen.scss */
+/* line 226, ../sass/screen.scss */
 nav h1 {
   font-family: proximabold;
   float: left;
 }
 
-/* line 213, ../sass/screen.scss */
+/* line 231, ../sass/screen.scss */
 ul.homenav {
   font-family: proximabold;
   text-transform: uppercase;
   float: right;
   font-size: 0.7em;
 }
-/* line 218, ../sass/screen.scss */
+/* line 236, ../sass/screen.scss */
 ul.homenav li {
   display: inline-block;
   opacity: 0.8;
@@ -413,7 +435,7 @@ ul.homenav li {
   transition: all 0.75s ease;
   margin: 0 8px;
 }
-/* line 224, ../sass/screen.scss */
+/* line 242, ../sass/screen.scss */
 ul.homenav li:hover {
   opacity: 1;
   -webkit-transition: all 0.75s ease;
@@ -423,7 +445,7 @@ ul.homenav li:hover {
   transition: all 0.75s ease;
 }
 
-/* line 231, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 .top {
   width: 100%;
   height: 100%;
@@ -431,7 +453,7 @@ ul.homenav li:hover {
   background-size: cover;
 }
 
-/* line 238, ../sass/screen.scss */
+/* line 256, ../sass/screen.scss */
 main {
   width: 100%;
 }
@@ -444,31 +466,31 @@ main section:before, main section:after {
 main section:after {
   clear: both;
 }
-/* line 243, ../sass/screen.scss */
+/* line 261, ../sass/screen.scss */
 main p {
   max-width: 600px;
   margin: 0 auto;
-  line-height: 1.8;
+  line-height: 2;
   font-family: proximalight;
   text-align: center;
 }
-/* line 250, ../sass/screen.scss */
+/* line 268, ../sass/screen.scss */
 main .aboutMe {
   background: #ffffff;
   width: 100% !important;
   position: relative;
 }
-/* line 255, ../sass/screen.scss */
+/* line 273, ../sass/screen.scss */
 main .mywork {
   background: #f9f9f8;
   padding-top: 250px;
   padding-bottom: 250px;
 }
-/* line 261, ../sass/screen.scss */
+/* line 279, ../sass/screen.scss */
 main .social {
   position: relative;
 }
-/* line 264, ../sass/screen.scss */
+/* line 282, ../sass/screen.scss */
 main .arrowup {
   top: -150px;
   width: 100%;
@@ -477,7 +499,7 @@ main .arrowup {
   position: absolute;
   height: 150px;
 }
-/* line 273, ../sass/screen.scss */
+/* line 291, ../sass/screen.scss */
 main .arrowdown {
   bottom: -150px;
   width: 100%;
@@ -487,95 +509,139 @@ main .arrowdown {
   height: 150px;
 }
 
-/* line 287, ../sass/screen.scss */
+/* line 303, ../sass/screen.scss */
+#blog h2 {
+  font-family: proxima;
+  color: #2a2a2a;
+  font-size: 2em;
+  display: block;
+  margin-top: 5px;
+  text-transform: capitalize;
+}
+/* line 312, ../sass/screen.scss */
 #blog.individualpost h1 {
   font-size: 2em;
   margin-bottom: 15px;
 }
-/* line 291, ../sass/screen.scss */
+/* line 316, ../sass/screen.scss */
 #blog.individualpost h2 {
-  margin-bottom: 15px;
+  font-family: proxima;
+  color: #2a2a2a;
+  font-size: 2em;
+  display: block;
+  margin-top: 5px;
 }
-/* line 294, ../sass/screen.scss */
+/* line 323, ../sass/screen.scss */
 #blog.individualpost article {
   padding: 25px 22px;
 }
-/* line 296, ../sass/screen.scss */
+/* line 325, ../sass/screen.scss */
 #blog.individualpost article a {
   float: left;
 }
-/* line 299, ../sass/screen.scss */
+/* line 328, ../sass/screen.scss */
 #blog.individualpost article p {
   margin-bottom: 20px;
 }
-/* line 303, ../sass/screen.scss */
+/* line 332, ../sass/screen.scss */
 #blog.individualpost .sidebar {
   position: absolute;
   top: 50px;
 }
-/* line 306, ../sass/screen.scss */
+/* line 335, ../sass/screen.scss */
 #blog.individualpost .sidebar article {
   padding: 25px 0px;
 }
-/* line 308, ../sass/screen.scss */
+/* line 337, ../sass/screen.scss */
 #blog.individualpost .sidebar article p {
   margin-bottom: 0px;
 }
-/* line 313, ../sass/screen.scss */
+/* line 342, ../sass/screen.scss */
 #blog.individualpost .published {
   font-size: 0.8em;
   margin-left: 22px;
 }
-/* line 319, ../sass/screen.scss */
+/* line 348, ../sass/screen.scss */
 #blog .sidebar {
   position: fixed;
   top: 205px;
   left: 70%;
   padding-left: 50px;
 }
-/* line 325, ../sass/screen.scss */
+/* line 354, ../sass/screen.scss */
 #blog .sidebar article h2 {
   font-size: 1.1em;
 }
-/* line 328, ../sass/screen.scss */
+/* line 357, ../sass/screen.scss */
 #blog .sidebar article div {
   width: calc(100% - 50px);
 }
-/* line 333, ../sass/screen.scss */
+/* line 362, ../sass/screen.scss */
 #blog .sidebar ul li {
   padding: 5px;
 }
-/* line 335, ../sass/screen.scss */
+/* line 364, ../sass/screen.scss */
 #blog .sidebar ul li:hover {
-  color: #e68925;
+  color: #f66600;
   cursor: pointer;
 }
-/* line 342, ../sass/screen.scss */
+/* line 371, ../sass/screen.scss */
 #blog main {
   float: left;
-  margin: 0 100px;
+  margin: 0 100px 0 150px;
   width: calc(70% - 200px);
 }
-/* line 347, ../sass/screen.scss */
+/* line 375, ../sass/screen.scss */
+#blog main h1 {
+  font-family: proxima;
+  color: #2a2a2a;
+  font-size: 1.9em;
+  display: block;
+  margin-top: 140px;
+  line-height: 1.3;
+  text-align: left;
+  margin-left: 50px;
+  width: 100%;
+}
+/* line 388, ../sass/screen.scss */
+#blog nav div {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 30px;
+}
+/* line 393, ../sass/screen.scss */
+#blog nav ul.homenav {
+  font-family: proximabold;
+  text-transform: uppercase;
+  float: right;
+  font-size: 0.7em;
+}
+/* line 399, ../sass/screen.scss */
+#blog nav h1 {
+  float: left;
+  margin: 0;
+  font-family: proximabold;
+}
+/* line 405, ../sass/screen.scss */
 #blog h1 {
   font-family: 'Titillium Web', sans-serif;
   float: none;
   margin: 50px 0 50px 22px;
 }
-/* line 352, ../sass/screen.scss */
+/* line 410, ../sass/screen.scss */
 #blog h2 {
   text-align: left;
 }
-/* line 355, ../sass/screen.scss */
+/* line 413, ../sass/screen.scss */
 #blog p {
   text-align: left;
   margin: 0;
   max-width: initial;
   font-size: 1em;
 }
-/* line 361, ../sass/screen.scss */
+/* line 419, ../sass/screen.scss */
 #blog article {
-  padding: 25px 0;
+  padding: 40px 0;
 }
 /* line 14, ../sass/mixins.scss */
 #blog article:before, #blog article:after {
@@ -586,23 +652,30 @@ main .arrowdown {
 #blog article:after {
   clear: both;
 }
-/* line 364, ../sass/screen.scss */
+/* line 422, ../sass/screen.scss */
 #blog article aside {
   text-align: right;
   float: left;
-  width: 100px;
+  width: 90px;
   font-size: 2em;
-  margin-right: 50px;
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 3px solid #2a2a2a;
 }
-/* line 370, ../sass/screen.scss */
+/* line 430, ../sass/screen.scss */
 #blog article aside span {
   display: block;
   font-weight: 100;
+  color: #f66600;
+  font-size: 0.6em;
+  text-transform: uppercase;
 }
-/* line 375, ../sass/screen.scss */
+/* line 438, ../sass/screen.scss */
 #blog article div {
   float: left;
   width: calc(100% - 150px);
+  max-height: 250px;
+  overflow: hidden;
 }
 /* line 14, ../sass/mixins.scss */
 #blog article div:before, #blog article div:after {
@@ -613,23 +686,37 @@ main .arrowdown {
 #blog article div:after {
   clear: both;
 }
-/* line 379, ../sass/screen.scss */
-#blog article div a {
+/* line 444, ../sass/screen.scss */
+#blog article div h1, #blog article div h2, #blog article div h3 {
+  text-align: left;
+  line-height: 2;
+  font-size: 1em;
+}
+/* line 449, ../sass/screen.scss */
+#blog article div h2.maintitle {
+  font-size: 2em;
+  line-height: 1;
+  margin-top: 0px;
+  margin-bottom: 20px;
+}
+/* line 456, ../sass/screen.scss */
+#blog article a.more {
   float: left;
-  color: #e68925;
+  color: #f66600;
   background: url(../img/arrow.svg) right center no-repeat;
   background-size: 15%;
   padding-right: 25px;
-  margin-top: 20px;
+  margin-top: 30px;
   margin-right: 10px;
+  margin-left: 143px;
 }
 
-/* line 393, ../sass/screen.scss */
+/* line 470, ../sass/screen.scss */
 .social {
   padding: 0 0 100px 0;
 }
 
-/* line 397, ../sass/screen.scss */
+/* line 474, ../sass/screen.scss */
 .blogsummary {
   padding: 0 0 150px 0;
 }
