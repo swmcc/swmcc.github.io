@@ -90,8 +90,16 @@ is_index: true
 						<img class="titleIcon" src="img/blog.svg"/>
             <h2>Ramblings from <span>The blog.</span></h2>
           <article>  
-						<p>Getting sick of these god damned hipsters in established. Getting sick of these god damned hipsters in established. Getting sick of these god damned hipsters in established. Getting sick of these god damned hipsters in established</p>
-						</article>
+	      {% for post in site.posts limit:1 %}
+		<article>
+			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>
+				<div>
+				    <h2 class="maintitle">{{ post.title }}</h2>
+				    <p>{{ post.excerpt }}</p>
+				</div>
+				<a class="more" href="{{ post.url }}">Read More</a>
+		</article>
+	      {% endfor %}
         </section>
     </main>
 </body>
