@@ -79,31 +79,14 @@
   font-weight: 300;
   font-size: 1em;
 }
-/* line 72, ../sass/set1.scss */
-.grid figure h2:before {
-  background: red;
-  width: 50px;
-  height: 50px;
-  display: block;
-  left: 50%;
-  position: absolute;
-  top: -55px;
-  content: '';
-  margin-left: -25px;
-  opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: scale(0);
-  transform: scale(0);
-}
 
-/* line 91, ../sass/set1.scss */
+/* line 75, ../sass/set1.scss */
 .grid figure h2,
 .grid figure p {
   margin: 0;
 }
 
-/* line 96, ../sass/set1.scss */
+/* line 80, ../sass/set1.scss */
 .grid figure p {
   letter-spacing: 1px;
   font-size: 68.5%;
@@ -113,19 +96,19 @@
 /*---------------*/
 /***** Oscar *****/
 /*---------------*/
-/* line 108, ../sass/set1.scss */
+/* line 92, ../sass/set1.scss */
 figure.effect-oscar {
   background: rgba(255, 255, 255, 0.1);
 }
 
-/* line 112, ../sass/set1.scss */
+/* line 96, ../sass/set1.scss */
 figure.effect-oscar img {
   opacity: 0.9;
   -webkit-transition: opacity 0.35s;
   transition: opacity 0.35s;
 }
 
-/* line 118, ../sass/set1.scss */
+/* line 102, ../sass/set1.scss */
 figure.effect-oscar figcaption {
   padding: 3em;
   background-color: rgba(58, 52, 42, 0.7);
@@ -133,7 +116,7 @@ figure.effect-oscar figcaption {
   transition: background-color 0.35s;
 }
 
-/* line 125, ../sass/set1.scss */
+/* line 109, ../sass/set1.scss */
 figure.effect-oscar figcaption::before {
   position: absolute;
   top: 30px;
@@ -144,7 +127,7 @@ figure.effect-oscar figcaption::before {
   content: '';
 }
 
-/* line 135, ../sass/set1.scss */
+/* line 119, ../sass/set1.scss */
 figure.effect-oscar h2 {
   margin: 20% 0 10px 0;
   -webkit-transition: -webkit-transform 0.35s;
@@ -153,7 +136,7 @@ figure.effect-oscar h2 {
   transform: translate3d(0, 100%, 0);
 }
 
-/* line 143, ../sass/set1.scss */
+/* line 127, ../sass/set1.scss */
 figure.effect-oscar figcaption::before,
 figure.effect-oscar p {
   opacity: 0;
@@ -163,13 +146,13 @@ figure.effect-oscar p {
   transform: scale(0);
 }
 
-/* line 152, ../sass/set1.scss */
+/* line 136, ../sass/set1.scss */
 figure.effect-oscar:hover h2 {
   -webkit-transform: translate3d(0, 0, 0);
   transform: translate3d(0, 0, 0);
 }
 
-/* line 157, ../sass/set1.scss */
+/* line 141, ../sass/set1.scss */
 figure.effect-oscar:hover figcaption::before,
 figure.effect-oscar:hover p, figure.effect-oscar:hover h2:before {
   opacity: 1;
@@ -177,13 +160,13 @@ figure.effect-oscar:hover p, figure.effect-oscar:hover h2:before {
   transform: scale(1);
 }
 
-/* line 164, ../sass/set1.scss */
+/* line 148, ../sass/set1.scss */
 figure.effect-oscar:hover figcaption {
   background-color: rgba(58, 52, 42, 0);
   color: #2a2a2a;
 }
 
-/* line 169, ../sass/set1.scss */
+/* line 153, ../sass/set1.scss */
 figure.effect-oscar:hover img {
   opacity: 0.2;
 }

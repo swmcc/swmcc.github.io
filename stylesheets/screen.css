@@ -720,3 +720,83 @@ main .arrowdown {
 .blogsummary {
   padding: 0 0 150px 0;
 }
+/* line 476, ../sass/screen.scss */
+.blogsummary article {
+  text-align: left;
+  padding: 40px 0;
+  width: 56%;
+  margin: 0 auto;
+}
+/* line 14, ../sass/mixins.scss */
+.blogsummary article:before, .blogsummary article:after {
+  content: "";
+  display: table;
+}
+/* line 19, ../sass/mixins.scss */
+.blogsummary article:after {
+  clear: both;
+}
+/* line 482, ../sass/screen.scss */
+.blogsummary article div {
+  float: left;
+  width: calc(100% - 150px);
+  max-height: 250px;
+  overflow: hidden;
+}
+/* line 14, ../sass/mixins.scss */
+.blogsummary article div:before, .blogsummary article div:after {
+  content: "";
+  display: table;
+}
+/* line 19, ../sass/mixins.scss */
+.blogsummary article div:after {
+  clear: both;
+}
+/* line 489, ../sass/screen.scss */
+.blogsummary article p {
+  text-align: left;
+  max-width: initial;
+}
+/* line 493, ../sass/screen.scss */
+.blogsummary article h2.maintitle {
+  font-size: 2em;
+  line-height: 1;
+  margin-top: 0px;
+  margin-bottom: 20px;
+  color: #2a2a2a;
+}
+/* line 500, ../sass/screen.scss */
+.blogsummary article h1, .blogsummary article h2, .blogsummary article h3 {
+  text-align: left;
+  line-height: 2;
+  font-size: 1em;
+}
+/* line 505, ../sass/screen.scss */
+.blogsummary article aside {
+  text-align: right;
+  float: left;
+  width: 90px;
+  font-size: 2em;
+  margin-right: 30px;
+  padding-right: 20px;
+  border-right: 3px solid #2a2a2a;
+}
+/* line 513, ../sass/screen.scss */
+.blogsummary article aside span {
+  display: block;
+  font-weight: 100;
+  color: #f66600;
+  font-size: 0.6em;
+  text-transform: uppercase;
+}
+/* line 522, ../sass/screen.scss */
+.blogsummary article a.more {
+  float: left;
+  color: #f66600;
+  background: url(../img/arrow.svg) right center no-repeat;
+  background-size: 15%;
+  padding-right: 25px;
+  margin-top: 30px;
+  margin-right: 10px;
+  margin-left: 121px;
+}

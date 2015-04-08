@@ -23,10 +23,9 @@ is_index: true
 			<div>
 			<h1>SWMCC</h1>
 			<ul class="homenav">
-        <li>About</li>
-        <li>Projects</li>
-        <li>Blog</li>
-        <li>Contact</li>
+        <li>Home</li>
+        <li><a href="/blog">Blog</a></li>
+				<li><a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contact</a></li>
 			</ul>
 			</div>
 		</nav>
@@ -56,7 +55,7 @@ is_index: true
 						<figure class="effect-oscar">
 							<img src="img/9.jpg" alt="img09"/>
 							<figcaption>
-								<h2>Audit<span>Comply</span></h2>
+								<h2>Audit Comply</h2>
 								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
 								<a href="#">View more</a>
 							</figcaption>			
@@ -64,7 +63,7 @@ is_index: true
 						<figure class="effect-oscar">
 							<img src="img/10.jpg" alt="img10"/>
 							<figcaption>
-								<h2>whatisonthe<span>tv</span></h2>
+								<h2>whatisonthe tv</h2>
 								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
 								<a href="#">View more</a>
 							</figcaption>			
@@ -72,7 +71,7 @@ is_index: true
 						<figure class="effect-oscar">
 							<img src="img/10.jpg" alt="img10"/>
 							<figcaption>
-								<h2>nestoria <span>python</span></h2>
+								<h2>nestoria python</h2>
 								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
 								<a href="#">View more</a>
 							</figcaption>			
@@ -89,7 +88,6 @@ is_index: true
 				<section class="blogsummary">
 						<img class="titleIcon" src="img/blog.svg"/>
             <h2>Ramblings from <span>The blog.</span></h2>
-          <article>  
 	      {% for post in site.posts limit:1 %}
 		<article>
 			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>

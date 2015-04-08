@@ -473,4 +473,62 @@ main{
 
 .blogsummary{
 	padding: 0 0 150px 0;
+	article{
+		text-align: left;
+		@include clearfix();
+		padding: 40px 0;
+		width: 56%;
+		margin: 0 auto;
+		div{
+			@include clearfix();
+			float: left;
+			width: calc(100% - 150px);
+			max-height: 250px;
+			overflow: hidden;
+		}
+		p{
+			text-align: left;
+			max-width: initial;
+		}
+			h2.maintitle{
+				font-size: 2em;
+				line-height: 1;
+				margin-top: 0px;
+				margin-bottom: 20px;
+				color: $dark;
+			}
+			h1,h2,h3{
+				text-align: left;
+				line-height: 2;
+				font-size: 1em;
+			}
+			aside{
+				text-align: right;
+				float:left;
+				width: 90px;
+				font-size: 2em;
+				margin-right: 30px;
+				padding-right: 20px;
+				border-right: 3px solid $dark;
+				span{
+					display:block;
+					font-weight: 100;
+					color: $orange;
+					font-size: 0.6em;
+					text-transform: uppercase;
+				}
+			}
+		
+		a.more{
+			float:left;
+			color: $orange;
+			background: url(../img/arrow.svg) right center no-repeat;
+			background-size: 15%;
+			padding-right: 25px;
+			margin-top: 30px;
+			margin-right: 10px;
+			margin-left: 121px;
+		}
+	}
+	
 }

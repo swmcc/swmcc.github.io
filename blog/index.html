@@ -8,10 +8,9 @@ is_index: true
 		<div>
 		<h1>SWMCC</h1>
 		<ul class="homenav">
-			<li>About</li>
-			<li>Projects</li>
+			<li><a href="../">Home</a></li>
 			<li>Blog</li>
-			<li>Contact</li>
+			<li><a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contact</a></li>
 		</ul>
 		</div>
 	</nav>
@@ -28,7 +27,7 @@ is_index: true
 		</article>
 		{% endfor %}
 	</main>
-	<section class="sidebar">
+	<section class="sidebar" style="display:none;">
 		<h2>Categories</h2>
 {% assign tags_list = page.tags %}
 {% if tags_list.first[0] == null %}

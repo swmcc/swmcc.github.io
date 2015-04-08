@@ -69,22 +69,6 @@
 	word-spacing: -0.15em;
 	font-weight: 300;
 	font-size: 1em;
-	&:before{
-		background: red;
-		width: 50px;
-		height: 50px;
-		display: block;
-		left: 50%;
-		position: absolute;
-		top: -55px;
-		content: '';
-		margin-left: -25px;
-			opacity: 0;
-	-webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-	transition: opacity 0.35s, transform 0.35s;
-	-webkit-transform: scale(0);
-	transform: scale(0);
-	}
 }
 
 
