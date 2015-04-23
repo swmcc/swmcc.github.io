@@ -19,8 +19,8 @@
     <div class="nav-items">
       <h1><a href="/">SWMCC</a></h1>
       <ul class="homenav">
-        <li>Home</li>
-        <li><a href="/blog">Blog</a></li>
+        <li><a href="{{ site.baseurl }}/" {% if page.selected == "home" %}class="active"{% endif %}>Home</a></li>
+        <li><a href="{{ site.baseurl }}/blog" {% if page.selected == "blog" %}class="active"{% endif %}>Blog</a></li>
         <li><a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contact</a></li>
       </ul>
     </div>

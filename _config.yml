@@ -1,5 +1,6 @@
 # Jekyll
-permalink: /blog/:year/:month/:day/:title
+# permalink: /blog/:year/:month/:day/:title
+permalink: /blog/:title/
 paginate: 10
 max_blog_list: 5
 name: Stephen

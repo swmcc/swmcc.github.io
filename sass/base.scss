@@ -96,17 +96,21 @@ ul.homenav{
   font-family: proximabold;
   font-size: 1em;
   float: right;
-    li{
-        display: inline-block;
-        opacity: 0.8;
-        cursor: pointer;
-        // @include easing();
-        margin: 0 8px;
-        &:hover{
-            opacity: 1;
-            // @include easing();
-            color: $blue;
-        }
+  li{
+    display: inline-block;
+    a{
+      display: inline-block;
+      color: $dark;
+      cursor: pointer;
+      // @include easing();
+      margin: 0 8px;
+    }
+      a:hover{
+        color: $blue;
+      }
+      a.active{
+        color: $orange;
+      }
     }
 }
 

@@ -158,24 +158,31 @@ ul.homenav {
 /* line 99, ../sass/base.scss */
 ul.homenav li {
   display: inline-block;
-  opacity: 0.8;
+}
+/* line 101, ../sass/base.scss */
+ul.homenav li a {
+  display: inline-block;
+  color: #2a2a2a;
   cursor: pointer;
   margin: 0 8px;
 }
-/* line 105, ../sass/base.scss */
-ul.homenav li:hover {
-  opacity: 1;
+/* line 108, ../sass/base.scss */
+ul.homenav li a:hover {
   color: #16b1e0;
 }
+/* line 111, ../sass/base.scss */
+ul.homenav li a.active {
+  color: #f66600;
+}
 
-/* line 113, ../sass/base.scss */
+/* line 117, ../sass/base.scss */
 .top {
   width: 100%;
   height: 100%;
   background: #fafafb;
 }
 
-/* line 121, ../sass/base.scss */
+/* line 125, ../sass/base.scss */
 main {
   width: 100%;
 }
@@ -188,23 +195,23 @@ main section:before, main section:after {
 main section:after {
   clear: both;
 }
-/* line 126, ../sass/base.scss */
+/* line 130, ../sass/base.scss */
 main .aboutMe {
   background: #ffffff;
   width: 100% !important;
   position: relative;
 }
-/* line 131, ../sass/base.scss */
+/* line 135, ../sass/base.scss */
 main .mywork {
   background: #fafafb;
   padding-top: 250px;
   padding-bottom: 250px;
 }
-/* line 136, ../sass/base.scss */
+/* line 140, ../sass/base.scss */
 main .social {
   position: relative;
 }
-/* line 139, ../sass/base.scss */
+/* line 143, ../sass/base.scss */
 main .arrowup {
   top: -150px;
   width: 100%;
@@ -213,7 +220,7 @@ main .arrowup {
   position: absolute;
   height: 150px;
 }
-/* line 148, ../sass/base.scss */
+/* line 152, ../sass/base.scss */
 main .arrowdown {
   bottom: -150px;
   width: 100%;
@@ -223,7 +230,7 @@ main .arrowdown {
   height: 150px;
 }
 
-/* line 160, ../sass/base.scss */
+/* line 164, ../sass/base.scss */
 #blog h2 {
   font-family: proxima;
   color: #2a2a2a;
@@ -232,12 +239,12 @@ main .arrowdown {
   margin-top: 5px;
   text-transform: capitalize;
 }
-/* line 169, ../sass/base.scss */
+/* line 173, ../sass/base.scss */
 #blog.individualpost h1 {
   font-size: 2em;
   margin-bottom: 15px;
 }
-/* line 173, ../sass/base.scss */
+/* line 177, ../sass/base.scss */
 #blog.individualpost h2 {
   font-family: proxima;
   color: #2a2a2a;
@@ -245,67 +252,67 @@ main .arrowdown {
   display: block;
   margin-top: 5px;
 }
-/* line 180, ../sass/base.scss */
+/* line 184, ../sass/base.scss */
 #blog.individualpost article {
   padding: 25px 22px;
 }
-/* line 182, ../sass/base.scss */
+/* line 186, ../sass/base.scss */
 #blog.individualpost article a {
   float: left;
 }
-/* line 185, ../sass/base.scss */
+/* line 189, ../sass/base.scss */
 #blog.individualpost article p {
   margin-bottom: 20px;
 }
-/* line 189, ../sass/base.scss */
+/* line 193, ../sass/base.scss */
 #blog.individualpost .sidebar {
   position: absolute;
   top: 50px;
 }
-/* line 192, ../sass/base.scss */
+/* line 196, ../sass/base.scss */
 #blog.individualpost .sidebar article {
   padding: 25px 0px;
 }
-/* line 194, ../sass/base.scss */
+/* line 198, ../sass/base.scss */
 #blog.individualpost .sidebar article p {
   margin-bottom: 0px;
 }
-/* line 199, ../sass/base.scss */
+/* line 203, ../sass/base.scss */
 #blog.individualpost .published {
   font-size: 0.8em;
   margin-left: 22px;
 }
-/* line 205, ../sass/base.scss */
+/* line 209, ../sass/base.scss */
 #blog .sidebar {
   position: fixed;
   top: 205px;
   left: 70%;
   padding-left: 50px;
 }
-/* line 211, ../sass/base.scss */
+/* line 215, ../sass/base.scss */
 #blog .sidebar article h2 {
   font-size: 1.1em;
 }
-/* line 214, ../sass/base.scss */
+/* line 218, ../sass/base.scss */
 #blog .sidebar article div {
   width: calc(100% - 50px);
 }
-/* line 219, ../sass/base.scss */
+/* line 223, ../sass/base.scss */
 #blog .sidebar ul li {
   padding: 5px;
 }
-/* line 221, ../sass/base.scss */
+/* line 225, ../sass/base.scss */
 #blog .sidebar ul li:hover {
   color: #f66600;
   cursor: pointer;
 }
-/* line 228, ../sass/base.scss */
+/* line 232, ../sass/base.scss */
 #blog main {
   float: left;
   margin: 0 100px 0 150px;
   width: calc(70% - 200px);
 }
-/* line 232, ../sass/base.scss */
+/* line 236, ../sass/base.scss */
 #blog main h1 {
   font-family: proxima;
   color: #2a2a2a;
@@ -317,43 +324,43 @@ main .arrowdown {
   margin-left: 50px;
   width: 100%;
 }
-/* line 245, ../sass/base.scss */
+/* line 249, ../sass/base.scss */
 #blog nav div {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0 30px;
 }
-/* line 250, ../sass/base.scss */
+/* line 254, ../sass/base.scss */
 #blog nav ul.homenav {
   font-family: proximabold;
   text-transform: uppercase;
   float: right;
   font-size: 0.7em;
 }
-/* line 256, ../sass/base.scss */
+/* line 260, ../sass/base.scss */
 #blog nav h1 {
   float: left;
   margin: 0;
   font-family: proximabold;
 }
-/* line 262, ../sass/base.scss */
+/* line 266, ../sass/base.scss */
 #blog h1 {
   font-family: 'Titillium Web', sans-serif;
   float: none;
   margin: 50px 0 50px 22px;
 }
-/* line 267, ../sass/base.scss */
+/* line 271, ../sass/base.scss */
 #blog h2 {
   text-align: left;
 }
-/* line 270, ../sass/base.scss */
+/* line 274, ../sass/base.scss */
 #blog p {
   text-align: left;
   margin: 0;
   max-width: initial;
   font-size: 1em;
 }
-/* line 276, ../sass/base.scss */
+/* line 280, ../sass/base.scss */
 #blog article {
   padding: 40px 0;
 }
@@ -366,7 +373,7 @@ main .arrowdown {
 #blog article:after {
   clear: both;
 }
-/* line 279, ../sass/base.scss */
+/* line 283, ../sass/base.scss */
 #blog article aside {
   text-align: right;
   float: left;
@@ -376,7 +383,7 @@ main .arrowdown {
   padding-right: 20px;
   border-right: 3px solid #2a2a2a;
 }
-/* line 287, ../sass/base.scss */
+/* line 291, ../sass/base.scss */
 #blog article aside span {
   display: block;
   font-weight: 100;
@@ -384,7 +391,7 @@ main .arrowdown {
   font-size: 0.6em;
   text-transform: uppercase;
 }
-/* line 295, ../sass/base.scss */
+/* line 299, ../sass/base.scss */
 #blog article div {
   float: left;
   width: calc(100% - 150px);
@@ -400,20 +407,20 @@ main .arrowdown {
 #blog article div:after {
   clear: both;
 }
-/* line 301, ../sass/base.scss */
+/* line 305, ../sass/base.scss */
 #blog article div h1, #blog article div h2, #blog article div h3 {
   text-align: left;
   line-height: 2;
   font-size: 1em;
 }
-/* line 306, ../sass/base.scss */
+/* line 310, ../sass/base.scss */
 #blog article div h2.maintitle {
   font-size: 2em;
   line-height: 1;
   margin-top: 0px;
   margin-bottom: 20px;
 }
-/* line 313, ../sass/base.scss */
+/* line 317, ../sass/base.scss */
 #blog article a.more {
   float: left;
   color: #f66600;
@@ -425,16 +432,16 @@ main .arrowdown {
   margin-left: 143px;
 }
 
-/* line 327, ../sass/base.scss */
+/* line 331, ../sass/base.scss */
 .social {
   padding: 0 0 100px 0;
 }
 
-/* line 331, ../sass/base.scss */
+/* line 335, ../sass/base.scss */
 .blogsummary {
   padding: 0 0 150px 0;
 }
-/* line 333, ../sass/base.scss */
+/* line 337, ../sass/base.scss */
 .blogsummary article {
   text-align: left;
   padding: 40px 0;
@@ -450,7 +457,7 @@ main .arrowdown {
 .blogsummary article:after {
   clear: both;
 }
-/* line 339, ../sass/base.scss */
+/* line 343, ../sass/base.scss */
 .blogsummary article div {
   float: left;
   width: calc(100% - 150px);
@@ -466,7 +473,7 @@ main .arrowdown {
 .blogsummary article div:after {
   clear: both;
 }
-/* line 346, ../sass/base.scss */
+/* line 350, ../sass/base.scss */
 .blogsummary article aside {
   text-align: right;
   float: left;
@@ -476,7 +483,7 @@ main .arrowdown {
   padding-right: 20px;
   border-right: 3px solid #2a2a2a;
 }
-/* line 354, ../sass/base.scss */
+/* line 358, ../sass/base.scss */
 .blogsummary article aside span {
   display: block;
   font-weight: 100;
@@ -486,18 +493,18 @@ main .arrowdown {
 }
 
 /* Blog single post page */
-/* line 371, ../sass/base.scss */
+/* line 375, ../sass/base.scss */
 .blog {
   padding: 170px 0;
   text-align: left;
 }
-/* line 374, ../sass/base.scss */
+/* line 378, ../sass/base.scss */
 .blog .single-blog-post {
   max-width: 840px;
   margin: 0 auto;
 }
 
-/* line 381, ../sass/base.scss */
+/* line 385, ../sass/base.scss */
 .blog p {
   text-align: left;
   max-width: none;
