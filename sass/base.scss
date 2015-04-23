@@ -24,6 +24,10 @@ body{
   display: block;
 }
 
+header{
+  padding-top: 2.2em;
+}
+
 
 .writecode{
   @include clearfix();
@@ -339,22 +343,6 @@ main{
       max-height: 250px;
       overflow: hidden;
     }
-    p{
-      text-align: left;
-      max-width: initial;
-    }
-      h2.maintitle{
-        font-size: 2em;
-        line-height: 1;
-        margin-top: 0px;
-        margin-bottom: 20px;
-        color: $dark;
-      }
-      h1,h2,h3{
-        text-align: left;
-        line-height: 2;
-        font-size: 1em;
-      }
       aside{
         text-align: right;
         float:left;
@@ -372,19 +360,25 @@ main{
         }
       }
 
-    a.more{
-      float:left;
-      color: $orange;
-      background: url(../img/arrow.svg) right center no-repeat;
-      background-size: 15%;
-      padding-right: 25px;
-      margin-top: 30px;
-      margin-right: 10px;
-      margin-left: 121px;
-      &:hover{
-        color: $blue;
-      }
-    }
   }
 
+}
+
+
+
+/* Blog single post page */
+
+.blog{
+  padding: 170px 0;
+  text-align: left;
+  .single-blog-post{
+    max-width: 840px;
+    margin: 0 auto;
+  }
+}
+
+
+.blog p{
+  text-align: left;
+  max-width: none;
 }

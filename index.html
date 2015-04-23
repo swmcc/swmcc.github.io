@@ -2,111 +2,84 @@
 layout: default
 is_index: true
 ---
-
-<head>
-    <link rel="stylesheet" type="text/css" href="stylesheets/screen.css">
-<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Inconsolata:700' rel='stylesheet' type='text/css'>
-	<link href='http://fonts.googleapis.com/css?family=PT+Mono' rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="stylesheets/set1.css" />
-	<script src="//use.typekit.net/xgr1aku.js"></script>
-<script>try{Typekit.load();}catch(e){}</script>
-    <script>
-        $( document ).ready(function() {
-        });
-    </script>
-    <title>theonlystephen.com</title>
-</head>
-<body>
-	<nav>
-    <div class="nav-items">
-  		<h1><a href="/">SWMCC</a></h1>
-  		<ul class="homenav">
-        <li>Home</li>
-        <li><a href="/blog">Blog</a></li>
-  			<li><a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contact</a></li>
-  		</ul>
+<div class="top"></div>
+<header>
+    <h2>I am <span>The Only Stephen</span> and</h2>
+    <div class="writecode">
+        <h1>I write code.</h1>
     </div>
-	</nav>
-  <div class="top"></div>
-  <header>
-      <h3>I am <span>The Only Stephen</span> and</h3>
-      <div class="writecode">
-          <h1>I write code.</h1>
-      </div>
-			<div class="hrule"></div>
-		<p>I create <span>applications</span> using multiple development languages including <span>Django</span>, <span>AngularJS</span>, and <span>Ruby.</span></p>
-			<img src="img/arrowdown.svg"/>
-  </header>
-    <main>
-        <section class="aboutMe">
-					<div class="arrowup"></div>
-					<div class="arrowdown"></div>
-            <div class="container">
-  						<img class="titleIcon" src="img/about.svg"/>
-              <h2>A little bit <span>about me</span></h2>
-              <p>I'm a software developer and mainly specialise in web applications, based in Belfast, Northern Ireland. I work for a great start-up company called MissionIQ. I have over fifteen years experience and mainly specalise in web applications in Ruby and Python.</p>
-            </div>
-        </section>
-        <section class="mywork">
-            <div class="container">
-  						<img class="titleIcon" src="img/work.svg"/>
-              <h2>View some of <span>my work</span></h2>
-              <p>Some examples of my work. I use a wide array of languages and frameworks. Here is an overview.</p>
-  					<div class="grid">
-  						<figure class="effect-oscar">
-  							<img src="img/9.jpg" alt="img09"/>
-  							<figcaption>
-  								<h2>Audit Comply</h2>
-  								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
-  								<a href="#">View more</a>
-  							</figcaption>
-  						</figure>
-  						<figure class="effect-oscar">
-  							<img src="img/10.jpg" alt="img10"/>
-  							<figcaption>
-  								<h2>whatisonthe tv</h2>
-  								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
-  								<a href="#">View more</a>
-  							</figcaption>
-  						</figure>
-  						<figure class="effect-oscar">
-  							<img src="img/10.jpg" alt="img10"/>
-  							<figcaption>
-  								<h2>nestoria python</h2>
-  								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
-  								<a href="#">View more</a>
-  							</figcaption>
-  						</figure>
-  					</div>
-          </div>
-        </section>
-			  <section class="social">
-					<div class="arrowup"></div>
-            <div class="container">
-						<img class="titleIcon" src="img/twitter.svg"/>
-            <h2>I'm social <span>Follow me</span></h2>
-            <p class="tweet">"Getting sick of these god damned hipsters in established <span>#twats</span>"</p>
-						<p class="account">- <span>@swmcc</span> 10 minutes ago</p>
-          </div>
-        </section>
-				<section class="blogsummary">
+		<div class="hrule"></div>
+	<p>I create <span>applications</span> using multiple development languages including <span>Django</span>, <span>AngularJS</span>, and <span>Ruby.</span></p>
+		<img src="img/arrowdown.svg"/>
+</header>
+  <main>
+      <section class="aboutMe">
+				<div class="arrowup"></div>
+				<div class="arrowdown"></div>
           <div class="container">
-						<img class="titleIcon" src="img/blog.svg"/>
-            <h2>Ramblings from <span>The blog</span></h2>
-	      {% for post in site.posts limit:1 %}
-		<article>
-			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>
-				<div>
-				    <h2 class="maintitle"><a href="{{ post.url }}">{{ post.title }}</a></h2>
-				    <p>{{ post.excerpt }}</p>
-				</div>
-				<a class="more" href="{{ post.url }}">Read More</a>
-		</article>
-	      {% endfor %}
+						<img class="titleIcon" src="img/about.svg"/>
+            <h2 class="section-title">A little bit <span>about me</span></h2>
+            <p>I'm a software developer and mainly specialise in web applications, based in Belfast, Northern Ireland. I work for a great start-up company called MissionIQ. I have over fifteen years experience and mainly specalise in web applications in Ruby and Python.</p>
           </div>
-        </section>
-    </main>
+      </section>
+      <section class="mywork">
+          <div class="container">
+						<img class="titleIcon" src="img/work.svg"/>
+             <h2 class="section-title">View some of <span>my work</span></h2>
+            <p>Some examples of my work. I use a wide array of languages and frameworks. Here is an overview.</p>
+					<div class="grid">
+						<figure class="effect-oscar">
+							<img src="img/9.jpg" alt="img09"/>
+							<figcaption>
+								<h2>Audit Comply</h2>
+								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
+								<a href="#">View more</a>
+							</figcaption>
+						</figure>
+						<figure class="effect-oscar">
+							<img src="img/10.jpg" alt="img10"/>
+							<figcaption>
+								<h2>whatisonthe tv</h2>
+								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
+								<a href="#">View more</a>
+							</figcaption>
+						</figure>
+						<figure class="effect-oscar">
+							<img src="img/10.jpg" alt="img10"/>
+							<figcaption>
+								<h2>nestoria python</h2>
+								<p>Oscar is a decent man. He used to clean porches with pleasure.</p>
+								<a href="#">View more</a>
+							</figcaption>
+						</figure>
+					</div>
+        </div>
+      </section>
+		  <section class="social">
+				<div class="arrowup"></div>
+          <div class="container">
+					<img class="titleIcon" src="img/twitter.svg"/>
+           <h2 class="section-title">I'm social <span>Follow me</span></h2>
+          <p class="tweet">"Getting sick of these god damned hipsters in established <span>#twats</span>"</p>
+					<p class="account">- <span>@swmcc</span> 10 minutes ago</p>
+        </div>
+      </section>
+			<section class="blogsummary">
+        <div class="container">
+					<img class="titleIcon" src="img/blog.svg"/>
+           <h2 class="section-title">Ramblings from <span>The blog</span></h2>
+	      {% for post in site.posts limit:1 %}
+      		<article class="blog-post">
+      			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>
+      			<div>
+      			    <h2 class="maintitle"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+      			    <p>{{ post.content | strip_html | truncatewords:28}}</p>
+      			</div>
+            <a class="more" href="{{ post.url }}">Read More</a>
+      		</article>
+	      {% endfor %}
+        </div>
+      </section>
+  </main>
 </body>
 </html>

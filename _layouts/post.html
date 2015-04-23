@@ -1,41 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link rel="stylesheet" type="text/css" href="/stylesheets/screen.css">
-<link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic,400italic,600,600italic,700,700italic,900' rel='stylesheet' type='text/css'>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>
-        $( document ).ready(function() {
-        });
-    </script>
-</head>
-<body id="blog" class="individualpost">
-	<main>
-		<h1>{{ page.title }}</h1>
-		<p class="published">Published on {{ page.date | date_to_string }} </p>
-		<article>
-		    {{ content }}
-		</article>
-	</main>
-	    <!--
-	<section class="sidebar">
+---
+layout: default
+---
+<section class="blog container">
+<article class="single-blog-post">
+	<h1>{{ page.title }}</h1>
+	<p class="published">Published on {{ page.date | date_to_string }} </p>
+	{{ content }}
+</article>
+</section>
 
-		<h2>Recent</h2>
-		<article>
-				<div>
-					<h2><span>14th Jan</span> Blog Title Here</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra sem ex.</p>
-					<a href="">Read More</a>
-				</div>
-		</article>
-		<article>
-				<div>
-					<h2><span>14th Jan</span> Blog Title Here</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce pharetra sem ex.</p>
-					<a href="">Read More</a>
-				</div>
-		</article>
-	</section>
-	<--!>
-</body>
-</html>

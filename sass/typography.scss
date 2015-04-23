@@ -18,12 +18,15 @@
 }
 
 
-h2{
+
+
+h2.section-title{
     font-family: proxima;
     font-size: 1.2em;
     margin-bottom: 30px;
     color: $orange;
     text-transform: uppercase;
+    text-align: center;
     span{
       font-family: proxima;
       color: $dark;
@@ -33,21 +36,18 @@ h2{
     }
 }
 
-h3{
-    font-size: 1.8em;
-    text-transform: uppercase;
-    span{
-      font-family: proxima;
-      color: $orange;
-    }
+header h2{
+  font-size: 1.5em;
+  text-transform: uppercase;
+  padding: 0 0 10px 0;
+  text-align: center;
+  span{
+    color: $orange;
+    display: inline;
+  }
 }
 
 
-
-h1,h2,h3{
-    text-align: center;
-    display: block;
-}
 
 // p{
 //   text-align: center;
@@ -91,6 +91,54 @@ header h3{
     -moz-animation: fade 2.9s linear forwards;
     margin: 0px 0 20px 0;
 }
+
+a.more{
+    font-size: 1.15em;
+    float:left;
+    color: $orange;
+    background: url(../img/arrow.svg) right center no-repeat;
+    background-size: 15%;
+    padding-right: 25px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 121px;
+}
+
+.blog-post {
+  p{
+    text-align: left;
+    max-width: initial;
+  }
+  h2.maintitle{
+    font-size: 2em;
+    line-height: 1;
+    margin-top: 0px;
+    margin-bottom: 20px;
+    color: $dark;
+    padding-top: 10px;
+  }
+  h1,h2,h3{
+    text-align: left;
+    line-height: 2;
+  }
+  h3{
+    font-size: 1.35em;
+    font-weight: bold;
+    padding-bottom: 0.2em;
+  }
+}
+
+.blogsummary p a{
+  padding-bottom: 1px;
+  border-bottom: 1px solid $grey;
+}
+
+.blog h1{
+  font-size: 2.8em;
+  line-height: 1.3em;
+}
+
+
 
 
 
