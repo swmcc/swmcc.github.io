@@ -82,7 +82,7 @@ p, header p{
   text-align:center;
   max-width: 700px;
   margin: 0 auto;
-  padding-bottom: 1.3em;
+  padding-bottom: 1.8em;
 }
 
 header h3{
@@ -105,9 +105,17 @@ a.more{
 }
 
 .blog-post {
+  h1{
+  font-size: 2.8em;
+  line-height: 1.3em;
+  color: $orange;
+}
   p{
     text-align: left;
     max-width: initial;
+    b{
+      font-weight: bold;
+    }
   }
   h2.maintitle{
     font-size: 2em;
@@ -117,14 +125,10 @@ a.more{
     color: $dark;
     padding-top: 10px;
   }
-  h1,h2,h3{
-    text-align: left;
-    line-height: 2;
-  }
   h3{
-    font-size: 1.35em;
+    font-size: 1.45em;
     font-weight: bold;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.7em;
   }
 }
 
@@ -133,9 +137,11 @@ a.more{
   border-bottom: 1px solid $grey;
 }
 
-.blog h1{
-  font-size: 2.8em;
-  line-height: 1.3em;
+
+p.published{
+  color: $grey;
+  font-size: 1.2em;
+  padding-top: 5px;
 }
 
 

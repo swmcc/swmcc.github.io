@@ -494,12 +494,12 @@ main .arrowdown {
 
 /* Blog single post page */
 /* line 375, ../sass/base.scss */
-.blog {
+#single-blog-post {
   padding: 170px 0;
   text-align: left;
 }
 /* line 378, ../sass/base.scss */
-.blog .single-blog-post {
+#single-blog-post .blog-post {
   max-width: 840px;
   margin: 0 auto;
 }

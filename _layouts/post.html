@@ -2,8 +2,8 @@
 layout: default
 selected: blog
 ---
-<section class="blog container">
-<article class="single-blog-post">
+<section id="single-blog-post" class="container">
+<article class="blog-post">
 	<h1>{{ page.title }}</h1>
 	<p class="published">Published on {{ page.date | date_to_string }} </p>
 	{{ content }}

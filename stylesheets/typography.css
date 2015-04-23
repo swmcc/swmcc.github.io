@@ -51,7 +51,7 @@ p, header p {
   text-align: center;
   max-width: 700px;
   margin: 0 auto;
-  padding-bottom: 1.3em;
+  padding-bottom: 1.8em;
 }
 
 /* line 88, ../sass/typography.scss */
@@ -76,11 +76,21 @@ a.more {
 }
 
 /* line 108, ../sass/typography.scss */
+.blog-post h1 {
+  font-size: 2.8em;
+  line-height: 1.3em;
+  color: #f66600;
+}
+/* line 113, ../sass/typography.scss */
 .blog-post p {
   text-align: left;
   max-width: initial;
 }
-/* line 112, ../sass/typography.scss */
+/* line 116, ../sass/typography.scss */
+.blog-post p b {
+  font-weight: bold;
+}
+/* line 120, ../sass/typography.scss */
 .blog-post h2.maintitle {
   font-size: 2em;
   line-height: 1;
@@ -89,26 +99,22 @@ a.more {
   color: #2a2a2a;
   padding-top: 10px;
 }
-/* line 120, ../sass/typography.scss */
-.blog-post h1, .blog-post h2, .blog-post h3 {
-  text-align: left;
-  line-height: 2;
-}
-/* line 124, ../sass/typography.scss */
+/* line 128, ../sass/typography.scss */
 .blog-post h3 {
-  font-size: 1.35em;
+  font-size: 1.45em;
   font-weight: bold;
-  padding-bottom: 0.2em;
+  padding-bottom: 0.7em;
 }
 
-/* line 131, ../sass/typography.scss */
+/* line 135, ../sass/typography.scss */
 .blogsummary p a {
   padding-bottom: 1px;
   border-bottom: 1px solid #62656b;
 }
 
-/* line 136, ../sass/typography.scss */
-.blog h1 {
-  font-size: 2.8em;
-  line-height: 1.3em;
+/* line 141, ../sass/typography.scss */
+p.published {
+  color: #62656b;
+  font-size: 1.2em;
+  padding-top: 5px;
 }
