@@ -1,0 +1,66 @@
+/* Animations */
+
+
+@-webkit-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-moz-keyframes fade {
+    0% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+
+@-webkit-keyframes typing {
+    from { width: 100% }
+    to { width:0 }
+}
+
+@-webkit-keyframes opac {
+    99% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-moz-keyframes opac {
+    99% { opacity: 0 }
+    100% { opacity: 1 }
+}
+
+@-webkit-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: $dark}
+}
+
+@-moz-keyframes typing {
+    from { width: 100% }
+    to { width:0 }
+}
+
+@-moz-keyframes blink-caret {
+    from, to { border-color: $dark }
+    50% { border-color: transparent}
+}
+
+@-webkit-keyframes typing {
+    from { width: 0 }
+    to { width:630px; }
+}
+
+@-moz-keyframes typing {
+    from { width: 0 }
+    to { width:630px; }
+}
+
+@-webkit-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+@-moz-keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: black }
+}
+
+
+

@@ -1,0 +1,66 @@
+/* Typography */
+/* Colours */
+@font-face {
+  font-family: proxima;
+  src: url(../fonts/ProximaNova-Regular.otf);
+}
+@font-face {
+  font-family: proximalight;
+  src: url(../fonts/ProximaNova-Light.otf);
+}
+@font-face {
+  font-family: proximabold;
+  src: url(../fonts/ProximaNova-Bold.otf);
+}
+/* line 21, ../sass/typography.scss */
+h2 {
+  font-family: proxima;
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  color: #f66600;
+  text-transform: uppercase;
+}
+/* line 27, ../sass/typography.scss */
+h2 span {
+  font-family: proxima;
+  color: #2a2a2a;
+  font-size: 2em;
+  display: block;
+  margin-top: 5px;
+}
+
+/* line 36, ../sass/typography.scss */
+h3 {
+  font-size: 1.8em;
+  text-transform: uppercase;
+}
+/* line 39, ../sass/typography.scss */
+h3 span {
+  font-family: proxima;
+  color: #f66600;
+}
+
+/* line 47, ../sass/typography.scss */
+h1, h2, h3 {
+  text-align: center;
+  display: block;
+}
+
+/* line 78, ../sass/typography.scss */
+p, header p {
+  font-size: 1.35em;
+  line-height: 1.6;
+  font-family: proximalight;
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-bottom: 1.3em;
+}
+
+/* line 88, ../sass/typography.scss */
+header h3 {
+  font-family: proximalight;
+  -webkit-animation: fade 2.9s linear forwards;
+  -moz-animation: fade 2.9s linear forwards;
+  margin: 0px 0 20px 0;
+}

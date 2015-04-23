@@ -1,4 +1,11 @@
+/* Colours */
+
 $white: #ffffff;
 $dark: #2a2a2a;
 $orange: #f66600;
-$grey: #f9f9f8;
+// $grey: #f9f9f8;
+
+$blue: #16b1e0;
+$grey: #62656b;
+$light-grey: lighten($grey, 42%);
+$background-grey: lighten($grey, 58%);
