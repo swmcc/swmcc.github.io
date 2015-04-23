@@ -1,47 +1,34 @@
-# theonlystephen.com 
+# theonlystephen.com
 
-**theonlystephen·**  */ˈtheˌonlystephen/*
+Personal website of Stephen McCullough
 
-*Noun:*  
-A developer from Belfast.
-=======
-[ ![Codeship Status for swmcc/swmcc.github.io](https://codeship.com/projects/51d870f0-8d0d-0132-ea50-7671d147512f/status?branch=master)](https://codeship.com/projects/60559)
+## Dependencies
 
-This is the source to my personal site - http://theonlystephen.com
+Here's what you need to run the website locally.
 
-![Screenshot](http://f.cl.ly/items/42082s231d1L353M2F22/Image%202015-02-02%20at%202.04.46%20pm.png "Screenshot")
+### Bundler
 
-*Synonyms:*	
-Star Wars Nerd.
+This will install all gems required to run the app.
 
-![APP](URL "APP")
+    gem install bundler
+    cd swmcc.github.io
+    bundle install
 
-## Description
-=======
-## Running locally
-	
-    - git clone https://github.com/swmcc/swmcc.github.io
-    - cd swmcc.github.io 
-    - make init 
-    - make run 
+### Run site locally
 
+This site is built on Jekyll. To run the site in your browser locally use:
 
-My personal site
+    jekyll serve
 
-## Development Info
+Note that Compass must be running when making changes to CSS, see below.
 
-```
-git clone https://github.com/swmcc/swmcc.github.io.git 
-cd swmcc.gitub.io 
-```
+Please refer to Jekyll's documentation for help with setting it up http://jekyllrb.com/docs/home/
 
-=======
-    - git push origin master
+### Compass
 
-## Creating a new blog entry
+To use sass, Compass is being used. Edit scss within sass folder, do not edit the css files directly. To install and watch scss files for changes:
 
-    - make newEntry # VIM snippet is then used - this just creates the file
+    gem install compass
+    compass install compass
+    compass watch
 
-## TODO 
-
-- [See Issues](https://github.com/swmcc/swmcc.github.io/issues)
