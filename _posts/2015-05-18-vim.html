@@ -1,0 +1,116 @@
+--- 
+type: post
+tags: workflow, vim, development 
+published: true
+title: vim 
+layout: post
+status: publish
+---
+<p><a href="http://tosbourn.com/">Toby</a> said something on <a href="http://www.twitter.com">twitter</a> that I found interesting.</p>
+<p>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/tosbourn">@tosbourn</a> why? that makes no sense ;) you&#39;ll be back again... we will welcome you with open arms when you do.</p>&mdash; Stephen (@swmcc) <a href="https://twitter.com/swmcc/status/600294869454725120">May 18, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+<p>I've played about with other editors, the big three in my opinion are <a href="http://www.sublimetext.com/">sublime</a>, <a href="https://macromates.com/">Textmate</a> and <a href="https://atom.io/">atom</a>. I've used them all on and off. Surprisingly I've never taken to any of them and after a few days/weeks I've reverted back to <a href="http://www.vim.org">vim</a>.</p>
+<p>I started using vim back in 2000 when the sys admin of my first job refused to install <a href="http://en.wikipedia.org/wiki/Pico_%28text_editor%29">pico</a>. However it is really only the last few months that I've started to use vim 'properly' and I use the word 'properly' very loosely.</p>
+<p>
+<blockquote class="twitter-tweet" lang="en"><p lang="en" dir="ltr"><a href="https://twitter.com/tosbourn">@tosbourn</a> fuck it - am gonna blog on that tonight on how I use vim.. it&#39;ll fill a day&#39;s commit :)</p>&mdash; Stephen (@swmcc) <a href="https://twitter.com/swmcc/status/600296998672179200">May 18, 2015</a></blockquote>
+<script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+</p>
+<p>Lately I am developing in <a href="https://www.python.org/">python</a> or <a href="https://www.ruby-lang.org/en/">ruby</a>. Luckily great progress has been made in getting the most of out of vim with the likes of <a href="http://vimcasts.org/">vimcasts</a> and the excellent work done by <a href="https://github.com/tpope">Tim Pope</a>. If you use ruby there are lots of <a href="https://github.com/vim-ruby/vim-ruby">plugins</a> in for vim. For python there isn't a real front runner like vim-ruby but if you look about there are lots of tutorials out there to aid you. A tutorial I highly recommend is <a href="http://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/">Learn-Vim-Progressively</a>.</p>
+<p>
+<img src="/img/vim.png">
+</p>
+<p>
+Learning how to use tabs and split screens has helped me immensely, if I remember correctly the default commands for moving around tabs and screens is awkward. So I remapped them and now I get around the tabs but hitting 't' to move forward in a tab and 'gT'. I don't use the 'Xgt' shortcuts though.<br /><br />
+<pre>
+" Getting used to tabs in vim
+map <C-S-[> gt
+map <C-S-]> gT
+map <C-1> 1gt
+map <C-2> 2gt
+map <C-3> 3gt
+map <C-4> 4gt
+
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>   
+nmap <silent> <c-j> :wincmd j<CR>  
+nmap <silent> <c-h> :wincmd h<CR> 
+nmap <silent> <c-l> :wincmd l<CR>
+</pre>
+<br /><br />
+</p>
+<p>Easy file navigation is essential for a good workflow. Luckily there is <a href="https://github.com/kien/ctrlp.vim">ctrlP</a> which gives you a fuzzy search interface. If you spend your time inside a framework like <a href="https://www.djangoproject.com/">Django</a> or <a href="http://rubyonrails.org/">Ruby on Rails</a> you can easily add shortcuts to edit commonly opened files. I have done this for a certain project I am working on but I never actually use it as the navigation for ctrlP is so handy. However to stop indexing of build data, database files etc a few options are needed to thin out the files.</p>
+<p>
+<pre>
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+set wildignore+=*/tmp/*,,*_site/*,*build/*,*venv*,*bin/*,*db/*,*.pyc,*node_module*,*dist/* 
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn|so|swp|zip|pyc)$'
+</pre>  
+</p>
+
+<p>Add this to the tabs and splits and the workflow is starting to get quite interesting. Keeping inside vim is deadly important though so I also use <a href="https://github.com/tpope/vim-fugitive">vim-fugitive</a> to keep inside the editor while I am commting to git. I also want as much information as possible to me on the info line so I have installed <a href="https://github.com/powerline/powerline">powerline</a> - this shows me the branch I am on, the encoding, file type, line number, character number and mode. The important thing is that I get this information at a glance.</p>
+
+<p>
+  <pre>
+  if !exists('g:airline_symbols')
+      let g:airline_symbols = {}
+  endif
+
+  " unicode symbols
+  let g:airline_left_sep = '»'
+  let g:airline_left_sep = '▶'
+  let g:airline_right_sep = '«'
+  let g:airline_right_sep = '◀'
+  let g:airline_symbols.linenr = '␊'
+  let g:airline_symbols.linenr = '␤'
+  let g:airline_symbols.linenr = '¶'
+  let g:airline_symbols.branch = '⎇'
+  let g:airline_symbols.paste = 'ρ'
+  let g:airline_symbols.paste = 'Þ'
+  let g:airline_symbols.paste = '∥'
+  let g:airline_symbols.whitespace = 'Ξ' 
+ </pre>
+</p>
+
+<p>I don't think there are many other plugins that I use on a day to day basis. On my old laptop I used the <a href="https://github.com/honza/vim-snippets">snippets</a> plugin a bit however four weeks into this new work laptop and I haven't used it. After this I use config commands to aid me.</p>
+<p>
+This simply puts the spacing and tabs to be four if it is a python file and for everything else is two. 
+</p>
+<p>
+<pre>
+" everything else at 2 but python at 4
+set smartindent
+autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
+autocmd FileType python set sw=4 sts=4 et
+</pre>
+</p>
+<p>
+To aid in easy shifting of text I added this helper. I can't remember where I stole it from though, pretty sure I'm not smart enough to come up with this on my own.
+</p>  
+<pre>
+" Shortcut for indentation while inside visual mode
+vnoremap < <gv
+vnoremap > >gv 
+</pre>
+</p>
+<p>I really need to keep inside vim for my productivity up. If I want to make notes on what I am working on I simply add them to a scratchpad file I keep in my home directory by hitting ',e'. I tried using an actual scratchpad but this seems to have gained more favour with me.</p>
+<p>
+<pre>
+map ,e :tabnew ~/Dropbox/notes.txt<CR>
+</pre>
+</p>
+<p>
+A few handy things I have is having are remaping the esc key to 'jk'. Actually that was a pain to type in so I might have to remap that. Also trailing spaces are hateful so if the python file I am in has any then get rid of them. Also I try and stick to 80 characters as a max line length. If I go over I want a red background on the cell on the line that is over. I prefer this than a default ruler.</p>
+<p>
+<pre>
+autocmd BufWritePre *.py :%s/\s\+$//e
+
+inoremap jk <Esc> 
+
+highlight ColourColumn ctermbg=red
+call matchadd('ColourColumn', '\%81v', 100)
+</pre>
+</p>
+<p>The nicest thing I do I think is remaping ',t'. Which I move to running whatever test I am currently in.</p>
+<p>So, that is it. That's what I am doing with vim so far and I have no want to try anything else at the minute.</p>
