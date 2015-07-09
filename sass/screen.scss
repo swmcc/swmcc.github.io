@@ -1,6 +1,12 @@
-@import "reset";
-@import "typography";
-@import "base";
-@import "animations";
+@charset "utf-8";
+
+@import "base/_normalize";
+@import "base/_typography";
+@import "base/_main";
+
+@import "utils/_variables";
+@import "utils/_mixins";
+
+
 
 
