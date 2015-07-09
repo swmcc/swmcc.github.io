@@ -403,14 +403,29 @@ br {
   margin: 1em;
 }
 
-/* line 4, ../sass/base/_main.scss */
-body {
-  font-size: 22px;
-  font-family: 'proxima';
-}
-
+/**
+ * Main
+ */
 /* Colours */
 /* Set site colours */
+/* Typography */
+/* line 7, ../sass/base/_typography.scss */
+body {
+  font-size: 22px;
+  font-family: "aktiv-grotesk", helvetica, arial, sans-serif;
+}
+
+/* line 12, ../sass/base/_typography.scss */
+h1, h2, h3 {
+  font-family: "semplicitapro", helvetica, arial, sans-serif;
+}
+
+/**
+ * Main
+ */
+/* Colours */
+/* Set site colours */
+/* Typography */
 /* Mixins */
 /*
 ==============
