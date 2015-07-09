@@ -105,14 +105,37 @@ a.more {
   font-weight: bold;
   padding-bottom: 0.7em;
 }
+/* line 133, ../sass/typography.scss */
+.blog-post h4 {
+  font-size: 1.35em;
+  font-weight: bold;
+  padding-bottom: 0.7em;
+}
 
-/* line 135, ../sass/typography.scss */
+/* line 140, ../sass/typography.scss */
+.blog-post ul li {
+  font-size: 1.2em;
+  line-height: 1.6;
+  font-family: proximalight;
+  padding-bottom: 5px;
+}
+/* line 145, ../sass/typography.scss */
+.blog-post ul li a {
+  border-bottom: 1px solid #16b1e0;
+  padding-bottom: 1px;
+}
+/* line 148, ../sass/typography.scss */
+.blog-post ul li a:hover {
+  color: #16b1e0;
+}
+
+/* line 154, ../sass/typography.scss */
 .blogsummary p a {
   padding-bottom: 1px;
   border-bottom: 1px solid #62656b;
 }
 
-/* line 141, ../sass/typography.scss */
+/* line 160, ../sass/typography.scss */
 p.published {
   color: #62656b;
   font-size: 1.2em;
