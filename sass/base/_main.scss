@@ -2,3 +2,20 @@
  * Main
  */
 
+@import "../utils/_variables";
+@import "../utils/_mixins";
+
+header{
+  background-color: $royal-blue;
+  height: 670px;
+}
+
+.container{
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+.general-section{
+  padding: 5% 0;
+}

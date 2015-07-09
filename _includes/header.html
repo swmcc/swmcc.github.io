@@ -1,12 +1,18 @@
 <header>
-  <nav>
-    <div class="nav-items">
-      <h1><a href="/">SWMCC</a></h1>
-      <ul class="homenav">
-        <li><a href="{{ site.baseurl }}/" {% if page.selected == "home" %}class="active"{% endif %}>Home</a></li>
-        <li><a href="{{ site.baseurl }}/blog" {% if page.selected == "blog" %}class="active"{% endif %}>Blog</a></li>
-        <li><a href="mailto:someone@example.com?Subject=Hello%20again" target="_top">Contact</a></li>
-      </ul>
+  <div class="container">
+    <nav>
+      <div class="nav-items">
+        <h1><a href="/">SWMCC</a></h1>
+        <ul class="homenav">
+          <li><a href="{{ site.baseurl }}/" {% if page.selected == "home" %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{{ site.baseurl }}/work" {% if page.selected == "work" %}class="active"{% endif %}>Work</a></li>
+          <li><a href="{{ site.baseurl }}/blog" {% if page.selected == "blog" %}class="active"{% endif %}>Blog</a></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="tagline">
+      <h1>Breathing since 1979, building the internet since 2000. </h1>
+      <h2>Broke it yesterday</h2>
     </div>
-  </nav>
+  </div>
 </header>

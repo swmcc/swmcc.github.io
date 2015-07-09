@@ -416,8 +416,36 @@ body {
 }
 
 /* line 12, ../sass/base/_typography.scss */
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: "semplicitapro", helvetica, arial, sans-serif;
+  line-height: 1.4em;
+}
+
+/* line 17, ../sass/base/_typography.scss */
+h1 {
+  font-size: 55px;
+  color: #ffffff;
+  font-weight: 300;
+}
+
+/* line 23, ../sass/base/_typography.scss */
+h2 {
+  font-size: 48px;
+}
+
+/* line 27, ../sass/base/_typography.scss */
+.tagline h2 {
+  color: #EE6C2E;
+  font-size: 40px;
+  font-weight: 300;
+  padding: 20px 0;
+}
+
+/* line 34, ../sass/base/_typography.scss */
+p {
+  color: #48505A;
+  padding-bottom: 1.5em;
+  line-height: 1.4em;
 }
 
 /**
@@ -463,3 +491,99 @@ Multi browser support for placeholder attribute
 USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
 
 */
+/* line 8, ../sass/base/_main.scss */
+header {
+  background-color: #1A4298;
+  height: 670px;
+}
+
+/* line 13, ../sass/base/_main.scss */
+.container {
+  max-width: 1280px;
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* line 19, ../sass/base/_main.scss */
+.general-section {
+  padding: 5% 0;
+}
+
+/* Colours */
+/* Set site colours */
+/* Typography */
+/* Mixins */
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+/**
+ * Home Page
+ */
+/* line 5, ../sass/pages/_homepage.scss */
+.tagline {
+  width: 60%;
+  max-width: 920px;
+  position: absolute;
+  bottom: 60px;
+}
+
+/* line 12, ../sass/pages/_homepage.scss */
+header {
+  position: relative;
+}
+
+/* line 16, ../sass/pages/_homepage.scss */
+#homepage .about-me p {
+  width: 70%;
+  max-width: 1000px;
+}
+
+/**
+ * Navigation
+ */
+/* line 5, ../sass/components/_nav.scss */
+nav ul li {
+  display: inline;
+}
+
+/* line 9, ../sass/components/_nav.scss */
+nav ul li a {
+  color: #ffffff;
+}
+/* line 11, ../sass/components/_nav.scss */
+nav ul li a:hover, nav ul li a:active, nav ul li a.active {
+  color: #EE6C2E;
+}

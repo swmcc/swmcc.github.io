@@ -1,0 +1,14 @@
+/**
+ * Navigation
+ */
+
+ nav ul li{
+  display: inline;
+ }
+
+ nav ul li a{
+  color: $white;
+  &:hover, &:active, &.active{
+    color: $burnt-orange;
+  }
+ }
