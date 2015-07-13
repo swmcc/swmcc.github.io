@@ -17,3 +17,33 @@ header{
   width: 70%;
   max-width: 1000px;
  }
+
+header{
+  @include bg-cover;
+  background-image: url("../img/homepage/swmcc-pattern-bg.jpg");
+ }
+
+section.blog-post-section, section.work-example-section{
+  position: relative;
+ }
+
+.block-colour{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 543px;
+  background: $royal-blue;
+  z-index: 0;
+}
+
+section.blog-post-section .block-colour{
+  background: $dark-grey;
+}
+
+
+
+#homepage h2{
+  color: $white;
+  padding: 90px 0 40px 0;
+}

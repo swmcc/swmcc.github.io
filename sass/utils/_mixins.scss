@@ -102,3 +102,33 @@ USAGE: @include placeholder($black); // Makes the placeholder coloured black as 
   -o-transition: all 0.75s ease;
   transition: all 0.75s ease;
 }
+
+
+/*
+==============
+Other
+==============
+*/
+
+@mixin bg-cover {
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  background-position: top right;
+}
+
+
+@mixin button{
+  background-color: $burnt-orange;
+  padding: 11px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: $white;
+  font-size: 19px;
+  &:hover{
+    background: darken($burnt-orange, 8%);
+  }
+}
+
+
+

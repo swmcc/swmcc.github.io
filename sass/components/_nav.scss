@@ -2,13 +2,52 @@
  * Navigation
  */
 
- nav ul li{
-  display: inline;
+
+nav{
+  position: relative;
+  padding: 30px 0;
+}
+
+a.logo{
+  font-family: $title-font-family;
+  font-size:19px;
+  letter-spacing: 1.5px;
+  font-weight: 300;
+  color: $white;
+  text-decoration: none;
+  position: absolute;
+  left: 0;
+  span{
+    font-weight: 500;
+  }
+}
+
+a.nav-twitter{
+  color: $white;
+  position: absolute;
+  right: 0;
+}
+
+ nav ul, nav ul li, nav a{
+  display: inline-block;
  }
 
- nav ul li a{
+ ul.homenav {
+  position: absolute;
+  left: 40%;
+    a{
+    text-transform: uppercase;
+    font-size: 17px;
+    letter-spacing: 2px;
+    text-decoration: none;
+    padding: 0 13px;
+   }
+}
+
+ nav a{
   color: $white;
   &:hover, &:active, &.active{
     color: $burnt-orange;
   }
  }
+
