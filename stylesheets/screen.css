@@ -518,26 +518,29 @@ h1 {
 
 /* line 25, ../sass/base/_typography.scss */
 h2 {
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 300;
+  padding: 90px 0 50px 0;
+  color: #48505A;
 }
 
-/* line 30, ../sass/base/_typography.scss */
+/* line 32, ../sass/base/_typography.scss */
 h3, h3 a {
   font-size: 26px;
+  font-weight: bold;
 }
 
-/* line 34, ../sass/base/_typography.scss */
+/* line 37, ../sass/base/_typography.scss */
 h3 a {
   color: #1A4298;
   text-decoration: none;
 }
-/* line 37, ../sass/base/_typography.scss */
+/* line 40, ../sass/base/_typography.scss */
 h3 a:hover {
   color: #EE6C2E;
 }
 
-/* line 42, ../sass/base/_typography.scss */
+/* line 45, ../sass/base/_typography.scss */
 .tagline h2 {
   color: #EE6C2E;
   font-size: 40px;
@@ -545,26 +548,26 @@ h3 a:hover {
   padding: 20px 0;
 }
 
-/* line 49, ../sass/base/_typography.scss */
+/* line 52, ../sass/base/_typography.scss */
 p {
   color: #48505A;
   padding-bottom: 1.5em;
   line-height: 1.5em;
 }
 
-/* line 55, ../sass/base/_typography.scss */
+/* line 59, ../sass/base/_typography.scss */
 p a {
   color: #48505A;
   padding-bottom: 1px;
   border-bottom: 1px solid #EE6C2E;
   text-decoration: none;
 }
-/* line 60, ../sass/base/_typography.scss */
+/* line 64, ../sass/base/_typography.scss */
 p a:hover {
   color: #EE6C2E;
 }
 
-/* line 65, ../sass/base/_typography.scss */
+/* line 69, ../sass/base/_typography.scss */
 a.button {
   background-color: #EE6C2E;
   padding: 11px 24px;
@@ -578,23 +581,36 @@ a.button:hover {
   background: #e15512;
 }
 
-/* line 69, ../sass/base/_typography.scss */
+/* line 73, ../sass/base/_typography.scss */
 .text p {
   font-size: 17px;
   line-height: 1.4em;
   padding-bottom: 20px;
 }
 
-/* line 76, ../sass/base/_typography.scss */
+/* line 78, ../sass/base/_typography.scss */
 .text h3 {
   padding-bottom: 10px;
 }
 
-/* line 80, ../sass/base/_typography.scss */
+/* line 82, ../sass/base/_typography.scss */
 p.meta {
   color: #B0B0B0;
   font-size: 16px;
   padding: 0;
+}
+
+/* line 88, ../sass/base/_typography.scss */
+a.read-more {
+  font-size: 19px;
+  text-decoration: none;
+  color: #48505A;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #EE6C2E;
+}
+/* line 94, ../sass/base/_typography.scss */
+a.read-more:hover {
+  color: #EE6C2E;
 }
 
 /**
@@ -651,23 +667,29 @@ body {
 }
 
 /* line 13, ../sass/base/_main.scss */
+* {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+
+/* line 18, ../sass/base/_main.scss */
 header {
   height: 670px;
 }
 
-/* line 18, ../sass/base/_main.scss */
+/* line 23, ../sass/base/_main.scss */
 .container {
   max-width: 1280px;
   width: 90%;
   margin: 0 auto;
 }
 
-/* line 24, ../sass/base/_main.scss */
+/* line 29, ../sass/base/_main.scss */
 .general-section {
   padding: 5% 0;
 }
 
-/* line 29, ../sass/base/_main.scss */
+/* line 34, ../sass/base/_main.scss */
 .work-example, .blog-post {
   z-index: 100;
   position: relative;
@@ -676,7 +698,7 @@ header {
   border: 1px solid #B6B6B6;
   margin-bottom: 40px;
 }
-/* line 36, ../sass/base/_main.scss */
+/* line 41, ../sass/base/_main.scss */
 .work-example .featured-image, .blog-post .featured-image {
   width: 100%;
   height: 350px;
@@ -685,23 +707,38 @@ header {
   display: block;
   background-position: top right;
 }
-/* line 41, ../sass/base/_main.scss */
+/* line 46, ../sass/base/_main.scss */
 .work-example .text, .blog-post .text {
   background: #ffffff;
-  padding: 15px 35px 35px 35px;
+  padding: 15px 35px 45px 35px;
 }
-/* line 44, ../sass/base/_main.scss */
+/* line 49, ../sass/base/_main.scss */
 .work-example .text h3, .blog-post .text h3 {
   clear: both;
 }
-/* line 47, ../sass/base/_main.scss */
+/* line 52, ../sass/base/_main.scss */
 .work-example .text .meta, .blog-post .text .meta {
   float: right;
 }
 
-/* line 53, ../sass/base/_main.scss */
-.work-example:first-of-type, .blog-post:first-of-type {
+/* line 58, ../sass/base/_main.scss */
+li.work-example:nth-child(odd), li.blog-post:nth-child(odd) {
   margin-right: 3%;
+}
+
+/* line 62, ../sass/base/_main.scss */
+.see-more-div {
+  display: block;
+  margin: 20px 0 90px 0;
+}
+/* line 15, ../sass/utils/_mixins.scss */
+.see-more-div:before, .see-more-div:after {
+  content: "";
+  display: table;
+}
+/* line 20, ../sass/utils/_mixins.scss */
+.see-more-div:after {
+  clear: both;
 }
 
 /**
@@ -726,21 +763,12 @@ header {
   max-width: 1000px;
 }
 
-/* line 21, ../sass/pages/_homepage.scss */
-header {
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: block;
-  background-position: top right;
-  background-image: url("../img/homepage/swmcc-pattern-bg.jpg");
-}
-
-/* line 26, ../sass/pages/_homepage.scss */
+/* line 22, ../sass/pages/_homepage.scss */
 section.blog-post-section, section.work-example-section {
   position: relative;
 }
 
-/* line 30, ../sass/pages/_homepage.scss */
+/* line 26, ../sass/pages/_homepage.scss */
 .block-colour {
   position: absolute;
   top: 0;
@@ -751,27 +779,260 @@ section.blog-post-section, section.work-example-section {
   z-index: 0;
 }
 
-/* line 40, ../sass/pages/_homepage.scss */
+/* line 36, ../sass/pages/_homepage.scss */
 section.blog-post-section .block-colour {
   background: #24282D;
 }
 
-/* line 46, ../sass/pages/_homepage.scss */
+/* line 40, ../sass/pages/_homepage.scss */
 #homepage h2 {
   color: #ffffff;
   padding: 90px 0 40px 0;
 }
 
 /**
+ * Blog Post
+ */
+/* Colours */
+/* Set site colours */
+/* Typography */
+/* Mixins */
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+/*
+==============
+Other
+==============
+*/
+/* line 8, ../sass/pages/_blog.scss */
+.overlay {
+  background: rgba(0, 0, 0, 0.35);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+/* line 17, ../sass/pages/_blog.scss */
+.blog-post-title, .page-title {
+  width: 60%;
+  max-width: 920px;
+  position: absolute;
+  bottom: 60px;
+}
+
+/* line 24, ../sass/pages/_blog.scss */
+.post-content, .recent-posts-section ul {
+  width: 70%;
+  max-width: 840px;
+  margin: 0 auto;
+}
+
+/* line 30, ../sass/pages/_blog.scss */
+.recent-posts-section {
+  width: 100%;
+  background: #1A4298;
+  padding: 60px 0;
+  color: #ffffff;
+}
+
+/* line 38, ../sass/pages/_blog.scss */
+.recent-posts-section ul a {
+  color: #ffffff;
+  padding-bottom: 1px;
+  border-bottom: 1px solid #ffffff;
+}
+
+/* line 44, ../sass/pages/_blog.scss */
+.recent-posts-section h3, .recent-posts-section p {
+  display: inline-block;
+}
+
+/**
+ * Work Page
+ */
+/* Colours */
+/* Set site colours */
+/* Typography */
+/* Mixins */
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+/*
+==============
+Other
+==============
+*/
+/* line 8, ../sass/pages/_work.scss */
+.more-projects ul li {
+  width: 33%;
+  display: inline-block;
+  padding-right: 40px;
+  margin-bottom: 25px;
+}
+
+/* line 15, ../sass/pages/_work.scss */
+.more-projects h2 {
+  padding: 50px 0 50px 0;
+}
+
+/* line 19, ../sass/pages/_work.scss */
+.more-projects h3 a {
+  color: #48505A;
+  padding-bottom: 1px;
+  border-bottom: 2px solid #EE6C2E;
+}
+
+/* line 25, ../sass/pages/_work.scss */
+.more-projects li p {
+  font-size: 17px;
+  line-height: 1.4em;
+  padding-bottom: 20px;
+  margin: 15px 0 0 0;
+}
+
+/* line 30, ../sass/pages/_work.scss */
+section.recent-talks-section {
+  position: relative;
+}
+
+/* line 34, ../sass/pages/_work.scss */
+section.recent-talks-section .block-colour {
+  background: #1A4298;
+  z-index: 0;
+  height: 390px;
+}
+
+/* line 40, ../sass/pages/_work.scss */
+section.recent-talks-section h2 {
+  color: #ffffff;
+}
+
+/* line 44, ../sass/pages/_work.scss */
+section.recent-talks-section ul li {
+  background: #ffffff;
+  border: solid 1px #B6B6B6;
+  width: 30%;
+  z-index: 100;
+  position: relative;
+  float: left;
+  padding: 45px 35px;
+  min-height: 350px;
+}
+/* line 53, ../sass/pages/_work.scss */
+section.recent-talks-section ul li h3 {
+  padding-bottom: 10px;
+}
+/* line 56, ../sass/pages/_work.scss */
+section.recent-talks-section ul li p {
+  font-size: 17px;
+  line-height: 1.4em;
+  padding-bottom: 20px;
+}
+/* line 59, ../sass/pages/_work.scss */
+section.recent-talks-section ul li.middle {
+  margin: 0 3%;
+}
+
+/* line 64, ../sass/pages/_work.scss */
+section.recent-talks-section ul li p.meta {
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+/* line 69, ../sass/pages/_work.scss */
+section.recent-talks-section ul li .read-more {
+  position: absolute;
+  bottom: 45px;
+}
+
+/**
  * Navigation
  */
 /* line 6, ../sass/components/_nav.scss */
+header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  background-position: top right;
+  background-color: #1A4298;
+}
+
+/* line 12, ../sass/components/_nav.scss */
 nav {
   position: relative;
   padding: 30px 0;
 }
 
-/* line 11, ../sass/components/_nav.scss */
+/* line 17, ../sass/components/_nav.scss */
 a.logo {
   font-family: "semplicitapro", helvetica, arial, sans-serif;
   font-size: 19px;
@@ -782,29 +1043,29 @@ a.logo {
   position: absolute;
   left: 0;
 }
-/* line 20, ../sass/components/_nav.scss */
+/* line 26, ../sass/components/_nav.scss */
 a.logo span {
   font-weight: 500;
 }
 
-/* line 25, ../sass/components/_nav.scss */
+/* line 31, ../sass/components/_nav.scss */
 a.nav-twitter {
   color: #ffffff;
   position: absolute;
   right: 0;
 }
 
-/* line 31, ../sass/components/_nav.scss */
+/* line 37, ../sass/components/_nav.scss */
 nav ul, nav ul li, nav a {
   display: inline-block;
 }
 
-/* line 35, ../sass/components/_nav.scss */
+/* line 41, ../sass/components/_nav.scss */
 ul.homenav {
   position: absolute;
   left: 40%;
 }
-/* line 38, ../sass/components/_nav.scss */
+/* line 44, ../sass/components/_nav.scss */
 ul.homenav a {
   text-transform: uppercase;
   font-size: 17px;
@@ -813,11 +1074,11 @@ ul.homenav a {
   padding: 0 13px;
 }
 
-/* line 47, ../sass/components/_nav.scss */
+/* line 53, ../sass/components/_nav.scss */
 nav a {
   color: #ffffff;
 }
-/* line 49, ../sass/components/_nav.scss */
+/* line 55, ../sass/components/_nav.scss */
 nav a:hover, nav a:active, nav a.active {
   color: #EE6C2E;
 }

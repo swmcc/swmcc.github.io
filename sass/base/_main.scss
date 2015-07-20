@@ -10,6 +10,11 @@ body{
   z-index: 100;
 }
 
+*{
+   box-sizing: border-box;
+   -moz-box-sizing:border-box
+}
+
 header{
   // background-color: $royal-blue;
   height: 670px;
@@ -40,7 +45,7 @@ header{
   }
   .text{
     background: $white;
-    padding: 15px 35px 35px 35px;
+    padding: 15px 35px 45px 35px;
     h3{
       clear: both;
     }
@@ -50,7 +55,13 @@ header{
   }
 }
 
-.work-example:first-of-type, .blog-post:first-of-type {
+li.work-example:nth-child(odd), li.blog-post:nth-child(odd) {
   margin-right: 3%;
+}
+
+.see-more-div{
+  display: block;
+  margin: 20px 0 90px 0;
+  @include clearfix;
 }
 

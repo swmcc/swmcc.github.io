@@ -1,19 +1,18 @@
-<header>
+
+<header
+  {% if page.selected == "home" %}
+    style="background-image: url('/img/homepage/swmcc-pattern-bg.jpg');"
+  {% endif %} >
   <div class="container">
-    <nav>
-      <div class="nav-items">
-        <a class="logo" href="/">SW<span>MCC</span></a>
-        <ul class="homenav">
-          <li><a href="{{ site.baseurl }}/" {% if page.selected == "home" %}class="active"{% endif %}>Home</a></li>
-          <li><a href="{{ site.baseurl }}/work" {% if page.selected == "work" %}class="active"{% endif %}>Work</a></li>
-          <li><a href="{{ site.baseurl }}/blog" {% if page.selected == "blog" %}class="active"{% endif %}>Blog</a></li>
-        </ul>
-      </div>
-      <a class="nav-twitter" href="{{ site.twitter }}"><i class="fa fa-twitter"></i></a>
-    </nav>
+      {% include nav.html %}
     <div class="tagline">
-      <h1>Breathing since 1979, building the internet since 2000. </h1>
-      <h2>Broke it yesterday</h2>
+      {% if page.selected == "home" %}
+        <h1>Breathing since 1979, building the internet since 2000. </h1>
+        <h2>Broke it yesterday</h2>
+      {% else %}
+         <h1>{{ page.title }}</h1>
+      {% endif %}
+
     </div>
   </div>
 </header>

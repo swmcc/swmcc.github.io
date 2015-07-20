@@ -1,49 +1,29 @@
 ---
-layout: default
+layout: blog_index
 is_index: true
 page: blog
 selected: blog
+title: Blog Posts
 ---
 
-<!-- 	<main>
-		<h1>WELCOME TO MY BLOG WHERE I DOCUMENT MY RAMBLINGS, MUSINGS AND WORK RELATED STORIES</h1>
-		{% for post in site.posts limit:page.max_portfolio_list %}
-		<article>
-			<aside>{{ post.date | date: "%d" }}<span>{{ post.date | date: "%b" }}</span></aside>
-				<div>
-				    <h2 class="maintitle">{{ post.title }}</h2>
-				    <p>{{ post.excerpt }}</p>
-				</div>
-				<a class="more" href="{{ post.url }}">Read More</a>
-		</article>
-		{% endfor %}
-	</main>
-	<section class="sidebar" style="display:none;">
-		<h2>Categories</h2>
-{% assign tags_list = page.tags %}
-{% if tags_list.first[0] == null %}
-  <ul>
-  {% for tag in tags_list %}
-   <li>{{ tag }} <span>({{ site.tags[tag].size }})</span></li>
-  {% endfor %}
-  </ul>
-{% endif %}
-	</section> -->
-
-
-
-  <section id="single-blog-post" class="container">
-    <h1>Blog</h1>
-    {% for post in site.posts limit:page.max_portfolio_list %}
-    <article class="blog-post">
-      <!-- <h1>{{ page.title }}</h1>
-     -->
-      <h1><a href="{{ post.url }}">{{ post.title }}</a></h1>
-      <p class="published">Published on {{ post.date | date: "%b" }}</p>
-      <p>{{ post.content | strip_html | truncatewords:28}}</p>
-      <a class="more" href="{{ post.url }}">Read More</a>
-    </article>
-    {% endfor %}
+  <section class="blog-post-section">
+    <div class="container">
+      <ul>
+      {% for post in site.posts %}
+        <li class="blog-post">
+          <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
+          <div class="text">
+            <p class="meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+            <p>{{ post.content | strip_html | truncatewords: 22}}</p>
+            <a class="read-more" href="{{ post.url }}">Read More</a>
+          </div>
+        </li>
+      {% endfor %}
+      </ul>
+      <div class="see-more-div">
+        <a href="#" class="button">See more posts</a>
+      </div>
+    </div>
   </section>
-
 

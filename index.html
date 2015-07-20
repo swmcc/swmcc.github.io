@@ -16,8 +16,9 @@ selected: home
     <div class="block-colour"></div>
     <div class="container">
       <h2>Latest Posts</h2>
+      <ul>
       {% for post in site.posts limit:2 %}
-        <article class="blog-post">
+        <li class="blog-post">
           <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
           <div class="text">
             <p class="meta">{{ post.date | date: "%b %-d, %Y" }}</p>
@@ -25,11 +26,12 @@ selected: home
             <p>{{ post.content | strip_html | truncatewords:17}}</p>
             <a class="read-more" href="{{ post.url }}">Read More</a>
           </div>
-        </article>
+        </li>
       {% endfor %}
-      <article>
+     </ul>
+      <div class="see-more-div">
         <a href="#" class="button">See more posts</a>
-      </article>
+      </div>
     </div>
   </section>
 
@@ -37,27 +39,29 @@ selected: home
     <div class="block-colour"></div>
     <div class="container">
       <h2>Featured Work</h2>
-        <article class="work-example">
-          <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-          <div class="text">
-            <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-            <h3><a href="#">TVListings App</a></h3>
-            <p>A service I use to take XML information and parse it into a DB.</p>
-            <a class="read-more" href="#">Learn More</a>
-          </div>
-        </article>
-         <article class="work-example">
-          <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-          <div class="text">
-            <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-            <h3><a href="#">Nestoria</a></h3>
-            <p>An opinionated wrapper for the Nestoria API written in python.</p>
-            <a class="read-more" href="#">Learn More</a>
-          </div>
-        </article>
-        <article>
+        <ul>
+          <li class="work-example">
+            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
+            <div class="text">
+              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
+              <h3><a href="#">TVListings App</a></h3>
+              <p>A service I use to take XML information and parse it into a DB.</p>
+              <a class="read-more" href="#">Learn More</a>
+            </div>
+          </li>
+           <li class="work-example">
+            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
+            <div class="text">
+              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
+              <h3><a href="#">Nestoria</a></h3>
+              <p>An opinionated wrapper for the Nestoria API written in python.</p>
+              <a class="read-more" href="#">Learn More</a>
+            </div>
+          </li>
+        </ul>
+        <div class="see-more-div">
           <a href="#" class="button">View more work</a>
-        </article>
+        </div>
       </div>
   </section>
 

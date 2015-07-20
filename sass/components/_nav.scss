@@ -3,6 +3,12 @@
  */
 
 
+header{
+  @include bg-cover;
+  background-color: $royal-blue;
+  // background-image: url("../img/homepage/swmcc-pattern-bg.jpg");
+ }
+
 nav{
   position: relative;
   padding: 30px 0;

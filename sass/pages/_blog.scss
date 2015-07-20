@@ -1,0 +1,47 @@
+/**
+ * Blog Post
+ */
+
+ @import "../utils/_variables";
+@import "../utils/_mixins";
+
+ .overlay{
+  background: rgba(0,0,0,0.35);
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+ }
+
+ .blog-post-title, .page-title{
+  width: 60%;
+  max-width: 920px;
+  position: absolute;
+  bottom: 60px;
+ }
+
+ .post-content, .recent-posts-section ul{
+  width: 70%;
+  max-width: 840px;
+  margin: 0 auto;
+ }
+
+ .recent-posts-section {
+  width: 100%;
+  background: $royal-blue;
+  padding: 60px 0;
+  color: $white;
+ }
+
+
+ .recent-posts-section ul a{
+  color: $white;
+  padding-bottom: 1px;
+  border-bottom: 1px solid $white;
+ }
+
+ .recent-posts-section h3,  .recent-posts-section p{
+  display: inline-block;
+ }
+

@@ -1,0 +1,79 @@
+/**
+ * Work Page
+ */
+
+@import "../utils/_variables";
+@import "../utils/_mixins";
+
+.more-projects ul li{
+  width: 33%;
+  display: inline-block;
+  padding-right: 40px;
+  margin-bottom: 25px;
+}
+
+.more-projects h2{
+  padding: 50px 0 50px 0;
+}
+
+.more-projects h3 a{
+  color: $body-text;
+  padding-bottom: 1px;
+  border-bottom: 2px solid $burnt-orange;
+}
+
+.more-projects li p{
+  @include small-text;
+  margin: 15px 0 0 0;
+}
+
+section.recent-talks-section{
+  position: relative;
+ }
+
+section.recent-talks-section .block-colour{
+  background: $royal-blue;
+  z-index: 0;
+  height: 390px;
+}
+
+section.recent-talks-section h2{
+  color: $white;
+}
+
+section.recent-talks-section ul li{
+  background: $white;
+  border: solid 1px $border-grey;
+  width: 30%;
+  z-index: 100;
+  position: relative;
+  float: left;
+  padding: 45px 35px;
+  min-height: 350px;
+  h3{
+    padding-bottom: 10px;
+  }
+  p{
+    @include small-text;
+  }
+  &.middle{
+    margin: 0 3%;
+  }
+}
+
+section.recent-talks-section ul li p.meta{
+  padding-bottom: 8px;
+  text-transform: uppercase;
+}
+
+section.recent-talks-section ul li .read-more{
+  position: absolute;
+  bottom: 45px;
+}
+
+
+
+
+
+
+

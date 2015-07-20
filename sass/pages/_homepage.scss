@@ -18,10 +18,6 @@ header{
   max-width: 1000px;
  }
 
-header{
-  @include bg-cover;
-  background-image: url("../img/homepage/swmcc-pattern-bg.jpg");
- }
 
 section.blog-post-section, section.work-example-section{
   position: relative;
@@ -40,8 +36,6 @@ section.blog-post-section, section.work-example-section{
 section.blog-post-section .block-colour{
   background: $dark-grey;
 }
-
-
 
 #homepage h2{
   color: $white;

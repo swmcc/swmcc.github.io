@@ -23,12 +23,15 @@ h1{
 }
 
 h2{
-  font-size: 44px;
+  font-size: 40px;
   font-weight: 300;
+  padding: 90px 0 50px 0;
+  color: $body-text;
 }
 
 h3, h3 a{
   font-size: 26px;
+  font-weight: bold;
 }
 
 h3 a{
@@ -52,6 +55,7 @@ p{
   line-height: 1.5em;
 }
 
+
 p a{
   color: $grey;
   padding-bottom: 1px;
@@ -67,9 +71,7 @@ a.button{
 }
 
 .text p{
-  font-size: 17px;
-  line-height: 1.4em;
-  padding-bottom: 20px;
+  @include small-text;
 
 }
 
@@ -83,5 +85,15 @@ p.meta{
   padding: 0;
 }
 
+a.read-more{
+  font-size: 19px;
+  text-decoration: none;
+  color: $grey;
+  padding-bottom: 1px;
+  border-bottom: 1px solid $burnt-orange;
+  &:hover{
+    color: $burnt-orange;
+  }
+}
 
 

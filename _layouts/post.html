@@ -1,12 +1,46 @@
 ---
-layout: default
+<!-- layout: default -->
 selected: blog
 ---
-<section id="single-blog-post" class="container">
-<article class="blog-post">
-	<h1>{{ page.title }}</h1>
-	<p class="published">Published on {{ page.date | date_to_string }} </p>
-	{{ content }}
-</article>
-</section>
+
+<!DOCTYPE html>
+<html>
+  {% include head.html %}
+  <body>
+    <header style="background-image: url('{{ page.image }}');" >
+      <div class="overlay"></div>
+      <div class="container">
+          {% include nav.html %}
+        <div class="tagline">
+          <h1>{{ page.title }}</h1>
+        </div>
+      </div>
+    </header>
+
+    <section id="single-blog-post" class="container">
+      <article class="post-content">
+        <p class="published">Published on {{ page.date | date_to_string }} </p>
+        {{ content }}
+      </article>
+    </section>
+    <section class="recent-posts-section">
+      <div class="container">
+        <ul>
+          <h2>Recent Posts</h2>
+        {% for post in site.posts limit:5 %}
+          <li>
+            <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+            <p class="meta">{{ post.date | date: "%b %-d, %Y" }}</p>
+          </li>
+        {% endfor %}
+        </ul>
+      </div>
+    </section>
+    {% include footer.html %}
+  </body>
+</html>
+
+
+
+
 

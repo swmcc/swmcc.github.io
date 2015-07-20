@@ -4,7 +4,7 @@ permalink: /blog/:year/:month/:day/:title
 paginate: 10
 max_blog_list: 5
 name: Stephen
-baseurl: ""
+baseurl: "http://127.0.0.1:4000"
 exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
 
 twitter: https://twitter.com/swmcc
