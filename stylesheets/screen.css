@@ -613,6 +613,33 @@ a.read-more:hover {
   color: #EE6C2E;
 }
 
+/* line 99, ../sass/base/_typography.scss */
+.twitter-button {
+  background-color: #ffffff;
+  padding: 11px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: #1A4298;
+  font-size: 19px;
+  border: 1px solid #1A4298;
+}
+/* line 141, ../sass/utils/_mixins.scss */
+.twitter-button:hover {
+  background: #1A4298;
+  color: #ffffff;
+}
+/* line 144, ../sass/utils/_mixins.scss */
+.twitter-button:hover i {
+  color: #ffffff;
+}
+/* line 148, ../sass/utils/_mixins.scss */
+.twitter-button i {
+  color: #1A4298;
+  padding-right: 10px;
+  font-size: 22px;
+  transform: translate(0, 1px);
+}
+
 /**
  * Main
  */
@@ -856,31 +883,74 @@ Other
   bottom: 60px;
 }
 
-/* line 24, ../sass/pages/_blog.scss */
-.post-content, .recent-posts-section ul {
+/* line 25, ../sass/pages/_blog.scss */
+.post-content {
+  padding: 110px 0 50px 0;
+}
+
+/* line 29, ../sass/pages/_blog.scss */
+.post-meta {
+  padding: 0 0 110px 0;
+}
+
+/* line 33, ../sass/pages/_blog.scss */
+.post-content, .post-meta, .recent-posts-section ul {
   width: 70%;
   max-width: 840px;
   margin: 0 auto;
 }
 
-/* line 30, ../sass/pages/_blog.scss */
+/* line 39, ../sass/pages/_blog.scss */
 .recent-posts-section {
   width: 100%;
   background: #1A4298;
-  padding: 60px 0;
+  padding: 110px 0;
   color: #ffffff;
 }
 
-/* line 38, ../sass/pages/_blog.scss */
+/* line 46, ../sass/pages/_blog.scss */
+.recent-posts-section h2 {
+  color: #ffffff;
+  padding: 0 0 50px 0;
+  font-weight: 300;
+}
+
+/* line 52, ../sass/pages/_blog.scss */
 .recent-posts-section ul a {
   color: #ffffff;
   padding-bottom: 1px;
   border-bottom: 1px solid #ffffff;
 }
 
-/* line 44, ../sass/pages/_blog.scss */
+/* line 58, ../sass/pages/_blog.scss */
+.recent-posts-section li {
+  padding-bottom: 15px;
+}
+/* line 60, ../sass/pages/_blog.scss */
+.recent-posts-section li h3 a {
+  font-weight: normal;
+}
+/* line 63, ../sass/pages/_blog.scss */
+.recent-posts-section li .meta {
+  padding-left: 10px;
+}
+
+/* line 68, ../sass/pages/_blog.scss */
 .recent-posts-section h3, .recent-posts-section p {
   display: inline-block;
+}
+
+/* line 72, ../sass/pages/_blog.scss */
+hr {
+  color: #B0B0B0;
+  background-color: #B0B0B0;
+}
+
+/* line 77, ../sass/pages/_blog.scss */
+.button-container {
+  display: block;
+  width: 100%;
+  padding: 20px 0 90px 0;
 }
 
 /**
@@ -1120,4 +1190,80 @@ footer ul li a:hover {
   display: block;
   font-size: 14px;
   padding: 10px 0 0 0;
+}
+
+/**
+ * Code Snippets
+ */
+/* Colours */
+/* Set site colours */
+/* Typography */
+/* Mixins */
+/*
+==============
+Clearfix
+==============
+CSS only clearfix mixin to prevent clearfix class.
+
+USAGE: @include clearfix(); // Clears div to intended pre-float height.
+
+*/
+/*
+==============
+Icons
+==============
+Creates a background image with an icon of your choice and sizing of your choice.
+
+USAGE: @include icon(search, 40px); // Gives the search icon at a 40px size.
+
+*/
+/*
+==============
+Transition
+==============
+Adds one line transitions.
+
+USAGE: @include transition(0.5s ease-out); // Gives the elemtent a 0.5 transition easing out.
+
+*/
+/*
+==============
+Placeholder
+==============
+Multi browser support for placeholder attribute
+
+USAGE: @include placeholder($black); // Makes the placeholder coloured black as per _basecolours.sass
+
+*/
+/*
+==============
+Other
+==============
+*/
+/* line 8, ../sass/components/_code.scss */
+pre {
+  white-space: pre-wrap;
+  /* css-3 */
+  white-space: -moz-pre-wrap;
+  /* Mozilla, since 1999 */
+  white-space: -pre-wrap;
+  /* Opera 4-6 */
+  white-space: -o-pre-wrap;
+  /* Opera 7 */
+  word-wrap: break-word;
+  /* Internet Explorer 5.5+ */
+}
+
+/* line 16, ../sass/components/_code.scss */
+pre {
+  font-size: .75em;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  margin: 0 0 5% 0;
+  padding: 1.17647em;
+  line-height: 1.4;
+  color: #1A4298;
+  border-radius: 5px;
+  background: #f7f7f7;
 }

@@ -130,6 +130,29 @@ Other
   }
 }
 
+@mixin twitter-button{
+  background-color: $white;
+  padding: 11px 24px;
+  border-radius: 5px;
+  text-decoration: none;
+  color: $royal-blue;
+  font-size: 19px;
+  border: 1px solid $royal-blue;
+  &:hover{
+    background: $royal-blue;
+    color: $white;
+    i{
+      color: $white;
+    }
+  }
+  i{
+    color: $royal-blue;
+    padding-right: 10px;
+    font-size: 22px;
+    transform: translate(0,1px);
+  }
+}
+
 @mixin small-text{
    font-size: 17px;
   line-height: 1.4em;

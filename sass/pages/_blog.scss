@@ -2,7 +2,7 @@
  * Blog Post
  */
 
- @import "../utils/_variables";
+@import "../utils/_variables";
 @import "../utils/_mixins";
 
  .overlay{
@@ -21,7 +21,16 @@
   bottom: 60px;
  }
 
- .post-content, .recent-posts-section ul{
+
+.post-content{
+  padding: 110px 0 50px 0;
+}
+
+.post-meta{
+  padding: 0 0 110px 0;
+}
+
+ .post-content, .post-meta, .recent-posts-section ul{
   width: 70%;
   max-width: 840px;
   margin: 0 auto;
@@ -30,10 +39,15 @@
  .recent-posts-section {
   width: 100%;
   background: $royal-blue;
-  padding: 60px 0;
+  padding: 110px 0;
   color: $white;
  }
 
+.recent-posts-section h2{
+  color: $white;
+  padding: 0 0 50px 0;
+  font-weight: 300;
+}
 
  .recent-posts-section ul a{
   color: $white;
@@ -41,7 +55,28 @@
   border-bottom: 1px solid $white;
  }
 
+ .recent-posts-section li{
+  padding-bottom: 15px;
+  h3 a{
+    font-weight: normal;
+  }
+  .meta{
+    padding-left: 10px;
+  }
+ }
+
  .recent-posts-section h3,  .recent-posts-section p{
   display: inline-block;
+ }
+
+ hr {
+  color: $light-grey;
+  background-color: $light-grey;
+ }
+
+ .button-container{
+  display: block;
+  width: 100%;
+  padding: 20px 0 90px 0;
  }
 
