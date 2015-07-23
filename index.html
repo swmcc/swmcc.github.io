@@ -30,8 +30,8 @@ selected: home
         </li>
       {% endfor %}
      </ul>
-      <div class="see-more-div">
-        <a href="#" class="button">See more posts</a>
+      <div class="button-container">
+        <a href="{{ site.baseurl }}/blog/" class="button">See more posts</a>
       </div>
     </div>
   </section>
@@ -45,9 +45,9 @@ selected: home
             <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
             <div class="text">
               <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="#">TVListings App</a></h3>
+              <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">TVListings App</a></h3>
               <p>A service I use to take XML information and parse it into a DB.</p>
-              <a class="read-more" href="#">Learn More</a>
+              <a class="read-more" href="{{ site.baseurl }}/work/tvlistingsapp.html">Learn More</a>
             </div>
           </li>
            <li class="work-example">
@@ -60,7 +60,7 @@ selected: home
             </div>
           </li>
         </ul>
-        <div class="see-more-div">
+        <div class="button-container">
           <a href="#" class="button">View more work</a>
         </div>
       </div>

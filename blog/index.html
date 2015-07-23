@@ -5,9 +5,11 @@ page: blog
 selected: blog
 title: Blog Posts
 ---
-
+<main id="blog-index">
   <section class="blog-post-section">
     <div class="container">
+      <a href="#" class="read-more">Show Categories <i class="fa fa-angle-down"></i></a>
+      <hr />
       <ul>
       {% for post in site.posts %}
         <li class="blog-post">
@@ -22,8 +24,9 @@ title: Blog Posts
       {% endfor %}
       </ul>
       <div class="see-more-div">
-        <a href="#" class="button">See more posts</a>
+        <a href="" class="button">See more posts</a>
       </div>
     </div>
   </section>
+</main>
 
