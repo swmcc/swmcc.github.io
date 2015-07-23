@@ -1,6 +1,4 @@
-# Jekyll
 permalink: /blog/:year/:month/:day/:title
-# permalink: /blog/:title/
 paginate: 10
 max_blog_list: 5
 name: Stephen
@@ -10,4 +8,4 @@ exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README
 twitter: https://twitter.com/swmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
 github: https://github.com/swmcc
-email: stephen@sixdegreelabs.com
+email: stephen@skillfulgorilla.com 
