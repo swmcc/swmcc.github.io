@@ -1,0 +1,140 @@
+/* Responsify */
+
+
+
+@media only screen and (min-width: 1700px) {
+
+
+
+
+
+
+}
+
+
+
+@media only screen and (max-width: 1100px) {
+
+  .tagline{
+    width: 90%;
+  }
+
+    .work-example .featured-image, .blog-post .featured-image{
+    height: 250px;
+  }
+
+  .more-projects ul li{
+    width: 50%;
+  }
+
+}
+
+
+
+
+@media only screen and (max-width: 960px) {
+
+  .tagline{
+    width: 90%;
+  }
+
+  #homepage .about-me p{
+    width: 90%;
+  }
+
+  header{
+    height: 550px;
+  }
+
+  .work-example .featured-image, .blog-post .featured-image{
+    height: 200px;
+  }
+
+  .block-colour{
+    height: 400px;
+  }
+
+}
+
+
+
+
+@media only screen and (max-width: 850px) {
+
+  header{
+    height: 500px;
+  }
+
+  h1{
+    font-size: 42px;
+  }
+
+  .post-content, .post-meta, .recent-posts-section ul{
+    width: 100%;
+  }
+
+    #homepage .about-me p{
+    width: 100%;
+  }
+
+  .work-example, .blog-post{
+    width: 100%;
+  }
+
+
+
+
+
+}
+
+
+@media only screen and (max-width: 520px) {
+
+   header{
+    height: 350px;
+  }
+
+  .tagline{
+    bottom: 30px;
+  }
+
+  h1{
+    font-size: 38px;
+  }
+
+  .post-content, .post-meta, .recent-posts-section ul{
+    width: 100%;
+  }
+
+  .post-content {
+    padding: 40px 0 40px 0;
+  }
+
+  .recent-posts-section{
+    padding:50px 0;
+  }
+
+  h2{
+    font-size: 32px;
+    padding: 0 0 30px 0;
+  }
+
+  h3, h3 a {
+    font-size: 22px;
+  }
+
+  .more-projects ul li{
+    width: 100%;
+  }
+
+  section.recent-talks-section ul li{
+    min-height: none;
+    margin-bottom: 5%;
+    width: 100%;
+  }
+
+ section.recent-talks-section ul li .read-more{
+  position: relative;
+  }
+
+}

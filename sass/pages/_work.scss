@@ -5,6 +5,10 @@
 @import "../utils/_variables";
 @import "../utils/_mixins";
 
+.more-projects ul {
+  padding-bottom: 60px;
+}
+
 .more-projects ul li{
   width: 33%;
   display: inline-block;
@@ -20,6 +24,9 @@
   color: $body-text;
   padding-bottom: 1px;
   border-bottom: 2px solid $burnt-orange;
+  &:hover{
+    color: $burnt-orange;
+  }
 }
 
 .more-projects li p{
