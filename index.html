@@ -41,7 +41,7 @@ selected: home
       <h2>Featured Work</h2>
         <ul>
           {% for post in site.posts %}
-            {% if post.work_article && post.is_featured %}
+            {% if post.work_article and post.featured %}
               <li class="work-example">
                 <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
                 <div class="text">
