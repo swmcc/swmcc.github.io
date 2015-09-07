@@ -11,42 +11,20 @@ title: My Work
     <div class="container">
       <h2>Featured Projects</h2>
          <ul>
-          <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">TVListings App</a></h3>
-              <p>A service I use to take XML information and parse it into a DB.</p>
-              <a class="read-more" href="#">Learn More</a>
-            </div>
-          </li>
-          <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="#">Nestoria</a></h3>
-              <p>An opinionated wrapper for the Nestoria API written in python.</p>
-              <a class="read-more" href="#">Learn More</a>
-            </div>
-          </li>
-          <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="{{ site.baseurl }}/work/tvlistingsapp">TVListings App</a></h3>
-              <p>A service I use to take XML information and parse it into a DB.</p>
-              <a class="read-more" href="{{ site.baseurl }}/work/tvlistingsapp">Learn More</a>
-            </div>
-          </li>
-           <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="#">Nestoria</a></h3>
-              <p>An opinionated wrapper for the Nestoria API written in python.</p>
-              <a class="read-more" href="#">Learn More</a>
-            </div>
-          </li>
+
+          {% for post in site.posts %}
+            {% if post.work_article and post.is_work_featured %}
+              <li class="work-example">
+                <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
+                <div class="text">
+                  <p class="meta">{% for post_tag in post.tech %}{{ post_tag }} {% endfor %}</p>
+                  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                  <p>{{ post.content | strip_html | truncatewords:17}}</p>
+                  <a class="read-more" href="{{ post.url }}">Learn More</a>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
       </div>
   </section>
@@ -56,28 +34,24 @@ title: My Work
       <h2>More Projects</h2>
         <ul>
           <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3><a href="#">Haig Club Media</a></h3>
+            <p>An asset library for David Beckham's launch of Haig Club.</p>
           </li>
           <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3><a href="#">Bushmills Asset Library</a></h3>
+            <p>An asset library built for the Bushmills distillery.</p>
           </li>
           <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3><a href="#">Diageo Menu Maker</a></h3>
+            <p>A flexible and intuitive mobile app for Diageo.</p>
           </li>
           <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3><a href="#">SkillfulGorilla</a></h3>
+            <p>My 'startup'. Take ideas in, digest, apps come out.. Apparently!</p>
           </li>
           <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </li>
-          <li>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h3><a href="#">theonlystephen.com</a></h3>
+            <p>This site. How it is built, maintained and extended. Exciting stuff!</p>
           </li>
         </ul>
     </div>
@@ -90,25 +64,25 @@ title: My Work
         <ul>
           <li>
             <p class="meta">Talk</p>
-            <h3><a href="#">A Brief Intro to Neo4j</a></h3>
-            <p>This is a talk I gave to Belfast Ruby on the 4th of June 2013. A very basic introduction to neo4j.</p>
-            <a href="#" class="read-more">View on Speakerdeck</a>
+            <h3><a href="http://www.theonlystephen.com/talk-lifeoutsiderails/">Life outside Rails</a></h3>
+            <p>A talk I gave to Belfast Ruby on the 6th May 2014.</p>
+            <a href="https://speakerdeck.com/swmcc/life-outside-rails" class="read-more">View on Speakerdeck</a>
           </li>
           <li class="middle">
             <p class="meta">Talk</p>
-            <h3><a href="#">Giants Are Made By Standing</a></h3>
+            <h3><a href="http://www.theonlystephen.com/talk-giants-are-made-from-standing-on-the-shoulders-of-dwarves....lots-of-them/#/">Giants Are Made By Standing</a></h3>
             <p>Good systems and developers can be built on using lots of small 'apps' or 'processes'.</p>
-            <a href="#" class="read-more">Fork on GitHub</a>
+            <a href="https://speakerdeck.com/swmcc/giants-are-made-by-standing-on-the-shoulders-of-dwarves-dot-dot-dot-lots-of-them-1" class="read-more">View on Speakerdeck</a>
           </li>
           <li>
             <p class="meta">Talk</p>
-            <h3><a href="#">Project Name</a></h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            <a href="#" class="read-more">View on Speakerdeck</a>
+            <h3><a href="https://speakerdeck.com/swmcc/a-brief-intro-to-neo4j-using-the-wire-as-a-data-set">A Brief Intro to Neo4j</a></h3>
+            <p>This is a talk I gave to Belfast Ruby on the 4th of June 2013. A very basic introduction to neo4j.</p>
+            <a href="https://speakerdeck.com/swmcc/a-brief-intro-to-neo4j-using-the-wire-as-a-data-set" class="read-more">View on Speakerdeck</a>
           </li>
         </ul>
         <div class="button-container">
-          <a href="#" class="button">View more work</a>
+          <a href="https://speakerdeck.com/swmcc" class="button">View more talks</a>
         </div>
       </div>
   </section>

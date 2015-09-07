@@ -1,11 +1,12 @@
-permalink: /blog/:year/:month/:day/:title
-paginate: 10
-max_blog_list: 5
-name: Stephen
+permalink: /:title
+paginate_path: "/blog/page:num"
+paginate: 8
 baseurl: ""
-exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
 
+name: Stephen
 twitter: https://twitter.com/swmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
 github: https://github.com/swmcc
-email: stephen@skillfulgorilla.com 
+email: me@theonlystephen.com
+
+exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]

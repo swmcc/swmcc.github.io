@@ -1,17 +1,22 @@
 {
-    "name" : "theonlystephen.com", 
-    "description" : "homepage",
-    "homepage" : "http://theonlystephen.com",
-    "author" : {
-        "name" : "Stephen",
-        "url" : "http://theonlystephen.com"
-    },
-    "repository" : {
-        "type" : "git",
-        "url" : "https://github.com/swmcc/swmcc.github.io.git"
-    },
-    "devDependencies" : { 
-      "mocha": ">= 1.18.x",
-      "js-yaml": ">= 3.0.2" 
-    }
+  "name": "theonlystephen.com",
+  "description": "homepage",
+  "homepage": "http://theonlystephen.com",
+  "author": {
+    "name": "Stephen",
+    "url": "http://theonlystephen.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/swmcc/swmcc.github.io.git"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-image-resize": "^0.6.0",
+    "gulp-install": "^0.4.0",
+    "gulp-param": "^0.6.3",
+    "gulp-task-listing": "^1.0.1",
+    "js-yaml": ">= 3.0.2",
+    "mocha": ">= 1.18.x"
+  }
 }

@@ -7,8 +7,8 @@ selected: home
 <main id="homepage">
   <section class="general-section about-me">
     <div class="container">
-      <p>My name is Stephen and I am a software engineer from Belfast currently working at Missioniq. I use Python, Ruby and Javascript on a daily basis. The only true editor is Vim. Oh and i really, really hate meetings.</p>
-      <p>Find out more about me: <a href="#">Download my CV</a>.</p>
+      <p>My name is Stephen and I am a software engineer from Belfast currently working at <a href="http://missioniq.com">MissionIQ</a>. I use Python, Ruby and Javascript on a daily basis. The only true editor is Vim. Oh and I really, really hate meetings.</p>
+      <p>Find out more about me: <a href="/cv.pdf">Download my CV</a>.</p>
     </div>
   </section>
 
@@ -19,7 +19,6 @@ selected: home
       <ul>
       {% for post in site.posts limit:2 %}
         <li class="blog-post">
-          <!-- <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div> -->
           <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
           <div class="text">
             <p class="meta">{{ post.date | date: "%b %-d, %Y" }}</p>
@@ -41,27 +40,22 @@ selected: home
     <div class="container">
       <h2>Featured Work</h2>
         <ul>
-          <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">TVListings App</a></h3>
-              <p>A service I use to take XML information and parse it into a DB.</p>
-              <a class="read-more" href="{{ site.baseurl }}/work/tvlistingsapp.html">Learn More</a>
-            </div>
-          </li>
-           <li class="work-example">
-            <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="#">Nestoria</a></h3>
-              <p>An opinionated wrapper for the Nestoria API written in python.</p>
-              <a class="read-more" href="#">Learn More</a>
-            </div>
-          </li>
+          {% for post in site.posts %}
+            {% if post.work_article and post.featured %}
+              <li class="work-example">
+                <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
+                <div class="text">
+                  <p class="meta">{% for post_tag in post.tech %}{{ post_tag }} {% endfor %}</p>
+                  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                  <p>{{ post.content | strip_html | truncatewords:17}}</p>
+                  <a class="read-more" href="{{ post.url }}">Learn More</a>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
         <div class="button-container">
-          <a href="#" class="button">View more work</a>
+          <a href="work/" class="button">View more work</a>
         </div>
       </div>
   </section>
