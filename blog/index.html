@@ -11,7 +11,7 @@ title: Blog Posts
       <a href="#" class="read-more">Show Categories <i class="fa fa-angle-down"></i></a>
       <hr />
       <ul>
-      {% for post in site.posts %}
+      {% for post in paginator.posts %}
         <li class="blog-post">
         <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
           <div class="text">

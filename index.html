@@ -19,7 +19,6 @@ selected: home
       <ul>
       {% for post in site.posts limit:2 %}
         <li class="blog-post">
-          <!-- <div class="featured-image" style="background-image: url(../img/blog/blog-1.jpg);"></div> -->
           <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
           <div class="text">
             <p class="meta">{{ post.date | date: "%b %-d, %Y" }}</p>
