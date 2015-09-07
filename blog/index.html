@@ -24,7 +24,13 @@ title: Blog Posts
       {% endfor %}
       </ul>
       <div class="see-more-div">
-        <a href="" class="button">See more posts</a>
+        {% if paginator.previous_page %}
+          <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a> |
+        {% endif %}
+
+        {% if paginator.next_page %}
+          <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+        {% endif %}
       </div>
     </div>
   </section>
