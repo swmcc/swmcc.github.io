@@ -46,7 +46,7 @@ selected: home
                 <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
                 <div class="text">
                   <p class="meta">{% for post_tag in post.tech %}{{ post_tag }} {% endfor %}</p>
-                  <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">{{ post.title }}</a></h3>
+                  <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
                   <p>{{ post.content | strip_html | truncatewords:17}}</p>
                   <a class="read-more" href="{{ post.url }}">Learn More</a>
                 </div>

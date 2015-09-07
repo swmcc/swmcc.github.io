@@ -1,4 +1,4 @@
-permalink: /blog/:year/:month/:day/:title
+permalink: /:title
 paginate_path: "/blog/page:num"
 paginate: 8
 baseurl: ""
