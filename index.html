@@ -40,24 +40,19 @@ selected: home
     <div class="container">
       <h2>Featured Work</h2>
         <ul>
-          <li class="work-example">
-            <div class="featured-image" style="background-image: url(/img/blog/tv.png);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">whatisonthe.tv</a></h3>
-              <p>A service I use to take XML information and parse it into a DB.</p>
-              <a class="read-more" href="{{ site.baseurl }}/work/tvlistingsapp.html">Learn More</a>
-            </div>
-          </li>
-           <li class="work-example">
-            <div class="featured-image" style="background-image: url(/img/blog/nestoria.png);"></div>
-            <div class="text">
-              <p class="meta">updated {{ post.date | date: "%b %-d, %Y" }}</p>
-              <h3><a href="#">Nestoria</a></h3>
-              <p>An opinionated wrapper for the Nestoria API written in python.</p>
-              <a class="read-more" href="#">Learn More</a>
-            </div>
-          </li>
+          {% for post in site.posts %}
+            {% if post.work_article && post.is_featured %}
+              <li class="work-example">
+                <div class="featured-image" style="background-image: url({{ post.image-small }});"></div>
+                <div class="text">
+                  <p class="meta">{% for post_tag in post.tech %}{{ post_tag }} {% endfor %}</p>
+                  <h3><a href="{{ site.baseurl }}/work/tvlistingsapp.html">{{ post.title }}</a></h3>
+                  <p>{{ post.content | strip_html | truncatewords:17}}</p>
+                  <a class="read-more" href="{{ post.url }}">Learn More</a>
+                </div>
+              </li>
+            {% endif %}
+          {% endfor %}
         </ul>
         <div class="button-container">
           <a href="work/" class="button">View more work</a>
