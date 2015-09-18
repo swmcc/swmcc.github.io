@@ -7,8 +7,8 @@ gulp.task('help', taskListing)
 gulp.task('blog_list_image', function (filename) {
   gulp.src(filename)
     .pipe(imageResize({ 
-      width : 340,
-      height : 680,
+      width : 680,
+      height : 340,
       crop : false,
       upscale : false
     }))
