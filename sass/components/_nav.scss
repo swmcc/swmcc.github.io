@@ -6,7 +6,6 @@
 header{
   @include bg-cover;
   background-color: $royal-blue;
-  // background-image: url("../img/homepage/swmcc-pattern-bg.jpg");
  }
 
 nav{
@@ -56,4 +55,83 @@ a.nav-twitter{
     color: $burnt-orange;
   }
  }
+
+
+
+
+nav ul li a.email:hover, a.hamburger:hover {
+  &:hover{
+    color: $white;
+    border: none;
+  }
+  &.active{
+    border: none;
+  }
+}
+
+a.hamburger{
+  display: none;
+  float: right;
+  padding: 25px 15px 0 0;
+  color: $white;
+  &.active{
+    border: none;
+  }
+}
+
+ #mobile-menu {
+  display: none;
+  position: fixed;
+  background: $royal-blue;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.mobile-menu-relative{
+  position: relative;
+}
+
+
+#mobile-menu ul {
+  width: 100%;
+  li {
+  font-family: $title-font-family;
+  display: block;
+  padding: 12px 0;
+  &:first-child{
+    padding-top: 50px;
+    }
+  a{
+  display: block;
+  text-align: left;
+  color: $white;
+  font-size: 30px;
+  margin: 0;
+  text-decoration: none;
+  &:hover{
+    border: none;
+    color: $burnt-orange;
+    }
+  &.active{
+    border: none;
+    }
+  }
+ }
+}
+
+
+a.close-menu {
+  color: $white;
+}
+
+li.close-icon{
+  position: absolute;
+  top: 4px;
+  right: 35px;
+}
+
 

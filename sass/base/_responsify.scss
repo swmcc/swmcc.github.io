@@ -59,7 +59,7 @@
   }
 
   .work-example .featured-image, .blog-post .featured-image{
-    height: 200px;
+    height: 250px;
   }
 
   .block-colour{
@@ -75,6 +75,10 @@
 
   header{
     height: 500px;
+  }
+
+  ul.homenav{
+    left: 34%;
   }
 
   h1{
@@ -113,6 +117,7 @@ section.recent-talks-section ul li .inner{
 
    header{
     height: 350px;
+    // background-image: url("../img/homepage/swmcc-pattern-bg-mobile.jpg");
   }
 
   .tagline{
@@ -125,6 +130,10 @@ section.recent-talks-section ul li .inner{
 
   .post-content, .post-meta, .recent-posts-section ul{
     width: 100%;
+  }
+
+  .work-example .featured-image, .blog-post .featured-image{
+    height: 210px;
   }
 
   .post-content {
@@ -149,12 +158,16 @@ section.recent-talks-section ul li .inner{
   }
 
   header{
-    height: 360px;
+    height: 290px;
   }
 
   .tagline h2, .tagline h1{
     font-size: 33px;
     padding-bottom: 0;
+  }
+
+  .tagline h2{
+    padding: 5px 0;
   }
 
   .general-section {
@@ -171,6 +184,21 @@ section.recent-talks-section ul li .inner{
 
   section.recent-talks-section .block-colour{
   height: 230px;
+  }
+
+   a.hamburger{
+  display: block;
+  }
+
+   nav.menu{
+    display: none;
+   }
+
+  a.nav-twitter {
+    color: #ffffff;
+    position: static;
+    padding-top: 10px;
+    font-size: 30px;
   }
 
 }

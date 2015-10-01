@@ -23,7 +23,9 @@ selected: blog
       </article>
       <article class="post-meta">
         <div class="button-container">
-          <a href="#" class="twitter-button"><i class="fa fa-twitter"></i>Share Post</a>
+          <!-- <a href="#" class="twitter-button"><i class="fa fa-twitter"></i>Share Post</a> -->
+          <a href="https://twitter.com/share" class="twitter-share-button" data-via="swmcc" data-size="large" data-count="none">Share on Twitter</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </div>
          <p class="published meta">Published on {{ page.date | date_to_string }} </p>
          <hr />

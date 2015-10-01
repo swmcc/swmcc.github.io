@@ -1,4 +1,4 @@
-<nav>
+<nav class="menu">
   <div class="nav-items">
     <a href="{{ site.baseurl }}" class="logo">SW<span>MCC</span></a>
     <ul class="homenav">
@@ -9,3 +9,22 @@
   </div>
   <a class="nav-twitter" href="{{ site.twitter }}"><i class="fa fa-twitter"></i></a>
 </nav>
+
+<a href="#" class="hamburger" id="hamburger" title="view full menu">
+    <i class="fa fa-bars"></i>
+  </a>
+
+
+ <nav id="mobile-menu" class="mobile-menu-relative">
+    <ul>
+     <li><a href="{{ site.baseurl }}/" {% if page.selected == "home" %}class="active"{% endif %}>Home</a></li>
+      <li><a href="{{ site.baseurl }}/work" {% if page.selected == "work" %}class="active"{% endif %}>Work</a></li>
+      <li><a href="{{ site.baseurl }}/blog" {% if page.selected == "blog" %}class="active"{% endif %}>Blog</a></li>
+      <a class="nav-twitter" href="{{ site.twitter }}"><i class="fa fa-twitter"></i>
+      <li class="close-icon">
+        <a href="#" class="close-menu" id="close-menu" title="close menu">
+          <i class="fa fa-times"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
