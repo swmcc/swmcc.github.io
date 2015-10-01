@@ -60,7 +60,7 @@ p, .post-content{
 }
 
 
-p a{
+p a, .post-content a{
   color: $grey;
   padding-bottom: 1px;
   border-bottom: 1px solid $burnt-orange;
@@ -107,6 +107,10 @@ a.read-more{
 
 .twitter-button{
   @include twitter-button;
+}
+
+a.previous{
+  margin-right: 5px;
 }
 
 

@@ -561,14 +561,14 @@ p, .post-content {
 }
 
 /* line 63, ../sass/base/_typography.scss */
-p a {
+p a, .post-content a {
   color: #48505A;
   padding-bottom: 1px;
   border-bottom: 1px solid #EE6C2E;
   text-decoration: none;
 }
 /* line 68, ../sass/base/_typography.scss */
-p a:hover {
+p a:hover, .post-content a:hover {
   color: #EE6C2E;
 }
 
@@ -649,6 +649,11 @@ a.read-more:hover {
   padding-right: 10px;
   font-size: 22px;
   transform: translate(0, 1px);
+}
+
+/* line 112, ../sass/base/_typography.scss */
+a.previous {
+  margin-right: 5px;
 }
 
 /**
@@ -993,6 +998,7 @@ hr {
   display: block;
   padding: 10px 0 20px 0;
   margin: 0 auto;
+  width: 100%;
 }
 
 /**
@@ -1348,115 +1354,159 @@ pre {
   .more-projects ul li {
     width: 50%;
   }
+
+  /* line 30, ../sass/base/_responsify.scss */
+  section.recent-talks-section ul li {
+    width: 100%;
+    padding-right: 0;
+    margin-bottom: 25px;
+    display: block;
+  }
+
+  /* line 37, ../sass/base/_responsify.scss */
+  .recent-talks-section ul li .inner {
+    min-height: 200px;
+  }
 }
 @media only screen and (max-width: 960px) {
-  /* line 37, ../sass/base/_responsify.scss */
+  /* line 49, ../sass/base/_responsify.scss */
   .tagline {
     width: 90%;
   }
 
-  /* line 41, ../sass/base/_responsify.scss */
+  /* line 53, ../sass/base/_responsify.scss */
   #homepage .about-me p {
     width: 90%;
   }
 
-  /* line 45, ../sass/base/_responsify.scss */
+  /* line 57, ../sass/base/_responsify.scss */
   header {
     height: 550px;
   }
 
-  /* line 49, ../sass/base/_responsify.scss */
+  /* line 61, ../sass/base/_responsify.scss */
   .work-example .featured-image, .blog-post .featured-image {
     height: 200px;
   }
 
-  /* line 53, ../sass/base/_responsify.scss */
+  /* line 65, ../sass/base/_responsify.scss */
   .block-colour {
     height: 400px;
   }
 }
 @media only screen and (max-width: 850px) {
-  /* line 64, ../sass/base/_responsify.scss */
+  /* line 76, ../sass/base/_responsify.scss */
   header {
     height: 500px;
   }
 
-  /* line 68, ../sass/base/_responsify.scss */
+  /* line 80, ../sass/base/_responsify.scss */
   h1 {
     font-size: 42px;
   }
 
-  /* line 72, ../sass/base/_responsify.scss */
+  /* line 84, ../sass/base/_responsify.scss */
   .post-content, .post-meta, .recent-posts-section ul {
     width: 100%;
   }
 
-  /* line 76, ../sass/base/_responsify.scss */
+  /* line 88, ../sass/base/_responsify.scss */
   #homepage .about-me p {
     width: 100%;
   }
 
-  /* line 80, ../sass/base/_responsify.scss */
+  /* line 92, ../sass/base/_responsify.scss */
   .work-example, .blog-post {
     width: 100%;
   }
+
+  /* line 96, ../sass/base/_responsify.scss */
+  section.recent-talks-section ul li .inner {
+    margin-bottom: 5%;
+    width: 100%;
+    min-height: 150px;
+  }
+
+  /* line 103, ../sass/base/_responsify.scss */
+  section.recent-talks-section ul li .read-more {
+    position: static;
+  }
 }
 @media only screen and (max-width: 520px) {
-  /* line 93, ../sass/base/_responsify.scss */
+  /* line 114, ../sass/base/_responsify.scss */
   header {
     height: 350px;
   }
 
-  /* line 97, ../sass/base/_responsify.scss */
+  /* line 118, ../sass/base/_responsify.scss */
   .tagline {
     bottom: 30px;
   }
 
-  /* line 101, ../sass/base/_responsify.scss */
+  /* line 122, ../sass/base/_responsify.scss */
   h1 {
     font-size: 38px;
   }
 
-  /* line 105, ../sass/base/_responsify.scss */
+  /* line 126, ../sass/base/_responsify.scss */
   .post-content, .post-meta, .recent-posts-section ul {
     width: 100%;
   }
 
-  /* line 109, ../sass/base/_responsify.scss */
+  /* line 130, ../sass/base/_responsify.scss */
   .post-content {
     padding: 40px 0 40px 0;
   }
 
-  /* line 113, ../sass/base/_responsify.scss */
+  /* line 134, ../sass/base/_responsify.scss */
   .recent-posts-section {
     padding: 50px 0;
   }
 
-  /* line 117, ../sass/base/_responsify.scss */
+  /* line 138, ../sass/base/_responsify.scss */
   h2 {
     font-size: 32px;
     padding: 0 0 30px 0;
   }
 
-  /* line 122, ../sass/base/_responsify.scss */
+  /* line 143, ../sass/base/_responsify.scss */
   h3, h3 a {
     font-size: 22px;
   }
 
-  /* line 126, ../sass/base/_responsify.scss */
+  /* line 147, ../sass/base/_responsify.scss */
   .more-projects ul li {
     width: 100%;
   }
 
-  /* line 130, ../sass/base/_responsify.scss */
-  section.recent-talks-section ul li {
-    min-height: none;
-    margin-bottom: 5%;
-    width: 100%;
+  /* line 151, ../sass/base/_responsify.scss */
+  header {
+    height: 360px;
   }
 
-  /* line 136, ../sass/base/_responsify.scss */
-  section.recent-talks-section ul li .read-more {
-    position: relative;
+  /* line 155, ../sass/base/_responsify.scss */
+  .tagline h2, .tagline h1 {
+    font-size: 33px;
+    padding-bottom: 0;
+  }
+
+  /* line 160, ../sass/base/_responsify.scss */
+  .general-section {
+    padding: 10% 0;
+  }
+
+  /* line 164, ../sass/base/_responsify.scss */
+  #homepage h2, .recent-talks-section h2 {
+    padding: 50px 0 30px 0;
+  }
+
+  /* line 168, ../sass/base/_responsify.scss */
+  section.blog-post-section, section.work-example-section {
+    padding-top: 40px;
+  }
+
+  /* line 172, ../sass/base/_responsify.scss */
+  section.recent-talks-section .block-colour {
+    height: 230px;
   }
 }

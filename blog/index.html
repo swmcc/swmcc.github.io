@@ -8,8 +8,8 @@ title: Blog Posts
 <main id="blog-index">
   <section class="blog-post-section">
     <div class="container">
-      <a href="#" class="read-more">Show Categories <i class="fa fa-angle-down"></i></a>
-      <hr />
+      <!-- <a href="#" class="read-more">Show Categories <i class="fa fa-angle-down"></i></a>
+      <hr /> -->
       <ul>
       {% for post in paginator.posts %}
         <li class="blog-post">
@@ -25,11 +25,11 @@ title: Blog Posts
       </ul>
       <div class="see-more-div">
         {% if paginator.previous_page %}
-          <a href="{{ paginator.previous_page_path }}" class="previous">Previous</a> |
+          <a href="{{ paginator.previous_page_path }}" class="previous button">Previous</a>
         {% endif %}
 
         {% if paginator.next_page %}
-          <a href="{{ paginator.next_page_path }}" class="next">Next</a>
+          <a href="{{ paginator.next_page_path }}" class="next button">Next</a>
         {% endif %}
       </div>
     </div>

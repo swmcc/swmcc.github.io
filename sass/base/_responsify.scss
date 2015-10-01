@@ -27,6 +27,18 @@
     width: 50%;
   }
 
+  section.recent-talks-section ul li{
+  width: 100%;
+  padding-right: 0;
+  margin-bottom: 25px;
+  display: block;
+  }
+
+  .recent-talks-section ul li .inner{
+    min-height: 200px;
+
+  }
+
 }
 
 
@@ -81,7 +93,16 @@
     width: 100%;
   }
 
+section.recent-talks-section ul li .inner{
+    margin-bottom: 5%;
+    width: 100%;
+    min-height: 150px;
 
+  }
+
+ section.recent-talks-section ul li .read-more{
+  position: static;
+  }
 
 
 
@@ -127,14 +148,29 @@
     width: 100%;
   }
 
-  section.recent-talks-section ul li{
-    min-height: none;
-    margin-bottom: 5%;
-    width: 100%;
+  header{
+    height: 360px;
   }
 
- section.recent-talks-section ul li .read-more{
-  position: relative;
+  .tagline h2, .tagline h1{
+    font-size: 33px;
+    padding-bottom: 0;
+  }
+
+  .general-section {
+    padding: 10% 0;
+  }
+
+  #homepage h2, .recent-talks-section h2{
+    padding: 50px 0 30px 0;
+  }
+
+  section.blog-post-section, section.work-example-section{
+    padding-top: 40px;
+  }
+
+  section.recent-talks-section .block-colour{
+  height: 230px;
   }
 
 }
