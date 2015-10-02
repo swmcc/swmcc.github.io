@@ -3,6 +3,10 @@ paginate_path: "/blog/page:num"
 paginate: 8
 baseurl: ""
 
+title: The Only Stephen | Portfolio & Blog
+description: > # this means to ignore newlines until "baseurl:"
+  The portfolio and blog of Stephen, a developer based in Belfast, Northern Ireland
+
 name: Stephen
 twitter: https://twitter.com/swmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
