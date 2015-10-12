@@ -70,8 +70,8 @@ p a, .post-content a{
   }
 }
 
-a{
-  outline: none;
+a, a:active, a:focus {
+outline: none;
 }
 
 a:active {

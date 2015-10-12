@@ -573,17 +573,17 @@ p a:hover, .post-content a:hover {
 }
 
 /* line 73, ../sass/base/_typography.scss */
-a {
+a, a:active, a:focus {
   outline: none;
 }
 
-/* line 77, ../sass/base/_typography.scss */
+/* line 76, ../sass/base/_typography.scss */
 a:active {
   position: relative;
   top: 1px;
 }
 
-/* line 82, ../sass/base/_typography.scss */
+/* line 81, ../sass/base/_typography.scss */
 a.button {
   background-color: #EE6C2E;
   padding: 11px 24px;
@@ -597,26 +597,26 @@ a.button:hover {
   background: #e15512;
 }
 
-/* line 86, ../sass/base/_typography.scss */
+/* line 85, ../sass/base/_typography.scss */
 .text p {
   font-size: 17px;
   line-height: 1.4em;
   padding-bottom: 20px;
 }
 
-/* line 91, ../sass/base/_typography.scss */
+/* line 90, ../sass/base/_typography.scss */
 .text h3 {
   padding-bottom: 10px;
 }
 
-/* line 95, ../sass/base/_typography.scss */
+/* line 94, ../sass/base/_typography.scss */
 p.meta {
   color: #B0B0B0;
   font-size: 16px;
   padding: 0;
 }
 
-/* line 101, ../sass/base/_typography.scss */
+/* line 100, ../sass/base/_typography.scss */
 a.read-more {
   font-size: 19px;
   text-decoration: none;
@@ -624,12 +624,12 @@ a.read-more {
   padding-bottom: 1px;
   border-bottom: 1px solid #EE6C2E;
 }
-/* line 107, ../sass/base/_typography.scss */
+/* line 106, ../sass/base/_typography.scss */
 a.read-more:hover {
   color: #EE6C2E;
 }
 
-/* line 112, ../sass/base/_typography.scss */
+/* line 111, ../sass/base/_typography.scss */
 .twitter-button {
   background-color: #ffffff;
   padding: 11px 24px;
@@ -656,7 +656,7 @@ a.read-more:hover {
   transform: translate(0, 1px);
 }
 
-/* line 116, ../sass/base/_typography.scss */
+/* line 115, ../sass/base/_typography.scss */
 a.previous {
   margin-right: 5px;
 }
