@@ -25,12 +25,22 @@ a.logo{
   span{
     font-weight: 500;
   }
+  &:active{
+    position: absolute;
+    left: 0;
+    top: 29px;
+  }
 }
 
 a.nav-twitter{
   color: $white;
   position: absolute;
   right: 0;
+  &:active{
+    position: absolute;
+    right: 0;
+    top: 29px;
+  }
 }
 
  nav ul, nav ul li, nav a{

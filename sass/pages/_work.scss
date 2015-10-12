@@ -89,6 +89,14 @@ section.recent-talks-section ul li .read-more{
   bottom: 45px;
 }
 
+section.recent-talks-section ul li a.read-more{
+   &:active{
+    position: absolute;
+    top: inherit;
+    bottom: 44px;
+  }
+}
+
 
 
 

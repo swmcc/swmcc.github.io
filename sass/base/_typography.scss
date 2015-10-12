@@ -70,6 +70,10 @@ p a, .post-content a{
   }
 }
 
+a{
+  outline: none;
+}
+
 a:active {
   position: relative;
   top: 1px;
