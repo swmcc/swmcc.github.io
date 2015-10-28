@@ -1,34 +1,43 @@
-# theonlystephen.com
+# theonlystephen 
 
-Personal website of Stephen McCullough
+**theonlystephen*  */ˈtheˌonlystephen/*
 
-## Dependencies
+*Noun:*  
+The personal website of Stephen McCullough
 
-Here's what you need to run the website locally.
+*Synonyms:*	
+Stephen's site
 
-### Bundler
+![Screenshot](assets/theonlystephen.png "Screenshot")
 
-This will install all gems required to run the app.
+## Description
 
-    gem install bundler
-    cd swmcc.github.io
-    bundle install
+The personal website of Stephen McCullough. Designed by [Melissa Keizer](http://melissakeizer.com/). 
 
-### Run site locally
+This site is built using [jekyll](http://jekyllrb.com) and hosted on [Digital Ocean](http://www.digitalocean.com).
 
-This site is built on Jekyll. To run the site in your browser locally use:
+## Development Info
 
-    jekyll serve
+### Installation
 
-Note that Compass must be running when making changes to CSS, see below.
+Requires [bundler](http://bundler.io) and [npm/node](https://www.npmjs.com/).
 
-Please refer to Jekyll's documentation for help with setting it up http://jekyllrb.com/docs/home/
+```
+git clone https://github.com/swmcc/swmcc.github.io.git 
+cd swmcc.github.io 
+make init
+```
 
-### Compass
+### Tests
 
-To use sass, Compass is being used. Edit scss within sass folder, do not edit the css files directly. To install and watch scss files for changes:
+```
+make tests
+```
 
-    gem install compass
-    compass install compass
-    compass watch
+### Running locally
 
+Note that Compass must be running when making changes to CSS.
+
+```
+make run
+```
