@@ -1,0 +1,47 @@
+--- 
+type: post
+tags: newsite, melissa, jekyll 
+published: true
+title: New Site for 2015 
+layout: post
+status: publish
+image-large: "/img/blog/header/new_site.png"
+image-small: "/img/blog/new_site.png"
+---
+<p>During the summer I decided I needed a new website. The old one was alright,
+it was doing its job good enough. However it was pretty old (in relative terms)
+and I decided I wanted a change.</p>
+<p>According to <a href="https://github.com">GitHub</a> the twitter bootstrap 
+version went up on the <a href="https://github.com/swmcc/swmcc.github.io/tree/5183919d5d1e72b72cb7a44332c11c99b9fdd701">3rd of June 2012</a>. 
+I can't remember where I bought the theme from but I hacked away at it and made
+a good enough personal website with my very limited set of front end skills.</p>
+<p>It has served me faithfully for over three years but a change was needed. This 
+time instead of going for a <a href="https://wrapbootstrap.com/">Twitter Bootstrap theme</a> 
+I decided to get a professional to do it. Some would see this as foolish, however I read
+<a href="http://www.amazon.co.uk/gp/product/B000U5KFIC?psc=1&redirect=true&ref_=oh_aui_d_detailpage_o02_">Damn Right!: Behind the Scenes with Berkshire Hathaway Billionaire Charlie Munger</a> and there was an interesting quote that caught my attention:</p>
+<p><em>
+  Charlie, as a very young lawyer, was probably getting $20 an hour. He thought to himself, ‘Who’s my most valuable client?’ And he decided it was himself. So he decided to sell himself an hour each day. He did it early in the morning, working on these construction projects and real estate deals. Everybody should do this, be the client, and then work for other people, too, and sell yourself an hour a day.</em></p>
+
+<p>So I thought about it and decided to spend some money on myself. I reached out to <a href="http://melissakeizer.com/">Melissa Kezier</a> a very 
+well known and respected web desginer from Bangor, Northern Ireland. Melissa prototyped up several designs and I picked the one I liked best. </p>
+<p>Like the previous site this was built with <a href="http://www.jekyllrb.com">jekyll</a>. It would have been cheaper to get a <a href="http://www.wordpress.com">wordpress</a> theme done but I am taking heed of the saying <em>"Be the person your dog thinks you are."</em></a>. No way do I want my personal site contributing to the "PHP is one of the most popular...." quotes lying about.</p> 
+
+<p>
+My only concern was the number of blog articles spanning from 2000 to port over as they would all have to render properly in the new design. Of course Melissa took this in her stride and all the previous articles render fine.</p>
+<p>I had a suite of tests that checked the markup on the blog articles. So I hooked the build up to <a href="http://www.codeship.com">codeship</a> and if the tests still passed on a push to the new branch then the site was built and synced over to the staging site. All fairly standard.</p>
+<p>It was a fairly simple site to do so we just communicated through email and <a href="https://github.com/swmcc/swmcc.github.io/issues">github issues</a>.</p>
+<p>The site used to be hosted on <a href="https://pages.github.com/">github pages</a> but this time I decided to move it to a <a href="http://www.digitalocean.com">digital ocean</a> instance.</p>
+<p>I've a few more milestones to do on this site before I am done and can relax. However I am in the middle of another <a href="/roadclient">project</a> so don't really have the time to dedicate to getting the following points over the line:
+
+<ul>
+  <li>Extend the test suite</li>
+  <li>Search the site/blog articles</li>
+  <li>Complete the move to <a href="http://gulpjs.com/">gulp</a> for my workflow.</p>
+</ul>
+</p>
+<p>Getting a professional like Melissa to design the site was a great move. In my mind it is
+very hard to find a designer that is as technically minded as her (only a few spring to mind
+that I would recommend). She worked diligently throughout the whole process and actually cared
+about what was being produced. If you take heed of <em>"be the person your dog thinks you are"</em>, get in touch. I can't 
+  recommend her highly enough.</p>
+<p>The repo can be viewed <a href="https://github.com/swmcc/swmcc.github.io">here</a>.<p>
