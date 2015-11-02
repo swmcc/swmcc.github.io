@@ -1,0 +1,83 @@
+--- 
+type: post
+tags: workflow, vim, development 
+published: true
+title: I unit test my blog 
+layout: post
+status: publish
+image-large: "/img/blog/header/unit_test.jpg"
+image-small: "/img/blog/unit_test.jpg"
+---
+
+As stated before in my last article <a href="/new-site/">New Site</a> this site is written in <a href="http://www.jekyllrb.com">Jekyll</a>. It contains
+five pages:</p>
+
+<p>
+<ul>
+  <li>An index page</li>
+  <li>A blog index page</li>
+  <li>A blog article page</li>
+  <li>A work index page</li>
+  <li>A work article page</li>
+</ul>
+</p>
+
+<p>
+Jekyll is a static site generator. I keep all content in simple text files and jekyll then reads each file and transforms it to HTML. Each bit of content is a file composed of two parts: metadata stroed in <a href="http://yaml.org">YAML</a>, and the content which is written in HTML.</p>
+
+<p>Sometimes I make mistakes, and missing or invalid metadata can cause layout quirks or unexpected errors. To catch these problems earlier, I decided to treat this site like I would any other code by testing it. Since this site is basically one big blog anyway I now automated unit tests after every push.</p>
+
+<p>An example YAML section of a blog post looks like this:</p>
+<p><pre>
+--- 
+type: post
+tags: testing, newsite, jekyll, codeship, ci 
+published: true
+title: I unit test my blog 
+layout: post
+is_featured: false
+image-large: "/img/blog/header/unit_test.jpg"
+image-small: "/img/blog/unit_test.jpg"
+---
+</pre></p>
+
+<p>Basically the unit tests just parse the yaml and look for obvious mistakes. These include include
+'type', 'layout', 'published', 'status', 'image-large' and 'image-small'. If any of these are missing
+the tests will fail.</p>
+
+<p>Something that is new for the new site are images on each blog article. A few times I have written
+something and for some reason my <a href="http://gulpjs.com">gulp</a> command to take an image and resize it
+to the appropriate dimensions and save the various files to the correct place would fail. I wanted to ensure
+that it wouldn't happen again, so I wrote a test:
+
+<pre>
+    it('ensure that the header and list graphics exist', function(){
+      var large_filepath = path.resolve(__dirname) + "/.." + metadata['image-large'];
+      var small_filepath = path.resolve(__dirname) + "/.." + metadata['image-small'];
+      assert.isTrue(path_exists.sync(large_filepath));
+      assert.isTrue(path_exists.sync(small_filepath));
+    });
+</pre>
+</p>
+<p>No doubt there is a smarter way to do this but this is my own site and I like to tinker with things.</p>
+<p>Another thing I wanted to do was check the internal links on the articles. I've had a site in some
+form since 2000 so most links now just don't simply work so I only really care about links from 2012 onwards.
+I removed the blog/yyyy/mm/dd/title URI to simply be /title. It made more sense. So I wrote a test to ensure that any old links to the blog/yyyy/mm/dd/title URI would break. I could have easily configured <a href="https://www.nginx.com/">nginx</a> to remap these. However if I move back to <a href="https://pages.github.com/">Github Pages</a> then those links would start to fail again.</p>
+<p>
+<pre>
+  it('all blog urls should no longer have the date inside them', function(){
+    var urls = file.match(/\/blog\/\d{4}\/\d{2}\/\d{2}\//g);
+    assert.ok(!urls, filename + ' has some articles with old an old blog uri');
+  });
+</pre>
+</p>
+<p>Again there is probably a smarter way but this works for me. Feel free to issue a pull request if you want to though :)</p>
+<p>Before every push I run my test suite.</p>
+<img src="/img/test_suite.png">
+<p>Then on a push <a href="http://www.codeship.com">CodeShip</a> runs the tests. If all is good jekyll builds the site
+and then rsyncs the files over to the server.</p>
+<img src="/img/codeship_test.png">
+<p>All in all it does what I want. I would like to add more tests - such as internal images exist the number
+of featured work articles is always at two etc. Time will grow it I guess.</p>
+<p>The source of the test file can be viewed <a href="https://github.com/swmcc/swmcc.github.io/blob/master/test/site_test.js">here</a>.</p>
+
