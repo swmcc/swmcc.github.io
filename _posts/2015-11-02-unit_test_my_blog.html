@@ -23,7 +23,7 @@ five pages:</p>
 </p>
 
 <p>
-Jekyll is a static site generator. I keep all content in simple text files and jekyll then reads each file and transforms it to HTML. Each bit of content is a file composed of two parts: metadata stored in <a href="http://yaml.org">YAML</a>, and the content which is written in HTML.</p>
+Jekyll is a static site generator. I keep all content in simple text files and jekyll then reads each file and transforms it to HTML. Each bit of content is a file composed of two parts: metadata stored in <a href="http://yaml.org">YAML</a> and the content which is written in HTML.</p>
 
 <p>Sometimes I make mistakes, and missing or invalid metadata can cause layout quirks or unexpected errors. To catch these problems earlier, I decided to treat this site like I would any other code by testing it. Since this site is basically one big blog anyway I now automated unit tests after every push.</p>
 
@@ -77,7 +77,7 @@ I removed the blog/yyyy/mm/dd/title URI to simply be /title. It made more sense.
 <p>Then on a push <a href="http://www.codeship.com">CodeShip</a> runs the tests. If all is good jekyll builds the site
 and then rsyncs the files over to the server.</p>
 <img src="/img/codeship_test.png">
-<p>All in all it does what I want. I would like to add more tests - such as internal images exist the number
+<p>All in all it does what I want. I would like to add more tests - such as internal images should always exist, the number
 of featured work articles is always at two etc. Time will grow it I guess.</p>
 <p>The source of the test file can be viewed <a href="https://github.com/swmcc/swmcc.github.io/blob/master/test/site_test.js">here</a>.</p>
 
