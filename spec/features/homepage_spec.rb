@@ -12,6 +12,7 @@ feature 'Visitor comes to the site' do
     expect(page).to have_selector(:css, 'a[href="/"]')
     expect(page).to have_selector(:css, 'a[href="/work"]')
     expect(page).to have_selector(:css, 'a[href="/blog"]')
+    expect(page).to have_selector(:css, 'a[href="/talks"]')
     expect(page).to have_selector(:css, 'a[href="/cv.pdf"]')
   end
 
