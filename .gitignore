@@ -6,8 +6,7 @@
 # Jekyll
 _site/
 
-# Node
-node_modules/
+.bundle/
 
 # Capistrano
 config/

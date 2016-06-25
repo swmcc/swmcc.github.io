@@ -22,7 +22,7 @@ This site is built using [jekyll](http://jekyllrb.com) and hosted on [Digital Oc
 
 ### Installation
 
-Requires [bundler](http://bundler.io) and [npm/node](https://www.npmjs.com/).
+Requires [bundler](http://bundler.io)
 
 ```
 git clone https://github.com/swmcc/swmcc.github.io.git 

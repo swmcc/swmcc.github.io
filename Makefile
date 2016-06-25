@@ -10,3 +10,6 @@ run:
 
 build:
 	bundle exec jekyll build 
+
+test: 
+	rspec
