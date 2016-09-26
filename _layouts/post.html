@@ -27,9 +27,14 @@ selected: blog
           <a href="https://twitter.com/share" class="twitter-share-button" data-via="swmcc" data-size="large" data-count="none">Share on Twitter</a>
 <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
         </div>
+        {% if page.type == "post" %}
          <p class="published meta">Published on {{ page.date | date_to_string }} </p>
          <hr />
          <a href="{{ site.baseurl }}/blog/" class="read-more">Back to all posts</a>
+        {% else %}
+         <hr />
+         <a href="{{ site.baseurl }}/work/" class="read-more">Back to all work articles</a>
+        {% endif %}
       </article>
     </section>
     <section class="recent-posts-section">
