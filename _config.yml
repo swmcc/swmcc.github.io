@@ -11,6 +11,6 @@ name: Stephen McCullough
 twitter: https://twitter.com/swmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
 github: https://github.com/swmcc
-email: me@theonlystephen.com
+email: stephen@skillfulgorilla.com 
 
 exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
