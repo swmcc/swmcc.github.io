@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 
-now=`date +"%Y-%m-%d"`
-
 init:
+	gem install bundle
 	bundle install
 
 run:
@@ -13,7 +12,3 @@ build:
 
 test: 
 	rspec
-
-newEntry:
-	echo $1
-	touch `date +"%Y-%m-%d"`

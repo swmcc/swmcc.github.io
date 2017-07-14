@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    ImageResize (0.0.5)
     addressable (2.4.0)
     blankslate (2.1.2.4)
     capybara (2.7.1)
@@ -114,9 +115,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ImageResize (~> 0.0.5)
   capybara
   capybara-user_agent
   jekyll
   poltergeist
   rack
   rspec
+
+BUNDLED WITH
+   1.15.1
