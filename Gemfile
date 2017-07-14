@@ -7,7 +7,7 @@ group :test do
 end
 
 group :development do
-  gem 'rmagick' 
+  gem 'ImageResize', '~> 0.0.5'
 end
 
 gem 'jekyll'

@@ -43,3 +43,11 @@ Note that Compass must be running when making changes to CSS.
 ```
 make run
 ```
+
+### Blog Entry
+
+To create a new blog entry 
+
+```
+./bin/new_blog_entry.rb [title] [source image] 
+```
