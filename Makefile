@@ -11,4 +11,4 @@ build:
 	bundle exec jekyll build 
 
 test: 
-	rspec
+	bundle exec rspec --format doc

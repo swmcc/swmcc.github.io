@@ -1,19 +1,15 @@
 require 'spec_helper'
 
-feature 'Visitor comes to the site' do
+feature 'User goes to the index of this site' do
+  scenario 'they see the homepage' do
+    sleep(3)
+    visit '/'
 
-  let(:title) { 'The Only Stephen | Portfolio & Blog' }
-  before :each do
-    visit "/index.html"
+    expect(page.title).to eq 'The Only Stephen | Portfolio & Blog'
+    # the tagline should be correct
+    # should have two links to blogs posts
+    # should have two links to work posts
+    # should have the current year in the footer
   end
-
-  scenario 'and they look at the front page' do
-    expect(page).to have_selector('title', text: title, visible: false)
-    expect(page).to have_selector(:css, 'a[href="/"]')
-    expect(page).to have_selector(:css, 'a[href="/work"]')
-    expect(page).to have_selector(:css, 'a[href="/blog"]')
-    expect(page).to have_selector(:css, 'a[href="/talks"]')
-    expect(page).to have_selector(:css, 'a[href="/cv.pdf"]')
-  end
-
 end
+
