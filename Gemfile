@@ -1,15 +1,15 @@
 source 'https://rubygems.org'
 
-group :test do
+gem 'jekyll'
+
+group :test, :development do
   gem 'capybara'
   gem 'capybara-user_agent'
   gem 'poltergeist'
-end
-
-group :development do
   gem 'ImageResize', '~> 0.0.5'
+  gem 'rspec'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+  gem 'rack-jekyll'
 end
 
-gem 'jekyll'
-gem 'rack'
-gem 'rspec'
