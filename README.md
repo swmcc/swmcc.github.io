@@ -27,7 +27,7 @@ Requires [bundler](http://bundler.io)
 ```
 git clone https://github.com/swmcc/swmcc.github.io.git 
 cd swmcc.github.io 
-make init
+make init / docker-compose up
 ```
 
 ### Tests
@@ -36,9 +36,13 @@ make init
 make tests
 ```
 
-### Running locally
+### Running through docker
 
-Note that Compass must be running when making changes to CSS.
+```
+docker-compose up
+```
+
+### Running locally
 
 ```
 make run
