@@ -2,7 +2,7 @@
 
 init:
 	gem install bundle
-	bundle install
+	bundle exec install
 
 run:
 	bundle exec jekyll serve	
