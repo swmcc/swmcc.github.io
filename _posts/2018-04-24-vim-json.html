@@ -1,0 +1,26 @@
+--- 
+type: post
+tags: workflow, vim, development 
+published: true
+title: vim 
+layout: post
+status: publish
+image-large: "/img/blog/header/vim.gif"
+image-small: "/img/blog/vim.gif"
+---
+<p>Yesterday <a href="http://www.twitter.com/holsee">Holsee</a> introduced me to a new command line tool <a href="https://stedolan.github.io/jq/">jq</a>. Prior to this I formatted json given to me in a variety of ways. Sometimes using python, another time I would use a web formatter and I have even been known, on ocassion to go into a REPL.  There was never a defacto way of formatting JSON for me... Until now...</p>
+<p>It has only been a way a few hours since using it but already I know it will stay with me for a good
+while. So much so that I already elvated into my workflow in <a href="https://github.com/swmcc/dotfiles/commit/063ed07cec57d99a78f3183480eca641a84d772e#diff-4570ec26583846b94776a725fdc415cdR97">vim</a>.</p>
+
+<p>
+<pre>
+map ,j :%!jq '.'<cr>
+</pre>
+<br /><br />
+</p>
+<p>What this simply means that I highlight the json I want formatted and type in <pre>,j</pre> and its nicely formatted. As stated before in my <a href="/vim">workflow</a> I like to stay inside the browser.<p>
+<p>Here is an example of a script with some unformattted json.</p>
+<img src="/img/jq_example_1.png">
+<p>Simply selected the line with <pre>shift + v</pre>and then hit <pre>,j</pre> and...</p>
+<img src="/img/jq_example_2.png">
+<p>On the command line it can be very useful... I am looking forward to using this more and more in the coming months!</p>
