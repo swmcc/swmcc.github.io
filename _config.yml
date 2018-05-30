@@ -5,10 +5,10 @@ baseurl: ""
 
 title: The Only Stephen | Portfolio & Blog
 description: > # this means to ignore newlines until "baseurl:"
-  The portfolio and blog of Stephen, a developer based in Belfast, Northern Ireland
+  The portfolio and blog of Stephen, a ruby, python and elixir developer based in Belfast, Northern Ireland. Also co-organiser of Belfast Ruby, Belfast Elixir and pyBelfast. Loves gardening hates meetings.
 
 name: Stephen McCullough
-twitter: https://twitter.com/swmcc
+twitter: https://twitter.com/theonlyswmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
 github: https://github.com/swmcc
 email: stephen@skillfulgorilla.com 
