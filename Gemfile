@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'jekyll'
+ruby '2.3.3'
+
+gem 'jekyll', '~> 3.6.2'
 
 group :test, :development do
   gem 'capybara'
