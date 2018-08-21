@@ -20,3 +20,5 @@ tmp/
 # sass
 **/.sass-cache
 **/.sass-cache/*
+
+vendor/
