@@ -1,0 +1,106 @@
+--- 
+type: post
+tags: ruby, development, rspec, testing 
+published: true
+title: Quickly get devise running in your rspec tests 
+layout: post
+status: publish
+image-large: "/img/blog/header/devise.jpg"
+image-small: "/img/blog/devise.jpg"
+---
+<p>In any <a href="https://rubyonrails.org/">Rails</a> app I am building I always find myself
+having to add user authentication into it. Luckily this is done really simple by the wonderful
+<a href="https://github.com/plataformatec/devise">Devise</a> gem.</p>
+<p>It becomes a bit of a pain to integrate into the test suite though. I usually use <a href="http://rspec.info/">RSpec</a>
+in my tests. Though a conversation with <a href="https://twitter.com/brrygrdn">Barry Gordon</a> has got me thinking that
+maybe I should move to <a href="https://github.com/seattlerb/minitest">minitest</a> (more on this at a later date).</p>
+<p>After adding in devise a few times I've come up with a quick way of getting your request specs up and running
+fairly quickly:</p>
+<p>
+<em>spec/rails_helper.rb</em>
+<pre>
+Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+# ...
+
+RSpec.configure do |config|
+# ...
+  config.include RequestSpecHelper, type: :request
+end
+</pre>
+</p>
+<p>
+<em>config/routes</em>
+<pre>
+  root to: 'home#index'
+  authenticated do
+    root to: 'authenticated#index', as: :authenticated_root
+  end
+</pre>
+</p>
+<em>spec/requests/sessions_spec.rb</em>
+<pre>
+require 'rails_helper'
+
+RSpec.describe 'Sessions' do
+
+  it 'signs user in and out' do
+    user = User.create!(email: 'foo@barr.baz', password: 'secret')
+    user.save
+
+    sign_in user
+    get authenticated_root_path
+    expect(controller.current_user).to eq(user)
+
+    sign_out user
+    get authenticated_root_path
+    expect(controller.current_user).to be_nil
+  end
+
+end
+</pre>
+</p>
+<em>spec/support/request_spec_helper.rb</em>
+<p>
+<pre>
+  module RequestSpecHelper
+
+    include Warden::Test::Helpers
+
+    def self.included(base)
+      base.before(:each) { Warden.test_mode! }
+      base.after(:each) { Warden.test_reset! }
+    end
+
+    def sign_in(resource)
+      login_as(resource, scope: warden_scope(resource))
+    end
+
+    def sign_out(resource)
+      logout(warden_scope(resource))
+    end
+
+    private
+
+    def warden_scope(resource)
+      resource.class.name.underscore.to_sym
+    end
+
+  end
+</pre>
+</p>
+
+<em>spec/requests/whatever.rb</em>
+<p>
+<pre>
+	require 'rails_helper' 
+		
+	RSpec.describe 'MyMoods', type: :request do 
+		scenario 'GET /my_moods?start_date=2018-08-09' do 
+			user = User.create!(email: 'u@e.org', password: 'foo') 
+			sign_in user 
+			visit '/'
+			expect(page).to have_content('My Moods')
+		end
+	end
+</pre>
+</p>
