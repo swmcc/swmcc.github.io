@@ -12,5 +12,6 @@ twitter: https://twitter.com/theonlyswmcc
 linkedin: https://uk.linkedin.com/in/theonlystephen
 github: https://github.com/swmcc
 email: stephen@skillfulgorilla.com 
+plugins: [jekyll-paginate]
 
 exclude: ["start_development", ".rvmrc", ".rbenv-version", ".gitignore", "README.md", "Rakefile", "changelog.md", "Gemfile", "Gemfile.lock", "Procfile", "vendor"]
