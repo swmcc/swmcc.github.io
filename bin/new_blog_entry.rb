@@ -8,7 +8,7 @@ require 'ImageResize'
 @blog = sprintf("%s-%s.html", Date.today.iso8601, @title)
 
 File.open "_posts/#{@blog}", "w"
-Image.resize(@image, "img/blog/#{@title}.jpg", 340, 340)
-Image.resize(@image, "img/blog/header/#{@title}.jpg", 684, 345)
+Image.resize(@image, "img/blog/#{@title}.png", 340, 340)
+Image.resize(@image, "img/blog/header/#{@title}.png", 684, 345)
 
 puts "Created"
