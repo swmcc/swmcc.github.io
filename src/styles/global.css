@@ -304,11 +304,11 @@ section:nth-child(odd) .animate-on-scroll {
 
 /* Hover scale effect for images */
 .hover-scale-image {
-  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.4s ease;
 }
 
 .hover-scale-image:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
   box-shadow: var(--shadow-medium);
   z-index: 10;
 }
