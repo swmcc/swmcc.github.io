@@ -302,6 +302,21 @@ section:nth-child(odd) .animate-on-scroll {
   box-shadow: var(--shadow-medium);
 }
 
+/* Hover scale effect for images */
+.hover-scale-image {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+}
+
+.hover-scale-image:hover {
+  transform: scale(1.15);
+  box-shadow: var(--shadow-medium);
+  z-index: 10;
+}
+
+.hover-scale-image:hover img {
+  transform: scale(1.1);
+}
+
 /* Parallax effect for backgrounds */
 .parallax-bg {
   transform: translateZ(0);
