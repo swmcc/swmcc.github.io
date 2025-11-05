@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatDate } from '../utils/formatDate';
 
-const latestBlogPost = (await getCollection('blog'))
+const latestWriting = (await getCollection('writing'))
   .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())[0];
 
@@ -110,13 +110,13 @@ const latestNote = (await getCollection('notes'))
           );
         })()}
 
-        <!-- Latest Blog Post -->
-        {latestBlogPost && (
-          <a href={`/blog/${latestBlogPost.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 150ms;">
+        <!-- Latest Writing -->
+        {latestWriting && (
+          <a href={`/writing/${latestWriting.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 150ms;">
             <!-- Ribbon overlay - top left -->
             <div class="absolute top-0 left-0 ribbon-top-left">
               <span style="background: var(--color-accent-blue); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
-                Blog
+                Writing
               </span>
             </div>
 
@@ -130,14 +130,14 @@ const latestNote = (await getCollection('notes'))
                 </div>
               </div>
               <h3 style="color: var(--color-text-heading);" class="text-lg font-bold leading-tight">
-                {latestBlogPost.data.title}
+                {latestWriting.data.title}
               </h3>
               <p style="color: var(--color-text-secondary);" class="text-sm leading-relaxed line-clamp-3">
-                {latestBlogPost.data.description}
+                {latestWriting.data.description}
               </p>
               <div class="flex items-center justify-between pt-3 border-t" style="border-color: var(--color-border);">
-                <time style="color: var(--color-text-muted);" class="text-xs" datetime={latestBlogPost.data.pubDate.toISOString()}>
-                  {formatDate(latestBlogPost.data.pubDate)}
+                <time style="color: var(--color-text-muted);" class="text-xs" datetime={latestWriting.data.pubDate.toISOString()}>
+                  {formatDate(latestWriting.data.pubDate)}
                 </time>
                 <span style="color: var(--color-accent);" class="text-xs font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
                   Read more

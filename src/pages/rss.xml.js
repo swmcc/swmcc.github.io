@@ -2,20 +2,20 @@ import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
 
 export async function GET(context) {
-  const blog = await getCollection('blog');
+  const writing = await getCollection('writing');
   const notes = await getCollection('notes');
   const thoughts = await getCollection('thoughts');
 
   // Filter out draft posts
-  const publishedBlog = blog.filter((post) => !post.data.draft);
+  const publishedWriting = writing.filter((post) => !post.data.draft);
 
-  // Process blog posts
-  const blogItems = publishedBlog.map((item) => ({
+  // Process writing
+  const writingItems = publishedWriting.map((item) => ({
     title: item.data.title,
     description: item.data.description,
     pubDate: item.data.pubDate,
-    link: `/blog/${item.slug}/`,
-    categories: ['Blog'],
+    link: `/writing/${item.slug}/`,
+    categories: ['Writing'],
   }));
 
   // Process notes
@@ -43,12 +43,12 @@ export async function GET(context) {
   );
 
   // Combine and sort by date
-  const items = [...blogItems, ...noteItems, ...thoughtItems]
+  const items = [...writingItems, ...noteItems, ...thoughtItems]
     .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf());
 
   return rss({
     title: "Stephen McCullough",
-    description: "Software engineer and founder - blog posts, technical notes, and quick thoughts",
+    description: "Software engineer and founder - writing, technical notes, and quick thoughts",
     site: context.site,
     items: items,
     customData: `<language>en-gb</language>`,
