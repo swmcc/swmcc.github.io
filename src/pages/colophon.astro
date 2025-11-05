@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Colophon - Stephen McCullough"
+  description="How this site is built with modern web standards and technologies"
+>
+  <article class="prose prose-lg dark:prose-invert max-w-none space-y-8" style="color: var(--color-text);">
+    <div class="space-y-6">
+      <h1 style="color: var(--color-text-heading);">Colophon</h1>
+
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        This site is built with modern web standards and technologies. It's designed to be fast,
+        accessible, and respectful of your time and bandwidth.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Technology Stack</h2>
+      <ul style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8; list-style: none; padding: 0;">
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">Astro v5</strong> - Zero-JavaScript by default with Islands architecture for selective hydration
+        </li>
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">TypeScript</strong> - Type safety throughout with strict mode enabled
+        </li>
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">Tailwind CSS v4</strong> - Modern utility-first styling with CSS-first approach
+        </li>
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">Markdown/MDX</strong> - Content authoring with frontmatter validation via Zod schemas
+        </li>
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">GitHub Pages</strong> - Automated deployment with GitHub Actions
+        </li>
+      </ul>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Modern Web Standards</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Built following 2025 best practices:
+      </p>
+      <ul style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8; list-style: none; padding: 0;">
+        <li style="margin-bottom: 0.75rem;">✓ Semantic HTML5 with proper use of header, main, article, section, footer</li>
+        <li style="margin-bottom: 0.75rem;">✓ Core Web Vitals optimised (LCP &lt; 2.5s, CLS &lt; 0.1, FID &lt; 100ms)</li>
+        <li style="margin-bottom: 0.75rem;">✓ Progressive enhancement - works without JavaScript, enhances with it</li>
+        <li style="margin-bottom: 0.75rem;">✓ WCAG 2.1 AA accessibility compliant with keyboard navigation</li>
+        <li style="margin-bottom: 0.75rem;">✓ View Transitions API for smooth SPA-like navigation</li>
+        <li style="margin-bottom: 0.75rem;">✓ Intersection Observer for performant scroll animations</li>
+        <li style="margin-bottom: 0.75rem;">✓ Variable fonts (Space Grotesk & Figtree) for optimal performance</li>
+        <li style="margin-bottom: 0.75rem;">✓ Dark mode with prefers-color-scheme and manual override</li>
+        <li style="margin-bottom: 0.75rem;">✓ Prefetching links on hover for instant navigation</li>
+        <li style="margin-bottom: 0.75rem;">✓ Zero tracking, no cookies, no analytics</li>
+      </ul>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Performance</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Minimal JavaScript (&lt; 5KB), static site generation, optimised images, and font preconnection.
+        The entire site is delivered over HTTP/2 with automatic SSL via GitHub Pages.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Typography</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        <strong style="color: var(--color-text-heading);">Space Grotesk</strong> for headings - geometric, modern, personality.<br />
+        <strong style="color: var(--color-text-heading);">Figtree</strong> for body text - highly readable, designed for screens.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Source Code</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        This site is open source. View the code on <a href="https://github.com/yourusername/swm.cc" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">GitHub</a>.
+      </p>
+    </div>
+  </article>
+
+  <style>
+    article :global(h2),
+    article :global(h3),
+    article :global(h4) {
+      color: var(--color-text-heading);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 0;
+    }
+
+    article :global(p) {
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    article :global(a) {
+      color: var(--color-accent);
+    }
+
+    article :global(a:hover) {
+      color: var(--color-accent-hover);
+    }
+
+    article :global(strong) {
+      color: var(--color-text-heading);
+    }
+
+    article :global(code) {
+      background-color: var(--color-surface);
+      color: var(--color-accent-purple);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</BaseLayout>

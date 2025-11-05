@@ -1,0 +1,170 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ReadingProgress from '../components/ReadingProgress.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+}
+
+const { title, description, image } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth" transition:animate="fade">
+  <head>
+    <BaseHead title={title} description={description} image={image} />
+    <!-- Prevent flash of light mode - must run before any content renders -->
+    <script is:inline>
+      (function() {
+        // Add loading class to prevent transition flash
+        document.documentElement.classList.add('loading');
+
+        const theme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (theme === 'dark' || (!theme && systemPrefersDark)) {
+          document.documentElement.classList.add('dark');
+        }
+
+        // Remove loading class after a brief moment to re-enable transitions
+        setTimeout(() => {
+          document.documentElement.classList.remove('loading');
+        }, 10);
+      })();
+    </script>
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <ReadingProgress />
+    <Header />
+    <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-8" transition:animate="slide">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style is:global>
+  /* Smooth, subtle page transitions - no flashing */
+  @keyframes smooth-fade-in {
+    from {
+      opacity: 0;
+      filter: blur(4px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  @keyframes smooth-fade-out {
+    from {
+      opacity: 1;
+      filter: blur(0);
+    }
+    to {
+      opacity: 0;
+      filter: blur(4px);
+    }
+  }
+
+  @keyframes gentle-slide-up {
+    from {
+      transform: translateY(10px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes gentle-scale {
+    from {
+      transform: scale(0.98);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  /* Polished View Transitions - keep content visible longer */
+  ::view-transition-old(root) {
+    animation: 250ms cubic-bezier(0.4, 0, 0.2, 1) both smooth-fade-out;
+  }
+
+  ::view-transition-new(root) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both smooth-fade-in;
+  }
+
+  /* Main content with subtle movement */
+  ::view-transition-old(slide) {
+    animation: 250ms cubic-bezier(0.4, 0, 0.2, 1) both smooth-fade-out;
+  }
+
+  ::view-transition-new(slide) {
+    animation: 350ms cubic-bezier(0.4, 0, 0.2, 1) both gentle-slide-up;
+  }
+
+  /* Keep the old content visible during transition */
+  ::view-transition-image-pair(root) {
+    isolation: auto;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: 0.3s;
+  }
+
+  /* Reduce motion for accessibility */
+  @media (prefers-reduced-motion: reduce) {
+    ::view-transition-old(root),
+    ::view-transition-new(root),
+    ::view-transition-old(slide),
+    ::view-transition-new(slide) {
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Enhanced page navigation with preloading
+  document.addEventListener('astro:page-load', () => {
+    // Intersection Observer for scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-on-scroll');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    // Observe all sections and cards
+    document.querySelectorAll('section, .card, article').forEach((el) => {
+      observer.observe(el);
+    });
+
+    // Prefetch links on hover for instant navigation
+    document.querySelectorAll('a[href^="/"]').forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        const href = (link as HTMLAnchorElement).href;
+        if (href && !href.includes('#')) {
+          const prefetchLink = document.createElement('link');
+          prefetchLink.rel = 'prefetch';
+          prefetchLink.href = href;
+          document.head.appendChild(prefetchLink);
+        }
+      }, { once: true });
+    });
+  });
+</script>

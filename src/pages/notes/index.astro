@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate } from '../../utils/formatDate';
+
+const notes = (await getCollection('notes'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Notes - Stephen McCullough"
+  description="Quick notes, snippets, and thoughts"
+>
+  <div class="space-y-12">
+    <div class="space-y-4">
+      <h1 style="color: var(--color-text-heading);" class="text-4xl md:text-5xl font-bold tracking-tight">
+        Notes
+      </h1>
+      <p style="color: var(--color-text-secondary);" class="text-lg md:text-xl leading-relaxed">
+        Technical snippets and quick references
+      </p>
+    </div>
+
+    {notes.length === 0 ? (
+      <p class="text-gray-600 dark:text-gray-400">
+        No notes yet. Check back soon!
+      </p>
+    ) : (
+      <div class="space-y-6">
+        {notes.map((note) => (
+          <article class="border-b border-gray-200 dark:border-gray-800 pb-6 last:border-0">
+            <a href={`/notes/${note.slug}`} class="group block">
+              <h2 class="text-xl font-medium mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                {note.data.title}
+              </h2>
+              <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-500">
+                <time datetime={note.data.pubDate.toISOString()}>
+                  {formatDate(note.data.pubDate)}
+                </time>
+                {note.data.tags && note.data.tags.length > 0 && (
+                  <div class="flex gap-2">
+                    {note.data.tags.map((tag) => (
+                      <span style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);" class="px-2.5 py-1 rounded text-xs font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </a>
+          </article>
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

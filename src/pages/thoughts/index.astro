@@ -1,0 +1,81 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate } from '../../utils/formatDate';
+
+const thoughts = (await getCollection('thoughts'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout
+  title="Thoughts - Stephen McCullough"
+  description="Short-form thoughts and micro-posts from Stephen McCullough"
+>
+  <div class="space-y-12">
+    <div class="space-y-4">
+      <h1 style="color: var(--color-text-heading);" class="text-4xl md:text-5xl font-bold tracking-tight">
+        Thoughts
+      </h1>
+      <p style="color: var(--color-text-secondary);" class="text-lg md:text-xl leading-relaxed">
+        Short-form posts and quick thoughts
+      </p>
+    </div>
+
+    <div class="space-y-6">
+      {thoughts.map(async (thought) => {
+        const { Content } = await thought.render();
+        return (
+          <article class="card group">
+            <div class="space-y-3">
+              <div style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;" class="prose prose-lg dark:prose-invert max-w-none">
+                <Content />
+              </div>
+              <div class="flex items-center justify-between pt-2">
+                <time style="color: var(--color-text-muted);" class="text-sm" datetime={thought.data.pubDate.toISOString()}>
+                  {formatDate(thought.data.pubDate)}
+                  {thought.data.pubTime && <span class="ml-2">at {thought.data.pubTime}</span>}
+                </time>
+                {thought.data.tags && thought.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {thought.data.tags.map((tag) => (
+                      <span style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);" class="px-2.5 py-1 rounded text-xs font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          </article>
+        );
+      })}
+    </div>
+  </div>
+
+  <style>
+    article :global(p) {
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    article :global(a) {
+      color: var(--color-accent);
+    }
+
+    article :global(a:hover) {
+      color: var(--color-accent-hover);
+    }
+
+    article :global(strong) {
+      color: var(--color-text-heading);
+    }
+
+    article :global(code) {
+      background-color: var(--color-surface);
+      color: var(--color-accent-purple);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</BaseLayout>

@@ -1,0 +1,103 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Get the current "now" page content
+const nowEntries = await getCollection('now');
+const currentNowEntry = nowEntries[0];
+const currentNow = currentNowEntry ? await currentNowEntry.render() : null;
+---
+
+<BaseLayout
+  title="About - Stephen McCullough"
+  description="About Stephen McCullough, software engineer and founder from Northern Ireland"
+>
+  <article class="prose prose-lg dark:prose-invert max-w-none space-y-8" style="color: var(--color-text);">
+    <div class="flex flex-col md:flex-row gap-8 items-start">
+      <div class="space-y-6 flex-1">
+        <h1 style="color: var(--color-text-heading);">About</h1>
+
+        <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+          Software engineer and founder based in Northern Ireland. I build web applications and AI products,
+          working with startups and established companies.
+        </p>
+      </div>
+
+      <div class="flex-shrink-0 w-48 h-48 md:w-64 md:h-64">
+        <img src="/profile.svg" alt="Profile" class="w-full h-full animate-float" style="filter: drop-shadow(0 10px 30px rgba(0,0,0,0.1));" />
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">What I'm Working On</h2>
+      {currentNow && (
+        <div class="not-prose space-y-3">
+          <currentNow.Content />
+        </div>
+      )}
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Get in Touch</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Email me at <a href="mailto:hello@swm.cc" style="color: var(--color-accent);">hello@swm.cc</a> or
+        find me on <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">GitHub</a>.
+      </p>
+    </div>
+  </article>
+
+  <style>
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      25% {
+        transform: translateY(-10px) rotate(2deg);
+      }
+      50% {
+        transform: translateY(-5px) rotate(-1deg);
+      }
+      75% {
+        transform: translateY(-12px) rotate(1deg);
+      }
+    }
+
+    .animate-float {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    article :global(h2),
+    article :global(h3),
+    article :global(h4) {
+      color: var(--color-text-heading);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 0;
+    }
+
+    article :global(p) {
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    article :global(a) {
+      color: var(--color-accent);
+    }
+
+    article :global(a:hover) {
+      color: var(--color-accent-hover);
+    }
+
+    article :global(strong) {
+      color: var(--color-text-heading);
+    }
+
+    article :global(code) {
+      background-color: var(--color-surface);
+      color: var(--color-accent-purple);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</BaseLayout>

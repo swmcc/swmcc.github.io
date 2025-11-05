@@ -1,0 +1,53 @@
+---
+// Reading progress indicator for blog posts
+---
+
+<div id="reading-progress" class="fixed top-0 left-0 w-full h-1 z-50 bg-gray-200 dark:bg-gray-800">
+  <div id="reading-progress-bar" class="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-150 ease-out" style="width: 0%"></div>
+</div>
+
+<script>
+  class ReadingProgress extends HTMLElement {
+    constructor() {
+      super();
+      this.bar = null;
+      this.handleScroll = this.handleScroll.bind(this);
+    }
+
+    connectedCallback() {
+      this.bar = document.getElementById('reading-progress-bar');
+
+      // Only show on article pages
+      const isArticle = document.querySelector('article');
+      if (!isArticle) {
+        const container = document.getElementById('reading-progress');
+        if (container) container.style.display = 'none';
+        return;
+      }
+
+      window.addEventListener('scroll', this.handleScroll, { passive: true });
+      this.handleScroll(); // Initial calculation
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('scroll', this.handleScroll);
+    }
+
+    handleScroll() {
+      if (!this.bar) return;
+
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+
+      const scrollPercentage = (scrollTop / (documentHeight - windowHeight)) * 100;
+      const clampedPercentage = Math.min(Math.max(scrollPercentage, 0), 100);
+
+      this.bar.style.width = `${clampedPercentage}%`;
+    }
+  }
+
+  customElements.define('reading-progress', ReadingProgress);
+</script>
+
+<reading-progress></reading-progress>

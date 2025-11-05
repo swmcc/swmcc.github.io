@@ -1,0 +1,61 @@
+---
+const currentYear = new Date().getFullYear();
+---
+
+<footer style="border-top: 1px solid var(--color-border); background-color: var(--color-bg-secondary);" class="mt-24">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+      <!-- Brand -->
+      <div class="space-y-3">
+        <h3 class="text-lg font-bold gradient-text">swm.cc</h3>
+        <p style="color: var(--color-text-secondary);" class="text-sm leading-relaxed">
+          Software engineer and founder sharing thoughts on code, AI, startups, and building things.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="space-y-3">
+        <h4 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider">Quick Links</h4>
+        <nav class="flex flex-col space-y-2 text-sm">
+          <a href="/now" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">Now</a>
+          <a href="/blog" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">Blog</a>
+          <a href="/thoughts" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">Thoughts</a>
+          <a href="/notes" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">Notes</a>
+          <a href="/about" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">About</a>
+          <a href="/colophon" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity">Colophon</a>
+        </nav>
+      </div>
+
+      <!-- Connect -->
+      <div class="space-y-3">
+        <h4 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider">Connect</h4>
+        <div class="flex flex-col space-y-2 text-sm">
+          <a href="mailto:me@swm.cc" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+            </svg>
+            Email
+          </a>
+          <a href="https://github.com/swmcc" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity inline-flex items-center gap-2" target="_blank" rel="noopener noreferrer">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"></path>
+            </svg>
+            GitHub
+          </a>
+          <a href="/rss.xml" style="color: var(--color-text-secondary);" class="hover:opacity-70 transition-opacity inline-flex items-center gap-2">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M6.503 20.752c0 1.794-1.456 3.248-3.251 3.248-1.796 0-3.252-1.454-3.252-3.248 0-1.794 1.456-3.248 3.252-3.248 1.795.001 3.251 1.454 3.251 3.248zm-6.503-12.572v4.811c6.05.062 10.96 4.966 11.022 11.009h4.817c-.062-8.71-7.118-15.758-15.839-15.82zm0-3.368c10.58.046 19.152 8.594 19.183 19.188h4.817c-.03-13.231-10.755-23.954-24-24v4.812z"></path>
+            </svg>
+            RSS Feed
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="pt-8" style="border-top: 1px solid var(--color-border);">
+      <p style="color: var(--color-text-secondary);" class="text-center text-sm">
+        © {currentYear} Stephen McCullough. Built with <a href="https://astro.build" style="color: var(--color-accent);" class="hover:opacity-70 transition-opacity" target="_blank" rel="noopener noreferrer">Astro</a>.
+      </p>
+    </div>
+  </div>
+</footer>
