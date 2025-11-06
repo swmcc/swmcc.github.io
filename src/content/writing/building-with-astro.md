@@ -62,4 +62,4 @@ Astro excels at what it's designed for: content-heavy sites that should be fast 
 
 ---
 
-*If you're interested in the implementation details, the source code is [on GitHub](https://github.com/yourusername/swm.cc).*
+*If you're interested in the implementation details, the source code is [on GitHub](https://github.com/swmcc/swmcc.github.io).*
