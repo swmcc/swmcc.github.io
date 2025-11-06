@@ -1,0 +1,197 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Quick Thought - Stephen McCullough"
+  description="Post a quick thought"
+>
+  <div class="max-w-2xl mx-auto">
+    <h1 style="color: var(--color-text-heading);" class="text-3xl font-bold mb-8">Quick Thought</h1>
+
+    <div id="auth-section">
+      <div class="card space-y-4">
+        <label for="password" style="color: var(--color-text);" class="block text-sm font-medium">Password</label>
+        <input
+          type="password"
+          id="password"
+          class="w-full px-4 py-2 rounded-lg border"
+          style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+          placeholder="Enter password"
+        />
+        <button
+          id="auth-btn"
+          class="btn-primary w-full"
+        >
+          Unlock
+        </button>
+      </div>
+    </div>
+
+    <div id="form-section" class="hidden">
+      <form id="thought-form" class="card space-y-4">
+        <div>
+          <label for="slug" style="color: var(--color-text);" class="block text-sm font-medium mb-2">Slug (URL-friendly)</label>
+          <input
+            type="text"
+            id="slug"
+            name="slug"
+            required
+            class="w-full px-4 py-2 rounded-lg border"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            placeholder="my-thought-title"
+          />
+        </div>
+
+        <div>
+          <label for="tags" style="color: var(--color-text);" class="block text-sm font-medium mb-2">Tags (comma-separated, optional)</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="w-full px-4 py-2 rounded-lg border"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            placeholder="politics, tech"
+          />
+        </div>
+
+        <div>
+          <label for="content" style="color: var(--color-text);" class="block text-sm font-medium mb-2">Your Thought</label>
+          <textarea
+            id="content"
+            name="content"
+            required
+            rows="8"
+            class="w-full px-4 py-2 rounded-lg border font-mono text-sm"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            placeholder="Write your thought here..."
+          ></textarea>
+        </div>
+
+        <div id="error-message" class="hidden p-4 rounded-lg" style="background: #fee2e2; color: #991b1b;">
+        </div>
+
+        <div id="success-message" class="hidden p-4 rounded-lg" style="background: #d1fae5; color: #065f46;">
+          Thought posted successfully! Redirecting...
+        </div>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="btn-primary w-full"
+        >
+          Post Thought
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const authSection = document.getElementById('auth-section');
+    const formSection = document.getElementById('form-section');
+    const passwordInput = document.getElementById('password') as HTMLInputElement;
+    const authBtn = document.getElementById('auth-btn');
+    const thoughtForm = document.getElementById('thought-form') as HTMLFormElement;
+    const submitBtn = document.getElementById('submit-btn');
+    const errorMessage = document.getElementById('error-message');
+    const successMessage = document.getElementById('success-message');
+
+    let authToken = '';
+
+    // Check if already authenticated
+    const savedToken = sessionStorage.getItem('quickThoughtToken');
+    if (savedToken) {
+      authToken = savedToken;
+      authSection?.classList.add('hidden');
+      formSection?.classList.remove('hidden');
+    }
+
+    // Handle authentication
+    authBtn?.addEventListener('click', () => {
+      const password = passwordInput?.value;
+      if (password) {
+        authToken = password;
+        sessionStorage.setItem('quickThoughtToken', password);
+        authSection?.classList.add('hidden');
+        formSection?.classList.remove('hidden');
+      }
+    });
+
+    // Handle Enter key in password field
+    passwordInput?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        authBtn?.click();
+      }
+    });
+
+    // Handle form submission
+    thoughtForm?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const slugInput = document.getElementById('slug') as HTMLInputElement;
+      const tagsInput = document.getElementById('tags') as HTMLInputElement;
+      const contentInput = document.getElementById('content') as HTMLTextAreaElement;
+
+      const slug = slugInput?.value.trim();
+      const tags = tagsInput?.value.trim();
+      const content = contentInput?.value.trim();
+
+      if (!slug || !content) {
+        showError('Slug and content are required');
+        return;
+      }
+
+      // Disable submit button
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Posting...';
+      }
+
+      try {
+        const response = await fetch('https://api.github.com/repos/swmcc/swmcc.github.io/dispatches', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+            'Authorization': `Bearer ${authToken}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            event_type: 'create-thought',
+            client_payload: {
+              slug,
+              tags,
+              content
+            }
+          })
+        });
+
+        if (response.ok || response.status === 204) {
+          successMessage?.classList.remove('hidden');
+          errorMessage?.classList.add('hidden');
+          thoughtForm.reset();
+          setTimeout(() => {
+            window.location.href = '/thoughts';
+          }, 2000);
+        } else {
+          const errorText = await response.text();
+          showError(`Failed to post thought: ${response.status} ${errorText || response.statusText}`);
+        }
+      } catch (error) {
+        showError(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Post Thought';
+        }
+      }
+    });
+
+    function showError(message: string) {
+      if (errorMessage) {
+        errorMessage.textContent = message;
+        errorMessage.classList.remove('hidden');
+      }
+      successMessage?.classList.add('hidden');
+    }
+  </script>
+</BaseLayout>
