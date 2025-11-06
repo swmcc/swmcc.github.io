@@ -1,11 +1,19 @@
 ---
-updatedDate: 2025-11-05
+updatedDate: 2025-11-06
 ---
 
-Working on B2B SaaS projects in the small business space, building with TypeScript, React, and Rails.
+*Updated monthly. This is what I'm focused on in November 2025.*
 
-Learning system design and distributed systems - currently reading "Designing Data-Intensive Applications".
+## Day Job
 
-Building a personal knowledge management tool on the side.
+Building an AI Operating System for regulated environments using FastAPI and Svelte. Currently migrating from a monolith to a distributed architecture - the classic challenge of balancing immediate complexity with long-term scalability. It's rewarding work, especially navigating the unique requirements of highly regulated industries whilst keeping the system performant and maintainable.
+
+## After Hours
 
 Focusing on work-life balance: regular walks, reading fiction, being present with family.
+
+Re-watching NYPD Blue and loving it all over again.
+
+Preparing the garden for autumn - clearing beds, mulching, and planning for next year's growing season.
+
+Building this website and writing more consistently.

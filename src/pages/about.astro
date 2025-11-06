@@ -1,11 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-// Get the current "now" page content
-const nowEntries = await getCollection('now');
-const currentNowEntry = nowEntries[0];
-const currentNow = currentNowEntry ? await currentNowEntry.render() : null;
 ---
 
 <BaseLayout
@@ -29,22 +23,58 @@ const currentNow = currentNowEntry ? await currentNowEntry.render() : null;
     </div>
 
     <div class="space-y-4">
-      <h2 style="color: var(--color-text-heading);">What I'm Working On</h2>
-      {currentNow && (
-        <div class="not-prose space-y-3">
-          <currentNow.Content />
-        </div>
-      )}
+      <h2 style="color: var(--color-text-heading);">Background</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        I've spent my career building software across various domains - from early-stage startups to established
+        enterprises. My focus is on creating practical, maintainable systems that solve real problems.
+      </p>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Currently working with FastAPI, Svelte, and distributed systems. I enjoy the challenge of building
+        AI products for regulated environments where reliability and compliance are paramount. I work with
+        tools like Ollama for local LLM deployment, FastMCP for building Model Context Protocol servers,
+        and RAG systems for grounding AI responses in real data.
+      </p>
+    </div>
+
+    <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Interests</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Outside of work, I'm a keen gardener, enjoy reading fiction, and value time spent with family.
+        I have a love/hate relationship with golf - mostly hate when I'm playing, mostly love when I'm not.
+      </p>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        I watch a lot of TV and feel absolutely no guilt about it. Good storytelling is good storytelling,
+        regardless of the medium.
+      </p>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        I <a href="/writing" style="color: var(--color-accent);">write</a> about software, systems, and whatever else interests me.
+        My <a href="/notes" style="color: var(--color-accent);">notes</a> are handy snippets and things I've learned.
+        <a href="/thoughts" style="color: var(--color-accent);">Thoughts</a> are random things that pop into my head -
+        politics, favourite ice cream, whatever comes first. I don't use social media for this because the world is fucked.
+      </p>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        For what I'm currently working on, see my <a href="/now" style="color: var(--color-accent);">/now page</a>.
+      </p>
     </div>
 
     <div class="space-y-4">
       <h2 style="color: var(--color-text-heading);">Get in Touch</h2>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
-        Email me at <a href="mailto:hello@swm.cc" style="color: var(--color-accent);">hello@swm.cc</a> or
-        find me on <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">GitHub</a>.
+        Email me at <a href="#" id="email-link" style="color: var(--color-accent);">me@swm.cc</a> or
+        find me on <a href="https://github.com/swmcc" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">GitHub</a>.
       </p>
     </div>
   </article>
+
+  <script>
+    // Obfuscate email from scrapers
+    const emailLink = document.getElementById('email-link');
+    if (emailLink) {
+      const user = 'me';
+      const domain = 'swm.cc';
+      emailLink.href = 'mailto:' + user + '@' + domain;
+    }
+  </script>
 
   <style>
     @keyframes float {
