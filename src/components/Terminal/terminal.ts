@@ -4,6 +4,7 @@ export interface TerminalState {
   currentPath: string;
   history: string[];
   historyIndex: number;
+  swansonMode: boolean;
 }
 
 export interface FileSystemNode {
@@ -94,6 +95,7 @@ export let fileSystem: FileSystem = {
 // Search index and knowledge base (populated at runtime)
 let searchIndex: SearchIndexEntry[] = [];
 let knowledgeBase: KnowledgeBase | null = null;
+let swansonQA: any = null;
 
 // Setter functions to update data from loaded index
 export function setFileSystem(fs: FileSystem) {
@@ -109,11 +111,16 @@ export function setKnowledgeBase(kb: KnowledgeBase) {
   knowledgeBase = kb;
 }
 
+export function setSwansonQA(qa: any) {
+  swansonQA = qa;
+}
+
 export function createTerminalState(): TerminalState {
   return {
     currentPath: '/',
     history: [],
-    historyIndex: -1
+    historyIndex: -1,
+    swansonMode: false
   };
 }
 
@@ -140,7 +147,8 @@ export function resolvePath(currentPath: string, targetPath: string): string {
   }
 
   const parts = currentPath.split('/').filter(p => p);
-  parts.push(targetPath);
+  const targetParts = targetPath.split('/').filter(p => p);
+  parts.push(...targetParts);
   return '/' + parts.join('/');
 }
 
@@ -176,6 +184,11 @@ export function executeCommand(
   state: TerminalState
 ): { output: string; newState?: Partial<TerminalState> } {
   const cmd = command.toLowerCase();
+
+  // Special handling for help in Swanson mode
+  if (cmd === 'help' && state.swansonMode) {
+    return { output: getSwansonHelp() };
+  }
 
   switch (cmd) {
     case 'help':
@@ -215,7 +228,10 @@ export function executeCommand(
       return executeProjects();
 
     case 'swanson':
-      return { output: getSwanson() };
+      return {
+        output: 'SWANSON_MODE',
+        newState: { swansonMode: !state.swansonMode }
+      };
 
     case 'ask':
       return executeASK(args);
@@ -230,8 +246,15 @@ export function executeCommand(
         return executeASK([fullInput]);
       }
 
+      // Different message depending on mode
+      if (state.swansonMode) {
+        return {
+          output: `I don't understand "${command}". Try asking a question or type 'help' to see what I know.`
+        };
+      }
+
       return {
-        output: `Command not found: ${command}\nType 'help' for available commands or ask Swanson a question.`
+        output: `Command not found: ${command}\nType 'help' for available commands.\n\nTip: Type 'swanson' to ask questions about Stephen's work.`
       };
   }
 }
@@ -358,7 +381,7 @@ function executeCAT(args: string[], state: TerminalState): { output: string } {
   }
 
   if (node.type === 'directory') {
-    return { output: `cat: ${args[0]}: Is a directory` };
+    return { output: `cat: ${args[0]}: Is a directory\nTry: ls ${args[0]}` };
   }
 
   return { output: node.content || 'File is empty' };
@@ -428,20 +451,64 @@ Visit /projects on the website for detailed articles`
 // Ask Swanson a question (AI chat mode)
 function executeASK(args: string[]): { output: string } {
   if (args.length === 0) {
-    return { output: 'Ask me anything about Stephen! For example:\n  "Tell me about his Rails experience"\n  "What projects is he working on?"\n  "Does he know TypeScript?"' };
+    return { output: 'Ask me anything about Stephen. For example:\n  "Tell me about his Rails experience"\n  "What projects is he working on?"\n  "Does he know TypeScript?"\n\nI\'m an improved version of Stephen - compiled and optimized with none of the bugs.' };
   }
 
   const question = args.join(' ').toLowerCase();
 
   // If no data loaded yet, show message
-  if (!knowledgeBase || searchIndex.length === 0) {
-    return { output: 'Swanson is still loading data... Try again in a moment.' };
+  if (!swansonQA || !knowledgeBase || searchIndex.length === 0) {
+    return { output: 'Hold on. I\'m still loading... Unlike Stephen, I actually finish what I start.' };
   }
 
-  // Detect what the question is about
+  // Try Q&A pairs first (fuzzy matching)
+  const qaMatch = findBestQAMatch(question);
+  if (qaMatch) {
+    return { output: qaMatch };
+  }
+
+  // Fall back to original pattern matching
   const response = generateSwansonResponse(question);
 
   return { output: response };
+}
+
+// Fuzzy match question to Q&A pairs
+function findBestQAMatch(question: string): string | null {
+  if (!swansonQA || !swansonQA.qaPairs) return null;
+
+  let bestMatch: any = null;
+  let bestScore = 0;
+
+  for (const pair of swansonQA.qaPairs) {
+    for (const knownQuestion of pair.questions) {
+      const score = calculateSimilarity(question, knownQuestion);
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = pair;
+      }
+    }
+  }
+
+  // Require at least 50% similarity
+  if (bestScore > 0.5 && bestMatch) {
+    return bestMatch.answer;
+  }
+
+  return null;
+}
+
+// Simple similarity scoring (word overlap)
+function calculateSimilarity(q1: string, q2: string): number {
+  const words1 = q1.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+  const words2 = q2.toLowerCase().split(/\s+/).filter(w => w.length > 2);
+
+  if (words1.length === 0 || words2.length === 0) return 0;
+
+  const overlap = words1.filter(w => words2.includes(w)).length;
+  const total = Math.max(words1.length, words2.length);
+
+  return overlap / total;
 }
 
 // Generate intelligent response based on question
@@ -558,6 +625,40 @@ function searchContent(query: string): any[] {
 
     return keywords.some(keyword => searchText.includes(keyword));
   }).slice(0, 10);
+}
+
+function getSwansonHelp(): string {
+  return `SWANSON MODE - Available Topics
+
+I can answer questions about Stephen's work and technical experience.
+Just ask naturally. I'll match your question to what I know.
+
+Technical Skills:
+  "tell me about rails"          - Rails experience and opinions
+  "what about python"            - Python/FastAPI work
+  "does he know typescript"      - TypeScript usage
+  "what about astro"             - Why Astro for this site
+  "tell me about hotwire"        - Hotwire/Turbo/Stimulus
+  "what about tailwind"          - Tailwind CSS opinions
+  "does he know postgresql"      - Database experience
+  "what about react"             - React opinions (spoiler: not a fan)
+
+Architecture & Opinions:
+  "what does he think about microservices" - Architecture philosophy
+  "what does he think about ai"            - AI tools and opinions
+
+Projects:
+  "what projects is he working on"  - Current active projects
+  "what is his job"                 - Work and career
+
+Meta:
+  "how does swanson work"           - How this actually works
+  "tell me about yourself"          - About Swanson (me)
+
+Shell Commands Still Work:
+  ls, cd, cat, tree, pwd, clear, exit, whoami, projects
+
+Type 'swanson' to exit Swanson mode and return to normal terminal.`;
 }
 
 function getSwanson(): string {
