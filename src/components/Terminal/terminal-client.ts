@@ -6,6 +6,7 @@ import {
   setFileSystem,
   setSearchIndex,
   setKnowledgeBase,
+  setSwansonQA,
   type TerminalState
 } from './terminal';
 
@@ -34,12 +35,18 @@ export function initTerminal() {
     if (terminalDataLoaded) return;
 
     try {
-      const response = await fetch('/terminal-index.json');
-      const data = await response.json();
+      const [terminalResponse, qaResponse] = await Promise.all([
+        fetch('/terminal-index.json'),
+        fetch('/swanson-qa.json')
+      ]);
 
-      setFileSystem(data.fileSystem);
-      setSearchIndex(data.searchIndex);
-      setKnowledgeBase(data.knowledgeBase);
+      const terminalData = await terminalResponse.json();
+      const qaData = await qaResponse.json();
+
+      setFileSystem(terminalData.fileSystem);
+      setSearchIndex(terminalData.searchIndex);
+      setKnowledgeBase(terminalData.knowledgeBase);
+      setSwansonQA(qaData);
 
       terminalDataLoaded = true;
     } catch (error) {
@@ -139,6 +146,23 @@ export function initTerminal() {
       return;
     }
 
+    if (result.output === 'SWANSON_MODE') {
+      // Update state first
+      if (result.newState) {
+        terminalState = { ...terminalState, ...result.newState };
+      }
+
+      // Show appropriate message based on mode
+      if (terminalState.swansonMode) {
+        showSwansonIntro();
+      } else {
+        appendOutput('Exiting Swanson mode. Back to normal terminal.', 'muted');
+      }
+      updatePrompt();
+      scrollToBottom();
+      return;
+    }
+
     // Update state if needed
     if (result.newState) {
       terminalState = { ...terminalState, ...result.newState };
@@ -190,10 +214,26 @@ export function initTerminal() {
     output.appendChild(line);
   }
 
+  function showSwansonIntro() {
+    const intro = document.createElement('div');
+    intro.className = 'muted';
+    intro.style.whiteSpace = 'pre-wrap';
+    intro.style.wordWrap = 'break-word';
+    intro.style.overflowWrap = 'break-word';
+    intro.textContent = `Hello. I'm Swanson - an improved digital version of Stephen McCullough.
+
+Think of me as Stephen 2.0: compiled, optimised and debugged. I have all his knowledge but none of the bugs. Better error handling, fewer coffee dependencies and Git commits that actually make sense.
+
+I'm here to answer questions about Stephen's work, projects and technical experience. Ask me anything. I won't get distracted, I won't procrastinate and I certainly won't spend 20 minutes on Stack Overflow looking for an answer I already know.
+
+Type 'help' to see available topics.
+Type 'swanson' again to return to normal terminal mode.`;
+    output.appendChild(intro);
+  }
+
   function clearTerminal() {
     if (output) {
       output.innerHTML = '';
-      appendOutput(getWelcomeMessage(), 'muted');
     }
   }
 
@@ -205,6 +245,9 @@ export function initTerminal() {
   }
 
   function getPrompt(): string {
+    if (terminalState.swansonMode) {
+      return 'swanson> ';
+    }
     const path = terminalState.currentPath === '/' ? '~' : terminalState.currentPath.replace('/', '');
     return `visitor@swm.cc:${path}$ `;
   }
