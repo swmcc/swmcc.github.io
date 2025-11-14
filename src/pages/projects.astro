@@ -85,9 +85,10 @@ const projects = [
     </div>
 
     <!-- Search and Filter -->
-    <div class="not-prose space-y-4">
-      <div class="flex flex-col sm:flex-row gap-4">
-        <div class="flex-1">
+    <div class="not-prose">
+      <div class="flex flex-col sm:flex-row gap-4 items-start">
+        <!-- Search input -->
+        <div class="flex-1 w-full">
           <label for="project-search" class="sr-only">Search projects</label>
           <input
             type="text"
@@ -97,15 +98,47 @@ const projects = [
             style="background: var(--color-bg-secondary); color: var(--color-text); border-color: var(--color-border);"
           />
         </div>
-      </div>
 
-      <!-- Tag filters -->
-      <div class="flex flex-wrap gap-2" id="tag-filters">
-        <!-- Tags will be populated by JavaScript -->
+        <!-- Filter dropdown button -->
+        <div class="relative">
+          <button
+            id="filter-toggle"
+            type="button"
+            class="flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors whitespace-nowrap"
+            style="background: var(--color-bg-secondary); color: var(--color-text); border-color: var(--color-border);"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+            </svg>
+            <span>Filter by tag</span>
+            <span id="filter-count" class="hidden px-2 py-0.5 rounded-full text-xs font-bold" style="background: var(--color-accent); color: white;"></span>
+          </button>
+
+          <!-- Dropdown panel -->
+          <div
+            id="filter-panel"
+            class="hidden absolute right-0 mt-2 p-4 rounded-lg border shadow-lg z-10 min-w-[300px]"
+            style="background: var(--color-bg); border-color: var(--color-border);"
+          >
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm font-medium" style="color: var(--color-text-heading);">Filter by Technology</span>
+              <button
+                id="clear-filters"
+                class="text-xs px-2 py-1 rounded transition-opacity hover:opacity-70"
+                style="color: var(--color-accent);"
+              >
+                Clear all
+              </button>
+            </div>
+            <div class="flex flex-wrap gap-2" id="tag-filters">
+              <!-- Tags will be populated by JavaScript -->
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Active filters display -->
-      <div id="active-filters" class="flex flex-wrap gap-2 min-h-[2rem]">
+      <div id="active-filters" class="flex flex-wrap gap-2 mt-4 empty:mt-0">
         <!-- Active filters will be shown here -->
       </div>
     </div>
@@ -297,6 +330,31 @@ const projects = [
     .project-card.hidden {
       display: none;
     }
+
+    #filter-toggle:hover {
+      opacity: 0.8;
+    }
+
+    #filter-panel {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    /* Smooth dropdown animation */
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #filter-panel:not(.hidden) {
+      animation: slideDown 0.2s ease-out;
+    }
   </style>
 
   <script>
@@ -370,28 +428,73 @@ const projects = [
     // Update active filters display
     function updateActiveFilters() {
       const activeFiltersContainer = document.getElementById('active-filters');
+      const filterCount = document.getElementById('filter-count');
       activeFiltersContainer.innerHTML = '';
+
+      // Update filter count badge
+      if (activeTagFilters.size > 0) {
+        filterCount.textContent = activeTagFilters.size;
+        filterCount.classList.remove('hidden');
+      } else {
+        filterCount.classList.add('hidden');
+      }
 
       if (activeTagFilters.size === 0 && !searchQuery) {
         return;
       }
 
-      // Add clear all button if there are active filters
-      if (activeTagFilters.size > 0 || searchQuery) {
-        const clearButton = document.createElement('button');
-        clearButton.className = 'px-3 py-1 rounded-full text-xs font-medium';
-        clearButton.style.cssText = 'background: var(--color-accent); color: white;';
-        clearButton.textContent = 'Clear all';
-        clearButton.addEventListener('click', () => {
-          activeTagFilters.clear();
-          searchQuery = '';
-          document.getElementById('project-search').value = '';
-          document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+      // Show active tag filters as removable chips
+      activeTagFilters.forEach(tag => {
+        const chip = document.createElement('button');
+        chip.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-opacity hover:opacity-70';
+        chip.style.cssText = 'background: var(--color-accent); color: white;';
+
+        const tagText = document.createElement('span');
+        tagText.textContent = tag.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+        const removeIcon = document.createElement('span');
+        removeIcon.innerHTML = '×';
+        removeIcon.className = 'text-lg leading-none';
+
+        chip.appendChild(tagText);
+        chip.appendChild(removeIcon);
+
+        chip.addEventListener('click', () => {
+          activeTagFilters.delete(tag);
+          const filterButton = document.querySelector(`.tag-filter[data-tag="${tag}"]`);
+          if (filterButton) {
+            filterButton.classList.remove('active');
+          }
           filterProjects();
         });
-        activeFiltersContainer.appendChild(clearButton);
-      }
+
+        activeFiltersContainer.appendChild(chip);
+      });
     }
+
+    // Dropdown toggle functionality
+    const filterToggle = document.getElementById('filter-toggle');
+    const filterPanel = document.getElementById('filter-panel');
+
+    filterToggle.addEventListener('click', () => {
+      filterPanel.classList.toggle('hidden');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!filterToggle.contains(e.target) && !filterPanel.contains(e.target)) {
+        filterPanel.classList.add('hidden');
+      }
+    });
+
+    // Clear filters button in dropdown
+    document.getElementById('clear-filters').addEventListener('click', () => {
+      activeTagFilters.clear();
+      searchQuery = '';
+      document.getElementById('project-search').value = '';
+      document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+      filterProjects();
+    });
 
     // Search input handler
     const searchInput = document.getElementById('project-search');
