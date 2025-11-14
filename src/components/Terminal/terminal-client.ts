@@ -26,8 +26,16 @@ export function initTerminal() {
   // Show welcome message
   appendOutput(getWelcomeMessage(), 'muted');
 
+  // Check if mobile and show funny warning
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+    || window.innerWidth < 768;
+
   // Toggle modal
   toggleBtn.addEventListener('click', () => {
+    if (isMobile) {
+      showMobileWarning();
+      return;
+    }
     modal.classList.remove('hidden');
     input.focus();
   });
@@ -179,6 +187,102 @@ Examples:
   help                    # Show all commands
 
 `;
+}
+
+function showMobileWarning() {
+  // Create modal overlay
+  const overlay = document.createElement('div');
+  overlay.style.cssText = `
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    animation: fadeIn 0.2s ease-out;
+  `;
+
+  // Create warning card
+  const card = document.createElement('div');
+  card.style.cssText = `
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideUp 0.3s ease-out;
+  `;
+
+  card.innerHTML = `
+    <div style="text-align: center;">
+      <div style="font-size: 3rem; margin-bottom: 1rem;">📱 ➡️ 💻</div>
+      <h2 style="color: var(--color-text-heading); font-size: 1.5rem; margin-bottom: 1rem; font-family: 'Space Grotesk', sans-serif;">
+        Terminal Requires Bigger Screen
+      </h2>
+      <p style="color: var(--color-text); line-height: 1.6; margin-bottom: 1.5rem;">
+        The SWMCC Operating System requires at least 47 pixels more than your current device has to offer.
+        <br><br>
+        Please try again on a desktop or laptop. Your thumbs will thank you.
+      </p>
+      <button id="mobile-warning-close" style="
+        background: var(--color-accent);
+        color: white;
+        border: none;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      ">
+        Got it
+      </button>
+    </div>
+  `;
+
+  overlay.appendChild(card);
+  document.body.appendChild(overlay);
+
+  // Close handlers
+  const closeWarning = () => {
+    overlay.style.opacity = '0';
+    setTimeout(() => overlay.remove(), 200);
+  };
+
+  const closeBtn = card.querySelector('#mobile-warning-close');
+  closeBtn?.addEventListener('click', closeWarning);
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      closeWarning();
+    }
+  });
+
+  // Add animations
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #mobile-warning-close:hover {
+      opacity: 0.8;
+    }
+  `;
+  document.head.appendChild(style);
 }
 
 // Initialize when DOM is ready
