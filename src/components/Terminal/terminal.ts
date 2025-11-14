@@ -10,6 +10,8 @@ export interface FileSystemNode {
   type: 'file' | 'directory';
   name: string;
   content?: string;
+  url?: string;
+  metadata?: any;
   children?: { [key: string]: FileSystemNode };
 }
 
@@ -17,8 +19,25 @@ export interface FileSystem {
   [key: string]: FileSystemNode;
 }
 
-// Virtual file system - we'll populate this from actual site content
-export const fileSystem: FileSystem = {
+export interface SearchIndexEntry {
+  type: string;
+  slug: string;
+  title?: string;
+  description?: string;
+  content: string;
+  tags: string[];
+  pubDate: Date;
+  url: string;
+}
+
+export interface KnowledgeBase {
+  about: any;
+  skills: any;
+  projects: any;
+}
+
+// Virtual file system - will be populated from terminal-index.json
+export let fileSystem: FileSystem = {
   'about.md': {
     type: 'file',
     name: 'about.md',
@@ -71,6 +90,24 @@ export const fileSystem: FileSystem = {
     children: {}
   }
 };
+
+// Search index and knowledge base (populated at runtime)
+let searchIndex: SearchIndexEntry[] = [];
+let knowledgeBase: KnowledgeBase | null = null;
+
+// Setter functions to update data from loaded index
+export function setFileSystem(fs: FileSystem) {
+  Object.keys(fileSystem).forEach(key => delete fileSystem[key]);
+  Object.assign(fileSystem, fs);
+}
+
+export function setSearchIndex(index: SearchIndexEntry[]) {
+  searchIndex = index;
+}
+
+export function setKnowledgeBase(kb: KnowledgeBase) {
+  knowledgeBase = kb;
+}
 
 export function createTerminalState(): TerminalState {
   return {
@@ -176,14 +213,41 @@ export function executeCommand(
     case 'swanson':
       return { output: getSwanson() };
 
+    case 'ask':
+      return executeASK(args);
+
     case '':
       return { output: '' };
 
     default:
+      // Check if input looks like a question
+      const fullInput = [command, ...args].join(' ');
+      if (isQuestion(fullInput)) {
+        return executeASK([fullInput]);
+      }
+
       return {
-        output: `Command not found: ${command}\nType 'help' for available commands.`
+        output: `Command not found: ${command}\nType 'help' for available commands or ask Swanson a question.`
       };
   }
+}
+
+// Check if input looks like a question
+function isQuestion(input: string): boolean {
+  const lowerInput = input.toLowerCase().trim();
+
+  // Question words
+  const questionWords = ['what', 'who', 'when', 'where', 'why', 'how', 'does', 'is', 'can', 'tell', 'show', 'explain'];
+  const startsWithQuestion = questionWords.some(word => lowerInput.startsWith(word + ' '));
+
+  // Contains question mark
+  const hasQuestionMark = input.includes('?');
+
+  // Phrases that indicate questions
+  const questionPhrases = ['tell me about', 'what about', 'how about', 'know about'];
+  const hasQuestionPhrase = questionPhrases.some(phrase => lowerInput.includes(phrase));
+
+  return startsWithQuestion || hasQuestionMark || hasQuestionPhrase;
 }
 
 function getHelpText(specificCommand?: string): string {
@@ -197,7 +261,9 @@ function getHelpText(specificCommand?: string): string {
       clear: 'clear - Clear terminal screen',
       help: 'help [command] - Show help for a command',
       whoami: 'whoami - Display information about Stephen',
-      projects: 'projects - Quick list of active projects'
+      projects: 'projects - Quick list of active projects',
+      swanson: 'swanson - Meet Swanson, Stephen\'s AI alter ego',
+      ask: 'ask <question> - Ask Swanson anything about Stephen (or just type your question naturally)'
     };
     return helps[specificCommand] || `No help available for: ${specificCommand}`;
   }
@@ -218,9 +284,13 @@ Information:
   help [command]     Show this help or help for specific command
   clear              Clear terminal
 
-Try asking questions like:
+Chat with Swanson (AI):
+  ask <question>     Ask Swanson anything about Stephen
+
+You can also just type questions directly:
   "Tell me about his Rails experience"
   "What projects is he working on?"
+  "Does he know TypeScript?"
 
 Navigate the site like a file system:
   ls projects/       View available project articles
@@ -345,6 +415,141 @@ function executeProjects(): { output: string } {
 Run 'ls projects/' for full list
 Visit /projects on the website for detailed articles`
   };
+}
+
+// Ask Swanson a question (AI chat mode)
+function executeASK(args: string[]): { output: string } {
+  if (args.length === 0) {
+    return { output: 'Ask me anything about Stephen! For example:\n  "Tell me about his Rails experience"\n  "What projects is he working on?"\n  "Does he know TypeScript?"' };
+  }
+
+  const question = args.join(' ').toLowerCase();
+
+  // If no data loaded yet, show message
+  if (!knowledgeBase || searchIndex.length === 0) {
+    return { output: 'Swanson is still loading data... Try again in a moment.' };
+  }
+
+  // Detect what the question is about
+  const response = generateSwansonResponse(question);
+
+  return { output: response };
+}
+
+// Generate intelligent response based on question
+function generateSwansonResponse(question: string): string {
+  const q = question.toLowerCase();
+
+  // About/who is Stephen
+  if (q.match(/who (is|are) (you|stephen|he)/i) || q.includes('about stephen') || q.includes('about himself') || q === 'about' || q === 'whoami') {
+    return `${knowledgeBase!.about.name} is a ${knowledgeBase!.about.role} based in ${knowledgeBase!.about.location}.
+
+He's currently building ${knowledgeBase!.about.interests.join(', ')}.
+
+For more details, check out:
+  cat about.md
+  ls projects/
+  whoami`;
+  }
+
+  // Skills-based questions
+  const skillKeywords = ['rails', 'python', 'typescript', 'javascript', 'astro', 'hotwire', 'tailwind', 'postgresql', 'elasticsearch', 'react', 'vue'];
+  const askedSkill = skillKeywords.find(skill => q.includes(skill));
+
+  if (askedSkill && knowledgeBase!.skills[askedSkill]) {
+    const skillInfo = knowledgeBase!.skills[askedSkill];
+
+    if (!skillInfo.mentioned) {
+      return `Stephen hasn't written about ${askedSkill} yet. But that doesn't mean he doesn't know it.\n\nTry asking about: ${skillKeywords.filter(s => knowledgeBase!.skills[s]?.mentioned).join(', ')}`;
+    }
+
+    let response = `Stephen has written about ${askedSkill} in ${skillInfo.count} piece${skillInfo.count > 1 ? 's' : ''}.\n`;
+
+    if (skillInfo.examples && skillInfo.examples.length > 0) {
+      response += '\nHere are some examples:\n';
+      skillInfo.examples.forEach((ex: any) => {
+        response += `\n• ${ex.title}\n  ${ex.url}\n  "${ex.excerpt.substring(0, 120)}..."`;
+      });
+    }
+
+    return response;
+  }
+
+  // Projects
+  if (q.includes('project') || q.includes('working on') || q.includes('building')) {
+    const projects = knowledgeBase!.projects.active;
+
+    if (projects.length === 0) {
+      return "Stephen hasn't documented any projects yet. Probably too busy building them.";
+    }
+
+    let response = `Stephen is currently working on ${projects.length} documented project${projects.length > 1 ? 's' : ''}:\n`;
+
+    projects.forEach((p: any) => {
+      response += `\n• ${p.title}\n  ${p.description}\n  View: ${p.url}`;
+    });
+
+    response += '\n\nRun "ls projects/" to see project files.';
+
+    return response;
+  }
+
+  // Experience questions
+  if (q.includes('experience')) {
+    return `Stephen has experience across the full stack:
+
+Backend: Ruby on Rails, Python (FastAPI), Node.js
+Frontend: Astro, TypeScript, Hotwire (Turbo + Stimulus)
+Database: PostgreSQL, SQLite
+Infrastructure: Self-hosted tools, monolith architecture
+
+He particularly enjoys Rails 8 and modern web standards.
+
+Run "projects" or explore /writing for detailed articles about his work.`;
+  }
+
+  // General questions - search content
+  const searchResults = searchContent(q);
+
+  if (searchResults.length > 0) {
+    let response = `I found ${searchResults.length} relevant piece${searchResults.length > 1 ? 's' : ''} about that:\n`;
+
+    searchResults.slice(0, 3).forEach((result: any) => {
+      response += `\n• ${result.title || result.type}\n  ${result.url}`;
+    });
+
+    if (searchResults.length > 3) {
+      response += `\n\n...and ${searchResults.length - 3} more. Try refining your question.`;
+    }
+
+    return response;
+  }
+
+  // Fallback: didn't understand
+  return `Hmm, I'm not sure about that. Try asking:
+  "Tell me about his Rails experience"
+  "What projects is he working on?"
+  "Does he know TypeScript?"
+
+Or explore the file system:
+  ls projects/
+  cat writing/building-with-astro.md`;
+}
+
+// Search through indexed content
+function searchContent(query: string): any[] {
+  const keywords = query.toLowerCase().split(/\s+/).filter(w => w.length > 3);
+
+  return searchIndex.filter(item => {
+    const searchText = [
+      item.title || '',
+      item.description || '',
+      item.content || '',
+      ...item.tags
+    ].join(' ').toLowerCase();
+
+    return keywords.some(keyword => searchText.includes(keyword));
+  }).slice(0, 10);
 }
 
 function getSwanson(): string {

@@ -3,12 +3,16 @@ import {
   createTerminalState,
   parseCommand,
   executeCommand,
+  setFileSystem,
+  setSearchIndex,
+  setKnowledgeBase,
   type TerminalState
 } from './terminal';
 
 let terminalState: TerminalState = createTerminalState();
 let commandHistory: string[] = [];
 let historyIndex = -1;
+let terminalDataLoaded = false;
 
 export function initTerminal() {
   const modal = document.getElementById('terminal-modal');
@@ -25,8 +29,26 @@ export function initTerminal() {
 
   let hasBooted = false;
 
+  // Load terminal data from generated index
+  async function loadTerminalData() {
+    if (terminalDataLoaded) return;
+
+    try {
+      const response = await fetch('/terminal-index.json');
+      const data = await response.json();
+
+      setFileSystem(data.fileSystem);
+      setSearchIndex(data.searchIndex);
+      setKnowledgeBase(data.knowledgeBase);
+
+      terminalDataLoaded = true;
+    } catch (error) {
+      console.error('Failed to load terminal data:', error);
+    }
+  }
+
   // Toggle modal
-  toggleBtn.addEventListener('click', () => {
+  toggleBtn.addEventListener('click', async () => {
     // Check if mobile at click time (not page load)
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
       || window.innerWidth < 768;
@@ -35,6 +57,10 @@ export function initTerminal() {
       showMobileWarning();
       return;
     }
+
+    // Load terminal data before opening
+    await loadTerminalData();
+
     modal.classList.remove('hidden');
 
     // Boot sequence on first open
@@ -179,19 +205,22 @@ export function initTerminal() {
       { text: '🚂 Loading Rails monolith driver... OK', delay: 300 },
       { text: '🐍 Detecting Python installations... Found 47 versions', delay: 450 },
       { text: '🤖 Initialising AI agent "swanson" (Stephen\'s alter ego)... ONLINE', delay: 500 },
+      { text: '🔍 Indexing content for intelligent search... OK', delay: 350 },
       { text: '😏 Enabling sarcasm module... Because clearly Stephen needs help with that', delay: 400 },
       { text: '✨ System ready. Stephen is not.', delay: 300 },
       { text: '', delay: 200 },
-      { text: "Type 'help' for available commands, or ask swanson anything about Stephen.", delay: 100 },
+      { text: "Type 'help' for commands, or just ask Swanson questions about Stephen:", delay: 100 },
       { text: '', delay: 100 },
-      { text: 'Examples:', delay: 50 },
+      { text: 'Shell Commands:', delay: 50 },
       { text: '  ls                      # List site sections', delay: 50 },
       { text: '  cd projects             # Navigate to projects', delay: 50 },
       { text: '  cat projects/jotter.md  # Read about Jotter', delay: 50 },
-      { text: '  whoami                  # About Stephen', delay: 50 },
-      { text: '  swanson                 # Meet Stephen\'s AI alter ego', delay: 50 },
       { text: '  tree                    # Show directory structure', delay: 50 },
-      { text: '  help                    # Show all commands', delay: 50 },
+      { text: '', delay: 50 },
+      { text: 'Ask Swanson:', delay: 50 },
+      { text: '  Tell me about his Rails experience', delay: 50 },
+      { text: '  What projects is he working on?', delay: 50 },
+      { text: '  Does he know TypeScript?', delay: 50 },
       { text: '', delay: 100 }
     ];
 
