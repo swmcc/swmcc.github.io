@@ -25,12 +25,12 @@ export function initTerminal() {
 
   let hasBooted = false;
 
-  // Check if mobile and show funny warning
-  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
-    || window.innerWidth < 768;
-
   // Toggle modal
   toggleBtn.addEventListener('click', () => {
+    // Check if mobile at click time (not page load)
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      || window.innerWidth < 768;
+
     if (isMobile) {
       showMobileWarning();
       return;
