@@ -156,20 +156,24 @@ export function initTerminal() {
         const imagePath = lines[0].substring(6); // Remove 'IMAGE:' prefix
         const textContent = lines.slice(1).join('\n');
 
+        // Create container with image on left and text on right
+        const container = document.createElement('div');
+        container.className = 'terminal-image-text-container';
+
         // Create image element
-        const imgContainer = document.createElement('div');
-        imgContainer.className = 'terminal-image-container';
         const img = document.createElement('img');
         img.src = imagePath;
         img.alt = 'Profile';
         img.className = 'terminal-image';
-        imgContainer.appendChild(img);
-        output.appendChild(imgContainer);
 
-        // Add text content if any
-        if (textContent.trim()) {
-          appendOutput(textContent, className);
-        }
+        // Create text element
+        const textDiv = document.createElement('div');
+        textDiv.className = 'terminal-image-text';
+        textDiv.textContent = textContent.trim();
+
+        container.appendChild(img);
+        container.appendChild(textDiv);
+        output.appendChild(container);
       } else {
         appendOutput(result.output, className);
       }
