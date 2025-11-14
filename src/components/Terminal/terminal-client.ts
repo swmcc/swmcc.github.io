@@ -23,8 +23,7 @@ export function initTerminal() {
     return;
   }
 
-  // Show welcome message
-  appendOutput(getWelcomeMessage(), 'muted');
+  let hasBooted = false;
 
   // Check if mobile and show funny warning
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
@@ -37,7 +36,14 @@ export function initTerminal() {
       return;
     }
     modal.classList.remove('hidden');
-    input.focus();
+
+    // Boot sequence on first open
+    if (!hasBooted) {
+      hasBooted = true;
+      playBootSequence();
+    } else {
+      input.focus();
+    }
   });
 
   // Close modal
@@ -153,40 +159,57 @@ export function initTerminal() {
     }
   }
 
+  // Boot sequence animation
+  async function playBootSequence() {
+    if (!input) return;
+
+    // Disable input during boot
+    input.disabled = true;
+
+    const bootLines = [
+      { text: '╔═══════════════════════════════════════════════════════════════╗', delay: 0 },
+      { text: '║              SWMCC Operating System v2025.11.14               ║', delay: 100 },
+      { text: '║         Definitely Not Running on a Raspberry Pi Zero         ║', delay: 100 },
+      { text: '╚═══════════════════════════════════════════════════════════════╝', delay: 100 },
+      { text: '', delay: 200 },
+      { text: '🔧 Initialising swmcc kernel...', delay: 300 },
+      { text: '🧠 Loading personality modules... OK', delay: 400 },
+      { text: '☕ Mounting /dev/coffee... OK', delay: 350 },
+      { text: '😴 Starting procrastination daemon... FAILED (as expected)', delay: 500 },
+      { text: '🚂 Loading Rails monolith driver... OK', delay: 300 },
+      { text: '🐍 Detecting Python installations... Found 47 versions', delay: 450 },
+      { text: '😏 Enabling sarcasm module... OH GREAT, ANOTHER TERMINAL', delay: 400 },
+      { text: '✨ System ready. Probably.', delay: 300 },
+      { text: '', delay: 200 },
+      { text: "Type 'help' for available commands, or just ask me stuff.", delay: 100 },
+      { text: '', delay: 100 },
+      { text: 'Examples:', delay: 50 },
+      { text: '  ls                      # List site sections', delay: 50 },
+      { text: '  cd projects             # Navigate to projects', delay: 50 },
+      { text: '  cat projects/jotter.md  # Read about Jotter', delay: 50 },
+      { text: '  whoami                  # About Stephen', delay: 50 },
+      { text: '  tree                    # Show directory structure', delay: 50 },
+      { text: '  help                    # Show all commands', delay: 50 },
+      { text: '', delay: 100 }
+    ];
+
+    for (const line of bootLines) {
+      await new Promise(resolve => setTimeout(resolve, line.delay));
+      appendOutput(line.text, 'muted');
+      scrollToBottom();
+    }
+
+    // Re-enable input and focus
+    input.disabled = false;
+    input.focus();
+  }
+
   // Watch for state changes
   const originalHandleCommand = handleCommand;
   handleCommand = function(commandStr: string) {
     originalHandleCommand(commandStr);
     updatePrompt();
   };
-}
-
-function getWelcomeMessage(): string {
-  return `╔═══════════════════════════════════════════════════════════════╗
-║              SWMCC Operating System v2025.11.14               ║
-║         Definitely Not Running on a Raspberry Pi Zero         ║
-╚═══════════════════════════════════════════════════════════════╝
-
-🔧 Initialising swmcc kernel...
-🧠 Loading personality modules... OK
-☕ Mounting /dev/coffee... OK
-😴 Starting procrastination daemon... FAILED (as expected)
-🚂 Loading Rails monolith driver... OK
-🐍 Detecting Python installations... Found 47 versions
-😏 Enabling sarcasm module... OH GREAT, ANOTHER TERMINAL
-✨ System ready. Probably.
-
-Type 'help' for available commands, or just ask me stuff.
-
-Examples:
-  ls                      # List site sections
-  cd projects             # Navigate to projects
-  cat projects/jotter.md  # Read about Jotter
-  whoami                  # About Stephen
-  tree                    # Show directory structure
-  help                    # Show all commands
-
-`;
 }
 
 function showMobileWarning() {
