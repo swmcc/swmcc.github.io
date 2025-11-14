@@ -297,7 +297,7 @@ I wanted a unique way to explore the site's content that felt more interactive t
 
 **Technical Implementation**
 
-The terminal is built with vanilla TypeScript and integrates with Astro's content collections:
+The terminal is written in TypeScript and integrates with Astro's content collections:
 
 ```typescript
 // Generate searchable index at build time
