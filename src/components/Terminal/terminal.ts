@@ -185,6 +185,10 @@ export function executeCommand(
     case 'cls':
       return { output: 'CLEAR' }; // Special signal to clear terminal
 
+    case 'exit':
+    case 'quit':
+      return { output: 'EXIT' }; // Special signal to close terminal
+
     case 'ls':
     case 'dir':
       return executeLS(args, state);
@@ -259,6 +263,7 @@ function getHelpText(specificCommand?: string): string {
       cat: 'cat <file> - Display file contents',
       tree: 'tree [path] - Display directory tree',
       clear: 'clear - Clear terminal screen',
+      exit: 'exit - Close terminal',
       help: 'help [command] - Show help for a command',
       whoami: 'whoami - Display information about Stephen',
       projects: 'projects - Quick list of active projects',
@@ -283,6 +288,7 @@ Information:
   projects           List active projects
   help [command]     Show this help or help for specific command
   clear              Clear terminal
+  exit               Close terminal
 
 Chat with Swanson (AI):
   ask <question>     Ask Swanson anything about Stephen
@@ -393,7 +399,9 @@ function buildTree(node: FileSystemNode, prefix: string, lines: string[], isLast
 }
 
 function getWhoAmI(): string {
-  return `Stephen McCullough
+  return `IMAGE:/profile.svg
+
+Stephen McCullough
 Software Engineer | Northern Ireland
 
 Currently building AI Operating Systems and personal projects.

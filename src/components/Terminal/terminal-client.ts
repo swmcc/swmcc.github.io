@@ -134,6 +134,11 @@ export function initTerminal() {
       return;
     }
 
+    if (result.output === 'EXIT') {
+      closeModal();
+      return;
+    }
+
     // Update state if needed
     if (result.newState) {
       terminalState = { ...terminalState, ...result.newState };
@@ -144,7 +149,30 @@ export function initTerminal() {
       const className = result.output.includes('not found') || result.output.includes('No such')
         ? 'error'
         : 'output';
-      appendOutput(result.output, className);
+
+      // Check if output contains an image marker
+      if (result.output.startsWith('IMAGE:')) {
+        const lines = result.output.split('\n');
+        const imagePath = lines[0].substring(6); // Remove 'IMAGE:' prefix
+        const textContent = lines.slice(1).join('\n');
+
+        // Create image element
+        const imgContainer = document.createElement('div');
+        imgContainer.className = 'terminal-image-container';
+        const img = document.createElement('img');
+        img.src = imagePath;
+        img.alt = 'Profile';
+        img.className = 'terminal-image';
+        imgContainer.appendChild(img);
+        output.appendChild(imgContainer);
+
+        // Add text content if any
+        if (textContent.trim()) {
+          appendOutput(textContent, className);
+        }
+      } else {
+        appendOutput(result.output, className);
+      }
     }
 
     // Scroll to bottom
