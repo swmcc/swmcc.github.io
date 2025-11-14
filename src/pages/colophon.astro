@@ -38,6 +38,31 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     </div>
 
     <div class="space-y-4">
+      <h2 style="color: var(--color-text-heading);">Interactive Terminal</h2>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        The site features a custom-built terminal emulator with dual functionality:
+      </p>
+      <ul style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8; list-style: none; padding: 0;">
+        <li style="margin-bottom: 0.75rem;">
+          <strong style="color: var(--color-text-heading);">Shell Commands</strong> - Navigate the site using Unix-style commands (ls, cd, cat, tree, pwd, exit)
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <strong style="color: var(--color-text-heading);">Swanson AI</strong> - Ask natural language questions about content, powered by build-time indexing
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <strong style="color: var(--color-text-heading);">Content Search</strong> - Full-text search across all writing, notes, thoughts, and projects (~30KB gzipped)
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <strong style="color: var(--color-text-heading);">Zero External APIs</strong> - Entirely local, no tracking, content-aware responses based on indexed markdown
+        </li>
+      </ul>
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        Built with vanilla TypeScript, the terminal loads lazily (only when opened) for zero impact on initial page load.
+        Content automatically updates at build time via Astro's Content Collections API.
+      </p>
+    </div>
+
+    <div class="space-y-4">
       <h2 style="color: var(--color-text-heading);">Modern Web Standards</h2>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
         Built following 2025 best practices:
