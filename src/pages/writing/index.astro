@@ -27,34 +27,333 @@ const posts = (await getCollection('writing'))
         No posts yet. Check back soon!
       </p>
     ) : (
-      <div class="space-y-8">
-        {posts.map((post) => (
-          <article class="border-b border-gray-200 dark:border-gray-800 pb-8 last:border-0">
-            <a href={`/writing/${post.slug}`} class="group block">
-              <h2 class="text-2xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                {post.data.title}
-              </h2>
-              <p class="text-gray-600 dark:text-gray-400 mb-3">
-                {post.data.description}
-              </p>
-              <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-500">
-                <time datetime={post.data.pubDate.toISOString()}>
-                  {formatDate(post.data.pubDate)}
-                </time>
-                {post.data.tags && post.data.tags.length > 0 && (
-                  <div class="flex gap-2">
-                    {post.data.tags.map((tag) => (
-                      <span style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);" class="px-2.5 py-1 rounded text-xs font-medium">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                )}
+      <>
+        <!-- Search and Filter -->
+        <div class="not-prose">
+          <div class="flex flex-col sm:flex-row gap-4 items-start">
+            <!-- Search input -->
+            <div class="flex-1 w-full">
+              <label for="post-search" class="sr-only">Search posts</label>
+              <input
+                type="text"
+                id="post-search"
+                placeholder="🔍 Search posts..."
+                class="w-full px-4 py-2 rounded-lg border transition-colors"
+                style="background: var(--color-bg-secondary); color: var(--color-text); border-color: var(--color-border);"
+              />
+            </div>
+
+            <!-- Filter dropdown button -->
+            <div class="relative">
+              <button
+                id="filter-toggle"
+                type="button"
+                class="flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors whitespace-nowrap"
+                style="background: var(--color-bg-secondary); color: var(--color-text); border-color: var(--color-border);"
+              >
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+                </svg>
+                <span>Filter by tag</span>
+                <span id="filter-count" class="hidden px-2 py-0.5 rounded-full text-xs font-bold" style="background: var(--color-accent); color: white;"></span>
+              </button>
+
+              <!-- Dropdown panel -->
+              <div
+                id="filter-panel"
+                class="hidden absolute right-0 mt-2 p-4 rounded-lg border shadow-lg z-10 min-w-[300px]"
+                style="background: var(--color-bg); border-color: var(--color-border);"
+              >
+                <div class="flex items-center justify-between mb-3">
+                  <span class="text-sm font-medium" style="color: var(--color-text-heading);">Filter by Tag</span>
+                  <button
+                    id="clear-filters"
+                    class="text-xs px-2 py-1 rounded transition-opacity hover:opacity-70"
+                    style="color: var(--color-accent);"
+                  >
+                    Clear all
+                  </button>
+                </div>
+                <div class="flex flex-wrap gap-2" id="tag-filters">
+                  <!-- Tags will be populated by JavaScript -->
+                </div>
               </div>
-            </a>
-          </article>
-        ))}
-      </div>
+            </div>
+          </div>
+
+          <!-- Active filters display -->
+          <div id="active-filters" class="flex flex-wrap gap-2 mt-4 empty:mt-0">
+            <!-- Active filters will be shown here -->
+          </div>
+        </div>
+
+        <div class="space-y-8" id="posts-list">
+          {posts.map((post) => (
+            <article
+              class="border-b border-gray-200 dark:border-gray-800 pb-8 last:border-0 post-item"
+              data-title={post.data.title.toLowerCase()}
+              data-description={post.data.description.toLowerCase()}
+              data-tags={(post.data.tags || []).join(',').toLowerCase()}
+            >
+              <a href={`/writing/${post.slug}`} class="group block">
+                <h2 class="text-2xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                  {post.data.title}
+                </h2>
+                <p class="text-gray-600 dark:text-gray-400 mb-3">
+                  {post.data.description}
+                </p>
+                <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 dark:text-gray-500">
+                  <time datetime={post.data.pubDate.toISOString()}>
+                    {formatDate(post.data.pubDate)}
+                  </time>
+                  {post.data.tags && post.data.tags.length > 0 && (
+                    <div class="flex gap-2">
+                      {post.data.tags.map((tag) => (
+                        <span
+                          style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);"
+                          class="px-2.5 py-1 rounded text-xs font-medium cursor-pointer hover:opacity-70 transition-opacity tag-chip"
+                          data-tag={tag.toLowerCase()}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </a>
+            </article>
+          ))}
+        </div>
+
+        <!-- No results message -->
+        <div id="no-results" class="hidden text-center py-12">
+          <p style="color: var(--color-text); font-size: 1.125rem;">
+            No posts found matching your search.
+          </p>
+        </div>
+      </>
     )}
   </div>
+
+  <style>
+    #post-search:focus {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .tag-filter {
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tag-filter:hover {
+      opacity: 0.7;
+    }
+
+    .tag-filter.active {
+      background: var(--color-accent) !important;
+      color: white !important;
+    }
+
+    .post-item.hidden {
+      display: none;
+    }
+
+    #filter-toggle:hover {
+      opacity: 0.8;
+    }
+
+    #filter-panel {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    #filter-panel:not(.hidden) {
+      animation: slideDown 0.2s ease-out;
+    }
+  </style>
+
+  <script>
+    const postItems = document.querySelectorAll('.post-item');
+    const allTags = new Set<string>();
+
+    postItems.forEach(item => {
+      const tags = item.getAttribute('data-tags')?.split(',') || [];
+      tags.forEach(tag => tag && allTags.add(tag.trim()));
+    });
+
+    const tagFiltersContainer = document.getElementById('tag-filters');
+    const sortedTags = Array.from(allTags).sort();
+
+    sortedTags.forEach(tag => {
+      const button = document.createElement('button');
+      button.className = 'tag-filter px-3 py-1 rounded-full text-xs font-medium';
+      button.style.cssText = 'background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);';
+      button.setAttribute('data-tag', tag);
+      button.textContent = tag.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      tagFiltersContainer!.appendChild(button);
+    });
+
+    let activeTagFilters = new Set<string>();
+    let searchQuery = '';
+
+    function filterPosts() {
+      let visibleCount = 0;
+
+      postItems.forEach(item => {
+        const title = item.getAttribute('data-title') || '';
+        const description = item.getAttribute('data-description') || '';
+        const tags = item.getAttribute('data-tags') || '';
+
+        const matchesSearch = !searchQuery ||
+          title.includes(searchQuery) ||
+          description.includes(searchQuery) ||
+          tags.includes(searchQuery);
+
+        const matchesTags = activeTagFilters.size === 0 ||
+          Array.from(activeTagFilters).every(filterTag =>
+            tags.split(',').some(itemTag => itemTag.trim() === filterTag)
+          );
+
+        if (matchesSearch && matchesTags) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      const noResults = document.getElementById('no-results');
+      if (visibleCount === 0) {
+        noResults?.classList.remove('hidden');
+      } else {
+        noResults?.classList.add('hidden');
+      }
+
+      updateActiveFilters();
+    }
+
+    function updateActiveFilters() {
+      const activeFiltersContainer = document.getElementById('active-filters');
+      const filterCount = document.getElementById('filter-count');
+      if (!activeFiltersContainer || !filterCount) return;
+
+      activeFiltersContainer.innerHTML = '';
+
+      if (activeTagFilters.size > 0) {
+        filterCount.textContent = activeTagFilters.size.toString();
+        filterCount.classList.remove('hidden');
+      } else {
+        filterCount.classList.add('hidden');
+      }
+
+      if (activeTagFilters.size === 0 && !searchQuery) {
+        return;
+      }
+
+      activeTagFilters.forEach(tag => {
+        const chip = document.createElement('button');
+        chip.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium transition-opacity hover:opacity-70';
+        chip.style.cssText = 'background: var(--color-accent); color: white;';
+
+        const tagText = document.createElement('span');
+        tagText.textContent = tag.split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
+        const removeIcon = document.createElement('span');
+        removeIcon.innerHTML = '×';
+        removeIcon.className = 'text-lg leading-none';
+
+        chip.appendChild(tagText);
+        chip.appendChild(removeIcon);
+
+        chip.addEventListener('click', () => {
+          activeTagFilters.delete(tag);
+          const filterButton = document.querySelector(`.tag-filter[data-tag="${tag}"]`);
+          if (filterButton) {
+            filterButton.classList.remove('active');
+          }
+          filterPosts();
+        });
+
+        activeFiltersContainer.appendChild(chip);
+      });
+    }
+
+    const filterToggle = document.getElementById('filter-toggle');
+    const filterPanel = document.getElementById('filter-panel');
+
+    filterToggle?.addEventListener('click', () => {
+      filterPanel?.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!filterToggle?.contains(e.target as Node) && !filterPanel?.contains(e.target as Node)) {
+        filterPanel?.classList.add('hidden');
+      }
+    });
+
+    document.getElementById('clear-filters')?.addEventListener('click', () => {
+      activeTagFilters.clear();
+      searchQuery = '';
+      (document.getElementById('post-search') as HTMLInputElement).value = '';
+      document.querySelectorAll('.tag-filter').forEach(btn => btn.classList.remove('active'));
+      filterPosts();
+    });
+
+    const searchInput = document.getElementById('post-search');
+    searchInput?.addEventListener('input', (e) => {
+      searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+      filterPosts();
+    });
+
+    document.querySelectorAll('.tag-filter').forEach(button => {
+      button.addEventListener('click', () => {
+        const tag = button.getAttribute('data-tag');
+        if (!tag) return;
+
+        if (activeTagFilters.has(tag)) {
+          activeTagFilters.delete(tag);
+          button.classList.remove('active');
+        } else {
+          activeTagFilters.add(tag);
+          button.classList.add('active');
+        }
+
+        filterPosts();
+      });
+    });
+
+    document.querySelectorAll('.tag-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.preventDefault();
+        const tag = chip.getAttribute('data-tag');
+        if (!tag) return;
+
+        const filterButton = document.querySelector(`.tag-filter[data-tag="${tag}"]`);
+
+        if (filterButton) {
+          if (activeTagFilters.has(tag)) {
+            activeTagFilters.delete(tag);
+            filterButton.classList.remove('active');
+          } else {
+            activeTagFilters.add(tag);
+            filterButton.classList.add('active');
+          }
+
+          filterPosts();
+        }
+      });
+    });
+  </script>
 </BaseLayout>
