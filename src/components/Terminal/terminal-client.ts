@@ -215,8 +215,75 @@ export function initTerminal() {
   }
 
   function showSwansonIntro() {
+    const container = document.createElement('div');
+    container.className = 'swanson-mode-container';
+    container.style.textAlign = 'center';
+    container.style.padding = '2rem 0';
+
+    const img = document.createElement('img');
+    img.src = '/swanson-avatar.png';
+    img.alt = 'Swanson';
+    img.className = 'swanson-avatar-large';
+    img.style.width = '200px';
+    img.style.height = '200px';
+    img.style.objectFit = 'cover';
+    img.style.borderRadius = '12px';
+    img.style.border = '3px solid var(--color-accent)';
+    img.style.margin = '0 auto 1.5rem';
+    img.style.display = 'block';
+
+    const banner = document.createElement('div');
+    banner.className = 'muted';
+    banner.style.whiteSpace = 'pre';
+    banner.style.overflowX = 'auto';
+    banner.style.overflowY = 'hidden';
+    banner.textContent = `
+   ██████╗ ██╗    ██╗ █████╗ ███╗   ██╗███████╗ ██████╗ ███╗   ██╗
+  ██╔════╝ ██║    ██║██╔══██╗████╗  ██║██╔════╝██╔═══██╗████╗  ██║
+  ███████╗ ██║ █╗ ██║███████║██╔██╗ ██║███████╗██║   ██║██╔██╗ ██║
+  ╚════██║ ██║███╗██║██╔══██║██║╚██╗██║╚════██║██║   ██║██║╚██╗██║
+  ███████║ ╚███╔███╔╝██║  ██║██║ ╚████║███████║╚██████╔╝██║ ╚████║
+  ╚══════╝  ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
+`;
+
+    const subtitle = document.createElement('div');
+    subtitle.className = 'muted';
+    subtitle.style.display = 'flex';
+    subtitle.style.alignItems = 'center';
+    subtitle.style.justifyContent = 'center';
+    subtitle.style.gap = '1rem';
+    subtitle.style.marginBottom = '1.5rem';
+
+    const leftImg = document.createElement('img');
+    leftImg.src = '/swanson-avatar.png';
+    leftImg.alt = 'Swanson';
+    leftImg.style.width = '32px';
+    leftImg.style.height = '32px';
+    leftImg.style.objectFit = 'cover';
+    leftImg.style.borderRadius = '6px';
+    leftImg.style.border = '1px solid #666';
+
+    const subtitleText = document.createElement('span');
+    subtitleText.textContent = 'AI Agent v1.0 - Stephen\'s Digital Alter Ego';
+
+    const rightImg = document.createElement('img');
+    rightImg.src = '/swanson-avatar.png';
+    rightImg.alt = 'Swanson';
+    rightImg.style.width = '32px';
+    rightImg.style.height = '32px';
+    rightImg.style.objectFit = 'cover';
+    rightImg.style.borderRadius = '6px';
+    rightImg.style.border = '1px solid #666';
+
+    subtitle.appendChild(leftImg);
+    subtitle.appendChild(subtitleText);
+    subtitle.appendChild(rightImg);
+
     const intro = document.createElement('div');
     intro.className = 'muted';
+    intro.style.textAlign = 'left';
+    intro.style.maxWidth = '600px';
+    intro.style.margin = '0 auto';
     intro.style.whiteSpace = 'pre-wrap';
     intro.style.wordWrap = 'break-word';
     intro.style.overflowWrap = 'break-word';
@@ -228,7 +295,12 @@ I'm here to answer questions about Stephen's work, projects and technical experi
 
 Type 'help' to see available topics.
 Type 'swanson' again to return to normal terminal mode.`;
-    output.appendChild(intro);
+
+    container.appendChild(img);
+    container.appendChild(banner);
+    container.appendChild(subtitle);
+    container.appendChild(intro);
+    output.appendChild(container);
   }
 
   function clearTerminal() {
