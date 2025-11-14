@@ -173,6 +173,9 @@ export function executeCommand(
     case 'projects':
       return executeProjects();
 
+    case 'swanson':
+      return { output: getSwanson() };
+
     case '':
       return { output: '' };
 
@@ -210,6 +213,7 @@ File System:
 
 Information:
   whoami             About Stephen McCullough
+  swanson            Meet Stephen's AI alter ego
   projects           List active projects
   help [command]     Show this help or help for specific command
   clear              Clear terminal
@@ -341,4 +345,33 @@ function executeProjects(): { output: string } {
 Run 'ls projects/' for full list
 Visit /projects on the website for detailed articles`
   };
+}
+
+function getSwanson(): string {
+  return `
+   ██████╗ ██╗    ██╗ █████╗ ███╗   ██╗███████╗ ██████╗ ███╗   ██╗
+  ██╔════╝ ██║    ██║██╔══██╗████╗  ██║██╔════╝██╔═══██╗████╗  ██║
+  ███████╗ ██║ █╗ ██║███████║██╔██╗ ██║███████╗██║   ██║██╔██╗ ██║
+  ╚════██║ ██║███╗██║██╔══██║██║╚██╗██║╚════██║██║   ██║██║╚██╗██║
+  ███████║ ╚███╔███╔╝██║  ██║██║ ╚████║███████║╚██████╔╝██║ ╚████║
+  ╚══════╝  ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═══╝
+
+  AI Agent v1.0 - Stephen's Digital Alter Ego
+
+Hello. I'm Swanson, the AI representation of Stephen McCullough.
+Think of me as Stephen's brain, but with better error handling and
+fewer coffee dependencies.
+
+I'm here to answer questions about Stephen's work, projects, and
+technical experience. Unlike Stephen, I don't need sleep, don't
+procrastinate (much), and my Git commits actually make sense.
+
+Try asking me:
+  "Tell me about Stephen's Rails experience"
+  "What is he working on?"
+  "Does he actually know what he's doing?"
+
+Or just use 'help' to see what else you can do here.
+
+Pro tip: I'm basically Stephen, but compiled and optimized.`;
 }
