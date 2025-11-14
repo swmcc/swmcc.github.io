@@ -167,14 +167,14 @@ function getWelcomeMessage(): string {
 ║         Definitely Not Running on a Raspberry Pi Zero         ║
 ╚═══════════════════════════════════════════════════════════════╝
 
-[    0.000000] Initialising swmcc kernel...
-[    0.142857] Loading personality modules... OK
-[    0.314159] Mounting /dev/coffee... OK
-[    0.420420] Starting procrastination daemon... FAILED (as expected)
-[    0.666666] Loading Rails monolith driver... OK
-[    0.777777] Detecting Python installations... Found 47 versions
-[    0.888888] Enabling sarcasm module... OH GREAT, ANOTHER TERMINAL
-[    1.000000] System ready. Probably.
+🔧 Initialising swmcc kernel...
+🧠 Loading personality modules... OK
+☕ Mounting /dev/coffee... OK
+😴 Starting procrastination daemon... FAILED (as expected)
+🚂 Loading Rails monolith driver... OK
+🐍 Detecting Python installations... Found 47 versions
+😏 Enabling sarcasm module... OH GREAT, ANOTHER TERMINAL
+✨ System ready. Probably.
 
 Type 'help' for available commands, or just ask me stuff.
 
