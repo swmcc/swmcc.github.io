@@ -39,9 +39,9 @@ Flickr's sharing model is built for photographers sharing with audiences, not fa
 
 **Longevity**
 
-Will Flickr exist in 20 years? Maybe. Will it exist in 50 years when my children want to show their children photos from the 1930s? Unknown.
+Will Flickr exist in 20 years? Maybe. Will it exist in 50 years when my nieces and nephews want to share these photos with their children? Unknown.
 
-Self-hosted archives don't depend on external companies. The data is portable, the code is open source, and the infrastructure is under my control.
+Self-hosted archives don't depend on external companies or keeping up with whatever technology trends younger generations adopt. The data is portable, the code is open source, and the infrastructure is under my control.
 
 ## What the-mcculloughs.org Is
 
@@ -59,7 +59,7 @@ A Rails 8 monolith for archiving and sharing family photos. It's currently a pho
 
 **Who It's For:**
 
-Family members. My parents, siblings, extended family - anyone who wants to browse family history. Authentication is simple (no Facebook OAuth complexity), and the interface is designed for people who aren't technical.
+Family members. My mum, my brother and sister, in-laws, cousins - anyone who wants to browse family history. Authentication is simple (no Facebook OAuth complexity), and the interface is designed for people who aren't technical.
 
 ## Shared Patterns with Jotter
 
@@ -199,6 +199,10 @@ Family members can add stories, context, and memories to photos. "This is my gra
 **Collaborative Family History**
 
 Multiple family members contributing photos, stories, and corrections. Not just an archive - a living family history that grows over time.
+
+**Family Video Archive**
+
+I've transferred family videos from VHS tapes (yes, I'm old enough to have those). The plan is to integrate video snippets into the archive alongside photos - christenings, birthdays, holidays from the 80s and 90s. Same ownership philosophy, same longevity concerns.
 
 **Offline Access**
 
