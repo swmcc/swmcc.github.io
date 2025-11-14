@@ -122,6 +122,7 @@
   .terminal-body {
     flex: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 1rem;
     font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
     font-size: 0.875rem;
@@ -230,22 +231,14 @@
     line-height: 1.6;
   }
 
-  /* Scrollbar styling */
+  /* Hide scrollbars */
   .terminal-body::-webkit-scrollbar {
-    width: 8px;
+    display: none;
   }
 
-  .terminal-body::-webkit-scrollbar-track {
-    background: #0a0a0a;
-  }
-
-  .terminal-body::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 4px;
-  }
-
-  .terminal-body::-webkit-scrollbar-thumb:hover {
-    background: #444;
+  .terminal-body {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
   }
 
   /* Responsive */
