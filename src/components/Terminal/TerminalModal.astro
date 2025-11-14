@@ -1,0 +1,234 @@
+---
+// Terminal modal component
+---
+
+<div id="terminal-modal" class="terminal-modal hidden">
+  <div class="terminal-backdrop"></div>
+  <div class="terminal-window">
+    <div class="terminal-header">
+      <div class="terminal-title">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+        </svg>
+        <span>terminal@swm.cc</span>
+      </div>
+      <button id="terminal-close" class="terminal-close" aria-label="Close terminal">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="terminal-body">
+      <div id="terminal-output" class="terminal-output"></div>
+
+      <div class="terminal-input-line">
+        <span class="terminal-prompt">visitor@swm.cc:~$</span>
+        <input
+          type="text"
+          id="terminal-input"
+          class="terminal-input"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .terminal-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .terminal-modal.hidden {
+    display: none;
+  }
+
+  .terminal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(4px);
+  }
+
+  .terminal-window {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    max-height: 80vh;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    animation: terminal-appear 0.2s ease-out;
+  }
+
+  @keyframes terminal-appear {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: #0a0a0a;
+    border-bottom: 1px solid #333;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .terminal-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #888;
+    font-size: 0.875rem;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  }
+
+  .terminal-close {
+    background: transparent;
+    border: none;
+    color: #888;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s;
+  }
+
+  .terminal-close:hover {
+    color: #ff6b6b;
+    background: rgba(255, 107, 107, 0.1);
+  }
+
+  .terminal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #e0e0e0;
+  }
+
+  .terminal-output {
+    margin-bottom: 1rem;
+    min-height: 100px;
+  }
+
+  .terminal-input-line {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .terminal-prompt {
+    color: var(--color-accent);
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .terminal-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #e0e0e0;
+    font-family: inherit;
+    font-size: inherit;
+    caret-color: var(--color-accent);
+  }
+
+  .terminal-input::selection {
+    background: var(--color-accent);
+    color: white;
+  }
+
+  /* Output styling */
+  .terminal-output :global(.command-line) {
+    margin-bottom: 0.5rem;
+  }
+
+  .terminal-output :global(.command) {
+    color: var(--color-accent);
+  }
+
+  .terminal-output :global(.output) {
+    color: #e0e0e0;
+    margin-left: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  .terminal-output :global(.error) {
+    color: #ff6b6b;
+  }
+
+  .terminal-output :global(.success) {
+    color: #51cf66;
+  }
+
+  .terminal-output :global(.warning) {
+    color: #ffd43b;
+  }
+
+  .terminal-output :global(.muted) {
+    color: #888;
+  }
+
+  .terminal-output :global(a) {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .terminal-output :global(a:hover) {
+    color: var(--color-accent-hover);
+  }
+
+  /* Scrollbar styling */
+  .terminal-body::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .terminal-body::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  .terminal-body::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 4px;
+  }
+
+  .terminal-body::-webkit-scrollbar-thumb:hover {
+    background: #444;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .terminal-window {
+      max-height: 80vh;
+    }
+
+    .terminal-body {
+      font-size: 0.8125rem;
+    }
+  }
+</style>
