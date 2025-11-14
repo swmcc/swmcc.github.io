@@ -174,8 +174,9 @@
   .terminal-output :global(.output) {
     color: #e0e0e0;
     margin-left: 0;
-    white-space: pre-wrap;
-    word-wrap: break-word;
+    white-space: pre;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+    overflow-x: auto;
   }
 
   .terminal-output :global(.error) {
@@ -192,6 +193,8 @@
 
   .terminal-output :global(.muted) {
     color: #888;
+    white-space: pre;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
   }
 
   .terminal-output :global(a) {
