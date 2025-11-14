@@ -20,19 +20,22 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2 style="color: var(--color-text-heading);">Technology Stack</h2>
       <ul style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8; list-style: none; padding: 0;">
         <li style="margin-bottom: 1rem;">
-          <strong style="color: var(--color-text-heading);">Astro v5</strong> - Zero-JavaScript by default with Islands architecture for selective hydration
+          <strong style="color: var(--color-text-heading);">Astro v5.15</strong> - Zero-JavaScript by default with Islands architecture for selective hydration
         </li>
         <li style="margin-bottom: 1rem;">
-          <strong style="color: var(--color-text-heading);">TypeScript</strong> - Type safety throughout with strict mode enabled
+          <strong style="color: var(--color-text-heading);">TypeScript</strong> - Type-safe components, content schemas (via Zod), and terminal implementation
         </li>
         <li style="margin-bottom: 1rem;">
-          <strong style="color: var(--color-text-heading);">Tailwind CSS v4</strong> - Modern utility-first styling with CSS-first approach
+          <strong style="color: var(--color-text-heading);">Tailwind CSS v4.1</strong> - Utility-first styling with Rust-powered engine and CSS-first approach
         </li>
         <li style="margin-bottom: 1rem;">
-          <strong style="color: var(--color-text-heading);">Markdown/MDX</strong> - Content authoring with frontmatter validation via Zod schemas
+          <strong style="color: var(--color-text-heading);">MDX</strong> - Markdown with JSX components for interactive content when needed
         </li>
         <li style="margin-bottom: 1rem;">
-          <strong style="color: var(--color-text-heading);">GitHub Pages</strong> - Automated deployment with GitHub Actions
+          <strong style="color: var(--color-text-heading);">Content Collections</strong> - Type-validated frontmatter with Zod schemas (bundled with Astro)
+        </li>
+        <li style="margin-bottom: 1rem;">
+          <strong style="color: var(--color-text-heading);">GitHub Pages</strong> - Static hosting with automated CI/CD via GitHub Actions
         </li>
       </ul>
     </div>
@@ -40,25 +43,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
     <div class="space-y-4">
       <h2 style="color: var(--color-text-heading);">Interactive Terminal</h2>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
-        The site features a custom-built terminal emulator with dual functionality:
+        Custom-built terminal emulator written in TypeScript with dual functionality:
       </p>
       <ul style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8; list-style: none; padding: 0;">
         <li style="margin-bottom: 0.75rem;">
           <strong style="color: var(--color-text-heading);">Shell Commands</strong> - Navigate the site using Unix-style commands (ls, cd, cat, tree, pwd, exit)
         </li>
         <li style="margin-bottom: 0.75rem;">
-          <strong style="color: var(--color-text-heading);">Swanson AI</strong> - Ask natural language questions about content, powered by build-time indexing
+          <strong style="color: var(--color-text-heading);">Swanson AI</strong> - Natural language questions answered via pattern matching and keyword extraction
         </li>
         <li style="margin-bottom: 0.75rem;">
-          <strong style="color: var(--color-text-heading);">Content Search</strong> - Full-text search across all writing, notes, thoughts, and projects (~30KB gzipped)
+          <strong style="color: var(--color-text-heading);">Content Search</strong> - Full-text search across all content collections (~30KB gzipped index)
         </li>
         <li style="margin-bottom: 0.75rem;">
-          <strong style="color: var(--color-text-heading);">Zero External APIs</strong> - Entirely local, no tracking, content-aware responses based on indexed markdown
+          <strong style="color: var(--color-text-heading);">Build-Time Indexing</strong> - Content automatically indexed via Astro Content Collections API
+        </li>
+        <li style="margin-bottom: 0.75rem;">
+          <strong style="color: var(--color-text-heading);">Zero External APIs</strong> - Entirely local, no tracking, no runtime dependencies
         </li>
       </ul>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
-        Built with vanilla TypeScript, the terminal loads lazily (only when opened) for zero impact on initial page load.
-        Content automatically updates at build time via Astro's Content Collections API.
+        Lazy-loaded on demand (zero impact on initial page load). Virtual file system generated at build time
+        from markdown content. ~10KB TypeScript client code (minified).
       </p>
     </div>
 
