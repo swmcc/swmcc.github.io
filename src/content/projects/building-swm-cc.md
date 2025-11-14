@@ -283,6 +283,116 @@ const notes = defineCollection({
 
 Different schemas, different routes, same underlying Content Collections API. As the site grows, the separation keeps things organised without adding complexity.
 
+## Interactive Terminal: Swanson AI
+
+One of the more experimental features of this site is the interactive terminal emulator accessible via the terminal icon in the header. It's a custom-built interface that combines shell-style navigation with an AI chat mode powered by build-time content indexing.
+
+**The Concept**
+
+I wanted a unique way to explore the site's content that felt more interactive than just clicking links. A terminal interface provides:
+- Familiar shell commands (ls, cd, cat, tree, pwd)
+- Natural language queries via "Swanson AI" - my digital alter ego
+- Full-text search across all writing, notes, thoughts, and projects
+- A bit of personality and humour
+
+**Technical Implementation**
+
+The terminal is built with vanilla TypeScript and integrates with Astro's content collections:
+
+```typescript
+// Generate searchable index at build time
+export const GET: APIRoute = async () => {
+  const [writing, notes, thoughts, projects] = await Promise.all([
+    getCollection('writing'),
+    getCollection('notes'),
+    getCollection('thoughts'),
+    getCollection('projects')
+  ]);
+
+  // Build file system structure
+  const fileSystem = {
+    'writing': {
+      type: 'directory',
+      children: writing.map(post => ({
+        type: 'file',
+        content: post.data.description,
+        url: `/writing/${post.slug}`
+      }))
+    }
+    // ... more collections
+  };
+
+  // Build searchable index with full content
+  const searchIndex = [...writing, ...notes, ...thoughts, ...projects].map(item => ({
+    title: item.data.title,
+    content: item.body,
+    tags: item.data.tags,
+    url: item.url
+  }));
+
+  return new Response(JSON.stringify({ fileSystem, searchIndex }));
+};
+```
+
+The `/terminal-index.json` endpoint is generated at build time and loaded lazily only when the terminal is opened. This keeps the initial page load fast whilst providing full-text search capabilities.
+
+**Swanson AI: Content-Aware Chat**
+
+The "AI" is entirely local - no external APIs, no tracking. It uses pattern matching and keyword extraction to answer questions based on the indexed content:
+
+```typescript
+// Detect skill-based questions
+if (question.includes('rails')) {
+  const railsContent = searchIndex.filter(item =>
+    item.tags.includes('rails') ||
+    item.content.toLowerCase().includes('rails')
+  );
+
+  return formatResponse(railsContent);
+}
+```
+
+Natural language detection automatically routes questions to the chat mode:
+
+```typescript
+const questionWords = ['what', 'who', 'how', 'does', 'tell me'];
+if (questionWords.some(word => input.startsWith(word))) {
+  return executeAskCommand(input);
+}
+```
+
+**Shell Commands**
+
+The terminal implements familiar Unix-style commands:
+- `ls [path]` - List directory contents
+- `cd <path>` - Navigate the virtual file system
+- `cat <file>` - Display file contents
+- `tree` - Show directory structure
+- `whoami` - Display profile with image
+- `exit` - Close terminal
+
+All commands operate on a virtual file system generated from the site's content collections. When you add a new markdown file to any collection, it automatically appears in the terminal at the next build.
+
+**Performance Characteristics**
+
+- Terminal client code: ~10KB (minified)
+- Content index: ~30KB (gzipped)
+- Loaded only when terminal opens (zero impact on initial page load)
+- Full-text search across all content
+- No external API calls
+
+The boot sequence animation includes some self-deprecating humour ("System ready. Stephen is not.") and gives the terminal personality beyond just being a functional interface.
+
+**Why Build This?**
+
+Mostly because it's fun. But also:
+- It provides an alternative navigation method for power users
+- The searchable content index makes finding specific topics easier
+- It demonstrates progressive enhancement (works without it, enhanced experience with it)
+- It's a showcase of what you can build with vanilla TypeScript and build-time data
+
+You can try it by clicking the terminal icon next to the theme toggle.
+
 ## Conclusion
 
 Astro 5 + Tailwind 4 + MDX gives me:
