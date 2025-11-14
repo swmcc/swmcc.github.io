@@ -14,7 +14,7 @@ const projects = [
   {
     name: 'whatisonthe.tv',
     github: 'https://github.com/swmcc/whatisonthe.tv',
-    articleUrl: '/projects/building-watchlog',
+    articleUrl: '/projects/building-whatisonthetv',
     description: 'TV and film tracking application. FastAPI backend with async PostgreSQL and SQLAlchemy, Redis for caching TheTVDB API responses, SvelteKit frontend with Tailwind CSS 3 for minimal JavaScript overhead. Built for performance and type safety end-to-end.',
     tags: ['FastAPI', 'PostgreSQL', 'Redis', 'SvelteKit', 'Tailwind CSS 3'],
     status: 'Active'
@@ -26,6 +26,31 @@ const projects = [
     description: 'Self-hosted bookmark and image manager solving the problem of volatile third-party URLs. Ruby on Rails 8 with built-in authentication, polymorphic tagging across bookmarks and photos, Hotwire for progressive enhancement, Active Storage for file uploads, PostgreSQL for full-text search. Short URLs for easy sharing.',
     tags: ['Rails 8', 'Hotwire', 'Turbo', 'Stimulus', 'Tailwind CSS 4', 'PostgreSQL', 'Active Storage'],
     status: 'Active'
+  },
+  {
+    name: 'tvdb-v4-python',
+    github: 'https://github.com/thetvdb/tvdb-v4-python',
+    articleUrl: '/projects/tvdb-v4-python',
+    description: 'Official Python wrapper for TheTVDB API v4. Contributed throughout 2023 and 2024. Currently used in whatisonthe.tv for fetching series and movie metadata. Project appears dormant with the last commit in March 2024.',
+    tags: ['Python', 'API Client', 'Open Source'],
+    status: 'On Hold'
+  },
+  {
+    name: 'tvdb_api',
+    github: 'https://github.com/swmcc/tvdb_api',
+    url: 'https://rubygems.org/gems/tvdb_api',
+    articleUrl: '/projects/tvdb-api-ruby',
+    description: 'Ruby gem for TheTVDB API. Created when planning to use Rails for whatisonthe.tv, but ultimately chose FastAPI for async I/O and performance. Stopped active development in 2023. Several other Ruby libraries exist for TheTVDB.',
+    tags: ['Ruby', 'API Client', 'RubyGems'],
+    status: 'Archived'
+  },
+  {
+    name: 'TV-Listings',
+    github: 'https://github.com/swmcc/TV-Listings',
+    articleUrl: '/projects/tv-listings',
+    description: 'Perl-based TV listings tracker from 2002-2007. Parsed XMLTV data, augmented with season and star info, watch lists, search, and daily emails. Built before streaming existed and Sky+ was new. Migrated to GitHub in 2013 but never modernised. Pure nostalgia.',
+    tags: ['Perl', 'MySQL', 'XMLTV', 'Vintage'],
+    status: 'Archived'
   }
 ];
 ---
@@ -39,11 +64,15 @@ const projects = [
       <h1 style="color: var(--color-text-heading);">What I Am Working On</h1>
 
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
-        These projects represent different architectural approaches to common problems. One is a static site optimised for content delivery and Core Web Vitals. Another is an async Python API with PostgreSQL and Redis, prioritising type safety and performance. The third is a Rails monolith with Hotwire, choosing server-side rendering and boring technology over SPA complexity.
+        These projects represent different architectural approaches to common problems. One is a static site optimised for content delivery and Core Web Vitals. Another is an async Python API with PostgreSQL and Redis, prioritising type safety and performance. The third is a Rails monolith with Hotwire, choosing server-side rendering and proven technology over SPA complexity.
       </p>
 
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
         Each choice reflects deliberate trade-offs: static vs dynamic, async vs threaded, client-side vs server-side rendering. The technologies differ, but the principle is consistent - choose the simplest architecture that solves the problem, optimise for maintainability, and avoid unnecessary complexity.
+      </p>
+
+      <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+        I also contribute to open source projects when they align with my work. Some are actively maintained, others are dormant but still useful.
       </p>
     </div>
 
@@ -56,7 +85,13 @@ const projects = [
           <!-- Status badge -->
           <div class="absolute top-4 right-4">
             <span
-              style="background: var(--color-accent); color: white;"
+              style={
+                project.status === 'Archived'
+                  ? "background: #92400e; color: white;"
+                  : project.status === 'On Hold'
+                  ? "background: #6b7280; color: white;"
+                  : "background: var(--color-accent); color: white;"
+              }
               class="px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full shadow-lg"
             >
               {project.status}
