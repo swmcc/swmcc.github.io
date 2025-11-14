@@ -37,4 +37,14 @@ const thoughts = defineCollection({
   })
 });
 
-export const collections = { writing, notes, now, thoughts };
+const projects = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    pubDate: z.coerce.date(),
+    tags: z.array(z.string()).optional()
+  })
+});
+
+export const collections = { writing, notes, now, thoughts, projects };
