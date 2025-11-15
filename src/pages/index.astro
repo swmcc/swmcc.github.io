@@ -141,50 +141,57 @@ const latestNote = (await getCollection('notes'))
         )}
 
         <!-- Latest Note -->
-        {latestNote && (
-          <a href={`/notes/${latestNote.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 300ms;">
-            <!-- Ribbon overlay - top left -->
-            <div class="absolute top-0 left-0 ribbon-top-left">
-              <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
-                Notes
-              </span>
-            </div>
-
-            <div class="space-y-4">
-              <!-- Big centered icon -->
-              <div class="flex justify-center mb-6 mt-8">
-                <div class="w-20 h-20 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-400/30 flex items-center justify-center group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
-                  <svg class="w-10 h-10" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                  </svg>
-                </div>
-              </div>
-              <h3 style="color: var(--color-text-heading);" class="text-lg font-bold leading-tight">
-                {latestNote.data.title}
-              </h3>
-              {latestNote.data.tags && latestNote.data.tags.length > 0 && (
-                <div class="flex flex-wrap gap-2">
-                  {latestNote.data.tags.slice(0, 3).map((tag) => (
-                    <span style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);" class="px-2 py-0.5 rounded text-xs font-medium">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-              <div class="flex items-center justify-between pt-3 border-t" style="border-color: var(--color-border);">
-                <time style="color: var(--color-text-muted);" class="text-xs" datetime={latestNote.data.pubDate.toISOString()}>
-                  {formatDate(latestNote.data.pubDate)}
-                </time>
-                <span style="color: var(--color-accent);" class="text-xs font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Read more
-                  <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                  </svg>
+        {latestNote && (async () => {
+          const { remarkPluginFrontmatter } = await latestNote.render();
+          const excerpt = latestNote.body.split('\n\n')[0].replace(/^##\s+.*$/m, '').trim().substring(0, 150);
+          return (
+            <a href={`/notes/${latestNote.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 300ms;">
+              <!-- Ribbon overlay - top left -->
+              <div class="absolute top-0 left-0 ribbon-top-left">
+                <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+                  Notes
                 </span>
               </div>
-            </div>
-          </a>
-        )}
+
+              <div class="space-y-4">
+                <!-- Big centered icon -->
+                <div class="flex justify-center mb-6 mt-8">
+                  <div class="w-20 h-20 rounded-full bg-gradient-to-br from-pink-400/30 to-purple-400/30 flex items-center justify-center group-hover:scale-125 group-hover:rotate-12 transition-all duration-500">
+                    <svg class="w-10 h-10" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                  </div>
+                </div>
+                <h3 style="color: var(--color-text-heading);" class="text-lg font-bold leading-tight">
+                  {latestNote.data.title}
+                </h3>
+                <p style="color: var(--color-text-secondary);" class="text-sm leading-relaxed line-clamp-3">
+                  {excerpt}...
+                </p>
+                {latestNote.data.tags && latestNote.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2">
+                    {latestNote.data.tags.slice(0, 3).map((tag) => (
+                      <span style="background: var(--color-bg-secondary); color: var(--color-accent); border: 1px solid var(--color-border);" class="px-2 py-0.5 rounded text-xs font-medium">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+                <div class="flex items-center justify-between pt-3 border-t" style="border-color: var(--color-border);">
+                  <time style="color: var(--color-text-muted);" class="text-xs" datetime={latestNote.data.pubDate.toISOString()}>
+                    {formatDate(latestNote.data.pubDate)}
+                  </time>
+                  <span style="color: var(--color-accent);" class="text-xs font-semibold inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                    Read more
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          );
+        })()}
       </div>
     </section>
   </div>
