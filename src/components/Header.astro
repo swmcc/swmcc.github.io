@@ -24,7 +24,7 @@ const navItems = [
 
       <!-- Desktop Navigation -->
       <ul class="hidden md:flex items-center gap-10">
-        {navItems.slice(1).map((item) => (
+        {navItems.slice(1, -1).map((item) => (
           <li>
             <a
               href={item.href}
@@ -35,6 +35,46 @@ const navItems = [
             </a>
           </li>
         ))}
+        <li class="relative">
+          <button
+            id="what-i-am-button"
+            style="color: var(--color-text-secondary);"
+            class="text-[15px] font-medium transition-all duration-200 hover:opacity-80 flex items-center gap-1"
+          >
+            What I am...
+            <svg class="w-4 h-4 transition-transform" id="what-i-am-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div
+            id="what-i-am-menu"
+            style="background-color: var(--color-bg); border: 1px solid var(--color-border);"
+            class="absolute top-full mt-2 right-0 hidden rounded-lg shadow-lg py-2 min-w-[160px]"
+          >
+            <a
+              href="https://whatisonthe-tv-ea7597b0eea6.herokuapp.com/swmcc"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: var(--color-text);"
+              class="block px-4 py-2 text-[15px] font-medium hover:opacity-70 transition-opacity flex items-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="2" y="7" width="20" height="13" rx="2" stroke-width="2"/>
+                <path d="M17 2l-5 5-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              watchin'
+            </a>
+          </div>
+        </li>
+        <li>
+          <a
+            href={navItems[navItems.length - 1].href}
+            style={`color: ${currentPath === navItems[navItems.length - 1].href || (navItems[navItems.length - 1].href !== '/' && currentPath.startsWith(navItems[navItems.length - 1].href)) ? 'var(--color-accent)' : 'var(--color-text-secondary)'}`}
+            class="text-[15px] font-medium transition-all duration-200 hover:opacity-80"
+          >
+            {navItems[navItems.length - 1].label}
+          </a>
+        </li>
       </ul>
 
       <div class="flex items-center gap-2">
@@ -59,7 +99,7 @@ const navItems = [
     <!-- Mobile Navigation -->
     <div id="mobile-menu" class="md:hidden hidden overflow-hidden transition-all duration-300">
       <ul class="pt-4 pb-2 space-y-2">
-        {navItems.slice(1).map((item) => (
+        {navItems.slice(1, -1).map((item) => (
           <li>
             <a
               href={item.href}
@@ -70,6 +110,42 @@ const navItems = [
             </a>
           </li>
         ))}
+        <li>
+          <button
+            id="mobile-what-i-am-button"
+            style="color: var(--color-text);"
+            class="w-full text-left py-2 px-4 rounded-lg text-base font-medium transition-all hover:opacity-70 flex items-center justify-between"
+          >
+            What I am...
+            <svg class="w-5 h-5 transition-transform" id="mobile-what-i-am-chevron" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </button>
+          <div id="mobile-what-i-am-submenu" class="hidden pl-4 mt-1">
+            <a
+              href="https://whatisonthe-tv-ea7597b0eea6.herokuapp.com/swmcc"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: var(--color-text);"
+              class="block py-2 px-4 rounded-lg text-base font-medium hover:opacity-70 transition-opacity flex items-center gap-2"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <rect x="2" y="7" width="20" height="13" rx="2" stroke-width="2"/>
+                <path d="M17 2l-5 5-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              watchin'
+            </a>
+          </div>
+        </li>
+        <li>
+          <a
+            href={navItems[navItems.length - 1].href}
+            style={`color: ${currentPath === navItems[navItems.length - 1].href || (navItems[navItems.length - 1].href !== '/' && currentPath.startsWith(navItems[navItems.length - 1].href)) ? 'var(--color-accent)' : 'var(--color-text)'}`}
+            class="block py-2 px-4 rounded-lg text-base font-medium transition-all hover:opacity-70"
+          >
+            {navItems[navItems.length - 1].label}
+          </a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -115,6 +191,52 @@ const navItems = [
         mobileMenu?.classList.add('hidden');
       }, 300);
     });
+  });
+
+  // "What I am..." dropdown menu
+  const whatIAmButton = document.getElementById('what-i-am-button');
+  const whatIAmMenu = document.getElementById('what-i-am-menu');
+  const whatIAmChevron = document.getElementById('what-i-am-chevron');
+  let isDropdownOpen = false;
+
+  whatIAmButton?.addEventListener('click', () => {
+    isDropdownOpen = !isDropdownOpen;
+
+    if (isDropdownOpen) {
+      whatIAmMenu?.classList.remove('hidden');
+      whatIAmChevron?.style.setProperty('transform', 'rotate(180deg)');
+    } else {
+      whatIAmMenu?.classList.add('hidden');
+      whatIAmChevron?.style.setProperty('transform', 'rotate(0deg)');
+    }
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (!whatIAmButton?.contains(target) && !whatIAmMenu?.contains(target)) {
+      isDropdownOpen = false;
+      whatIAmMenu?.classList.add('hidden');
+      whatIAmChevron?.style.setProperty('transform', 'rotate(0deg)');
+    }
+  });
+
+  // Mobile "What I am..." dropdown
+  const mobileWhatIAmButton = document.getElementById('mobile-what-i-am-button');
+  const mobileWhatIAmSubmenu = document.getElementById('mobile-what-i-am-submenu');
+  const mobileWhatIAmChevron = document.getElementById('mobile-what-i-am-chevron');
+  let isMobileDropdownOpen = false;
+
+  mobileWhatIAmButton?.addEventListener('click', () => {
+    isMobileDropdownOpen = !isMobileDropdownOpen;
+
+    if (isMobileDropdownOpen) {
+      mobileWhatIAmSubmenu?.classList.remove('hidden');
+      mobileWhatIAmChevron?.style.setProperty('transform', 'rotate(180deg)');
+    } else {
+      mobileWhatIAmSubmenu?.classList.add('hidden');
+      mobileWhatIAmChevron?.style.setProperty('transform', 'rotate(0deg)');
+    }
   });
 </script>
 
