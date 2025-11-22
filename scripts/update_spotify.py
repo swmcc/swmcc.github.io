@@ -20,5 +20,8 @@ sp = spotipy.Spotify(auth=access["access_token"])
 
 recent = sp.current_user_recently_played(limit=20)
 
-with open("spotify.json", "w") as f:
+with open("public/spotify.json", "w") as f:
     json.dump(recent, f, indent=2)
+
+print("Wrote public/spotify.json")
+

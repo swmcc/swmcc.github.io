@@ -10,10 +10,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout data branch
+      - name: Checkout main
         uses: actions/checkout@v4
-        with:
-          ref: data
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -23,17 +21,21 @@ jobs:
       - name: Install dependencies
         run: pip install spotipy requests
 
-      - name: Fetch Spotify Recently Played
+      - name: Run Spotify updater
         env:
           SPOTIFY_CLIENT_ID: ${{ secrets.SPOTIFY_CLIENT_ID }}
           SPOTIFY_CLIENT_SECRET: ${{ secrets.SPOTIFY_CLIENT_SECRET }}
           SPOTIFY_REFRESH_TOKEN: ${{ secrets.SPOTIFY_REFRESH_TOKEN }}
         run: python scripts/update_spotify.py
 
-      - name: Commit and force-push changes
+      - name: Commit and push only if changed
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add spotify.json
-          git commit -m "Update" || true
-          git push origin HEAD:data --force
+          if ! git diff --quiet public/spotify.json; then
+            git add public/spotify.json
+            git commit -m "Update recently played"
+            git push
+          else
+            echo "No changes"
+          fi
