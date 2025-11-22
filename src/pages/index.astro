@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import GitHubActivity from '../components/GitHubActivity.astro';
 import { formatDate } from '../utils/formatDate';
 
 const latestWriting = (await getCollection('writing'))
@@ -194,5 +195,8 @@ const latestNote = (await getCollection('notes'))
         })()}
       </div>
     </section>
+
+    <!-- GitHub Activity -->
+    <GitHubActivity />
   </div>
 </BaseLayout>
