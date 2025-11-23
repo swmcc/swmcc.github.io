@@ -2,6 +2,8 @@
 
 Personal website for Stephen McCullough, built with Astro and deployed to GitHub Pages.
 
+**[🌐 Visit Site](https://www.swm.cc)**
+
 ## Features
 
 - 📝 Blog and notes sections with Markdown support
