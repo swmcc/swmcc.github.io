@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const nowEntries = await getCollection('now');
+const archivedEntries = nowEntries
+  .filter(entry => entry.data.archived)
+  .sort((a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf());
+
+// Group by year
+const entriesByYear = archivedEntries.reduce((acc, entry) => {
+  const year = entry.data.year || entry.data.updatedDate.getFullYear();
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(entry);
+  return acc;
+}, {} as Record<number, typeof archivedEntries>);
+
+const years = Object.keys(entriesByYear).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Now Archive - Stephen McCullough"
+  description="Archive of past 'now' pages - snapshots of what I was focused on at different points in time"
+>
+  <article class="prose prose-lg dark:prose-invert max-w-none space-y-8" style="color: var(--color-text);">
+    <div class="space-y-4">
+      <h1 style="color: var(--color-text-heading);">Now Archive</h1>
+      <p style="color: var(--color-text-muted);">
+        Past snapshots of what I was focused on.
+      </p>
+    </div>
+
+    {years.length === 0 ? (
+      <p style="color: var(--color-text-secondary);">No archived entries yet.</p>
+    ) : (
+      years.map(year => (
+        <section class="space-y-4">
+          <h2 style="color: var(--color-text-heading);">{year}</h2>
+          <ul class="list-none p-0 space-y-2">
+            {entriesByYear[year].map(entry => (
+              <li>
+                <a
+                  href={`/now/${entry.slug}`}
+                  style="color: var(--color-accent);"
+                  class="hover:underline"
+                >
+                  {entry.data.month || entry.data.updatedDate.toLocaleDateString('en-GB', { month: 'long' })}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))
+    )}
+
+    <hr style="border-color: var(--color-border);" />
+
+    <p>
+      <a href="/now" style="color: var(--color-accent);" class="hover:underline">
+        ← Back to current
+      </a>
+    </p>
+  </article>
+
+  <style>
+    article :global(h2) {
+      color: var(--color-text-heading);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 0;
+    }
+  </style>
+</BaseLayout>

@@ -24,7 +24,10 @@ const notes = defineCollection({
 const now = defineCollection({
   type: 'content',
   schema: z.object({
-    updatedDate: z.coerce.date()
+    updatedDate: z.coerce.date(),
+    archived: z.boolean().optional(),
+    month: z.string().optional(),
+    year: z.number().optional()
   })
 });
 

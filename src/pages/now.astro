@@ -4,8 +4,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatDate } from '../utils/formatDate';
 
 const nowEntries = await getCollection('now');
-const currentNowEntry = nowEntries[0];
+const currentNowEntry = nowEntries.find(entry => !entry.data.archived);
 const currentNow = currentNowEntry ? await currentNowEntry.render() : null;
+
+// Get the most recent archived entry for the "previous" link
+const archivedEntries = nowEntries
+  .filter(entry => entry.data.archived)
+  .sort((a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf());
+const previousEntry = archivedEntries[0];
 ---
 
 <BaseLayout
@@ -35,6 +41,22 @@ const currentNow = currentNowEntry ? await currentNowEntry.render() : null;
       This is a <a href="https://nownownow.com/about" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">"now" page</a>,
       inspired by Derek Sivers. It's a snapshot of what I'm focused on at this point in time.
     </p>
+
+    {previousEntry && (
+      <p class="text-sm" style="color: var(--color-text-muted);">
+        <a href={`/now/${previousEntry.slug}`} style="color: var(--color-accent);" class="hover:underline">
+          ← Previous ({previousEntry.data.month || previousEntry.data.updatedDate.toLocaleDateString('en-GB', { month: 'long' })} {previousEntry.data.year || previousEntry.data.updatedDate.getFullYear()})
+        </a>
+      </p>
+    )}
+
+    {archivedEntries.length > 0 && (
+      <p class="text-sm" style="color: var(--color-text-muted);">
+        <a href="/now/archive" style="color: var(--color-accent);" class="hover:underline">
+          View archive →
+        </a>
+      </p>
+    )}
   </article>
 
   <style>

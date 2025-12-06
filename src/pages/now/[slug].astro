@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDate } from '../../utils/formatDate';
+
+export async function getStaticPaths() {
+  const nowEntries = await getCollection('now');
+  const archivedEntries = nowEntries.filter(entry => entry.data.archived);
+
+  return archivedEntries.map(entry => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+
+const monthYear = entry.data.month && entry.data.year
+  ? `${entry.data.month} ${entry.data.year}`
+  : entry.data.updatedDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+---
+
+<BaseLayout
+  title={`Now - ${monthYear} - Stephen McCullough`}
+  description={`What Stephen McCullough was focused on in ${monthYear}`}
+>
+  <article class="prose prose-lg dark:prose-invert max-w-none space-y-8" style="color: var(--color-text);">
+    <div class="space-y-4">
+      <h1 style="color: var(--color-text-heading);">What I Was Doing - {monthYear}</h1>
+
+      <p style="color: var(--color-text-muted);" class="text-sm">
+        Last updated: {formatDate(entry.data.updatedDate)}
+      </p>
+    </div>
+
+    <div class="space-y-5" style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
+      <Content />
+    </div>
+
+    <hr style="border-color: var(--color-border);" />
+
+    <p class="text-sm" style="color: var(--color-text-muted);">
+      <a href="/now" style="color: var(--color-accent);" class="hover:underline">
+        ← Current
+      </a>
+    </p>
+
+    <p class="text-sm" style="color: var(--color-text-muted);">
+      <a href="/now/archive" style="color: var(--color-accent);" class="hover:underline">
+        View archive →
+      </a>
+    </p>
+  </article>
+
+  <style>
+    article :global(h2),
+    article :global(h3),
+    article :global(h4) {
+      color: var(--color-text-heading);
+      font-family: 'Space Grotesk', sans-serif;
+      margin-top: 0;
+    }
+
+    article :global(p) {
+      color: var(--color-text);
+      margin-bottom: 1.5rem;
+      line-height: 1.8;
+    }
+
+    article :global(a) {
+      color: var(--color-accent);
+    }
+
+    article :global(a:hover) {
+      color: var(--color-accent-hover);
+    }
+
+    article :global(strong) {
+      color: var(--color-text-heading);
+    }
+
+    article :global(code) {
+      background-color: var(--color-surface);
+      color: var(--color-accent-purple);
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+      font-size: 0.9em;
+    }
+  </style>
+</BaseLayout>
