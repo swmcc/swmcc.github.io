@@ -8,7 +8,7 @@ branch:
 local.install:
 	npm install
 
-local.dev:
+local.run:
 	npm run dev
 
 local.build:
