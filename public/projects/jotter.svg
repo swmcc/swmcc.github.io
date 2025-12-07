@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Jotter/Notebook -->
+  <!-- Main notebook body -->
+  <rect x="12" y="6" width="40" height="52" rx="2" stroke="currentColor" stroke-width="3" fill="none"/>
+  <!-- Spiral binding holes -->
+  <circle cx="12" cy="14" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="12" cy="24" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="12" cy="34" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="12" cy="44" r="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <!-- Writing lines -->
+  <path d="M20 18h24M20 26h24M20 34h18M20 42h20" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <!-- Pencil -->
+  <path d="M44 52l8-8M48 56l-2-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <path d="M52 44l4 4-8 8-4-4z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" fill="none"/>
+</svg>

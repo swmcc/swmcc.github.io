@@ -9,7 +9,8 @@ const projects = [
     articleUrl: '/projects/building-swm-cc',
     description: 'This site. Built with Astro 5 for zero-JavaScript-by-default architecture, Tailwind CSS 4 for modern utility-first styling, and MDX for type-safe content. Optimised for Core Web Vitals with static site generation and deployed via GitHub Pages.',
     tags: ['Astro 5', 'Tailwind CSS 4', 'MDX', 'TypeScript'],
-    status: 'Active'
+    status: 'Active',
+    icon: '/projects/swm-cc.svg'
   },
   {
     name: 'whatisonthe.tv',
@@ -18,7 +19,8 @@ const projects = [
     articleUrl: '/projects/building-whatisonthetv',
     description: 'TV and film tracking application. FastAPI backend with async PostgreSQL and SQLAlchemy, Redis for caching TheTVDB API responses, SvelteKit frontend with Tailwind CSS 3 for minimal JavaScript overhead. Built for performance and type safety end-to-end.',
     tags: ['FastAPI', 'PostgreSQL', 'Redis', 'SvelteKit', 'Tailwind CSS 3'],
-    status: 'Active'
+    status: 'Active',
+    icon: '/projects/whatisonthe-tv.svg'
   },
   {
     name: 'second_breakfast',
@@ -26,7 +28,8 @@ const projects = [
     articleUrl: '/projects/building-second-breakfast',
     description: 'Recipe and meal tracking application. Rails 8 monolith with PostgreSQL, Hotwire, and Tailwind CSS. First project fully driven by AI workflows. Claude Code handles development, architecture, and CRUD operations. GitHub infrastructure manages code review, CI/CD, and deployments. An experiment in AI-native development practices and the boundaries of intelligent automation.',
     tags: ['Rails 8', 'PostgreSQL', 'Hotwire', 'Tailwind CSS 3', 'AI-Driven', 'Claude Code', 'GitHub Actions'],
-    status: 'Active'
+    status: 'Active',
+    icon: '/projects/second-breakfast.svg'
   },
   {
     name: 'Jotter',
@@ -35,7 +38,8 @@ const projects = [
     articleUrl: '/projects/building-jotter',
     description: 'Self-hosted bookmark and image manager solving the problem of volatile third-party URLs. Ruby on Rails 8 with built-in authentication, polymorphic tagging across bookmarks and photos, Hotwire for progressive enhancement, Active Storage for file uploads, PostgreSQL for full-text search. Short URLs for easy sharing.',
     tags: ['Rails 8', 'Hotwire', 'Turbo', 'Stimulus', 'Tailwind CSS 4', 'PostgreSQL', 'Active Storage'],
-    status: 'Active'
+    status: 'Active',
+    icon: '/projects/jotter.svg'
   },
   {
     name: 'the-mcculloughs.org',
@@ -43,7 +47,8 @@ const projects = [
     articleUrl: '/projects/the-mcculloughs-org',
     description: 'Archive of my family photos from the 1930s to present. Rails 8 monolith with Active Storage, polymorphic tagging, and mobile-first design. Migrating from Flickr to own the data and ensure longevity. Part of the "own your data" philosophy alongside Jotter and this site.',
     tags: ['Rails 8', 'Hotwire', 'Active Storage', 'Tailwind CSS 4', 'PostgreSQL', 'Mobile-First'],
-    status: 'Active'
+    status: 'Active',
+    icon: '/projects/mcculloughs.svg'
   },
   {
     name: 'tvdb-v4-python',
@@ -51,7 +56,8 @@ const projects = [
     articleUrl: '/projects/tvdb-v4-python',
     description: 'Official Python wrapper for TheTVDB API v4. Contributed throughout 2023 and 2024. Currently used in whatisonthe.tv for fetching series and movie metadata. Project appears dormant with the last commit in March 2024.',
     tags: ['Python', 'API Client', 'Open Source'],
-    status: 'On Hold'
+    status: 'On Hold',
+    icon: '/projects/tvdb-python.svg'
   },
   {
     name: 'tvdb_api',
@@ -60,7 +66,8 @@ const projects = [
     articleUrl: '/projects/tvdb-api-ruby',
     description: 'Ruby gem for TheTVDB API. Created when planning to use Rails for whatisonthe.tv, but ultimately chose FastAPI for async I/O and performance. Stopped active development in 2023. Several other Ruby libraries exist for TheTVDB.',
     tags: ['Ruby', 'API Client', 'RubyGems'],
-    status: 'Archived'
+    status: 'Archived',
+    icon: '/projects/tvdb-ruby.svg'
   },
   {
     name: 'TV-Listings',
@@ -68,7 +75,8 @@ const projects = [
     articleUrl: '/projects/tv-listings',
     description: 'Perl-based TV listings tracker from 2002-2007. Parsed XMLTV data, augmented with season and star info, watch lists, search, and daily emails. Built before streaming existed and Sky+ was new. Migrated to GitHub in 2013 but never modernised. Pure nostalgia.',
     tags: ['Perl', 'MySQL', 'XMLTV', 'Vintage'],
-    status: 'Archived'
+    status: 'Archived',
+    icon: '/projects/tv-listings.svg'
   }
 ];
 ---
@@ -183,9 +191,12 @@ const projects = [
             <!-- Project name with icon -->
             <div class="flex items-start gap-4">
               <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-purple-400/20 to-pink-400/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                <svg class="w-8 h-8" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
-                </svg>
+                <img
+                  src={project.icon}
+                  alt={`${project.name} icon`}
+                  class="w-10 h-10 project-icon"
+                  style="color: var(--color-accent);"
+                />
               </div>
 
               <div class="flex-1 min-w-0">
@@ -364,6 +375,16 @@ const projects = [
 
     #filter-panel:not(.hidden) {
       animation: slideDown 0.2s ease-out;
+    }
+
+    /* Project icons - use filter to colorize SVGs */
+    .project-icon {
+      filter: brightness(0) saturate(100%) invert(35%) sepia(85%) saturate(1500%) hue-rotate(210deg) brightness(95%);
+    }
+
+    /* Dark mode - lighter icons */
+    :global(.dark) .project-icon {
+      filter: brightness(0) saturate(100%) invert(55%) sepia(85%) saturate(1200%) hue-rotate(200deg) brightness(110%);
     }
   </style>
 

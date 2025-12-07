@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Retro TV set for whatisonthe.tv -->
+  <!-- TV body -->
+  <rect x="8" y="16" width="48" height="36" rx="4" stroke="currentColor" stroke-width="3" fill="none"/>
+  <!-- Screen -->
+  <rect x="14" y="22" width="28" height="20" rx="2" stroke="currentColor" stroke-width="2" fill="none"/>
+  <!-- Antenna -->
+  <path d="M26 16l-8-10M38 16l8-10" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Control knobs -->
+  <circle cx="50" cy="30" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+  <circle cx="50" cy="40" r="3" stroke="currentColor" stroke-width="2" fill="none"/>
+  <!-- TV legs -->
+  <path d="M18 52v6M46 52v6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+</svg>

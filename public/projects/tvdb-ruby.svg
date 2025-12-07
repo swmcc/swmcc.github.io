@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- TV with Ruby gem -->
+  <!-- TV body -->
+  <rect x="4" y="20" width="36" height="28" rx="3" stroke="currentColor" stroke-width="2.5" fill="none"/>
+  <!-- Screen -->
+  <rect x="8" y="24" width="24" height="16" rx="1" stroke="currentColor" stroke-width="1.5" fill="none"/>
+  <!-- Antenna -->
+  <path d="M16 20l-5-8M28 20l5-8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- TV legs -->
+  <path d="M12 48v4M32 48v4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Ruby gem (hexagonal) positioned top-right -->
+  <path d="M50 12l8 6v12l-8 6-8-6V18z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round" fill="none"/>
+  <!-- Gem facets -->
+  <path d="M50 12v24M42 18l8 6 8-6M42 30l8-6 8 6" stroke="currentColor" stroke-width="1.5" opacity="0.6"/>
+  <!-- Gem shine -->
+  <path d="M46 20l4-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" opacity="0.8"/>
+</svg>
