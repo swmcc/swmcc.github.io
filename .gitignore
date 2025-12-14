@@ -17,6 +17,9 @@ pnpm-debug.log*
 .env
 .env.production
 
+# spotify auth cache
+.spotify_cache
+
 # macOS-specific files
 .DS_Store
 

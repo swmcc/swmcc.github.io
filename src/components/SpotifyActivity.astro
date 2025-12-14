@@ -1,0 +1,93 @@
+---
+import spotifyData from '../../public/spotify.json';
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now.getTime() - date.getTime();
+  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+  const diffInDays = Math.floor(diffInHours / 24);
+
+  if (diffInHours < 1) {
+    return 'Just now';
+  } else if (diffInHours < 24) {
+    return `${diffInHours}h ago`;
+  } else if (diffInDays === 1) {
+    return 'Yesterday';
+  } else if (diffInDays < 7) {
+    return `${diffInDays}d ago`;
+  } else {
+    return date.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
+  }
+}
+
+const tracks = spotifyData.items.map((item: any) => ({
+  name: item.track.name,
+  artist: item.track.artists.map((a: any) => a.name).join(', '),
+  album: item.track.album.name,
+  albumArt: item.track.album.images[1]?.url || item.track.album.images[0]?.url,
+  url: item.track.external_urls.spotify,
+  playedAt: item.played_at,
+  playedAtFormatted: formatDate(item.played_at),
+}));
+---
+
+<section class="max-w-6xl mx-auto mt-24">
+  <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
+    <div class="absolute top-0 left-0 ribbon-top-left">
+      <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+        Recent Listens
+      </span>
+    </div>
+
+    <div class="mt-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-green-400/30 to-emerald-400/30 flex items-center justify-center">
+          <svg class="w-8 h-8" style="color: var(--color-accent);" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+          </svg>
+        </div>
+        <div>
+          <h2 style="color: var(--color-text-heading);" class="text-2xl font-bold">What I am listenin' to</h2>
+          <p style="color: var(--color-text-secondary);" class="text-sm">Recent tracks from Spotify</p>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        {tracks.map((track: any) => (
+          <a
+            href={track.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);"
+            class="block p-4 rounded-lg hover:opacity-80 transition-opacity"
+          >
+            <div class="flex items-center gap-4">
+              <img
+                src={track.albumArt}
+                alt={track.album}
+                class="w-12 h-12 rounded shadow-sm flex-shrink-0"
+                loading="lazy"
+              />
+              <div class="flex-1 min-w-0">
+                <p style="color: var(--color-text);" class="font-medium truncate">
+                  {track.name}
+                </p>
+                <p style="color: var(--color-text-secondary);" class="text-sm truncate">
+                  {track.artist}
+                </p>
+              </div>
+              <time
+                style="color: var(--color-text-muted);"
+                class="text-xs flex-shrink-0"
+                datetime={track.playedAt}
+              >
+                {track.playedAtFormatted}
+              </time>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
