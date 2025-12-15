@@ -30,6 +30,6 @@ jobs:
         uses: exuanbo/actions-deploy-gist@v1
         with:
           token: ${{ secrets.GIST_TOKEN }}
-          gist_id: ${{ secrets.GITHUB_GIST_ID }}
+          gist_id: ${{ secrets.ACTIVITY_GIST_ID }}
           file_path: github.json
           file_type: text
