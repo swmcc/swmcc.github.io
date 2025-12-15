@@ -1,35 +1,5 @@
 ---
-import spotifyData from '../../public/spotify.json';
-
-function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffInMs = now.getTime() - date.getTime();
-  const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
-  const diffInDays = Math.floor(diffInHours / 24);
-
-  if (diffInHours < 1) {
-    return 'Just now';
-  } else if (diffInHours < 24) {
-    return `${diffInHours}h ago`;
-  } else if (diffInDays === 1) {
-    return 'Yesterday';
-  } else if (diffInDays < 7) {
-    return `${diffInDays}d ago`;
-  } else {
-    return date.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
-  }
-}
-
-const tracks = spotifyData.items.map((item: any) => ({
-  name: item.track.name,
-  artist: item.track.artists.map((a: any) => a.name).join(', '),
-  album: item.track.album.name,
-  albumArt: item.track.album.images[1]?.url || item.track.album.images[0]?.url,
-  url: item.track.external_urls.spotify,
-  playedAt: item.played_at,
-  playedAtFormatted: formatDate(item.played_at),
-}));
+const GIST_URL = 'https://gist.githubusercontent.com/swmcc/132accaca102fca79bed3382127b5d99/raw/spotify.json';
 ---
 
 <section class="max-w-6xl mx-auto mt-24">
@@ -53,41 +23,158 @@ const tracks = spotifyData.items.map((item: any) => ({
         </div>
       </div>
 
-      <div class="space-y-3">
-        {tracks.map((track: any) => (
-          <a
-            href={track.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);"
-            class="block p-4 rounded-lg hover:opacity-80 transition-opacity"
-          >
-            <div class="flex items-center gap-4">
-              <img
-                src={track.albumArt}
-                alt={track.album}
-                class="w-12 h-12 rounded shadow-sm flex-shrink-0"
-                loading="lazy"
-              />
-              <div class="flex-1 min-w-0">
-                <p style="color: var(--color-text);" class="font-medium truncate">
-                  {track.name}
-                </p>
-                <p style="color: var(--color-text-secondary);" class="text-sm truncate">
-                  {track.artist}
-                </p>
-              </div>
-              <time
-                style="color: var(--color-text-muted);"
-                class="text-xs flex-shrink-0"
-                datetime={track.playedAt}
-              >
-                {track.playedAtFormatted}
-              </time>
-            </div>
-          </a>
-        ))}
+      <div id="spotify-activity-content">
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          Loading activity...
+        </p>
       </div>
     </div>
   </div>
 </section>
+
+<script define:vars={{ GIST_URL }}>
+  const CACHE_KEY = 'spotify-activity-cache';
+  const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
+
+  function getCachedData() {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+
+      const { data, timestamp } = JSON.parse(cached);
+      const age = Date.now() - timestamp;
+
+      if (age > CACHE_DURATION_MS) {
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  function setCachedData(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }));
+    } catch {
+      // localStorage might be full or disabled
+    }
+  }
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInMs = now.getTime() - date.getTime();
+    const diffInHours = Math.floor(diffInMs / (1000 * 60 * 60));
+    const diffInDays = Math.floor(diffInHours / 24);
+
+    if (diffInHours < 1) {
+      return 'Just now';
+    } else if (diffInHours < 24) {
+      return `${diffInHours}h ago`;
+    } else if (diffInDays === 1) {
+      return 'Yesterday';
+    } else if (diffInDays < 7) {
+      return `${diffInDays}d ago`;
+    } else {
+      return date.toLocaleDateString('en-GB', { month: 'short', day: 'numeric' });
+    }
+  }
+
+  async function loadSpotifyActivity() {
+    const container = document.getElementById('spotify-activity-content');
+    if (!container) return;
+
+    // Check cache first
+    const cachedData = getCachedData();
+    if (cachedData) {
+      renderTracks(container, cachedData);
+      return;
+    }
+
+    try {
+      const response = await fetch(GIST_URL);
+      if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
+
+      const data = await response.json();
+      const tracks = data.items.map((item) => ({
+        name: item.track.name,
+        artist: item.track.artists.map((a) => a.name).join(', '),
+        album: item.track.album.name,
+        albumArt: item.track.album.images[1]?.url || item.track.album.images[0]?.url,
+        url: item.track.external_urls.spotify,
+        playedAt: item.played_at,
+      }));
+
+      setCachedData(tracks);
+      renderTracks(container, tracks);
+    } catch (error) {
+      console.error('Failed to load Spotify activity:', error);
+      container.innerHTML = `
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          Unable to load Spotify activity
+        </p>
+      `;
+    }
+  }
+
+  function renderTracks(container, tracks) {
+    if (!tracks || tracks.length === 0) {
+      container.innerHTML = `
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          No recent tracks
+        </p>
+      `;
+      return;
+    }
+
+    const tracksHTML = tracks.map((track) => {
+      const escapedName = track.name.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const escapedArtist = track.artist.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const escapedAlbum = track.album.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+      return `
+        <a
+          href="${track.url}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);"
+          class="block p-4 rounded-lg hover:opacity-80 transition-opacity"
+        >
+          <div class="flex items-center gap-4">
+            <img
+              src="${track.albumArt}"
+              alt="${escapedAlbum}"
+              class="w-12 h-12 rounded shadow-sm flex-shrink-0"
+              loading="lazy"
+            />
+            <div class="flex-1 min-w-0">
+              <p style="color: var(--color-text);" class="font-medium truncate">
+                ${escapedName}
+              </p>
+              <p style="color: var(--color-text-secondary);" class="text-sm truncate">
+                ${escapedArtist}
+              </p>
+            </div>
+            <time
+              style="color: var(--color-text-muted);"
+              class="text-xs flex-shrink-0"
+              datetime="${track.playedAt}"
+            >
+              ${formatDate(track.playedAt)}
+            </time>
+          </div>
+        </a>
+      `;
+    }).join('');
+
+    container.innerHTML = `<div class="space-y-3">${tracksHTML}</div>`;
+  }
+
+  loadSpotifyActivity();
+</script>
