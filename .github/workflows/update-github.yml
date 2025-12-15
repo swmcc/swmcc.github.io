@@ -1,0 +1,35 @@
+name: Update GitHub Activity
+
+on:
+  schedule:
+    # Run every 6 hours
+    - cron: '30 */6 * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update-github:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Fetch GitHub activity
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/update_github.py --output github.json
+
+      - name: Update Gist
+        uses: exuanbo/actions-deploy-gist@v1
+        with:
+          token: ${{ secrets.GIST_TOKEN }}
+          gist_id: ${{ secrets.GITHUB_GIST_ID }}
+          file_path: github.json
+          file_type: text

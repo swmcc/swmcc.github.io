@@ -1,5 +1,6 @@
 ---
 const GITHUB_USERNAME = 'swmcc';
+const GIST_URL = 'https://gist.githubusercontent.com/swmcc/a11f0f76fa6011a45a08f77f6d1bb38a/raw/github.json';
 ---
 
 <section class="max-w-6xl mx-auto mt-24">
@@ -34,9 +35,9 @@ const GITHUB_USERNAME = 'swmcc';
   </div>
 </section>
 
-<script define:vars={{ GITHUB_USERNAME }}>
+<script define:vars={{ GITHUB_USERNAME, GIST_URL }}>
   const CACHE_KEY = 'github-activity-cache';
-  const CACHE_DURATION_MS = 24 * 60 * 60 * 1000; // 1 day
+  const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
 
   function getCachedData() {
     try {
@@ -68,7 +69,7 @@ const GITHUB_USERNAME = 'swmcc';
     }
   }
 
-  // Fetch GitHub activity dynamically on page load
+  // Try to fetch from Gist first, fallback to GitHub API
   async function loadGitHubActivity() {
     const container = document.getElementById('github-activity-content');
     if (!container) return;
@@ -80,6 +81,20 @@ const GITHUB_USERNAME = 'swmcc';
       return;
     }
 
+    // Try Gist first (pre-processed data)
+    try {
+      const gistResponse = await fetch(GIST_URL);
+      if (gistResponse.ok) {
+        const repos = await gistResponse.json();
+        setCachedData(repos);
+        renderActivity(container, repos);
+        return;
+      }
+    } catch (error) {
+      console.warn('Gist fetch failed, falling back to GitHub API:', error);
+    }
+
+    // Fallback to direct GitHub API
     try {
       const response = await fetch(
         `https://api.github.com/users/${GITHUB_USERNAME}/events/public?per_page=100`,
