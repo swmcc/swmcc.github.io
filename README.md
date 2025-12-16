@@ -67,6 +67,37 @@ make local.clean        # Clean build artifacts
 make branch             # Show current git branch
 ```
 
+## Testing
+
+End-to-end tests are written with [Playwright](https://playwright.dev/) and run against the built site.
+
+### Run Tests
+
+```bash
+npm run test
+```
+
+### Run Tests with UI
+
+```bash
+npm run test:ui
+```
+
+### What's Tested
+
+- Homepage loads correctly
+- Navigation links work
+- Dark mode toggle
+- Writing/Blog pages (list and individual posts)
+- Notes pages (list and individual notes)
+- Now page
+- About page
+- Projects page
+- RSS feed accessibility
+- Basic accessibility (heading hierarchy, image alt text)
+
+Tests run automatically on pull requests via GitHub Actions.
+
 ## Content Management
 
 ### Adding Writing (Blog Post)
