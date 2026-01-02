@@ -1,0 +1,286 @@
+---
+import yaml from 'js-yaml';
+import fs from 'fs';
+import path from 'path';
+
+interface Book {
+  title: string;
+  author: string;
+  genre: string;
+  coverUrl: string;
+  amazonUrl: string;
+}
+
+interface CurrentBook extends Book {
+  why: string;
+  startedDate: string;
+}
+
+interface PreviousBook extends Book {
+  finishedDate: string;
+  blurb?: string;
+}
+
+interface ReadingData {
+  currentlyReading: CurrentBook[];
+  previouslyRead: PreviousBook[];
+}
+
+const dataPath = path.join(process.cwd(), 'src/data/reading.yaml');
+const fileContents = fs.readFileSync(dataPath, 'utf8');
+const data = yaml.load(fileContents) as ReadingData;
+
+const currentlyReading = data.currentlyReading || [];
+const previouslyRead = (data.previouslyRead || []).sort((a, b) =>
+  new Date(b.finishedDate).getTime() - new Date(a.finishedDate).getTime()
+);
+
+// Get unique genres for filtering
+const genres = [...new Set(previouslyRead.map(book => book.genre))].sort();
+
+function formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric'
+  });
+}
+---
+
+<section class="max-w-6xl mx-auto mt-24">
+  <!-- Funny intro blurb -->
+  <div class="card animate-slide-in-left mb-8" style="animation-delay: 200ms;">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-400/30 to-orange-400/30 flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+        </svg>
+      </div>
+      <div>
+        <p style="color: var(--color-text);" class="text-base leading-relaxed">
+          Yes, this includes audiobooks. I know, I know — "that's not <em>really</em> reading" —
+          but until someone invents a way to absorb knowledge through osmosis while I'm stuck in traffic,
+          having a professional narrator whisper literature into my ears will have to do.
+          My eyes are busy looking at code all day; my ears deserve a turn.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Currently Reading -->
+  <div class="card animate-slide-in-left" style="animation-delay: 350ms;">
+    <div class="absolute top-0 left-0 ribbon-top-left">
+      <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+        Currently Reading
+      </span>
+    </div>
+
+    <div class="mt-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-amber-400/30 to-orange-400/30 flex items-center justify-center">
+          <svg class="w-8 h-8" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <div>
+          <h2 style="color: var(--color-text-heading);" class="text-2xl font-bold">What I am readin'</h2>
+          <p style="color: var(--color-text-secondary);" class="text-sm">Books on the bedside table (or in my ears)</p>
+        </div>
+      </div>
+
+      <div class="space-y-4">
+        {currentlyReading.map((book) => (
+          <a
+            href={book.amazonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);"
+            class="block p-4 rounded-lg hover:opacity-80 transition-opacity"
+          >
+            <div class="flex gap-4">
+              <img
+                src={book.coverUrl}
+                alt={`Cover of ${book.title}`}
+                class="w-20 h-28 object-cover rounded shadow-md flex-shrink-0"
+                loading="lazy"
+              />
+              <div class="flex-1 min-w-0">
+                <h3 style="color: var(--color-text);" class="font-semibold text-lg leading-tight mb-1">
+                  {book.title}
+                </h3>
+                <p style="color: var(--color-text-secondary);" class="text-sm mb-2">
+                  by {book.author}
+                </p>
+                <span
+                  style="background: var(--color-accent); color: white;"
+                  class="inline-block px-2 py-0.5 text-xs rounded-full mb-2"
+                >
+                  {book.genre}
+                </span>
+                <p style="color: var(--color-text-muted);" class="text-sm italic">
+                  "{book.why}"
+                </p>
+                <p style="color: var(--color-text-muted);" class="text-xs mt-2">
+                  Started {formatDate(book.startedDate)}
+                </p>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Previously Read -->
+  <div class="card animate-slide-in-left mt-8" style="animation-delay: 500ms;">
+    <div class="absolute top-0 left-0 ribbon-top-left">
+      <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+        Previously Read
+      </span>
+    </div>
+
+    <div class="mt-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-slate-400/30 to-gray-400/30 flex items-center justify-center">
+          <svg class="w-8 h-8" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4"/>
+          </svg>
+        </div>
+        <div>
+          <h2 style="color: var(--color-text-heading);" class="text-2xl font-bold">The Archive</h2>
+          <p style="color: var(--color-text-secondary);" class="text-sm">Books I've conquered (or at least finished)</p>
+        </div>
+      </div>
+
+      <!-- Search and Filter -->
+      <div class="flex flex-col sm:flex-row gap-3 mb-6">
+        <div class="flex-1">
+          <input
+            type="text"
+            id="book-search"
+            placeholder="Search by title or author..."
+            style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); color: var(--color-text);"
+            class="w-full px-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+          />
+        </div>
+        <select
+          id="genre-filter"
+          style="background: var(--color-bg-secondary); border: 1px solid var(--color-border); color: var(--color-text);"
+          class="px-4 py-2 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[var(--color-accent)]"
+        >
+          <option value="">All genres</option>
+          {genres.map((genre) => (
+            <option value={genre}>{genre}</option>
+          ))}
+        </select>
+      </div>
+
+      <div id="previous-books" class="space-y-4">
+        {previouslyRead.map((book) => (
+          <div
+            class="book-item"
+            data-title={book.title.toLowerCase()}
+            data-author={book.author.toLowerCase()}
+            data-genre={book.genre}
+            data-date={book.finishedDate}
+          >
+            <a
+              href={book.amazonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style="background: var(--color-bg-secondary); border: 1px solid var(--color-border);"
+              class="block p-4 rounded-lg hover:opacity-80 transition-opacity"
+            >
+              <div class="flex gap-4">
+                <img
+                  src={book.coverUrl}
+                  alt={`Cover of ${book.title}`}
+                  class="w-16 h-24 object-cover rounded shadow-md flex-shrink-0"
+                  loading="lazy"
+                />
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start justify-between gap-2 mb-1">
+                    <h3 style="color: var(--color-text);" class="font-semibold leading-tight">
+                      {book.title}
+                    </h3>
+                    <time
+                      style="color: var(--color-text-muted);"
+                      class="text-xs flex-shrink-0"
+                      datetime={book.finishedDate}
+                    >
+                      {formatDate(book.finishedDate)}
+                    </time>
+                  </div>
+                  <p style="color: var(--color-text-secondary);" class="text-sm mb-2">
+                    by {book.author}
+                  </p>
+                  <span
+                    style="background: var(--color-bg); border: 1px solid var(--color-border);"
+                    class="inline-block px-2 py-0.5 text-xs rounded-full"
+                  >
+                    {book.genre}
+                  </span>
+                  {book.blurb && (
+                    <p style="color: var(--color-text-muted);" class="text-sm mt-3 italic">
+                      {book.blurb}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </a>
+          </div>
+        ))}
+      </div>
+
+      <p
+        id="no-results"
+        style="color: var(--color-text-muted);"
+        class="text-sm italic text-center py-8 hidden"
+      >
+        No books match your search. Try a different term or genre.
+      </p>
+    </div>
+  </div>
+</section>
+
+<script>
+  const searchInput = document.getElementById('book-search') as HTMLInputElement;
+  const genreFilter = document.getElementById('genre-filter') as HTMLSelectElement;
+  const bookItems = document.querySelectorAll('.book-item');
+  const noResults = document.getElementById('no-results');
+
+  function filterBooks() {
+    const searchTerm = searchInput?.value.toLowerCase() || '';
+    const selectedGenre = genreFilter?.value || '';
+    let visibleCount = 0;
+
+    bookItems.forEach((item) => {
+      const el = item as HTMLElement;
+      const title = el.dataset.title || '';
+      const author = el.dataset.author || '';
+      const genre = el.dataset.genre || '';
+
+      const matchesSearch = title.includes(searchTerm) || author.includes(searchTerm);
+      const matchesGenre = !selectedGenre || genre === selectedGenre;
+
+      if (matchesSearch && matchesGenre) {
+        el.classList.remove('hidden');
+        visibleCount++;
+      } else {
+        el.classList.add('hidden');
+      }
+    });
+
+    if (noResults) {
+      if (visibleCount === 0) {
+        noResults.classList.remove('hidden');
+      } else {
+        noResults.classList.add('hidden');
+      }
+    }
+  }
+
+  searchInput?.addEventListener('input', filterBooks);
+  genreFilter?.addEventListener('change', filterBooks);
+</script>
