@@ -3,10 +3,9 @@ import type { APIRoute } from 'astro';
 
 export const GET: APIRoute = async () => {
   // Fetch all content collections
-  const [writing, notes, thoughts, projects, nowPages] = await Promise.all([
+  const [writing, notes, projects, nowPages] = await Promise.all([
     getCollection('writing'),
     getCollection('notes'),
-    getCollection('thoughts'),
     getCollection('projects'),
     getCollection('now')
   ]);
@@ -82,31 +81,6 @@ export const GET: APIRoute = async () => {
     });
   }
 
-  // Add thoughts directory
-  if (thoughts.length > 0) {
-    fileSystem['thoughts'] = {
-      type: 'directory',
-      name: 'thoughts',
-      children: {}
-    };
-
-    thoughts.forEach(thought => {
-      const fileName = `${thought.slug}.md`;
-      const timeStr = thought.data.pubTime ? ` at ${thought.data.pubTime}` : '';
-      fileSystem['thoughts'].children[fileName] = {
-        type: 'file',
-        name: fileName,
-        content: `Thought posted ${thought.data.pubDate.toLocaleDateString('en-GB')}${timeStr}\nTags: ${thought.data.tags?.join(', ') || 'none'}\n\nView at: /thoughts/${thought.slug}`,
-        url: `/thoughts/${thought.slug}`,
-        metadata: {
-          pubDate: thought.data.pubDate,
-          pubTime: thought.data.pubTime,
-          tags: thought.data.tags || []
-        }
-      };
-    });
-  }
-
   // Add projects directory
   if (projects.length > 0) {
     fileSystem['projects'] = {
@@ -159,19 +133,6 @@ export const GET: APIRoute = async () => {
       tags: note.data.tags || [],
       pubDate: note.data.pubDate,
       url: `/notes/${note.slug}`
-    });
-  }
-
-  // Index thoughts
-  for (const thought of thoughts) {
-    searchIndex.push({
-      type: 'thoughts',
-      slug: thought.slug,
-      content: thought.body,
-      tags: thought.data.tags || [],
-      pubDate: thought.data.pubDate,
-      pubTime: thought.data.pubTime,
-      url: `/thoughts/${thought.slug}`
     });
   }
 

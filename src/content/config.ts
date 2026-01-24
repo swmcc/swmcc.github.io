@@ -31,15 +31,6 @@ const now = defineCollection({
   })
 });
 
-const thoughts = defineCollection({
-  type: 'content',
-  schema: z.object({
-    pubDate: z.coerce.date(),
-    pubTime: z.string().optional(),
-    tags: z.array(z.string()).optional()
-  })
-});
-
 const projects = defineCollection({
   type: 'content',
   schema: z.object({
@@ -50,4 +41,4 @@ const projects = defineCollection({
   })
 });
 
-export const collections = { writing, notes, now, thoughts, projects };
+export const collections = { writing, notes, now, projects };
