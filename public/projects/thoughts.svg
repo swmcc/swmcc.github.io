@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Thought bubble / Lightbulb icon -->
+  <!-- Main bulb shape -->
+  <path d="M32 8c-9.941 0-18 8.059-18 18 0 6.627 3.582 12.418 8.92 15.54.84.49 1.58 1.14 2.08 1.96v8.5c0 2.21 1.79 4 4 4h6c2.21 0 4-1.79 4-4v-8.5c.5-.82 1.24-1.47 2.08-1.96C45.418 38.418 49 32.627 49 26c0-9.941-8.059-18-17-18z" stroke="currentColor" stroke-width="3" fill="none"/>
+  <!-- Filament lines inside bulb -->
+  <path d="M28 30c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <path d="M32 26v-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.6"/>
+  <!-- Base rings -->
+  <path d="M27 48h10M27 52h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  <!-- Rays/sparkle lines -->
+  <path d="M32 2v3M52 26h3M12 26H9M47.5 11.5l-2 2M16.5 11.5l2 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+</svg>
