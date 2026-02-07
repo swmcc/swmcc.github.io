@@ -494,3 +494,9 @@ FastAPI + async PostgreSQL + Redis + SvelteKit is a modern, performant stack for
 For whatisonthe.tv, this architecture prioritises developer experience, type safety, and performance - exactly what I wanted.
 
 You can view the source on [GitHub](https://github.com/swmcc/whatisonthe.tv).
+
+---
+
+## Additional Articles
+
+- **7th February 2026** - [Building Swanson: A RAG-Enhanced Recommendation System for whatisonthe.tv](/writing/building-swanson-recommendation-system)
