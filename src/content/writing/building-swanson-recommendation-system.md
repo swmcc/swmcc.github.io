@@ -5,6 +5,8 @@ pubDate: 2026-02-07
 tags: ["ai", "python", "fastapi", "svelte", "llm", "streaming", "rag"]
 ---
 
+> **Background reading:** This article builds on [Building whatisonthe.tv with FastAPI](/projects/building-whatisonthetv/), which covers the core architecture, async patterns, and caching strategies used in the application.
+
 Since October last year, I've been logging everything I watch on [whatisonthe.tv](https://whatisonthe.tv). The check-in feature has been working well, and I now have a solid history of viewing habits. But there was a problem I kept running into: finding something to watch with my mum.
 
 ## The Problem
