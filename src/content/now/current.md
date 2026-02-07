@@ -1,15 +1,19 @@
 ---
-updatedDate: 2026-01-12
+updatedDate: 2026-02-07
 ---
 
-*Updated monthly. This is what I'm focused on in January 2026.*
+*Updated monthly. This is what I'm focused on in February 2026.*
 
 ## Day Job
 
-The AI Operating System is entering an exciting phase. We're ramping up development significantly this month, shifting from foundational work to aggressive feature delivery. The big focus is third-party integrations - connecting enterprise systems, external AI providers, and compliance tooling into a unified orchestration layer. Think of it as building the nervous system that lets regulated organisations safely harness AI across their entire tech stack. The architecture decisions we made last year are paying dividends now; what would have been months of rework is instead clean integration points ready to accept new capabilities. It's the kind of work that doesn't make for flashy demos but fundamentally changes what the platform can do.
+The day job continues. Being part of a team and business that's scaling up is genuinely exciting. As a senior member, I'm leading from the front whilst formal management comes in above. It's a delicate balance of not stepping on toes whilst still making sure things get done properly. Platform building is interesting work, but I'm getting itchy for something more greenfield and unknown. That said, I'm still very happy. I love coding, and I get to do plenty of it.
+
+I've started using Claude more heavily to enhance my workflow, and it's paying dividends with productivity. Planning mode and custom skills have fundamentally changed how I approach larger pieces of work.
 
 ## After Hours
 
-Started the great de-clutter in preparation for a house renovation. Turns out we've accumulated a truly impressive amount of stuff over the years. There's something cathartic about filling skip bags and rediscovering rooms. The goal is to strip things back before the builders arrive - less to move, less to damage, less to worry about.
+Doing the needful for a house renovation of the hall, snug, and TV room. Picking doors, floors, and colour schemes. It's interesting enough, but honestly I just want it done. I'm sure I'll get sick of it soon. The decision fatigue is real.
 
-Still very much enjoying the 100" TV. Watching films feels like having a private cinema. Currently working through some classics I never got around to seeing properly. You can see what I've been watching on my [check-ins page](https://www.whatisonthe.tv/swmcc).
+The weather is pissing me off. I love the gardening, but it's been so wet that no prep can be done at all without damaging the soil. You can't dig, you can't plant, you can't even walk on the beds without compacting everything. So I'm holding and waiting for spring to spring. Can't come soon enough.
+
+Still tracking what I watch on my [check-ins page](https://www.whatisonthe.tv/swmcc).
