@@ -63,6 +63,11 @@ export let fileSystem: FileSystem = {
         name: 'whatisonthe-tv.md',
         content: 'TV tracking app. FastAPI + SvelteKit.\nView: /projects/building-whatisonthetv'
       },
+      'second-breakfast.md': {
+        type: 'file',
+        name: 'second-breakfast.md',
+        content: 'Recipe and meal tracking. Rails 8 + Hotwire. AI-driven development.\nView: /projects/building-second-breakfast'
+      },
       'jotter.md': {
         type: 'file',
         name: 'jotter.md',
@@ -72,6 +77,16 @@ export let fileSystem: FileSystem = {
         type: 'file',
         name: 'the-mcculloughs-org.md',
         content: 'Family photo archive. Rails 8 monolith.\nView: /projects/the-mcculloughs-org'
+      },
+      'swanson.md': {
+        type: 'file',
+        name: 'swanson.md',
+        content: 'Developer dashboard. TUI (React/Ink) + Web (Next.js). MCP server for Claude.\nView: /projects/building-swanson'
+      },
+      'thoughts.md': {
+        type: 'file',
+        name: 'thoughts.md',
+        content: 'Microblogging PWA. Rails 8 with 140-char posts.\nView: /projects/building-thoughts'
       }
     }
   },
@@ -440,8 +455,11 @@ function executeProjects(): { output: string } {
 
 • swm.cc - This site (Astro 5 + Tailwind CSS 4)
 • whatisonthe.tv - TV tracking app (FastAPI + SvelteKit)
+• second_breakfast - Recipe tracking (Rails 8 + AI-driven)
 • Jotter - Bookmark manager (Rails 8 + Hotwire)
 • the-mcculloughs.org - Family photo archive (Rails 8)
+• Swanson - Developer dashboard (TUI + Web + MCP)
+• thoughts.swm.cc - Microblogging (Rails 8 PWA)
 
 Run 'ls projects/' for full list
 Visit /projects on the website for detailed articles`
