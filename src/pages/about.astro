@@ -57,7 +57,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </div>
 
-    <div class="space-y-6">
+    <div id="contact-section" class="space-y-6">
       <h2 style="color: var(--color-text-heading);">Get in Touch</h2>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
         Have a question or want to work together? Drop me a message.
@@ -117,33 +117,111 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           Send message
         </button>
       </form>
+    </div>
 
-      <div id="success-message" class="hidden p-6 rounded-lg text-center" style="background: var(--color-surface);">
-        <p class="text-lg font-medium" style="color: var(--color-text-heading);">Message sent!</p>
-        <p class="mt-2" style="color: var(--color-text);">Thanks for reaching out. I'll get back to you soon.</p>
+    <div id="success-section" class="hidden space-y-4">
+      <div class="p-8 rounded-xl text-center" style="background: var(--color-surface); border: 1px solid var(--color-border);">
+        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style="background: var(--color-accent); opacity: 0.1;">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-accent);">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+          </svg>
+        </div>
+        <h2 class="text-2xl font-semibold mb-2" style="color: var(--color-text-heading);">Message sent!</h2>
+        <p class="text-lg" style="color: var(--color-text);">
+          Thanks for reaching out. I'll get back to you soon.
+        </p>
       </div>
     </div>
   </article>
 
   <script>
     document.addEventListener('astro:page-load', () => {
+      const contactSection = document.getElementById('contact-section');
+      const successSection = document.getElementById('success-section');
       const form = document.getElementById('contact-form') as HTMLFormElement;
       const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
-      const successMessage = document.getElementById('success-message');
 
       if (!form) return;
+
+      // Validation rules
+      const validators: Record<string, (value: string) => string | null> = {
+        name: (value) => {
+          if (!value.trim()) return 'Name is required';
+          if (value.trim().length < 2) return 'Name must be at least 2 characters';
+          return null;
+        },
+        email: (value) => {
+          if (!value.trim()) return 'Email is required';
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) return 'Please enter a valid email';
+          return null;
+        },
+        message: (value) => {
+          if (!value.trim()) return 'Message is required';
+          if (value.trim().length < 10) return 'Please write a bit more';
+          return null;
+        },
+      };
+
+      // Validate a single field
+      function validateField(field: string, value: string): boolean {
+        const errorEl = document.getElementById(`${field}-error`);
+        const inputEl = document.getElementById(field);
+        const error = validators[field]?.(value);
+
+        if (error) {
+          if (errorEl) {
+            errorEl.textContent = error;
+            errorEl.classList.remove('hidden');
+          }
+          inputEl?.classList.add('border-red-500');
+          return false;
+        } else {
+          if (errorEl) {
+            errorEl.textContent = '';
+            errorEl.classList.add('hidden');
+          }
+          inputEl?.classList.remove('border-red-500');
+          return true;
+        }
+      }
+
+      // Inline validation on blur
+      ['name', 'email', 'message'].forEach((field) => {
+        const input = document.getElementById(field);
+        if (input) {
+          input.addEventListener('blur', (e) => {
+            const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+            if (target.value) {
+              validateField(field, target.value);
+            }
+          });
+
+          // Clear error on input if field becomes valid
+          input.addEventListener('input', (e) => {
+            const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+            const errorEl = document.getElementById(`${field}-error`);
+            if (errorEl && !errorEl.classList.contains('hidden')) {
+              validateField(field, target.value);
+            }
+          });
+        }
+      });
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
-        // Clear previous errors
-        document.querySelectorAll('[id$="-error"]').forEach(el => {
-          el.classList.add('hidden');
-          el.textContent = '';
-        });
-        document.querySelectorAll('.contact-input').forEach(el => {
-          el.classList.remove('border-red-500');
-        });
+        // Validate all fields
+        const nameInput = document.getElementById('name') as HTMLInputElement;
+        const emailInput = document.getElementById('email') as HTMLInputElement;
+        const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+
+        const nameValid = validateField('name', nameInput.value);
+        const emailValid = validateField('email', emailInput.value);
+        const messageValid = validateField('message', messageInput.value);
+
+        if (!nameValid || !emailValid || !messageValid) {
+          return;
+        }
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
@@ -158,10 +236,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           const result = await response.json();
 
           if (result.success) {
-            form.classList.add('hidden');
-            successMessage?.classList.remove('hidden');
+            contactSection?.classList.add('hidden');
+            successSection?.classList.remove('hidden');
           } else if (result.errors) {
-            // Show field errors
             Object.entries(result.errors).forEach(([field, message]) => {
               const errorEl = document.getElementById(`${field}-error`);
               const inputEl = document.getElementById(field);
@@ -173,16 +250,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 inputEl.classList.add('border-red-500');
               }
             });
-
-            // Restore values
-            if (result.values) {
-              Object.entries(result.values).forEach(([field, value]) => {
-                const inputEl = document.getElementById(field) as HTMLInputElement | HTMLTextAreaElement;
-                if (inputEl && value) {
-                  inputEl.value = value as string;
-                }
-              });
-            }
           } else if (result.error) {
             const formError = document.getElementById('form-error');
             if (formError) {
