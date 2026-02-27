@@ -14,6 +14,8 @@
     "@astrojs/mdx": "^4.3.9",
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
+    "@astrojs/vercel": "^9.0.4",
+    "@mailjunky/sdk": "^0.5.1",
     "@tailwindcss/vite": "^4.1.16",
     "astro": "^5.15.3",
     "js-yaml": "^4.1.1",

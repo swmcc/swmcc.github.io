@@ -57,23 +57,151 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </p>
     </div>
 
-    <div class="space-y-4">
+    <div class="space-y-6">
       <h2 style="color: var(--color-text-heading);">Get in Touch</h2>
       <p style="color: var(--color-text); font-size: 1.125rem; line-height: 1.8;">
-        Email me at <a href="#" id="email-link" style="color: var(--color-accent);">me@swm.cc</a> or
-        find me on <a href="https://github.com/swmcc" target="_blank" rel="noopener noreferrer" style="color: var(--color-accent);">GitHub</a>.
+        Have a question or want to work together? Drop me a message.
       </p>
+
+      <form id="contact-form" class="space-y-5">
+        <div>
+          <label for="name" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+          />
+          <p id="name-error" class="mt-1 text-sm text-red-500 hidden"></p>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+          />
+          <p id="email-error" class="mt-1 text-sm text-red-500 hidden"></p>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 resize-none"
+            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+          ></textarea>
+          <p id="message-error" class="mt-1 text-sm text-red-500 hidden"></p>
+        </div>
+
+        <p id="form-error" class="text-sm text-red-500 hidden"></p>
+
+        <button
+          type="submit"
+          id="submit-btn"
+          class="px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+          style="background: var(--color-accent); color: white;"
+        >
+          Send message
+        </button>
+      </form>
+
+      <div id="success-message" class="hidden p-6 rounded-lg text-center" style="background: var(--color-surface);">
+        <p class="text-lg font-medium" style="color: var(--color-text-heading);">Message sent!</p>
+        <p class="mt-2" style="color: var(--color-text);">Thanks for reaching out. I'll get back to you soon.</p>
+      </div>
     </div>
   </article>
 
   <script>
-    // Obfuscate email from scrapers
-    const emailLink = document.getElementById('email-link');
-    if (emailLink) {
-      const user = 'me';
-      const domain = 'swm.cc';
-      emailLink.href = 'mailto:' + user + '@' + domain;
-    }
+    document.addEventListener('astro:page-load', () => {
+      const form = document.getElementById('contact-form') as HTMLFormElement;
+      const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+      const successMessage = document.getElementById('success-message');
+
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Clear previous errors
+        document.querySelectorAll('[id$="-error"]').forEach(el => {
+          el.classList.add('hidden');
+          el.textContent = '';
+        });
+        document.querySelectorAll('.contact-input').forEach(el => {
+          el.classList.remove('border-red-500');
+        });
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch('/api/contact', {
+            method: 'POST',
+            body: formData,
+          });
+
+          const result = await response.json();
+
+          if (result.success) {
+            form.classList.add('hidden');
+            successMessage?.classList.remove('hidden');
+          } else if (result.errors) {
+            // Show field errors
+            Object.entries(result.errors).forEach(([field, message]) => {
+              const errorEl = document.getElementById(`${field}-error`);
+              const inputEl = document.getElementById(field);
+              if (errorEl && message) {
+                errorEl.textContent = message as string;
+                errorEl.classList.remove('hidden');
+              }
+              if (inputEl) {
+                inputEl.classList.add('border-red-500');
+              }
+            });
+
+            // Restore values
+            if (result.values) {
+              Object.entries(result.values).forEach(([field, value]) => {
+                const inputEl = document.getElementById(field) as HTMLInputElement | HTMLTextAreaElement;
+                if (inputEl && value) {
+                  inputEl.value = value as string;
+                }
+              });
+            }
+          } else if (result.error) {
+            const formError = document.getElementById('form-error');
+            if (formError) {
+              formError.textContent = result.error;
+              formError.classList.remove('hidden');
+            }
+          }
+        } catch (error) {
+          const formError = document.getElementById('form-error');
+          if (formError) {
+            formError.textContent = 'Something went wrong. Please try again.';
+            formError.classList.remove('hidden');
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send message';
+        }
+      });
+    });
   </script>
 
   <style>
@@ -128,6 +256,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 0.2em 0.4em;
       border-radius: 4px;
       font-size: 0.9em;
+    }
+
+    .contact-input:focus {
+      border-color: var(--color-accent) !important;
+      ring-color: var(--color-accent);
+      box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb, 99, 102, 241), 0.1);
+    }
+
+    .contact-input::placeholder {
+      color: var(--color-text-muted);
+    }
+
+    #submit-btn:hover {
+      filter: brightness(1.1);
+    }
+
+    #submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none !important;
+    }
+
+    .border-red-500 {
+      border-color: #ef4444 !important;
+    }
+
+    .text-red-500 {
+      color: #ef4444;
     }
   </style>
 </BaseLayout>
