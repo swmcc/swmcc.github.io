@@ -1,8 +1,10 @@
 import type { APIRoute } from 'astro';
 import { MailJunky } from '@mailjunky/sdk';
 
+export const prerender = false;
+
 const client = new MailJunky({
-  apiKey: import.meta.env.MAILJUNKY_API_KEY,
+  apiKey: import.meta.env.MAILJUNKY_API_KEY || '',
 });
 
 type FieldErrors = {

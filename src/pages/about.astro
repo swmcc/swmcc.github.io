@@ -65,210 +65,177 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
       <form id="contact-form" class="space-y-5">
         <div>
-          <label for="name" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+          <label for="name" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--color-text-heading);">
             Name
           </label>
           <input
             type="text"
             id="name"
             name="name"
-            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2"
-            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text);"
           />
-          <p id="name-error" class="field-error"></p>
+          <p id="name-error" style="margin-top: 0.5rem; font-size: 0.875rem; color: #ef4444; display: none;"></p>
         </div>
 
         <div>
-          <label for="email" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+          <label for="email" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--color-text-heading);">
             Email
           </label>
           <input
             type="email"
             id="email"
             name="email"
-            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2"
-            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text);"
           />
-          <p id="email-error" class="field-error"></p>
+          <p id="email-error" style="margin-top: 0.5rem; font-size: 0.875rem; color: #ef4444; display: none;"></p>
         </div>
 
         <div>
-          <label for="message" class="block text-sm font-medium mb-2" style="color: var(--color-text-heading);">
+          <label for="message" style="display: block; font-size: 0.875rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--color-text-heading);">
             Message
           </label>
           <textarea
             id="message"
             name="message"
             rows="5"
-            class="contact-input w-full px-4 py-3 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 resize-none"
-            style="background: var(--color-surface); border-color: var(--color-border); color: var(--color-text);"
+            style="width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text); resize: none;"
           ></textarea>
-          <p id="message-error" class="field-error"></p>
+          <p id="message-error" style="margin-top: 0.5rem; font-size: 0.875rem; color: #ef4444; display: none;"></p>
         </div>
 
-        <p id="form-error" class="field-error"></p>
+        <p id="form-error" style="font-size: 0.875rem; color: #ef4444; display: none;"></p>
 
         <button
           type="submit"
           id="submit-btn"
-          class="px-6 py-3 rounded-lg font-medium transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-          style="background: var(--color-accent); color: white;"
+          style="padding: 0.75rem 1.5rem; border-radius: 0.5rem; font-weight: 500; background: var(--color-accent); color: white; border: none; cursor: pointer;"
         >
           Send message
         </button>
       </form>
     </div>
 
-    <div id="success-section" style="display: none;" class="space-y-4">
-      <div class="p-8 rounded-xl text-center" style="background: var(--color-surface); border: 1px solid var(--color-border);">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full mb-4" style="background: var(--color-accent); opacity: 0.1;">
-          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color: var(--color-accent);">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-        </div>
-        <h2 class="text-2xl font-semibold mb-2" style="color: var(--color-text-heading);">Message sent!</h2>
-        <p class="text-lg" style="color: var(--color-text);">
+    <div id="success-section" style="display: none;">
+      <div style="padding: 2rem; border-radius: 0.75rem; text-align: center; background: var(--color-surface); border: 1px solid var(--color-border);">
+        <h2 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--color-text-heading);">Message sent!</h2>
+        <p style="font-size: 1.125rem; color: var(--color-text);">
           Thanks for reaching out. I'll get back to you soon.
         </p>
       </div>
     </div>
   </article>
 
-  <script>
-    document.addEventListener('astro:page-load', () => {
-      const contactSection = document.getElementById('contact-section');
-      const successSection = document.getElementById('success-section');
-      const form = document.getElementById('contact-form') as HTMLFormElement;
-      const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  <script is:inline>
+    function setupContactForm() {
+      var form = document.getElementById('contact-form');
+      var submitBtn = document.getElementById('submit-btn');
+      var contactSection = document.getElementById('contact-section');
+      var successSection = document.getElementById('success-section');
 
       if (!form) return;
 
-      // Validation rules
-      const validators: Record<string, (value: string) => string | null> = {
-        name: (value) => {
-          if (!value.trim()) return 'Name is required';
-          if (value.trim().length < 2) return 'Name must be at least 2 characters';
-          return null;
-        },
-        email: (value) => {
-          if (!value.trim()) return 'Email is required';
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim())) return 'Please enter a valid email';
-          return null;
-        },
-        message: (value) => {
-          if (!value.trim()) return 'Message is required';
-          if (value.trim().length < 10) return 'Please write a bit more';
-          return null;
-        },
-      };
-
-      // Validate a single field
-      function validateField(field: string, value: string): boolean {
-        const errorEl = document.getElementById(`${field}-error`);
-        const inputEl = document.getElementById(field);
-        const error = validators[field]?.(value);
-
-        if (error) {
-          if (errorEl) {
-            errorEl.textContent = error;
-            errorEl.classList.add('visible');
-          }
-          inputEl?.classList.add('input-error');
-          return false;
-        } else {
-          if (errorEl) {
-            errorEl.textContent = '';
-            errorEl.classList.remove('visible');
-          }
-          inputEl?.classList.remove('input-error');
-          return true;
+      function showError(fieldId, message) {
+        var errorEl = document.getElementById(fieldId + '-error');
+        var inputEl = document.getElementById(fieldId);
+        if (errorEl) {
+          errorEl.textContent = message;
+          errorEl.style.display = 'block';
+        }
+        if (inputEl) {
+          inputEl.style.borderColor = '#ef4444';
         }
       }
 
-      // Inline validation on blur
-      ['name', 'email', 'message'].forEach((field) => {
-        const input = document.getElementById(field);
-        if (input) {
-          input.addEventListener('blur', (e) => {
-            const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-            if (target.value) {
-              validateField(field, target.value);
-            }
-          });
+      function clearError(fieldId) {
+        var errorEl = document.getElementById(fieldId + '-error');
+        var inputEl = document.getElementById(fieldId);
+        if (errorEl) {
+          errorEl.textContent = '';
+          errorEl.style.display = 'none';
+        }
+        if (inputEl) {
+          inputEl.style.borderColor = '';
+        }
+      }
 
-          // Clear error on input if field becomes valid
-          input.addEventListener('input', (e) => {
-            const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-            const errorEl = document.getElementById(`${field}-error`);
-            if (errorEl && !errorEl.classList.contains('hidden')) {
-              validateField(field, target.value);
+      function validateField(fieldId) {
+        var input = document.getElementById(fieldId);
+        var value = input ? input.value.trim() : '';
+
+        if (fieldId === 'name') {
+          if (!value) { showError('name', 'Name is required'); return false; }
+          if (value.length < 2) { showError('name', 'Name must be at least 2 characters'); return false; }
+        }
+        if (fieldId === 'email') {
+          if (!value) { showError('email', 'Email is required'); return false; }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) { showError('email', 'Please enter a valid email'); return false; }
+        }
+        if (fieldId === 'message') {
+          if (!value) { showError('message', 'Message is required'); return false; }
+          if (value.length < 10) { showError('message', 'Please write a bit more'); return false; }
+        }
+
+        clearError(fieldId);
+        return true;
+      }
+
+      // Inline validation on blur
+      ['name', 'email', 'message'].forEach(function(fieldId) {
+        var input = document.getElementById(fieldId);
+        if (input) {
+          input.addEventListener('blur', function() {
+            if (input.value) validateField(fieldId);
+          });
+          input.addEventListener('input', function() {
+            var errorEl = document.getElementById(fieldId + '-error');
+            if (errorEl && errorEl.style.display !== 'none') {
+              validateField(fieldId);
             }
           });
         }
       });
 
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', function(e) {
         e.preventDefault();
 
-        // Validate all fields
-        const nameInput = document.getElementById('name') as HTMLInputElement;
-        const emailInput = document.getElementById('email') as HTMLInputElement;
-        const messageInput = document.getElementById('message') as HTMLTextAreaElement;
+        var nameValid = validateField('name');
+        var emailValid = validateField('email');
+        var messageValid = validateField('message');
 
-        const nameValid = validateField('name', nameInput.value);
-        const emailValid = validateField('email', emailInput.value);
-        const messageValid = validateField('message', messageInput.value);
-
-        if (!nameValid || !emailValid || !messageValid) {
-          return;
-        }
+        if (!nameValid || !emailValid || !messageValid) return;
 
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
 
-        try {
-          const formData = new FormData(form);
-          const response = await fetch('/api/contact', {
-            method: 'POST',
-            body: formData,
-          });
+        var formData = new FormData(form);
 
-          const result = await response.json();
-
-          if (result.success) {
-            if (contactSection) contactSection.style.display = 'none';
-            if (successSection) successSection.style.display = 'block';
-          } else if (result.errors) {
-            Object.entries(result.errors).forEach(([field, message]) => {
-              const errorEl = document.getElementById(`${field}-error`);
-              const inputEl = document.getElementById(field);
-              if (errorEl && message) {
-                errorEl.textContent = message as string;
-                errorEl.classList.add('visible');
-              }
-              if (inputEl) {
-                inputEl.classList.add('input-error');
-              }
-            });
-          } else if (result.error) {
-            const formError = document.getElementById('form-error');
-            if (formError) {
-              formError.textContent = result.error;
-              formError.classList.add('visible');
+        fetch('/api/contact', { method: 'POST', body: formData })
+          .then(function(res) { return res.json(); })
+          .then(function(result) {
+            if (result.success) {
+              contactSection.style.display = 'none';
+              successSection.style.display = 'block';
+            } else if (result.errors) {
+              Object.keys(result.errors).forEach(function(field) {
+                showError(field, result.errors[field]);
+              });
+            } else if (result.error) {
+              showError('form', result.error);
             }
-          }
-        } catch (error) {
-          const formError = document.getElementById('form-error');
-          if (formError) {
-            formError.textContent = 'Something went wrong. Please try again.';
-            formError.classList.remove('hidden');
-          }
-        } finally {
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Send message';
-        }
+          })
+          .catch(function() {
+            showError('form', 'Something went wrong. Please try again.');
+          })
+          .finally(function() {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send message';
+          });
       });
-    });
+    }
+
+    // Run on load and on Astro page transitions
+    document.addEventListener('DOMContentLoaded', setupContactForm);
+    document.addEventListener('astro:page-load', setupContactForm);
   </script>
 
   <style>
@@ -323,41 +290,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       padding: 0.2em 0.4em;
       border-radius: 4px;
       font-size: 0.9em;
-    }
-
-    .contact-input:focus {
-      border-color: var(--color-accent) !important;
-      ring-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb, 99, 102, 241), 0.1);
-    }
-
-    .contact-input::placeholder {
-      color: var(--color-text-muted);
-    }
-
-    #submit-btn:hover {
-      filter: brightness(1.1);
-    }
-
-    #submit-btn:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: none !important;
-    }
-
-    .field-error {
-      margin-top: 0.5rem;
-      font-size: 0.875rem;
-      color: #ef4444;
-      display: none;
-    }
-
-    .field-error.visible {
-      display: block;
-    }
-
-    .input-error {
-      border-color: #ef4444 !important;
     }
   </style>
 </BaseLayout>
