@@ -104,9 +104,9 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
             return window.innerWidth < 768 ? 3 : 5;
           }
 
-          // Random time between 5-10 seconds
+          // Random time between 5-20 seconds
           function getRandomDelay() {
-            return 5000 + Math.random() * 5000;
+            return 5000 + Math.random() * 15000;
           }
 
           // Shuffle array using Fisher-Yates
