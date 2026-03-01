@@ -18,11 +18,19 @@ config();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 
-const SLIDESHOW_URL = process.env.SLIDESHOW_URL;
+const SLIDESHOW_URL = process.env.SLIDESHOW_URL?.trim();
 
 if (!SLIDESHOW_URL) {
   console.error('Error: SLIDESHOW_URL environment variable is not set');
   console.error('Set it in .env file or as an environment variable');
+  process.exit(1);
+}
+
+// Validate URL format
+try {
+  new URL(SLIDESHOW_URL);
+} catch {
+  console.error(`Error: Invalid SLIDESHOW_URL: ${SLIDESHOW_URL}`);
   process.exit(1);
 }
 const HERO_DIR = path.join(PROJECT_ROOT, 'public', 'hero');
@@ -49,7 +57,14 @@ async function fetchSlideshow() {
     throw new Error(`Failed to fetch slideshow: ${response.status} ${response.statusText}`);
   }
 
-  return response.json();
+  const text = await response.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    console.error('Response was not valid JSON. First 200 chars:');
+    console.error(text.slice(0, 200));
+    throw new Error('Invalid JSON response from slideshow URL');
+  }
 }
 
 async function downloadImage(url, filename) {
