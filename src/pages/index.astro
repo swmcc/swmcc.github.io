@@ -104,9 +104,9 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
             return window.innerWidth < 768 ? 3 : 5;
           }
 
-          // Random time between 5-20 seconds
+          // Random time between 5-30 seconds
           function getRandomDelay() {
-            return 5000 + Math.random() * 15000;
+            return 5000 + Math.random() * 25000;
           }
 
           // Shuffle array using Fisher-Yates
@@ -164,50 +164,74 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
             // Random direction: flip from top (-1) or bottom (1)
             const direction = Math.random() > 0.5 ? 1 : -1;
 
-            // Get position of outgoing image
-            const rect = outgoing.getBoundingClientRect();
-            const gridRect = grid.getBoundingClientRect();
+            // Create a wrapper to hold both images during transition
+            const wrapper = document.createElement('div');
+            wrapper.className = 'aspect-square relative';
+            wrapper.style.perspective = '800px';
 
-            // Position incoming image exactly where outgoing is
-            incoming.style.position = 'absolute';
-            incoming.style.left = `${rect.left - gridRect.left}px`;
-            incoming.style.top = `${rect.top - gridRect.top}px`;
-            incoming.style.width = `${rect.width}px`;
-            incoming.style.height = `${rect.height}px`;
+            // Insert wrapper where outgoing is
+            outgoing.parentNode.insertBefore(wrapper, outgoing);
 
-            // Vertical flip animation (rotateX) - smoother timing
-            outgoing.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-            outgoing.style.transform = `perspective(800px) rotateX(${direction * 90}deg)`;
+            // Move outgoing into wrapper (keeps grid stable)
+            wrapper.appendChild(outgoing);
+            outgoing.classList.remove('hidden');
+            outgoing.style.position = 'absolute';
+            outgoing.style.inset = '0';
+            outgoing.style.transformStyle = 'preserve-3d';
+            outgoing.style.backfaceVisibility = 'hidden';
 
-            // Prepare incoming (start flipped from opposite side)
+            // Add incoming to wrapper (stacked on top, starting flipped)
+            wrapper.appendChild(incoming);
             incoming.classList.remove('hidden');
-            incoming.style.transform = `perspective(800px) rotateX(${-direction * 90}deg)`;
+            incoming.style.position = 'absolute';
+            incoming.style.inset = '0';
+            incoming.style.transformStyle = 'preserve-3d';
+            incoming.style.backfaceVisibility = 'hidden';
+            incoming.style.transform = `rotateX(${-direction * 90}deg)`;
             incoming.style.transition = 'none';
 
-            setTimeout(() => {
-              // Hide outgoing, flip in incoming
-              outgoing.classList.add('hidden');
-              outgoing.style.transition = '';
-              outgoing.style.transform = '';
+            // Force reflow
+            void incoming.offsetWidth;
 
+            // Animate outgoing out
+            outgoing.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+            outgoing.style.transform = `rotateX(${direction * 90}deg)`;
+
+            // Animate incoming in (with slight delay for smoother effect)
+            setTimeout(() => {
               incoming.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-              incoming.style.transform = 'perspective(800px) rotateX(0deg)';
+              incoming.style.transform = 'rotateX(0deg)';
+            }, 100);
+
+            // Clean up after animation
+            setTimeout(() => {
+              // Move incoming out of wrapper back to grid
+              wrapper.parentNode.insertBefore(incoming, wrapper);
+
+              // Clean up styles
+              incoming.style.position = '';
+              incoming.style.inset = '';
+              incoming.style.transform = '';
+              incoming.style.transition = '';
+              incoming.style.transformStyle = '';
+              incoming.style.backfaceVisibility = '';
+
+              // Hide and reset outgoing
+              outgoing.classList.add('hidden');
+              outgoing.style.position = '';
+              outgoing.style.inset = '';
+              outgoing.style.transform = '';
+              outgoing.style.transition = '';
+              outgoing.style.transformStyle = '';
+              outgoing.style.backfaceVisibility = '';
+
+              // Remove wrapper
+              wrapper.remove();
 
               // Swap in arrays
               visibleImages[slotIndex] = incoming;
               hiddenPool[hiddenIndex] = outgoing;
-
-              // Clean up positioning after animation
-              setTimeout(() => {
-                incoming.style.position = '';
-                incoming.style.left = '';
-                incoming.style.top = '';
-                incoming.style.width = '';
-                incoming.style.height = '';
-                incoming.style.transform = '';
-                incoming.style.transition = '';
-              }, 600);
-            }, 600);
+            }, 800);
           }
 
           // Handle resize
