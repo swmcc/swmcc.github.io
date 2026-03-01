@@ -63,7 +63,7 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
               href={img.publicUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="hero-image group relative aspect-square rounded-2xl overflow-visible shadow-lg animate-float cursor-pointer hidden z-0 hover:z-50"
+              class="hero-image group relative aspect-square rounded-2xl overflow-visible shadow-lg animate-float cursor-pointer hidden z-0 hover:z-50 transition-[opacity,transform] duration-500 ease-out"
               style={`animation-delay: ${i * 200}ms;`}
               data-index={i}
             >
@@ -92,21 +92,92 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
         </div>
 
         <script>
-          // Shuffle all images and show only 5 random ones
           const grid = document.getElementById('hero-grid');
-          const items = [...grid.querySelectorAll('.hero-image')];
+          const allImages = [...grid.querySelectorAll('.hero-image')];
+          let visibleImages = [];
+          let hiddenPool = [];
 
-          // Shuffle using Fisher-Yates
-          for (let i = items.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [items[i], items[j]] = [items[j], items[i]];
+          // Determine count based on screen width
+          function getVisibleCount() {
+            return window.innerWidth < 768 ? 3 : 5;
           }
 
-          // Show first 5 shuffled items
-          items.slice(0, 5).forEach((item, i) => {
-            item.classList.remove('hidden');
-            item.style.animationDelay = `${i * 200}ms`;
+          // Shuffle array using Fisher-Yates
+          function shuffle(arr) {
+            const shuffled = [...arr];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+          }
+
+          // Initialize the grid
+          function initGrid() {
+            const count = getVisibleCount();
+            const shuffled = shuffle(allImages);
+
+            // Hide all first
+            allImages.forEach(img => img.classList.add('hidden'));
+
+            // Set visible and hidden pools
+            visibleImages = shuffled.slice(0, count);
+            hiddenPool = shuffled.slice(count);
+
+            // Show visible images
+            visibleImages.forEach((img, i) => {
+              img.classList.remove('hidden');
+              img.style.animationDelay = `${i * 200}ms`;
+            });
+          }
+
+          // Rotate one image at a time
+          function rotateImage() {
+            if (hiddenPool.length === 0) return;
+
+            // Pick random visible slot and random hidden image
+            const visibleIndex = Math.floor(Math.random() * visibleImages.length);
+            const hiddenIndex = Math.floor(Math.random() * hiddenPool.length);
+
+            const outgoing = visibleImages[visibleIndex];
+            const incoming = hiddenPool[hiddenIndex];
+
+            // Fade out, swap, fade in
+            outgoing.style.opacity = '0';
+            outgoing.style.transform = 'scale(0.8)';
+
+            setTimeout(() => {
+              outgoing.classList.add('hidden');
+              outgoing.style.opacity = '';
+              outgoing.style.transform = '';
+
+              incoming.classList.remove('hidden');
+              incoming.style.opacity = '0';
+              incoming.style.transform = 'scale(0.8)';
+
+              // Swap in arrays
+              visibleImages[visibleIndex] = incoming;
+              hiddenPool[hiddenIndex] = outgoing;
+
+              // Trigger reflow and animate in
+              requestAnimationFrame(() => {
+                incoming.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                incoming.style.opacity = '1';
+                incoming.style.transform = 'scale(1)';
+              });
+            }, 500);
+          }
+
+          // Handle resize
+          let resizeTimeout;
+          window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(initGrid, 250);
           });
+
+          // Initialize and start rotation
+          initGrid();
+          setInterval(rotateImage, 5000);
         </script>
       </div>
     </section>
