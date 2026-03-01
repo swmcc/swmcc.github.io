@@ -57,13 +57,14 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
         </h1>
 
         <!-- Animated hero images grid - randomised from the-mcculloughs.org slideshow -->
-        <div id="hero-grid" class="grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-6 max-w-4xl md:max-w-6xl mx-auto overflow-visible">
+        <div id="hero-grid" class="relative grid grid-cols-3 md:grid-cols-5 gap-3 md:gap-6 max-w-4xl md:max-w-6xl mx-auto overflow-visible">
           {images.map((img, i) => (
             <a
               href={img.publicUrl}
               target="_blank"
               rel="noopener noreferrer"
-              class="hero-image group relative aspect-square rounded-2xl overflow-visible shadow-lg animate-float cursor-pointer hidden z-0 hover:z-50 transition-[opacity,transform] duration-500 ease-out"
+              class="hero-image group relative aspect-square rounded-2xl overflow-visible shadow-lg animate-float cursor-pointer hidden z-0 hover:z-50"
+              style={`animation-delay: ${i * 200}ms; transform-style: preserve-3d; backface-visibility: hidden;`}
               style={`animation-delay: ${i * 200}ms;`}
               data-index={i}
             >
@@ -131,7 +132,7 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
             });
           }
 
-          // Rotate one image at a time
+          // Rotate one image at a time with flip animation
           function rotateImage() {
             if (hiddenPool.length === 0) return;
 
@@ -142,30 +143,50 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
             const outgoing = visibleImages[visibleIndex];
             const incoming = hiddenPool[hiddenIndex];
 
-            // Fade out, swap, fade in
-            outgoing.style.opacity = '0';
-            outgoing.style.transform = 'scale(0.8)';
+            // Get position of outgoing image
+            const rect = outgoing.getBoundingClientRect();
+            const gridRect = grid.getBoundingClientRect();
+
+            // Position incoming image exactly where outgoing is
+            incoming.style.position = 'absolute';
+            incoming.style.left = `${rect.left - gridRect.left}px`;
+            incoming.style.top = `${rect.top - gridRect.top}px`;
+            incoming.style.width = `${rect.width}px`;
+            incoming.style.height = `${rect.height}px`;
+
+            // Set up flip animation
+            outgoing.style.transition = 'transform 0.4s ease-in';
+            outgoing.style.transform = 'perspective(600px) rotateY(90deg)';
+
+            // Prepare incoming (start flipped)
+            incoming.classList.remove('hidden');
+            incoming.style.transform = 'perspective(600px) rotateY(-90deg)';
+            incoming.style.transition = 'none';
 
             setTimeout(() => {
+              // Hide outgoing, flip in incoming
               outgoing.classList.add('hidden');
-              outgoing.style.opacity = '';
+              outgoing.style.transition = '';
               outgoing.style.transform = '';
 
-              incoming.classList.remove('hidden');
-              incoming.style.opacity = '0';
-              incoming.style.transform = 'scale(0.8)';
+              incoming.style.transition = 'transform 0.4s ease-out';
+              incoming.style.transform = 'perspective(600px) rotateY(0deg)';
 
               // Swap in arrays
               visibleImages[visibleIndex] = incoming;
               hiddenPool[hiddenIndex] = outgoing;
 
-              // Trigger reflow and animate in
-              requestAnimationFrame(() => {
-                incoming.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-                incoming.style.opacity = '1';
-                incoming.style.transform = 'scale(1)';
-              });
-            }, 500);
+              // Clean up positioning after animation
+              setTimeout(() => {
+                incoming.style.position = '';
+                incoming.style.left = '';
+                incoming.style.top = '';
+                incoming.style.width = '';
+                incoming.style.height = '';
+                incoming.style.transform = '';
+                incoming.style.transition = '';
+              }, 400);
+            }, 400);
           }
 
           // Handle resize
