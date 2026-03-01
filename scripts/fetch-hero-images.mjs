@@ -18,6 +18,19 @@ const SLIDESHOW_URL = 'https://www.the-mcculloughs.org/s/bxllbfcj.json';
 const HERO_DIR = path.join(PROJECT_ROOT, 'public', 'hero');
 const MANIFEST_PATH = path.join(PROJECT_ROOT, 'src', 'data', 'hero-images.json');
 
+function formatDate(dateStr) {
+  if (!dateStr) return '';
+  const date = new Date(dateStr);
+  const day = date.getDate();
+  const suffix = day === 1 || day === 21 || day === 31 ? 'st'
+    : day === 2 || day === 22 ? 'nd'
+    : day === 3 || day === 23 ? 'rd'
+    : 'th';
+  const month = date.toLocaleDateString('en-GB', { month: 'short' });
+  const year = date.getFullYear();
+  return `${day}${suffix} ${month} ${year}`;
+}
+
 async function fetchSlideshow() {
   console.log(`Fetching slideshow from ${SLIDESHOW_URL}...`);
   const response = await fetch(SLIDESHOW_URL);
@@ -57,22 +70,32 @@ async function main() {
 
   for (const img of data.images) {
     const filename = `hero-${img.short_code}.webp`;
+    const filepath = path.join(HERO_DIR, filename);
     const imageUrl = img.thumb_webp || img.thumb;
 
-    console.log(`  Downloading ${img.short_code}...`);
-
     try {
-      await downloadImage(imageUrl, filename);
-      manifest.push({
-        src: `/hero/${filename}`,
-        publicUrl: img.public_url,
-        title: img.title || '',
-        caption: img.caption || '',
-        shortCode: img.short_code,
-      });
-    } catch (err) {
-      console.error(`  Failed to download ${img.short_code}: ${err.message}`);
+      // Check if image already exists
+      await fs.access(filepath);
+      console.log(`  Skipping ${img.short_code} (exists)`);
+    } catch {
+      // File doesn't exist, download it
+      console.log(`  Downloading ${img.short_code}...`);
+      try {
+        await downloadImage(imageUrl, filename);
+      } catch (err) {
+        console.error(`  Failed to download ${img.short_code}: ${err.message}`);
+        continue;
+      }
     }
+
+    manifest.push({
+      src: `/hero/${filename}`,
+      publicUrl: img.public_url,
+      title: img.title || '',
+      caption: img.caption || '',
+      dateTaken: formatDate(img.date_taken),
+      shortCode: img.short_code,
+    });
   }
 
   // Write manifest

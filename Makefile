@@ -23,6 +23,9 @@ local.check:
 local.clean:
 	rm -rf dist node_modules/.astro
 
+local.hero:
+	node scripts/fetch-hero-images.mjs
+
 content.writing:
 	@read -p "Enter slug (e.g., my-new-post): " slug; \
 	read -p "Enter title: " title; \
