@@ -1,6 +1,10 @@
 # build output
 dist/
 .vercel/
+
+# generated hero images (fetched at build time from the-mcculloughs.org)
+public/hero/
+src/data/hero-images.json
 # generated types
 .astro/
 

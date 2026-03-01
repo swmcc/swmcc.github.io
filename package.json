@@ -4,7 +4,9 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/fetch-hero-images.mjs",
     "build": "astro build",
+    "fetch-hero": "node scripts/fetch-hero-images.mjs",
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright test",
