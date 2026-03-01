@@ -10,11 +10,21 @@
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { config } from 'dotenv';
+
+// Load .env file for local development
+config();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PROJECT_ROOT = path.resolve(__dirname, '..');
 
-const SLIDESHOW_URL = 'https://www.the-mcculloughs.org/s/bxllbfcj.json';
+const SLIDESHOW_URL = process.env.SLIDESHOW_URL;
+
+if (!SLIDESHOW_URL) {
+  console.error('Error: SLIDESHOW_URL environment variable is not set');
+  console.error('Set it in .env file or as an environment variable');
+  process.exit(1);
+}
 const HERO_DIR = path.join(PROJECT_ROOT, 'public', 'hero');
 const MANIFEST_PATH = path.join(PROJECT_ROOT, 'src', 'data', 'hero-images.json');
 
@@ -96,6 +106,25 @@ async function main() {
       dateTaken: formatDate(img.date_taken),
       shortCode: img.short_code,
     });
+  }
+
+  // Clean up images that are no longer in the slideshow
+  const validFilenames = new Set(data.images.map(img => `hero-${img.short_code}.webp`));
+  const existingFiles = await fs.readdir(HERO_DIR);
+  const heroFiles = existingFiles.filter(f => f.startsWith('hero-') && f.endsWith('.webp'));
+
+  let deletedCount = 0;
+  for (const file of heroFiles) {
+    if (!validFilenames.has(file)) {
+      const filepath = path.join(HERO_DIR, file);
+      await fs.unlink(filepath);
+      console.log(`  Deleted ${file} (no longer in slideshow)`);
+      deletedCount++;
+    }
+  }
+
+  if (deletedCount > 0) {
+    console.log(`\nRemoved ${deletedCount} stale image(s)`);
   }
 
   // Write manifest
