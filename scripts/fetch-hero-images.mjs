@@ -21,9 +21,8 @@ const PROJECT_ROOT = path.resolve(__dirname, '..');
 const SLIDESHOW_URL = process.env.SLIDESHOW_URL?.trim();
 
 if (!SLIDESHOW_URL) {
-  console.error('Error: SLIDESHOW_URL environment variable is not set');
-  console.error('Set it in .env file or as an environment variable');
-  process.exit(1);
+  console.log('SLIDESHOW_URL not set, skipping hero image fetch (using existing images)');
+  process.exit(0);
 }
 
 // Validate URL format
