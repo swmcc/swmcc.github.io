@@ -1,18 +1,25 @@
 ---
+interface Props {
+  showRibbon?: boolean;
+}
+
+const { showRibbon = true } = Astro.props;
 const GITHUB_USERNAME = 'swmcc';
 const GIST_URL = 'https://gist.githubusercontent.com/swmcc/a11f0f76fa6011a45a08f77f6d1bb38a/raw/github.json';
 ---
 
 <section class="max-w-6xl mx-auto">
   <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
-    <!-- Ribbon overlay - top left -->
-    <div class="absolute top-0 left-0 ribbon-top-left">
-      <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
-        Recent Activity
-      </span>
-    </div>
+    {showRibbon && (
+      <!-- Ribbon overlay - top left -->
+      <div class="absolute top-0 left-0 ribbon-top-left">
+        <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+          Recent Activity
+        </span>
+      </div>
+    )}
 
-    <div class="mt-8">
+    <div class:list={[showRibbon ? "mt-8" : "mt-2"]}>
       <div class="flex items-center gap-3 mb-6">
         <div class="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400/30 to-pink-400/30 flex items-center justify-center">
           <svg class="w-8 h-8" style="color: var(--color-accent);" fill="currentColor" viewBox="0 0 24 24">
