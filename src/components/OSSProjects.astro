@@ -25,7 +25,7 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
       </div>
     </div>
 
-    <p style="color: var(--color-text-secondary);" class="text-sm mb-8 leading-relaxed">
+    <p style="color: var(--color-text-secondary);" class="text-base mb-8 leading-relaxed">
       {sectionIntro}
     </p>
 
@@ -51,10 +51,10 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
                 <h4 style="color: var(--color-accent);" class="font-semibold text-lg">{project.name}</h4>
                 <span class="pkg-version text-xs px-2 py-0.5 rounded" style="background: var(--color-accent); color: white; display: none;"></span>
               </div>
-              <p class="github-description text-sm italic mb-3" style="color: var(--color-text-muted);">Loading...</p>
+              <p class="github-description text-base italic mb-3" style="color: var(--color-text-muted);">Loading...</p>
 
               <!-- Stats row -->
-              <div class="flex flex-wrap gap-4 mb-3 text-xs" style="color: var(--color-text-muted);">
+              <div class="flex flex-wrap gap-4 mb-3 text-sm" style="color: var(--color-text-muted);">
                 <span class="github-stars flex items-center gap-1" style="display: none;">
                   <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
                   <span class="stars-count">0</span>
@@ -89,7 +89,7 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
                 )}
               </div>
 
-              {project.myDescription && (<p class="text-sm leading-relaxed" style="color: var(--color-text);">{project.myDescription}</p>)}
+              {project.myDescription && (<p class="text-base leading-relaxed" style="color: var(--color-text);">{project.myDescription}</p>)}
             </div>
           </div>
         ))}
@@ -119,9 +119,9 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
                   <h4 style="color: var(--color-accent);" class="font-semibold text-lg">{project.name}</h4>
                   <span class="pkg-version text-xs px-2 py-0.5 rounded" style="background: var(--color-accent); color: white; display: none;"></span>
                 </div>
-                <p class="github-description text-sm italic mb-3" style="color: var(--color-text-muted);">Loading...</p>
+                <p class="github-description text-base italic mb-3" style="color: var(--color-text-muted);">Loading...</p>
 
-                <div class="flex flex-wrap gap-4 mb-3 text-xs" style="color: var(--color-text-muted);">
+                <div class="flex flex-wrap gap-4 mb-3 text-sm" style="color: var(--color-text-muted);">
                   <span class="github-stars flex items-center gap-1" style="display: none;">
                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .587l3.668 7.568 8.332 1.151-6.064 5.828 1.48 8.279-7.416-3.967-7.417 3.967 1.481-8.279-6.064-5.828 8.332-1.151z"/></svg>
                     <span class="stars-count">0</span>
@@ -149,7 +149,7 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
                   )}
                 </div>
 
-                {project.myDescription && (<p class="text-sm leading-relaxed" style="color: var(--color-text);">{project.myDescription}</p>)}
+                {project.myDescription && (<p class="text-base leading-relaxed" style="color: var(--color-text);">{project.myDescription}</p>)}
               </div>
             </div>
           ))}
@@ -182,7 +182,7 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
       </div>
 
       <!-- Intro -->
-      <p style="color: var(--color-text-secondary);" class="text-sm mb-8 leading-relaxed">
+      <p style="color: var(--color-text-secondary);" class="text-base mb-8 leading-relaxed">
         {sectionIntro}
       </p>
 
