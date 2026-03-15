@@ -12,34 +12,38 @@ const isOSS = view === 'oss';
   title="Codin' - Stephen McCullough"
   description={isOSS ? "Open source packages and contributions" : "Recent coding activity and GitHub commits"}
 >
-  <div class="max-w-6xl mx-auto">
-    <!-- Tab Navigation - Ribbon Style -->
-    <nav class="flex gap-2 mt-24 px-4 mb-6">
-      <a
-        href="/codin"
-        class:list={[
-          "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
-          !isOSS
-            ? "bg-[var(--color-accent)] text-white"
-            : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-secondary)]"
-        ]}
-      >
-        Recent Activity
-      </a>
-      <a
-        href="/codin?view=oss"
-        class:list={[
-          "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
-          isOSS
-            ? "bg-[var(--color-accent)] text-white"
-            : "bg-[var(--color-bg-tertiary)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:bg-[var(--color-bg-secondary)]"
-        ]}
-      >
-        Open Source
-      </a>
-    </nav>
+  <section class="max-w-6xl mx-auto">
+    <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
+      <!-- Tab Navigation - Ribbon Style in top-left position -->
+      <div class="absolute top-0 left-0 ribbon-top-left flex">
+        <a
+          href="/codin"
+          class:list={[
+            "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
+            !isOSS
+              ? "bg-[var(--color-accent)] text-white"
+              : "bg-[var(--color-bg-tertiary)] text-white/70 hover:text-white hover:bg-[var(--color-bg-secondary)]"
+          ]}
+        >
+          Recent Activity
+        </a>
+        <a
+          href="/codin?view=oss"
+          class:list={[
+            "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
+            isOSS
+              ? "bg-[var(--color-accent)] text-white"
+              : "bg-[var(--color-bg-tertiary)] text-white/70 hover:text-white hover:bg-[var(--color-bg-secondary)]"
+          ]}
+        >
+          Open Source
+        </a>
+      </div>
 
-    <!-- Content -->
-    {isOSS ? <OSSProjects showRibbon={false} /> : <GitHubActivity showRibbon={false} />}
-  </div>
+      <!-- Content -->
+      <div class="mt-8">
+        {isOSS ? <OSSProjects showRibbon={false} hideWrapper={true} /> : <GitHubActivity showRibbon={false} hideWrapper={true} />}
+      </div>
+    </div>
+  </section>
 </BaseLayout>
