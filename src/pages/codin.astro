@@ -18,23 +18,15 @@ const isOSS = view === 'oss';
       <div class="absolute top-0 left-0 ribbon-top-left flex">
         <a
           href="/codin"
-          class:list={[
-            "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
-            !isOSS
-              ? "bg-[var(--color-accent)] text-white"
-              : "bg-[var(--color-bg-tertiary)] text-white hover:bg-[var(--color-bg-secondary)]"
-          ]}
+          style={!isOSS ? "background: var(--color-accent); color: white;" : "background: var(--color-bg-tertiary); color: white;"}
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all hover:opacity-80"
         >
           Recent Activity
         </a>
         <a
           href="/codin?view=oss"
-          class:list={[
-            "px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all",
-            isOSS
-              ? "bg-[var(--color-accent)] text-white"
-              : "bg-[var(--color-bg-tertiary)] text-white hover:bg-[var(--color-bg-secondary)]"
-          ]}
+          style={isOSS ? "background: var(--color-accent); color: white;" : "background: var(--color-bg-tertiary); color: white;"}
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all hover:opacity-80"
         >
           Open Source
         </a>
