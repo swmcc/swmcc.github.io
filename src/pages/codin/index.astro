@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import GitHubActivity from '../../components/GitHubActivity.astro';
+---
+
+<BaseLayout
+  title="Codin' - Stephen McCullough"
+  description="Recent coding activity and GitHub commits"
+>
+  <section class="max-w-6xl mx-auto">
+    <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
+      <!-- Tab Navigation - Ribbon Style in top-left position -->
+      <div class="absolute top-0 left-0 ribbon-top-left flex">
+        <span
+          style="background: var(--color-accent); color: white;"
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg"
+        >
+          Recent Activity
+        </span>
+        <a
+          href="/codin/oss"
+          style="background: var(--color-bg-tertiary); color: white;"
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all hover:opacity-80"
+        >
+          Open Source
+        </a>
+      </div>
+
+      <!-- Content -->
+      <div class="mt-8">
+        <GitHubActivity showRibbon={false} hideWrapper={true} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

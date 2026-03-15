@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import OSSProjects from '../../components/OSSProjects.astro';
+---
+
+<BaseLayout
+  title="Open Source - Stephen McCullough"
+  description="Open source packages and contributions"
+>
+  <section class="max-w-6xl mx-auto">
+    <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
+      <!-- Tab Navigation - Ribbon Style in top-left position -->
+      <div class="absolute top-0 left-0 ribbon-top-left flex">
+        <a
+          href="/codin"
+          style="background: var(--color-bg-tertiary); color: white;"
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg transition-all hover:opacity-80"
+        >
+          Recent Activity
+        </a>
+        <span
+          style="background: var(--color-accent); color: white;"
+          class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg"
+        >
+          Open Source
+        </span>
+      </div>
+
+      <!-- Content -->
+      <div class="mt-8">
+        <OSSProjects showRibbon={false} hideWrapper={true} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
