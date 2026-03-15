@@ -30,9 +30,12 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
     </p>
 
     <div class="mb-8">
-      <h3 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider mb-4 flex items-center gap-2">
-        <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg> My Packages
-      </h3>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400/30 to-indigo-400/30 flex items-center justify-center">
+          <svg class="w-5 h-5" style="color: var(--color-accent);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        </div>
+        <h3 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider">My Packages</h3>
+      </div>
       <div id="my-packages-content" class="space-y-4">
         {myPackages.map(project => (
           <div
@@ -73,9 +76,12 @@ const contributions = ossProjects.filter(p => p.type === 'contribution');
 
     {contributions.length > 0 && (
       <div>
-        <h3 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <svg class="w-4 h-4 inline-block" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg> Contributions
-        </h3>
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400/30 to-amber-400/30 flex items-center justify-center">
+            <svg class="w-5 h-5" style="color: var(--color-accent);" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/></svg>
+          </div>
+          <h3 style="color: var(--color-text-heading);" class="text-sm font-semibold uppercase tracking-wider">Contributions</h3>
+        </div>
         <div id="contributions-content" class="space-y-4">
           {contributions.map(project => (
             <div
