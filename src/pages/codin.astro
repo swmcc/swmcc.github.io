@@ -1,13 +1,61 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import GitHubActivity from '../components/GitHubActivity.astro';
+import OSSProjects from '../components/OSSProjects.astro';
+
+const url = Astro.url;
+const view = url.searchParams.get('view') || 'activity';
+const isOSS = view === 'oss';
 ---
 
 <BaseLayout
   title="Codin' - Stephen McCullough"
-  description="Recent coding activity and GitHub commits"
+  description={isOSS ? "Open source packages and contributions" : "Recent coding activity and GitHub commits"}
 >
   <div class="max-w-6xl mx-auto">
-    <GitHubActivity />
+    <!-- Tab Navigation -->
+    <nav class="flex gap-1 mb-0 mt-24 px-4">
+      <a
+        href="/codin"
+        class:list={[
+          "px-4 py-2 text-sm font-medium rounded-t-lg transition-all",
+          !isOSS
+            ? "bg-[var(--color-bg-secondary)] text-[var(--color-accent)] border border-b-0 border-[var(--color-border)]"
+            : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+        ]}
+      >
+        Recent Activity
+      </a>
+      <a
+        href="/codin?view=oss"
+        class:list={[
+          "px-4 py-2 text-sm font-medium rounded-t-lg transition-all",
+          isOSS
+            ? "bg-[var(--color-bg-secondary)] text-[var(--color-accent)] border border-b-0 border-[var(--color-border)]"
+            : "text-[var(--color-text-muted)] hover:text-[var(--color-text)]"
+        ]}
+      >
+        Open Source
+      </a>
+    </nav>
+
+    <!-- Content -->
+    {isOSS ? <OSSProjects /> : <GitHubActivity />}
   </div>
 </BaseLayout>
+
+<style>
+  nav a {
+    position: relative;
+  }
+
+  nav a.bg-\[var\(--color-bg-secondary\)\]::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--color-bg-secondary);
+  }
+</style>
