@@ -1,11 +1,11 @@
 currentlyReading:
-  - title: "The Fourth Turning Is Here"
-    author: "Neil Howe"
+  - title: "All the Devils Are Here: The Hidden History of the Financial Crisis"
+    author: "Bethany McLean, Joe Nocera"
     genre: "Non-Fiction"
-    startedDate: "2026-01-02"
-    why: "Heard about it on the newsagents podcast... Bit polarising but not bad so far..."
-    coverUrl: "https://m.media-amazon.com/images/I/71NHp5Ls23L._AC_UY218_.jpg"
-    amazonUrl: "https://www.amazon.co.uk/dp/1982173734"
+    startedDate: "2026-03-19"
+    why: "Reading this now, having lived through it in my late 20s, it's striking how what felt like chaos at the time reveals itself as a slow, systemic failure that was building in plain sight."
+    coverUrl: "https://m.media-amazon.com/images/S/compressed.photo.goodreads.com/books/1348031830i/8834784.jpg"
+    amazonUrl: "https://www.amazon.co.uk/dp/B07B6Q1P73"
 
   - title: "Star Wars: From a Certain Point of View"
     author: "Olivie Blake, Saladin Ahmed, Charlie Jane Anders, Fran Wilde, Mary Kenney, Mike Chen"
@@ -16,6 +16,14 @@ currentlyReading:
     amazonUrl: "https://www.amazon.co.uk/dp/1529907624"
 
 previouslyRead:
+  - title: "The Fourth Turning Is Here"
+    author: "Neil Howe"
+    genre: "Non-Fiction"
+    finishedDate: "2026-03-19"
+    blurb: "Heard about this on the Newsagents podcast so gave it a go. It's one of those slightly polarising reads that tries to map history into repeating cycles, arguing we're heading into a major 'fourth turning' style crisis over the next decade. It can feel a bit deterministic at times, and you do find yourself questioning how much of it is pattern vs hindsight, but it's engaging enough and definitely gets you thinking about where we are now and what might come next. Not fully sold on it, but not bad so far."
+    coverUrl: "https://m.media-amazon.com/images/I/71NHp5Ls23L._AC_UY218_.jpg"
+    amazonUrl: "https://www.amazon.co.uk/dp/1982173734"
+
   - title: "Star Wars: Master of Evil"
     author: "Adam Christopher"
     genre: "Science Fiction"
