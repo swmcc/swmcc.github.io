@@ -26,6 +26,9 @@ local.clean:
 local.hero:
 	node scripts/fetch-hero-images.mjs
 
+local.syndicate:
+	node scripts/syndicate.mjs
+
 content.writing:
 	@read -p "Enter slug (e.g., my-new-post): " slug; \
 	read -p "Enter title: " title; \
