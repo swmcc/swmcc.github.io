@@ -1,8 +1,12 @@
 ---
-title: "Lazy Loading Cache for whatisonthe.tv"
-pubDate: 2025-11-16
-tags: ["caching", "architecture", "python"]
+title: Lazy Loading Cache for whatisonthe.tv
+pubDate: 2025-11-16T00:00:00.000Z
+tags:
+  - caching
+  - architecture
+  - python
 syndicate: true
+devtoId: 3442469
 ---
 
 Working on [whatisonthe.tv](https://whatisonthe.tv), I needed a caching pattern for film and star metadata lookups. The app pulls data from external APIs (TMDb for cast lists, film details) but only when the data doesn't exist in the database. A background worker fetches from the API and saves it to the database, avoiding repeated expensive API calls. The cache sits in front of the database to speed up reads.

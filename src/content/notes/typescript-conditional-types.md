@@ -1,8 +1,11 @@
 ---
-title: "TypeScript Conditional Types for API Responses"
-pubDate: 2025-11-03
-tags: ["typescript", "types"]
+title: TypeScript Conditional Types for API Responses
+pubDate: 2025-11-03T00:00:00.000Z
+tags:
+  - typescript
+  - types
 syndicate: true
+devtoId: 3442462
 ---
 
 Quick pattern I keep using for API responses that can be either successful or error states:

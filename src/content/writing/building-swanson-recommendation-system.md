@@ -1,9 +1,17 @@
 ---
 title: "Building Swanson: A RAG-Enhanced Recommendation System for whatisonthe.tv"
-description: "How I built a context-aware recommendation system using Claude, Server-Sent Events, and viewing history to suggest TV shows and films"
-pubDate: 2026-02-07
-tags: ["ai", "python", "fastapi", "svelte", "llm", "streaming", "rag"]
+description: How I built a context-aware recommendation system using Claude, Server-Sent Events, and viewing history to suggest TV shows and films
+pubDate: 2026-02-07T00:00:00.000Z
+tags:
+  - ai
+  - python
+  - fastapi
+  - svelte
+  - llm
+  - streaming
+  - rag
 syndicate: true
+devtoId: 3442458
 ---
 
 > **Background reading:** This article builds on [Building whatisonthe.tv with FastAPI](/projects/building-whatisonthetv/), which covers the core architecture, async patterns, and caching strategies used in the application.

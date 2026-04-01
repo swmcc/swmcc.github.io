@@ -1,9 +1,16 @@
 ---
 title: "Indexatron: Teaching Local LLMs to See Family Photos"
-description: "An experiment using Ollama with LLaVA and nomic-embed-text to analyse family photos locally - proving that privacy-preserving AI photo analysis actually works"
-pubDate: 2026-02-22
-tags: ["ai", "python", "ollama", "llm", "privacy", "experiment"]
+description: An experiment using Ollama with LLaVA and nomic-embed-text to analyse family photos locally - proving that privacy-preserving AI photo analysis actually works
+pubDate: 2026-02-22T00:00:00.000Z
+tags:
+  - ai
+  - python
+  - ollama
+  - llm
+  - privacy
+  - experiment
 syndicate: true
+devtoId: 3442464
 ---
 
 > **Status:** ✅ SUCCESS

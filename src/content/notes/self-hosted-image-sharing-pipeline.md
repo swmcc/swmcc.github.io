@@ -1,8 +1,13 @@
 ---
-title: "A Self-Hosted Image Sharing Pipeline"
-pubDate: 2026-01-30
-tags: ["rails", "ruby", "automation", "macos"]
+title: A Self-Hosted Image Sharing Pipeline
+pubDate: 2026-01-30T00:00:00.000Z
+tags:
+  - rails
+  - ruby
+  - automation
+  - macos
 syndicate: true
+devtoId: 3442477
 ---
 
 Image URLs break. You paste a screenshot into Teams, share the link, and six months later it's gone. Corporate firewalls block Imgur. Third-party services sunset features. The URLs you thought were permanent quietly rot.
