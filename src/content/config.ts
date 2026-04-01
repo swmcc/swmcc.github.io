@@ -8,7 +8,9 @@ const writing = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
-    draft: z.boolean().optional()
+    draft: z.boolean().optional(),
+    syndicate: z.boolean().optional(),
+    devtoId: z.number().optional()
   })
 });
 
@@ -17,7 +19,9 @@ const notes = defineCollection({
   schema: z.object({
     title: z.string(),
     pubDate: z.coerce.date(),
-    tags: z.array(z.string()).optional()
+    tags: z.array(z.string()).optional(),
+    syndicate: z.boolean().optional(),
+    devtoId: z.number().optional()
   })
 });
 

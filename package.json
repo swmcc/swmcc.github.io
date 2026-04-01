@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "syndicate": "node scripts/syndicate.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.9",
