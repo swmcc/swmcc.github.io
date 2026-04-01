@@ -2,6 +2,7 @@
 title: "The LLM Is the New Parser"
 pubDate: 2026-02-24
 tags: ["llm", "ollama", "parsing", "ai"]
+syndicate: true
 ---
 
 I spent the early 2000s writing parsers. HTML scrapers with regex that would make you cry. XML deserializers that handled seventeen flavours of "valid". CSV readers that knew a comma inside quotes wasn't a delimiter.

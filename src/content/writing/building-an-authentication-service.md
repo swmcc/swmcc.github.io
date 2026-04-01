@@ -3,6 +3,7 @@ title: "Extracting Authentication to a Microservice"
 description: "Lessons from extracting authentication and authorisation into a dedicated microservice, including database migration, in-memory testing, and architectural decisions"
 pubDate: 2025-11-07
 tags: ["authentication", "microservices", "architecture", "testing", "database-migration"]
+syndicate: true
 ---
 
 ## The Problem

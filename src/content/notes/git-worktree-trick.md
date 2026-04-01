@@ -2,6 +2,7 @@
 title: "Git Worktree for Multiple Branches"
 pubDate: 2025-10-28
 tags: ["git", "productivity"]
+syndicate: true
 ---
 
 Just learned about `git worktree` and it's genuinely useful.
