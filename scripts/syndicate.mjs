@@ -33,6 +33,13 @@ if (!DEVTO_API_KEY) {
   process.exit(0);
 }
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+function sanitizeTag(tag) {
+  // dev.to only allows alphanumeric characters
+  return tag.toLowerCase().replace(/[^a-z0-9]/g, '');
+}
+
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!match) {
@@ -118,7 +125,7 @@ async function processFile(filepath, urlPath) {
 
   const slug = path.basename(filepath, '.md');
   const canonicalUrl = `${SITE_URL}/${urlPath}/${slug}`;
-  const tags = (frontmatter.tags || []).slice(0, 4);
+  const tags = (frontmatter.tags || []).slice(0, 4).map(sanitizeTag).filter(Boolean);
 
   const article = {
     title: frontmatter.title,
@@ -189,10 +196,14 @@ async function main() {
         if (result) {
           if (result.action === 'created') created++;
           if (result.action === 'updated') updated++;
+          // Rate limit: wait 10 seconds between API calls
+          await sleep(10000);
         }
       } catch (err) {
         console.error(`  Error processing ${file}: ${err.message}`);
         errors++;
+        // Wait 35 seconds after rate limit error
+        await sleep(35000);
       }
     }
 
