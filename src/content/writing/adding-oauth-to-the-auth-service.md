@@ -1,9 +1,15 @@
 ---
-title: "Adding OAuth to the Authentication Service"
-description: "Extending the authentication microservice with OAuth 2.0 support for Keycloak and Google, evaluating FastAPI libraries, and why I chose aioauth"
-pubDate: 2025-12-02
-tags: ["authentication", "oauth", "microservices", "fastapi", "keycloak"]
+title: Adding OAuth to the Authentication Service
+description: Extending the authentication microservice with OAuth 2.0 support for Keycloak and Google, evaluating FastAPI libraries, and why I chose aioauth
+pubDate: 2025-12-02T00:00:00.000Z
+tags:
+  - authentication
+  - oauth
+  - microservices
+  - fastapi
+  - keycloak
 syndicate: true
+devtoId: 3442455
 ---
 
 ## The Next Step

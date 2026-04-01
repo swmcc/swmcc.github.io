@@ -1,8 +1,12 @@
 ---
-title: "Dropping Down to Raw ASGI"
-pubDate: 2026-03-18
-tags: ["python", "asgi", "fastapi"]
+title: Dropping Down to Raw ASGI
+pubDate: 2026-03-18T00:00:00.000Z
+tags:
+  - python
+  - asgi
+  - fastapi
 syndicate: true
+devtoId: 3442460
 ---
 
 Building [mailview](https://github.com/swmcc/mailview), `Mount` looked like the obvious choice for attaching routes at `/_mail`. It wasn't.

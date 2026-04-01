@@ -1,8 +1,13 @@
 ---
-title: "The LLM Is the New Parser"
-pubDate: 2026-02-24
-tags: ["llm", "ollama", "parsing", "ai"]
+title: The LLM Is the New Parser
+pubDate: 2026-02-24T00:00:00.000Z
+tags:
+  - llm
+  - ollama
+  - parsing
+  - ai
 syndicate: true
+devtoId: 3442470
 ---
 
 I spent the early 2000s writing parsers. HTML scrapers with regex that would make you cry. XML deserializers that handled seventeen flavours of "valid". CSV readers that knew a comma inside quotes wasn't a delimiter.

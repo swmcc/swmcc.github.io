@@ -1,8 +1,11 @@
 ---
-title: "Git Worktree for Multiple Branches"
-pubDate: 2025-10-28
-tags: ["git", "productivity"]
+title: Git Worktree for Multiple Branches
+pubDate: 2025-10-28T00:00:00.000Z
+tags:
+  - git
+  - productivity
 syndicate: true
+devtoId: 3442468
 ---
 
 Just learned about `git worktree` and it's genuinely useful.

@@ -1,8 +1,12 @@
 ---
-title: "Custom Agents for Claude Code"
-pubDate: 2026-02-19
-tags: ["claude-code", "automation", "ai"]
+title: Custom Agents for Claude Code
+pubDate: 2026-02-19T00:00:00.000Z
+tags:
+  - claude-code
+  - automation
+  - ai
 syndicate: true
+devtoId: 3442459
 ---
 
 Claude Code ships with a general-purpose agent, but it doesn't know your stack, your conventions, or your workflows. Custom agents fix that.

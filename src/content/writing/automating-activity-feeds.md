@@ -1,9 +1,13 @@
 ---
-title: "Automating Activity Feeds with GitHub Actions and Gists"
-description: "How I set up automated Spotify and GitHub activity feeds for my personal site using GitHub Actions and Gists"
-pubDate: 2025-12-15
-tags: ["github-actions", "automation", "astro"]
+title: Automating Activity Feeds with GitHub Actions and Gists
+description: How I set up automated Spotify and GitHub activity feeds for my personal site using GitHub Actions and Gists
+pubDate: 2025-12-15T00:00:00.000Z
+tags:
+  - github-actions
+  - automation
+  - astro
 syndicate: true
+devtoId: 3442457
 ---
 
 I wanted my personal site to show what I'm currently listening to on Spotify and what I've been coding on GitHub. The challenge: keeping this data fresh without manual updates or expensive API calls on every page load.

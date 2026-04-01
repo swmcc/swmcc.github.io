@@ -1,9 +1,13 @@
 ---
-title: "Building a Personal Site with Astro"
-description: "Why I chose Astro for my personal website and what I learned in the process"
-pubDate: 2025-11-05
-tags: ["astro", "web development", "meta"]
+title: Building a Personal Site with Astro
+description: Why I chose Astro for my personal website and what I learned in the process
+pubDate: 2025-11-05T00:00:00.000Z
+tags:
+  - astro
+  - web development
+  - meta
 syndicate: true
+devtoId: 3442463
 ---
 
 After years of having various iterations of personal websites (and letting them languish), I decided to rebuild from scratch with Astro. Here's why and what I learned.
