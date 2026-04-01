@@ -2,6 +2,7 @@
 title: "TypeScript Conditional Types for API Responses"
 pubDate: 2025-11-03
 tags: ["typescript", "types"]
+syndicate: true
 ---
 
 Quick pattern I keep using for API responses that can be either successful or error states:

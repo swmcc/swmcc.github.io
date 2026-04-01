@@ -3,6 +3,7 @@ title: "Maintaining Open Source in the AI Era"
 description: "Reflections on building and maintaining Ruby and Python packages, how AI has changed the process, and why I'm not entirely sure it's for the better"
 pubDate: 2026-03-17
 tags: ["open-source", "ai", "ruby", "python", "developer-tools"]
+syndicate: true
 ---
 
 I've been maintaining a handful of open source packages lately: [mailview](https://pypi.org/project/mailview/), [mailjunky](https://pypi.org/project/mailjunky/) (in both Python and Ruby), and recently dusted off an old Ruby gem called [tvdb_api](https://rubygems.org/gems/tvdb_api/). The experience has been illuminating - not just about package management, but about how AI is changing open source development in ways I'm still processing.

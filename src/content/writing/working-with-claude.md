@@ -3,6 +3,7 @@ title: "Working with Claude: A Senior Developer's Honest Take"
 description: "After months of integrating AI into my development workflow, here's what actually works and why planning mode, skills, and tasks have been game changers"
 pubDate: 2026-01-27
 tags: ["ai", "workflow", "developer-tools", "productivity"]
+syndicate: true
 ---
 
 I've been using Claude Code as part of my daily development workflow for several months now. This isn't a breathless endorsement or a dismissive rejection. It's an honest assessment from someone who's been writing software professionally for over two decades.

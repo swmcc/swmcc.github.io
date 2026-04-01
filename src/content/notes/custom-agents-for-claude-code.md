@@ -2,6 +2,7 @@
 title: "Custom Agents for Claude Code"
 pubDate: 2026-02-19
 tags: ["claude-code", "automation", "ai"]
+syndicate: true
 ---
 
 Claude Code ships with a general-purpose agent, but it doesn't know your stack, your conventions, or your workflows. Custom agents fix that.
