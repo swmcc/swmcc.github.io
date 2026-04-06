@@ -10,6 +10,7 @@ tags:
   - privacy
   - prompt-engineering
 syndicate: true
+devtoId: 3458324
 ---
 
 *An update to [the original Indexatron experiment](/writing/indexatron-local-llm-photo-analysis/)*
