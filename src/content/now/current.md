@@ -1,23 +1,27 @@
 ---
-updatedDate: 2026-05-01
+updatedDate: 2026-06-01
 ---
 
-*Updated monthly. This is what I'm focused on in May 2026.*
+*Updated monthly. This is what I'm focused on in June 2026.*
 
 ## Day Job
 
-I'm in the office full time this month — work is finally getting done on the house, but more on that in After Hours. It's been good to shift gears and get more into the weeds of the internal project. I'm contributing at a deeper level now, which feels right.
+The day job is still going strong. I'm getting my teeth into really meaty subjects now. I can't really get into the details here, but I can feel that I'm at the start of something really interesting — and I'm loving it.
 
-I've also been getting into graph databases. Gave an internal talk on The Wire mapped onto a graph, which was fun to put together. You can see it at [The Wire Graph](https://experiments.swm.cc/the-wire-graph/).
+I'm learning so much about graph databases and how they fit into the wider ecosystem we're building. It's a bit of a paradigm shift, but honestly that's so refreshing after all these years. New mental models, new ways of thinking about data relationships. It's exactly the kind of challenge I needed.
+
+Now that the house work has stopped, I can work from home again. This is giving me the time and space to focus and get serious work done. No commute, no distractions — just heads-down problem solving.
 
 ## After Hours
 
-Not being at home while the work gets done is taking its toll. I'm happy the work has finally started, but it's just going on too long now. Ready for it to be finished.
+As I mentioned, the major work is done, but there's still bits and bobs to do. The painter won't be finished until mid-August now, so there's a wee rest in between of having strangers in my house. After this there's still more work to do, but it's nice having a new room to use that was never really used before.
 
-I've started on the garden, which is nice. The weather's been bad though, so you have to pick your times. Getting out there when you can.
+The garden is coming on nicely. It's getting to the point where it'll be maintenance mode, which I find a bit sad — but it's good to see it take shape.
 
-My nephews came over at the end of May, so it was good to spend time with them. Nathan finally watched Star Wars with me — a milestone.
+I still have zero motivation for out-of-hours development work. The GitHub contribution graph tells the story:
 
-I've had no motivation to do any development outside of work, and I'm not fighting that. Just enjoying being about, really. I'll wait until inspiration hits again. No point in forcing it. Sometimes just doing the day job is enough.
+![GitHub contributions showing sparse activity in May and June 2026](/github-contributions-june-2026.png)
+
+Almost nothing these past two months. But I can feel motivation starting to come back. I sense a new talk coming on about development processes now that agentic development has become the new normality in work. Watch this space.
 
 Still tracking what I watch on my [check-ins page](https://www.whatisonthe.tv/swmcc).
