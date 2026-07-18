@@ -1,27 +1,21 @@
 ---
-updatedDate: 2026-06-01
+updatedDate: 2026-07-01
 ---
 
-*Updated monthly. This is what I'm focused on in June 2026.*
+*Updated monthly. This is what I'm focused on in July 2026.*
 
 ## Day Job
 
-The day job is still going strong. I'm getting my teeth into really meaty subjects now. I can't really get into the details here, but I can feel that I'm at the start of something really interesting — and I'm loving it.
+Everything's going well. I'm getting a laptop this month, which takes me away from the Mac Studio. That's a good thing - I like being a bit more mobile, especially when working remotely. You need that flexibility.
 
-I'm learning so much about graph databases and how they fit into the wider ecosystem we're building. It's a bit of a paradigm shift, but honestly that's so refreshing after all these years. New mental models, new ways of thinking about data relationships. It's exactly the kind of challenge I needed.
+The graph database work continues to evolve. I've been diving deep into knowledge graph architectures and how they surface implicit relationships across complex data domains. There's something satisfying about modelling interconnected systems in a way that actually reflects how the real world works. I've written a few internal blog posts on the topic that might eventually make their way onto the company blog.
 
-Now that the house work has stopped, I can work from home again. This is giving me the time and space to focus and get serious work done. No commute, no distractions — just heads-down problem solving.
+Alongside the graph stuff, I've taken on onboarding internal teams onto the new platform and making sure we're chipping away at technical debt. Not the sexiest of jobs, but someone has to do it. That's the job, isn't it? You do what needs doing.
 
 ## After Hours
 
-As I mentioned, the major work is done, but there's still bits and bobs to do. The painter won't be finished until mid-August now, so there's a wee rest in between of having strangers in my house. After this there's still more work to do, but it's nice having a new room to use that was never really used before.
+The house is still not finished and it's getting me down. The painters aren't coming until August, so the stairs still have no carpet. I need them to finish before I can sort that out. Just waiting, really.
 
-The garden is coming on nicely. It's getting to the point where it'll be maintenance mode, which I find a bit sad — but it's good to see it take shape.
+The garden is doing well though. It's been very hot this month. My hydrangeas aren't doing as well as I'd hoped, but they're better than last year, so that's something. I'm trying to make the back garden feel a bit more like my own space.
 
-I still have zero motivation for out-of-hours development work. The GitHub contribution graph tells the story:
-
-![GitHub contributions showing sparse activity in May and June 2026](/github-contributions-june-2026.png)
-
-Almost nothing these past two months. But I can feel motivation starting to come back. I sense a new talk coming on about development processes now that agentic development has become the new normality in work. Watch this space.
-
-Still tracking what I watch on my [check-ins page](https://www.whatisonthe.tv/swmcc).
+On the development side, I've been using [Herdr](https://herdr.dev/) - a terminal multiplexer for AI coding agents. It lets you run multiple agents in one terminal with real-time state awareness. You can see at a glance who's running, who's waiting for input, and who's done. I think it's going to be a bit of a game changer for my workflow.
