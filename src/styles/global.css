@@ -13,6 +13,7 @@
   --color-accent: #f13fac;
   --color-accent-blue: #2563eb;
   --color-accent-purple: #7c3aed;
+  --color-accent-teal: #14b8a6;
   --color-accent-hover: #d930a0;
   --color-border: #e7e5e4;
   --shadow-subtle: 0 1px 3px 0 rgb(0 0 0 / 0.02);
@@ -32,6 +33,7 @@
   --color-accent: #f13fac;
   --color-accent-blue: #b4beff;
   --color-accent-purple: #8a36ff;
+  --color-accent-teal: #2dd4bf;
   --color-accent-hover: #d930a0;
   --color-border: #3d1a70;
   --shadow-subtle: 0 4px 6px 0 rgb(0 0 0 / 0.3);
