@@ -1,0 +1,87 @@
+name: Now Page Monthly Reminder
+
+on:
+  schedule:
+    # Run at 9am UTC on the 1st of each month
+    - cron: '0 9 1 * *'
+  workflow_dispatch: # Allow manual trigger for testing
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  create-now-page-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get month info
+        id: month
+        run: |
+          # Current month for the new page
+          echo "current_month=$(date +'%B %Y')" >> $GITHUB_OUTPUT
+          echo "current_month_slug=$(date +'%b-%y' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+          echo "current_date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+
+          # Previous month for archiving
+          echo "prev_month_slug=$(date -d 'last month' +'%b-%y' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_OUTPUT
+
+      - name: Archive previous month and create new template
+        run: |
+          # Archive current.md to previous month file
+          if [ -f "src/content/now/current.md" ]; then
+            cp src/content/now/current.md "src/content/now/${{ steps.month.outputs.prev_month_slug }}.md"
+          fi
+
+          # Create new current.md template
+          cat > src/content/now/current.md << 'EOF'
+          ---
+          updatedDate: ${{ steps.month.outputs.current_date }}
+          ---
+
+          *Updated monthly. This is what I'm focused on in ${{ steps.month.outputs.current_month }}.*
+
+          ## Day Job
+
+          <!-- What's happening at work? Any new projects, technologies, or challenges? -->
+
+          ## After Hours
+
+          <!-- What are you working on outside of work? Side projects, home, garden, hobbies? -->
+
+          EOF
+
+          # Fix the heredoc indentation
+          sed -i 's/^          //' src/content/now/current.md
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "📝 Now page update for ${{ steps.month.outputs.current_month }}"
+          branch: now-page-${{ steps.month.outputs.current_month_slug }}
+          delete-branch: true
+          title: "📝 Time to update your Now page for ${{ steps.month.outputs.current_month }}"
+          body: |
+            Hey! It's the 1st of the month - time to update your Now page.
+
+            ## What this PR does
+            - Archives last month's Now page to `${{ steps.month.outputs.prev_month_slug }}.md`
+            - Creates a fresh template for ${{ steps.month.outputs.current_month }}
+
+            ## What you need to do
+            1. Check out this branch locally or edit in GitHub
+            2. Update `src/content/now/current.md` with what you're up to
+            3. Merge when ready
+
+            ## Prompts to think about
+            - **Day Job**: Any new projects? Technologies? Team changes? Wins or challenges?
+            - **After Hours**: Side projects? Home stuff? Garden? Reading? Travel plans?
+
+            ---
+            🤖 Generated automatically on the 1st of the month
+          labels: |
+            now-page
+            content
