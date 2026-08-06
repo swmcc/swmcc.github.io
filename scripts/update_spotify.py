@@ -9,13 +9,23 @@ import requests
 
 ROOT_DIR = Path(__file__).parent.parent
 
-# Credentials from env vars (GitHub Actions) or fallback to hardcoded (local dev)
-CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID", "af253baf8c664d648e4e01308bd2c052")
-CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET", "0d06f3babe96490bb720945171a78183")
-REFRESH_TOKEN = os.environ.get(
-    "SPOTIFY_REFRESH_TOKEN",
-    "AQBVmhhsO-dlNZdhQm-thLmbT7MQuxPHiCqWzJOWMJPgp0jcsMsv-ZNhDUSXejxlwmcZv7ceOXw-gFinhNuhEqv8ljgnShCAiWu3wOC1WeEZCNcT690f5DG8yHwyCGLuU7U"
-)
+# Credentials must be provided via environment variables — never hardcode them.
+CLIENT_ID = os.environ.get("SPOTIFY_CLIENT_ID")
+CLIENT_SECRET = os.environ.get("SPOTIFY_CLIENT_SECRET")
+REFRESH_TOKEN = os.environ.get("SPOTIFY_REFRESH_TOKEN")
+
+missing = [
+    name
+    for name, value in [
+        ("SPOTIFY_CLIENT_ID", CLIENT_ID),
+        ("SPOTIFY_CLIENT_SECRET", CLIENT_SECRET),
+        ("SPOTIFY_REFRESH_TOKEN", REFRESH_TOKEN),
+    ]
+    if not value
+]
+if missing:
+    print(f"Error: missing required environment variable(s): {', '.join(missing)}")
+    exit(1)
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--output", "-o", help="Output file path")
