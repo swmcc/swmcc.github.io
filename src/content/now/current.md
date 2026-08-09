@@ -8,6 +8,8 @@ updatedDate: 2026-08-01
 
 The graph database work is still ticking along. I'm one of the developers on it and we're working closely with our internal clients, so I'll not say too much beyond that. The bigger push this month has been getting an app builder working inside our platform, which is the sort of problem I enjoy getting stuck into.
 
+I've also been spending a good bit of time on evals for our AI framework, working out how you actually measure whether the models are doing what you think they're doing. It's fiddlier than it sounds, but if you can't measure it you're only guessing, and guessing doesn't cut it.
+
 Alongside that I'm still helping onboard internal teams and chipping away at technical debt. Not glamorous, but it's the work that keeps a platform healthy.
 
 ## After Hours
