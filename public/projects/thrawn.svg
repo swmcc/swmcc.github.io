@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Crossed swords icon -->
+  <!-- Blade 1: top-left to bottom-right -->
+  <path d="M14 10L44 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M14 10l8 2-6 6-2-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Hilt 1 -->
+  <path d="M40 46l6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M46 48l4 4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <!-- Blade 2: top-right to bottom-left -->
+  <path d="M50 10L20 40" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M50 10l-8 2 6 6 2-8z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+  <!-- Hilt 2 -->
+  <path d="M24 46l-6-6" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <path d="M18 48l-4 4" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+  <!-- Centre spark -->
+  <circle cx="32" cy="28" r="2.5" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+</svg>
