@@ -331,7 +331,7 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
           </div>
 
           <!-- Progress dots -->
-          <div class="flex justify-center gap-1.5 mt-4">
+          <div id="thoughts-dots" class="flex justify-center gap-1.5 mt-4">
             {thoughts.map((_, index) => (
               <div
                 class="thought-dot w-1.5 h-1.5 rounded-full transition-all duration-300"
@@ -342,47 +342,138 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
           </div>
         </a>
 
+        <script type="application/json" id="thoughts-data" set:html={JSON.stringify(thoughts).replace(/</g, '\\u003c')} />
+
         <script>
+          const API_URL = 'https://thoughts.swm.cc/api/thoughts?per_page=5';
+          const CACHE_KEY = 'thoughts-banner-cache';
+          const CACHE_TTL_MS = 15 * 60 * 1000;
+
+          interface BannerThought {
+            id: string;
+            content: string;
+            tags: string[];
+            created_at: string;
+          }
+
           const carousel = document.getElementById('thoughts-carousel');
-          if (carousel) {
-            const slides = carousel.querySelectorAll('.thought-slide');
-            const dots = document.querySelectorAll('.thought-dot');
+          const dotsContainer = document.getElementById('thoughts-dots');
+          const dataEl = document.getElementById('thoughts-data');
+
+          if (carousel && dotsContainer && dataEl) {
+            let thoughts: BannerThought[] = JSON.parse(dataEl.textContent || '[]');
             let currentIndex = 0;
-            const totalSlides = slides.length;
+            let rotateTimer: ReturnType<typeof setInterval> | undefined;
+
+            const esc = (text: string) =>
+              text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
 
             function showSlide(index: number) {
-              slides.forEach((slide, i) => {
-                const el = slide as HTMLElement;
-                if (i === index) {
-                  el.style.opacity = '1';
-                  el.style.transform = 'translateY(0)';
-                  el.style.pointerEvents = 'auto';
-                } else {
-                  el.style.opacity = '0';
-                  el.style.transform = 'translateY(20px)';
-                  el.style.pointerEvents = 'none';
-                }
+              carousel.querySelectorAll<HTMLElement>('.thought-slide').forEach((el, i) => {
+                el.style.opacity = i === index ? '1' : '0';
+                el.style.transform = i === index ? 'translateY(0)' : 'translateY(20px)';
+                el.style.pointerEvents = i === index ? 'auto' : 'none';
               });
-
-              dots.forEach((dot, i) => {
-                const el = dot as HTMLElement;
-                if (i === index) {
-                  el.style.background = 'var(--color-accent-teal)';
-                  el.style.transform = 'scale(1.2)';
-                } else {
-                  el.style.background = 'var(--color-border)';
-                  el.style.transform = 'scale(1)';
-                }
+              dotsContainer.querySelectorAll<HTMLElement>('.thought-dot').forEach((el, i) => {
+                el.style.background = i === index ? 'var(--color-accent-teal)' : 'var(--color-border)';
+                el.style.transform = i === index ? 'scale(1.2)' : 'scale(1)';
               });
             }
 
-            function nextSlide() {
-              currentIndex = (currentIndex + 1) % totalSlides;
-              showSlide(currentIndex);
+            function startRotation() {
+              if (rotateTimer) clearInterval(rotateTimer);
+              // Rotate every 6 seconds
+              rotateTimer = setInterval(() => {
+                currentIndex = (currentIndex + 1) % Math.max(thoughts.length, 1);
+                showSlide(currentIndex);
+              }, 6000);
             }
 
-            // Rotate every 6 seconds
-            setInterval(nextSlide, 6000);
+            function slideHtml(thought: BannerThought, index: number) {
+              const date = new Date(thought.created_at);
+              const dateText = `${date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })} at ${date.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}`;
+              const tags = (thought.tags || [])
+                .slice(0, 4)
+                .map((tag) => `<span style="background: var(--color-accent-teal); color: white;" class="px-2 py-0.5 rounded-full text-xs font-medium">#${esc(tag)}</span>`)
+                .join('');
+              const style = index === 0
+                ? 'opacity: 1; transform: translateY(0);'
+                : 'opacity: 0; transform: translateY(20px); pointer-events: none;';
+              return `<div class="thought-slide flex items-center justify-between gap-4 absolute inset-0 transition-all duration-500" data-index="${index}" style="${style}">
+                <div class="flex items-center gap-3 min-w-0 flex-1">
+                  <div class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style="background: linear-gradient(135deg, var(--color-accent-teal), #0d9488);">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                  </div>
+                  <div class="min-w-0 flex-1">
+                    <p style="color: var(--color-text-heading);" class="font-medium text-sm md:text-base line-clamp-2">${esc(thought.content)}</p>
+                    ${tags ? `<div class="flex flex-wrap gap-1.5 mt-2">${tags}</div>` : ''}
+                  </div>
+                </div>
+                <div class="flex-shrink-0 flex flex-col items-end gap-1">
+                  <time style="color: var(--color-text-muted);" class="text-xs" datetime="${esc(thought.created_at)}">${dateText}</time>
+                  <span class="flex items-center gap-1 text-xs font-medium" style="color: var(--color-accent-teal);">
+                    <span class="hidden sm:inline">click to see more</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                  </span>
+                </div>
+              </div>`;
+            }
+
+            function renderThoughts(fresh: BannerThought[]) {
+              thoughts = fresh;
+              currentIndex = 0;
+              carousel.innerHTML = fresh.map(slideHtml).join('');
+              dotsContainer.innerHTML = fresh
+                .map((_, i) => `<div class="thought-dot w-1.5 h-1.5 rounded-full transition-all duration-300" data-index="${i}" style="${i === 0 ? 'background: var(--color-accent-teal); transform: scale(1.2);' : 'background: var(--color-border);'}"></div>`)
+                .join('');
+              startRotation();
+            }
+
+            function sameThoughts(a: BannerThought[], b: BannerThought[]) {
+              return a.length === b.length && a.every((t, i) => t.id === b[i].id);
+            }
+
+            function readCache(): { ts: number; thoughts: BannerThought[] } | null {
+              try {
+                const raw = localStorage.getItem(CACHE_KEY);
+                if (!raw) return null;
+                const parsed = JSON.parse(raw);
+                if (typeof parsed.ts !== 'number' || !Array.isArray(parsed.thoughts)) return null;
+                return parsed;
+              } catch {
+                return null;
+              }
+            }
+
+            async function refresh() {
+              const cached = readCache();
+              if (cached && Date.now() - cached.ts < CACHE_TTL_MS) {
+                if (cached.thoughts.length > 0 && !sameThoughts(cached.thoughts, thoughts)) {
+                  renderThoughts(cached.thoughts);
+                }
+                return;
+              }
+              try {
+                const response = await fetch(API_URL);
+                if (!response.ok) return;
+                const data = await response.json();
+                if (!Array.isArray(data.thoughts) || data.thoughts.length === 0) return;
+                localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), thoughts: data.thoughts }));
+                if (!sameThoughts(data.thoughts, thoughts)) {
+                  renderThoughts(data.thoughts);
+                }
+              } catch {
+                // Offline or CORS blocked - the build-time thoughts stay up
+              }
+            }
+
+            startRotation();
+            refresh();
           }
         </script>
       </section>
