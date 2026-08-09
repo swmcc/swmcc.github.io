@@ -1,8 +1,11 @@
 ---
 updatedDate: 2026-07-01
+archived: true
+month: July
+year: 2026
 ---
 
-*Updated monthly. This is what I'm focused on in July 2026.*
+*Updated monthly. This is what I was focused on in July 2026.*
 
 ## Day Job
 
