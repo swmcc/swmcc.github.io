@@ -85,7 +85,7 @@ const notes = (await getCollection('notes'))
               data-title={note.data.title.toLowerCase()}
               data-tags={(note.data.tags || []).join(',').toLowerCase()}
             >
-              <a href={`/notes/${note.slug}`} class="group block">
+              <a href={`/notes/${note.id}`} class="group block">
                 <h2 class="text-xl font-medium mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400">
                   {note.data.title}
                 </h2>

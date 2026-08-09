@@ -13,7 +13,7 @@ export async function GET(context) {
     title: item.data.title,
     description: item.data.description,
     pubDate: item.data.pubDate,
-    link: `/writing/${item.slug}/`,
+    link: `/writing/${item.id}/`,
     categories: ['Writing'],
   }));
 
@@ -22,7 +22,7 @@ export async function GET(context) {
     title: item.data.title,
     description: `A technical note about ${item.data.title}`,
     pubDate: item.data.pubDate,
-    link: `/notes/${item.slug}/`,
+    link: `/notes/${item.id}/`,
     categories: ['Notes'],
   }));
 

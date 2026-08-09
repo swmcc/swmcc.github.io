@@ -1,5 +1,5 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { formatDate } from '../utils/formatDate';
 import fs from 'fs';
@@ -393,7 +393,7 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
       <div class="grid gap-8 md:grid-cols-2">
         <!-- Latest Writing -->
         {latestWriting && (
-          <a href={`/writing/${latestWriting.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 0ms;">
+          <a href={`/writing/${latestWriting.id}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 0ms;">
             <!-- Ribbon overlay - top left -->
             <div class="absolute top-0 left-0 ribbon-top-left">
               <span style="background: var(--color-accent-blue); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
@@ -433,10 +433,10 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
 
         <!-- Latest Note -->
         {latestNote && (async () => {
-          const { remarkPluginFrontmatter } = await latestNote.render();
+          const { remarkPluginFrontmatter } = await render(latestNote);
           const excerpt = latestNote.body.split('\n\n')[0].replace(/^##\s+.*$/m, '').trim().substring(0, 150);
           return (
-            <a href={`/notes/${latestNote.slug}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 150ms;">
+            <a href={`/notes/${latestNote.id}`} class="card group block hover-lift-dramatic animate-slide-in-left relative overflow-hidden" style="animation-delay: 150ms;">
               <!-- Ribbon overlay - top left -->
               <div class="absolute top-0 left-0 ribbon-top-left">
                 <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
