@@ -1,21 +1,21 @@
 ---
-updatedDate: 2026-07-01
+updatedDate: 2026-08-01
 ---
 
-*Updated monthly. This is what I'm focused on in July 2026.*
+*Updated monthly. This is what I'm focused on in August 2026.*
 
 ## Day Job
 
-Everything's going well. I'm getting a laptop this month, which takes me away from the Mac Studio. That's a good thing - I like being a bit more mobile, especially when working remotely. You need that flexibility.
+The graph database work is still ticking along. I'm one of the developers on it and we're working closely with our internal clients, so I'll not say too much beyond that. The bigger push this month has been getting an app builder working inside our platform, which is the sort of problem I enjoy getting stuck into.
 
-The graph database work continues to evolve. I've been diving deep into knowledge graph architectures and how they surface implicit relationships across complex data domains. There's something satisfying about modelling interconnected systems in a way that actually reflects how the real world works. I've written a few internal blog posts on the topic that might eventually make their way onto the company blog.
-
-Alongside the graph stuff, I've taken on onboarding internal teams onto the new platform and making sure we're chipping away at technical debt. Not the sexiest of jobs, but someone has to do it. That's the job, isn't it? You do what needs doing.
+Alongside that I'm still helping onboard internal teams and chipping away at technical debt. Not glamorous, but it's the work that keeps a platform healthy.
 
 ## After Hours
 
-The house is still not finished and it's getting me down. The painters aren't coming until August, so the stairs still have no carpet. I need them to finish before I can sort that out. Just waiting, really.
+The house has got me down this month. The painters landed the first week of August and were meant to be finished by the end of it, then I found out on the Thursday that they'd not be back until Tuesday because they were off on a four day golfing weekend. So I've been stuck at my mum's for the last week. All I wanted was to sit in my own house with my feet up, but it's been a building site for four months now and that's still not happening.
 
-The garden is doing well though. It's been very hot this month. My hydrangeas aren't doing as well as I'd hoped, but they're better than last year, so that's something. I'm trying to make the back garden feel a bit more like my own space.
+The stairs need sorted too. I wanted the carpet in as quickly as possible but I'm not off work until Friday, so that's the whole thing pushed out two weeks from where I wanted it. And to top it all off, the car refused to start. It's getting towed this week and it'll not be cheap to fix. Honestly, I'm pretty fed up this month. I just want things back to normal, working from my own house, living out of my own kitchen and not camped out at my mum's.
 
-On the development side, I've been using [Herdr](https://herdr.dev/) - a terminal multiplexer for AI coding agents. It lets you run multiple agents in one terminal with real-time state awareness. You can see at a glance who's running, who's waiting for input, and who's done. I think it's going to be a bit of a game changer for my workflow.
+The garden is alright. It always gets a bit tired in August, it peaks and then fades quickly once the light starts to go from the day. That's just the way of it.
+
+On the development side, I've been working very hard on a new workflow tool called [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn). It's a workflow that runs several models together, and hopefully it'll start to bear fruit in the next while. It might not be the right shape for personal use, a daemon is probably a better fit for distributed work, but I'll figure that out once I've used it in anger at work. [Herdr](https://herdr.dev/) has properly bedded in too. It's where I've wanted my terminal workflow to be after all these years.
