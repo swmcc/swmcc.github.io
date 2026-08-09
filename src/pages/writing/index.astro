@@ -95,7 +95,7 @@ const posts = (await getCollection('writing'))
               data-description={post.data.description.toLowerCase()}
               data-tags={(post.data.tags || []).join(',').toLowerCase()}
             >
-              <a href={`/writing/${post.slug}`} class="group block">
+              <a href={`/writing/${post.id}`} class="group block">
                 <h2 class="text-2xl font-semibold mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400">
                   {post.data.title}
                 </h2>

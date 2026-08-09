@@ -41,12 +41,12 @@ export const GET: APIRoute = async () => {
     };
 
     writing.forEach(post => {
-      const fileName = `${post.slug}.md`;
+      const fileName = `${post.id}.md`;
       fileSystem['writing'].children[fileName] = {
         type: 'file',
         name: fileName,
-        content: `${post.data.title}\n\n${post.data.description}\n\nPublished: ${post.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${post.data.tags?.join(', ') || 'none'}\n\nView full article at: /writing/${post.slug}`,
-        url: `/writing/${post.slug}`,
+        content: `${post.data.title}\n\n${post.data.description}\n\nPublished: ${post.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${post.data.tags?.join(', ') || 'none'}\n\nView full article at: /writing/${post.id}`,
+        url: `/writing/${post.id}`,
         metadata: {
           title: post.data.title,
           description: post.data.description,
@@ -66,12 +66,12 @@ export const GET: APIRoute = async () => {
     };
 
     notes.forEach(note => {
-      const fileName = `${note.slug}.md`;
+      const fileName = `${note.id}.md`;
       fileSystem['notes'].children[fileName] = {
         type: 'file',
         name: fileName,
-        content: `${note.data.title}\n\nPublished: ${note.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${note.data.tags?.join(', ') || 'none'}\n\nView full note at: /notes/${note.slug}`,
-        url: `/notes/${note.slug}`,
+        content: `${note.data.title}\n\nPublished: ${note.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${note.data.tags?.join(', ') || 'none'}\n\nView full note at: /notes/${note.id}`,
+        url: `/notes/${note.id}`,
         metadata: {
           title: note.data.title,
           pubDate: note.data.pubDate,
@@ -90,12 +90,12 @@ export const GET: APIRoute = async () => {
     };
 
     projects.forEach(project => {
-      const fileName = `${project.slug}.md`;
+      const fileName = `${project.id}.md`;
       fileSystem['projects'].children[fileName] = {
         type: 'file',
         name: fileName,
-        content: `${project.data.title}\n\n${project.data.description}\n\nPublished: ${project.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${project.data.tags?.join(', ') || 'none'}\n\nView full project at: /projects/${project.slug}`,
-        url: `/projects/${project.slug}`,
+        content: `${project.data.title}\n\n${project.data.description}\n\nPublished: ${project.data.pubDate.toLocaleDateString('en-GB')}\nTags: ${project.data.tags?.join(', ') || 'none'}\n\nView full project at: /projects/${project.id}`,
+        url: `/projects/${project.id}`,
         metadata: {
           title: project.data.title,
           description: project.data.description,
@@ -113,13 +113,13 @@ export const GET: APIRoute = async () => {
   for (const post of writing) {
     searchIndex.push({
       type: 'writing',
-      slug: post.slug,
+      slug: post.id,
       title: post.data.title,
       description: post.data.description,
       content: post.body,
       tags: post.data.tags || [],
       pubDate: post.data.pubDate,
-      url: `/writing/${post.slug}`
+      url: `/writing/${post.id}`
     });
   }
 
@@ -127,12 +127,12 @@ export const GET: APIRoute = async () => {
   for (const note of notes) {
     searchIndex.push({
       type: 'notes',
-      slug: note.slug,
+      slug: note.id,
       title: note.data.title,
       content: note.body,
       tags: note.data.tags || [],
       pubDate: note.data.pubDate,
-      url: `/notes/${note.slug}`
+      url: `/notes/${note.id}`
     });
   }
 
@@ -140,13 +140,13 @@ export const GET: APIRoute = async () => {
   for (const project of projects) {
     searchIndex.push({
       type: 'projects',
-      slug: project.slug,
+      slug: project.id,
       title: project.data.title,
       description: project.data.description,
       content: project.body,
       tags: project.data.tags || [],
       pubDate: project.data.pubDate,
-      url: `/projects/${project.slug}`
+      url: `/projects/${project.id}`
     });
   }
 
@@ -178,7 +178,7 @@ export const GET: APIRoute = async () => {
       active: projects.map(p => ({
         title: p.data.title,
         description: p.data.description,
-        url: `/projects/${p.slug}`,
+        url: `/projects/${p.id}`,
         tags: p.data.tags || []
       }))
     }

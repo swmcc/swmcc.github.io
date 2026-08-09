@@ -42,7 +42,7 @@ const years = Object.keys(entriesByYear).map(Number).sort((a, b) => b - a);
             {entriesByYear[year].map(entry => (
               <li>
                 <a
-                  href={`/now/${entry.slug}`}
+                  href={`/now/${entry.id}`}
                   style="color: var(--color-accent);"
                   class="hover:underline"
                 >
