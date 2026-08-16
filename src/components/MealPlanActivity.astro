@@ -1,0 +1,277 @@
+---
+const MEAL_PLAN_URL = import.meta.env.DEV
+  ? 'http://localhost:3000/api/v1/syndication/meal_plan'
+  : 'https://grub.swm.cc/api/v1/syndication/meal_plan';
+const IS_DEV = import.meta.env.DEV;
+---
+
+<section class="max-w-6xl mx-auto mt-24">
+  <div class="card animate-slide-in-left" style="animation-delay: 450ms;">
+    <div class="absolute top-0 left-0 ribbon-top-left">
+      <span style="background: var(--color-accent); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+        This Week's Grub
+      </span>
+    </div>
+
+    <div class="mt-8">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-16 h-16 rounded-full bg-gradient-to-br from-orange-400/30 to-red-400/30 flex items-center justify-center">
+          <svg class="w-8 h-8" style="color: var(--color-accent);" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/>
+            <path d="M7 2v20"/>
+            <path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/>
+          </svg>
+        </div>
+        <div>
+          <h2 style="color: var(--color-text-heading);" class="text-2xl font-bold">What I am eatin'</h2>
+          <p id="meal-plan-subtitle" style="color: var(--color-text-secondary);" class="text-sm">This week's meal plan from Grub</p>
+        </div>
+      </div>
+
+      <div id="meal-plan-content">
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          Loading meal plan...
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .meal-past {
+    opacity: 0.45;
+    transition: opacity 0.2s ease, filter 0.2s ease;
+  }
+
+  .meal-past img {
+    filter: grayscale(1);
+    transition: filter 0.2s ease;
+  }
+
+  a.meal-past:hover {
+    opacity: 1;
+  }
+
+  a.meal-past:hover img {
+    filter: none;
+  }
+</style>
+
+<script define:vars={{ MEAL_PLAN_URL, IS_DEV }}>
+  const CACHE_KEY = 'meal-plan-cache';
+  const CACHE_DURATION_MS = 60 * 60 * 1000; // 1 hour
+  const DAY_ORDER = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+
+  function getCachedData() {
+    if (IS_DEV) return null; // always fetch fresh while testing locally
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      if (!cached) return null;
+
+      const { data, timestamp } = JSON.parse(cached);
+      const age = Date.now() - timestamp;
+
+      if (age > CACHE_DURATION_MS) {
+        localStorage.removeItem(CACHE_KEY);
+        return null;
+      }
+
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  function setCachedData(data) {
+    try {
+      localStorage.setItem(CACHE_KEY, JSON.stringify({
+        data,
+        timestamp: Date.now()
+      }));
+    } catch {
+      // localStorage might be full or disabled
+    }
+  }
+
+  function escapeHtml(text) {
+    return String(text ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function formatWeekRange(startString, endString) {
+    const start = new Date(startString);
+    const end = new Date(endString);
+    if (isNaN(start.getTime()) || isNaN(end.getTime())) return '';
+
+    const startDay = start.toLocaleDateString('en-GB', { day: 'numeric' });
+    const startMonth = start.toLocaleDateString('en-GB', { month: 'short' });
+    const endDay = end.toLocaleDateString('en-GB', { day: 'numeric' });
+    const endMonth = end.toLocaleDateString('en-GB', { month: 'short' });
+    const year = end.toLocaleDateString('en-GB', { year: 'numeric' });
+
+    if (startMonth === endMonth) {
+      return `${startDay}–${endDay} ${endMonth} ${year}`;
+    }
+    return `${startDay} ${startMonth} – ${endDay} ${endMonth} ${year}`;
+  }
+
+  function dayDate(dayName, weekStartString) {
+    const weekStart = new Date(weekStartString);
+    if (isNaN(weekStart.getTime())) return null;
+
+    const date = new Date(weekStart);
+    date.setDate(weekStart.getDate() + DAY_ORDER.indexOf(dayName));
+    date.setHours(0, 0, 0, 0);
+    return date;
+  }
+
+  function isToday(dayName, weekStartString) {
+    const date = dayDate(dayName, weekStartString);
+    if (!date) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date.getTime() === today.getTime();
+  }
+
+  function isPast(dayName, weekStartString) {
+    const date = dayDate(dayName, weekStartString);
+    if (!date) return false;
+
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return date.getTime() < today.getTime();
+  }
+
+  async function loadMealPlan() {
+    const container = document.getElementById('meal-plan-content');
+    if (!container) return;
+
+    const cachedData = getCachedData();
+    if (cachedData) {
+      renderMealPlan(container, cachedData);
+      return;
+    }
+
+    try {
+      const response = await fetch(MEAL_PLAN_URL, IS_DEV ? { cache: 'no-store' } : {});
+      if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
+
+      const data = await response.json();
+      setCachedData(data);
+      renderMealPlan(container, data);
+    } catch (error) {
+      console.error('Failed to load meal plan:', error);
+      container.innerHTML = `
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          Unable to load this week's meal plan
+        </p>
+      `;
+    }
+  }
+
+  function renderMeal(meal, past) {
+    const image = meal.image_url
+      ? `<img
+          src="${escapeHtml(meal.image_url)}"
+          alt="${escapeHtml(meal.title)}"
+          class="w-20 h-20 rounded-lg object-cover shadow-sm flex-shrink-0"
+          loading="lazy"
+        />`
+      : '';
+
+    const inner = `
+      ${image}
+      <div class="flex-1 min-w-0">
+        <div class="flex items-center gap-2 flex-wrap mb-1">
+          <span
+            style="background: var(--color-accent); color: white;"
+            class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+          >
+            ${escapeHtml(meal.category)}
+          </span>
+        </div>
+        <p style="color: var(--color-text);" class="font-medium">
+          ${escapeHtml(meal.title)}
+        </p>
+        <p style="color: var(--color-text-secondary);" class="text-sm mt-1">
+          ${escapeHtml(meal.description)}
+        </p>
+      </div>
+    `;
+
+    const cardStyle = 'background: var(--color-bg-secondary); border: 1px solid var(--color-border);';
+    const pastClass = past ? ' meal-past' : '';
+
+    if (meal.url) {
+      return `
+        <a
+          href="${escapeHtml(meal.url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+          style="${cardStyle}"
+          class="p-4 rounded-lg flex items-start gap-4 hover:opacity-80 transition-opacity${pastClass}"
+        >
+          ${inner}
+        </a>
+      `;
+    }
+
+    return `
+      <div style="${cardStyle}" class="p-4 rounded-lg flex items-start gap-4${pastClass}">
+        ${inner}
+      </div>
+    `;
+  }
+
+  function renderMealPlan(container, data) {
+    const subtitle = document.getElementById('meal-plan-subtitle');
+    const weekRange = formatWeekRange(data?.week_start_date, data?.week_end_date);
+    if (subtitle && weekRange) {
+      subtitle.textContent = `Week of ${weekRange}`;
+    }
+
+    const days = data?.meal_plan?.days;
+    if (!days || Object.keys(days).length === 0) {
+      container.innerHTML = `
+        <p style="color: var(--color-text-muted);" class="text-sm italic">
+          No meal plan this week
+        </p>
+      `;
+      return;
+    }
+
+    const daysHTML = DAY_ORDER
+      .filter((day) => Array.isArray(days[day]) && days[day].length > 0)
+      .map((day) => {
+        const today = isToday(day, data.week_start_date);
+        const past = isPast(day, data.week_start_date);
+        const dayLabel = day.charAt(0).toUpperCase() + day.slice(1);
+        const todayBadge = today
+          ? `<span
+              style="background: var(--color-accent); color: white;"
+              class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
+            >Today</span>`
+          : '';
+
+        return `
+          <div>
+            <h3 style="color: var(--color-text-heading);${past ? ' opacity: 0.45;' : ''}" class="text-lg font-bold mb-3 flex items-center gap-2">
+              ${dayLabel} ${todayBadge}
+            </h3>
+            <div class="grid gap-3 sm:grid-cols-2">
+              ${days[day].map((meal) => renderMeal(meal, past)).join('')}
+            </div>
+          </div>
+        `;
+      })
+      .join('');
+
+    container.innerHTML = `<div class="space-y-8">${daysHTML}</div>`;
+  }
+
+  loadMealPlan();
+</script>
