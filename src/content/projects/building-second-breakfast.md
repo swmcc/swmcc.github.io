@@ -1,131 +1,75 @@
 ---
-title: "Building second_breakfast with AI"
-description: "Letting AI agents drive 99% of development work using Claude Code and GitHub Copilot to push the boundaries of intelligent automation"
-pubDate: 2025-11-23
-tags: ["rails", "ai-driven", "claude-code", "github-copilot", "automation", "architecture"]
+title: "Building Grub"
+description: "A Rails meal planner with a bundled MCP server, so Claude can import recipes from photos, plan my week conversationally and read back the shopping list"
+pubDate: 2026-08-17
+tags: ["rails", "mcp", "claude", "postgresql", "hotwire", "api-design"]
 ---
 
-## The Experiment
+## What It Is
 
-This is a standard Rails 8 monolith. PostgreSQL database. Hotwire for progressive enhancement. Tailwind CSS for styling. The Solid suite for caching, queuing, and cables. I've built this stack dozens of times.
+[Grub](https://grub.swm.cc) (the repo is called `second_breakfast`, because naming things is hard and hobbits are funny) is my personal recipe collection and meal planner. It holds the recipes I actually cook, turns them into a Monday–Sunday plan each week, and rolls that plan up into a shopping list. The current week is [syndicated to this site](/eatin), so you can see what I'm eating.
 
-But second_breakfast is different. I resurrected this project during my autumn 2025 renaissance not to build another recipe tracker, but to answer a specific question: How far can modern AI agents autonomously drive software development?
+It started life as an experiment in letting AI agents drive 99% of development — and it's still built that way, with Claude Code doing the implementation work and GitHub Actions standing guard. But somewhere along the way it stopped being a lab rat and became an app I use every single week. This page is about what got built.
 
-## The Standard Pattern vs. The AI-Native Pattern
+## The Stack
 
-In my usual workflow, AI assists with implementation details. Claude helps with CRUD boilerplate and refactoring logic. GitHub Copilot autocompletes patterns. I design the architecture, make the strategic decisions, and orchestrate the build. AI handles the tactical execution.
+Deliberately boring: Rails 8.1 on Ruby 3.3, PostgreSQL, Hotwire (Turbo + Stimulus), Tailwind CSS. The Solid suite (Queue, Cache, Cable) rides on Postgres, so there's no Redis to babysit. Active Storage on S3 for recipe images. A documented JSON API under `/api/v1` with an rswag/OpenAPI spec served at `/api-docs`.
 
-second_breakfast inverts this. AI drives strategy and execution. I observe.
+The interesting part isn't the stack. It's what sits on top of the API.
 
-The goal is 99% autonomous development using [Claude Code](https://claude.ai/claude-code) orchestrating architecture, CRUD operations, and feature implementation, with GitHub infrastructure handling code review, deployment pipelines, and automated quality checks. As of late November 2025, this is a greenfield experiment.
+## The MCP Server
 
-## The Architecture
+The repo ships with an MCP (Model Context Protocol) server — a small Node process built on `@modelcontextprotocol/sdk`, speaking over stdio. Point Claude Desktop or Claude Code at it and Claude gets a toolbox for the whole app: `search_recipes`, `get_recipe`, `create_recipe`, `list_categories`, plus a full set of meal plan tools.
 
-**Core Stack**
-- Rails 8.1.1 on Ruby 3.3.1
-- PostgreSQL for primary database
-- Solid Cache, Solid Queue, Solid Cable (Rails 8 defaults)
-- Hotwire (Turbo + Stimulus) for frontend interactions
-- Tailwind CSS 3 for styling
-- Active Storage with libvips for image processing
+Architecturally it's a deliberately thin client. The MCP server contains no business logic at all — every tool is a straight HTTP call to the Rails JSON API with a Bearer token. Rails stays the single source of truth for validation, authorisation and side effects; the Node layer just translates between MCP tool calls and REST. When the web UI and Claude both create a recipe, they hit exactly the same code path.
 
-**Infrastructure**
-- GitHub Actions for CI/CD
-- RuboCop for linting
-- Brakeman for security scanning
-- PostgreSQL migrations managed via Active Record
+Tool inputs are Zod schemas, and the schema descriptions double as prompt engineering. My favourite example: the ingredient `name` field is described as *"Ingredient name ONLY — no prep instructions (e.g., 'onion' not 'onion, diced')"*. That one line of schema documentation is what keeps the shopping list aggregation clean — if Claude filed "onion, diced" and "onion, finely chopped" as separate ingredients, the SQL rollup below would happily give me three kinds of onion.
 
-This is deliberately conventional. The innovation isn't the stack - it's the development process.
+### Auth
 
-## How It Works
+Every operation, including reads, requires an API key — the server refuses to even start without one. Keys are `sb_`-prefixed tokens managed from the account page. The raw token is shown exactly once at creation and never persisted; Rails stores only a SHA-256 digest and authenticates by hashing the presented token and looking up the digest. Keys are individually revocable, and each key tracks `last_used_at` (write-throttled to once a minute so a chatty Claude session doesn't hammer the row).
 
-### Claude Code as Developer
+### Recipe Import From Photos
 
-[Claude Code](https://claude.ai/claude-code) isn't just writing code. It's the primary developer:
+This is the workflow that justifies the whole thing. I photograph a page of a cookbook, hand it to Claude, and say "file this". Claude's vision extracts the title, ingredients (as structured `{name, quantity, unit}` objects), instructions and the nutrition panel, then calls `create_recipe`.
 
-- Database schema design and migrations
-- CRUD operations and business logic
-- Controller actions, model validations, and views
-- Dependency management and version upgrades
-- CI/CD pipeline configuration
-- Security audits and vulnerability remediation
-- Issue creation and project planning
+Images are handled asynchronously: `create_recipe` returns immediately, and a background job on Solid Queue fetches a matching photo from the Pexels API based on the recipe title. Claude can also pass the actual cookbook photo as a base64 data URL if I want the real thing. Either way, recipe creation never blocks on an image.
 
-When I upgraded from Rails 8.0 to 8.1, migrated from SQLite to PostgreSQL, and configured GitHub Actions, Claude Code executed the entire workflow. No hand-holding. No micro-management. Strategic direction, autonomous execution.
+## Meal Plans as a State Machine
 
-### GitHub Infrastructure as Quality Gate
+The domain model is stricter than it looks:
 
-Where Claude Code handles development work, GitHub infrastructure provides automated oversight:
+- **One plan per user per week.** `week_start_date` is normalised to Monday (`beginning_of_week(:monday)`) before validation, with a uniqueness constraint scoped to the user. Hand the API a Wednesday and it quietly becomes that week's Monday. Creating plans for past weeks is rejected outright.
+- **Draft → accepted, with a ratchet.** Plans are a two-state enum. Drafts are editable; accepting locks the plan. You can reopen an accepted plan — but only until the week ends. Once `week_end_date` is behind us, the plan archives itself into read-only history. No flags, no cron: `archived?` is just a date comparison, and the active/archived scopes fall out of the same predicate.
+- **Auto-fill is a shuffle, not an LLM.** `auto_fill!` maps each slot to categories (breakfast → Breakfast, dinner → Dinner *or* Main Course), shuffles the matching recipe pool once, then deals it out with `pool[day % pool.size]` — so nothing repeats until a slot's pool is exhausted. Existing entries are left alone, empty pools are skipped, and the whole thing runs in a transaction.
 
-- **Actions**: CI pipeline runs linting, security scans, and tests
-- **Dependabot**: Creates dependency update PRs
-- **Code Review**: Automated checks validate quality before merge
+The conversational planning happens a layer up: I tell Claude "plan next week, fish twice, no beef, quick breakfasts" and it composes the primitives — `create_meal_plan`, `search_recipes`, `add_meal_to_plan`, `accept_meal_plan` — to satisfy the brief. Deterministic mechanics in Rails, judgement in the model. That split is the design.
 
-The division is deliberate. Claude Code writes features. GitHub validates them.
+## The Shopping List Is One SQL Query
 
-## The Workflow
+Ingredients live on each recipe as a JSON array. The shopping list for a week is the aggregation of every ingredient across every recipe in the plan — and it's done entirely in Postgres:
 
-1. **Issue Creation**: Claude Code generates GitHub issues with detailed implementation checklists
-2. **Branch Strategy**: Standard Git flow with feature branches
-3. **Development**: Claude Code implements features autonomously
-4. **Code Review**: GitHub Actions runs linting, security scans, and tests
-5. **Merge**: Automated merge on successful CI
-6. **Dependency Updates**: Dependabot creates PRs, Claude Code reviews and merges
+```sql
+SELECT ingredient->>'name'                       AS name,
+       SUM((ingredient->>'quantity')::NUMERIC)   AS total_quantity,
+       ingredient->>'unit'                       AS unit
+FROM recipes
+CROSS JOIN LATERAL jsonb_array_elements(recipes.ingredients::jsonb) AS ingredient
+GROUP BY name, unit
+```
 
-Once the application reaches stability, the next phase begins: complete autonomy. GitHub issues describe features, Claude Code implements them, GitHub infrastructure validates quality, and merges happen without human intervention.
+`jsonb_array_elements` in a `LATERAL` join explodes each recipe's ingredient array into rows, then it's a plain `SUM ... GROUP BY name, unit`. Two recipes wanting 200g of flour and one wanting 150g becomes a single 350g line. Grouping by unit as well as name means "2 cloves of garlic" and "1 tsp of garlic" stay as separate lines rather than producing nonsense arithmetic. No Ruby loops, no N+1 — the printed list, the copy-to-clipboard list and the MCP `get_meal_plan_shopping_list` tool all read from this one query.
 
-## What I'm Learning
+## Syndication
 
-Early observations from late November 2025:
+The `/eatin` page on this site is fed by the one deliberate hole in the API's authentication: a public, read-only endpoint serving exactly one thing — my current week's accepted plan. It's scoped to a single hard-coded account, sends a five-minute public `Cache-Control`, and revalidates with an ETag derived from the week's Monday and the plan's `updated_at`, so the static swm.cc frontend can poll it cheaply from the client. Every other endpoint still demands a key.
 
-**AI Excels At:**
-- Dependency management and version upgrades
-- Boilerplate CRUD operations
-- Migration scripts and schema changes
-- CI/CD configuration
-- Security vulnerability remediation
-- Documentation generation
+## Where It Ended Up
 
-**AI Struggles With:**
-- Ambiguous product requirements
-- Complex business logic with edge cases
-- Performance optimisation without profiling data
-- Architectural trade-offs requiring domain expertise
-- Debugging obscure production issues
+The AI-driven development experiment is still running — Claude Code writes the features, the CI gate (RSpec, RuboCop, Brakeman) decides if they ship. But the more interesting result is the product shape it produced: a conventional Rails monolith whose API grew an MCP face, which turned "a recipe CRUD app" into "a thing I talk to while holding a cookbook".
 
-**Human Intervention Required For:**
-- Product vision and feature prioritisation
-- Design system decisions
-- Data modelling for complex domains
-- Strategic technical debt management
-- Understanding user needs and workflows
+The pattern generalises. If you have a well-factored JSON API, an MCP server is a weekend of glue code — and it changes what the app *is*.
 
-## The Test Bed Philosophy
+## Source
 
-second_breakfast is infrastructure for discovery. I'm not trying to prove AI can replace developers. I'm discovering where the boundaries are.
-
-What can AI genuinely own end-to-end? Where does human judgement remain irreplaceable? What does the developer role look like when 99% of implementation work is automated?
-
-This isn't a demonstration project. It's a laboratory. The code matters less than what I learn building it.
-
-## Current Status
-
-As of November 2025:
-- Rails 8.1.1 upgraded and PostgreSQL migrated (AI-driven)
-- CI/CD pipeline configured (AI-driven)
-- Makefile for development commands (AI-driven)
-- Security scanning with Brakeman (AI-driven)
-- 15 GitHub issues created for future development (AI-driven)
-- Application structure complete, features pending
-
-Next phase: Issue-driven autonomous development with AI agents implementing features from GitHub issues whilst I observe the process, intervene only when necessary, and document what works and what fails.
-
-## Why This Matters
-
-We're at an inflection point. AI-assisted development is common. AI-driven development is emerging. Understanding the difference matters.
-
-This project exists to map that territory. Not with speculation or theory, but with working code, real constraints, and documented failures.
-
-The goal isn't to eliminate developers. It's to discover what development looks like when intelligent automation handles the mechanical work, freeing humans to focus on problems that actually require human insight.
-
-second_breakfast is the test bed. The real output is understanding.
+Grub lives at [grub.swm.cc](https://grub.swm.cc); the code, MCP server included, is on [GitHub](https://github.com/swmcc/second_breakfast).
