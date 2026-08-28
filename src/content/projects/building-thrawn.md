@@ -17,7 +17,7 @@ So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thraw
 
 ## How It Works
 
-You give Thrawn a ticket number or a markdown brief. From there:
+You give Thrawn a ticket number, several at once (`thrawn 42 43 45` becomes one run planned together) or a markdown brief. From there:
 
 1. A strong model deep-thinks a plan, exploring the repo read-only. No writes at this stage, just understanding.
 2. The plan gets split into parallel tasks, each routed to the right model for its complexity. Design work goes to a heavyweight, mechanical work goes to something cheap and fast.
@@ -27,6 +27,8 @@ You give Thrawn a ticket number or a markdown brief. From there:
 6. Only then does it push the branch and open the PR.
 
 That last gate matters more than any of the clever bits. Agents doing work in parallel is a productivity story. Agents pushing to a remote without a human in the loop is a horror story.
+
+There's also a lightweight swarm mode: no planner, no integrator, just a worktree and an agent per issue with me as the orchestrator. It has quietly become the workhorse.
 
 ## Herdr Underneath
 
@@ -40,7 +42,7 @@ I'm dogfooding this properly, with a ledger that records every run, and the earl
 
 My suspicion is that my personal projects are the wrong testing ground. They're small monoliths, and the tasks are chatty with each other. Where Thrawn should earn its keep is distributed work, where service boundaries give you natural task boundaries. I'll find out when I've used it in anger at work.
 
-I've written the design and the findings up properly on my [experiments site](https://experiments.swm.cc/thrawn/), including the failure cases. The 30-day trial is running now and the ledger, not my enthusiasm, gets the final say on whether it survives.
+The findings have started turning into essays. The decomposition problem became [Your Architecture Is the Bottleneck, Not the Model](/writing/your-architecture-is-the-bottleneck/), and a trial of two agent harnesses on the same five tickets became [Execution Stopped Being the Bottleneck](/writing/execution-stopped-being-the-bottleneck/). I've written the design and the findings up properly on my [experiments site](https://experiments.swm.cc/thrawn/), including the failure cases. The 30-day trial is running now and the ledger, not my enthusiasm, gets the final say on whether it survives.
 
 ## Status
 
