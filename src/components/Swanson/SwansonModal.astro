@@ -228,6 +228,17 @@ const SWANSON_API =
     padding: 0.05rem 0.3rem;
     font-size: 0.85em;
   }
+  .swanson-msg-bot .swanson-code {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.8em;
+    font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', monospace;
+    overflow-x: auto;
+    white-space: pre;
+  }
   .swanson-thinking::after {
     content: '…';
     animation: swanson-dots 1.2s steps(4, end) infinite;
@@ -444,8 +455,24 @@ const SWANSON_API =
 
     function renderBot(el, text) {
       el.textContent = '';
+      let codeBlock = null;
       const lines = text.split('\n');
       lines.forEach((line, i) => {
+        if (/^\s*```/.test(line)) {
+          if (codeBlock) {
+            codeBlock = null; // closing fence
+          } else {
+            codeBlock = document.createElement('pre');
+            codeBlock.className = 'swanson-code';
+            el.appendChild(codeBlock);
+          }
+          return;
+        }
+        if (codeBlock) {
+          if (codeBlock.textContent) codeBlock.appendChild(document.createTextNode('\n'));
+          codeBlock.appendChild(document.createTextNode(line));
+          return;
+        }
         if (i > 0) el.appendChild(document.createTextNode('\n'));
         const headingMatch = line.match(/^#{1,4}\s+(.*)$/);
         if (headingMatch) {
