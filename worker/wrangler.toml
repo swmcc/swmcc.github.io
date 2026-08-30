@@ -14,6 +14,8 @@ MODEL = "claude-haiku-4-5"
 DAILY_LIMIT = "100"
 IP_HOURLY_LIMIT = "20"
 ALLOWED_ORIGINS = "https://swm.cc,http://localhost:4321,http://localhost:4322"
+ANTHROPIC_WORKSPACE_ID = "wrkspc_01RqJqRQubkvFT65nXfE3BiW"
+BRAIN_CACHE_BUST = "2"
 BRAIN_URL = "https://swm.cc/swanson-brain.json"
 
 # Secret (never in this file): npx wrangler secret put ANTHROPIC_API_KEY

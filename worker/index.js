@@ -73,7 +73,11 @@ async function overBudget(request, env) {
 }
 
 async function fetchBrain(env) {
-  const res = await fetch(env.BRAIN_URL || 'https://swm.cc/swanson-brain.json', {
+  const url = new URL(env.BRAIN_URL || 'https://swm.cc/swanson-brain.json');
+  // BRAIN_CACHE_BUST is part of the cache key — bump the var to evict a
+  // poisoned entry (e.g. a 404 cached during a deploy window)
+  url.searchParams.set('v', env.BRAIN_CACHE_BUST || '1');
+  const res = await fetch(url, {
     // cache successes for an hour; never cache failures (a cached 404
     // during a deploy window would gag Swanson for the full TTL)
     cf: { cacheEverything: true, cacheTtlByStatus: { '200-299': 3600, '300-599': 0 } },
@@ -125,13 +129,18 @@ export default {
       return json({ error: 'brain unavailable' }, 502, cors);
     }
 
+    const headers = {
+      'x-api-key': env.ANTHROPIC_API_KEY,
+      'anthropic-version': '2023-06-01',
+      'content-type': 'application/json',
+    };
+    // identity-linked API keys must state which workspace they act in
+    if (env.ANTHROPIC_WORKSPACE_ID) {
+      headers['anthropic-workspace-id'] = env.ANTHROPIC_WORKSPACE_ID;
+    }
     const anthropicRes = await fetch('https://api.anthropic.com/v1/messages', {
       method: 'POST',
-      headers: {
-        'x-api-key': env.ANTHROPIC_API_KEY,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json',
-      },
+      headers,
       body: JSON.stringify({
         model: env.MODEL || 'claude-haiku-4-5',
         max_tokens: MAX_OUTPUT_TOKENS,
@@ -148,8 +157,11 @@ export default {
     });
 
     if (!anthropicRes.ok) {
-      // includes the case where the workspace spend cap has been hit
-      return json({ error: 'model unavailable' }, 502, cors);
+      // includes the case where the workspace spend cap has been hit;
+      // surface the upstream status (401 key, 404 model, 429 quota) —
+      // it's diagnostic, not sensitive
+      const detail = (await anthropicRes.text().catch(() => '')).slice(0, 300);
+      return json({ error: 'model unavailable', status: anthropicRes.status, detail }, 502, cors);
     }
 
     const data = await anthropicRes.json();
