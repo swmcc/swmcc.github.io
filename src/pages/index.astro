@@ -1,6 +1,7 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Swanson from '../components/Swanson.astro';
 import { formatDate } from '../utils/formatDate';
 import fs from 'fs';
 import path from 'path';
@@ -478,6 +479,9 @@ const images = heroImages.length > 0 ? heroImages : fallbackImages;
         </script>
       </section>
     )}
+
+    <!-- Swanson - Stephen's AI alter ego -->
+    <Swanson />
 
     <!-- Latest Content Cards - Animated and Moving -->
     <section class="max-w-6xl mx-auto">

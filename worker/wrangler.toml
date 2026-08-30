@@ -1,0 +1,19 @@
+name = "swanson-api"
+main = "index.js"
+compatibility_date = "2026-08-01"
+
+# Create with: npx wrangler kv namespace create SWANSON_KV
+# then paste the returned id below. Without KV the worker runs uncapped
+# (fine for local dev, not for production).
+[[kv_namespaces]]
+binding = "SWANSON_KV"
+id = "REPLACE_WITH_KV_NAMESPACE_ID"
+
+[vars]
+MODEL = "claude-haiku-4-5"
+DAILY_LIMIT = "300"
+IP_HOURLY_LIMIT = "20"
+ALLOWED_ORIGINS = "https://swm.cc,http://localhost:4321,http://localhost:4322"
+BRAIN_URL = "https://swm.cc/swanson-brain.json"
+
+# Secret (never in this file): npx wrangler secret put ANTHROPIC_API_KEY
