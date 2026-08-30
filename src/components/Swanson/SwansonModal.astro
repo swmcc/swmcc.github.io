@@ -218,6 +218,16 @@ const SWANSON_API =
     color: var(--color-accent);
     text-decoration: underline;
   }
+  .swanson-msg-bot strong {
+    color: var(--color-text-heading);
+  }
+  .swanson-msg-bot code {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+    font-size: 0.85em;
+  }
   .swanson-thinking::after {
     content: '…';
     animation: swanson-dots 1.2s steps(4, end) infinite;
@@ -394,24 +404,64 @@ const SWANSON_API =
       return 'The clever half of my brain is offline, so I’ll keep it simple: essays live at /writing, projects at /projects, and what Stephen’s up to right now is at /now.';
     }
 
-    // Safe rendering: text nodes only, with site paths and URLs linkified.
+    // Safe rendering of the markdown subset the model actually emits —
+    // [text](url), **bold**, `code`, bare URLs/paths, bullets, headings.
+    // DOM nodes only, never innerHTML.
+    function makeLink(href, label) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      if (href.startsWith('http')) {
+        a.target = '_blank';
+        a.rel = 'noopener';
+      }
+      return a;
+    }
+
+    function renderInline(el, text) {
+      const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|`([^`]+)`|https?:\/\/[^\s)]+|\/[a-z0-9][a-z0-9\-/]*/g;
+      let last = 0;
+      let m;
+      while ((m = re.exec(text))) {
+        if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+        if (m[1] && m[2]) {
+          el.appendChild(makeLink(m[2], m[1]));
+        } else if (m[3]) {
+          const s = document.createElement('strong');
+          s.textContent = m[3];
+          el.appendChild(s);
+        } else if (m[4]) {
+          const c = document.createElement('code');
+          c.textContent = m[4];
+          el.appendChild(c);
+        } else {
+          el.appendChild(makeLink(m[0], m[0]));
+        }
+        last = re.lastIndex;
+      }
+      if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+    }
+
     function renderBot(el, text) {
       el.textContent = '';
-      const parts = text.split(/(https?:\/\/[^\s)]+|\/[a-z0-9][a-z0-9\-/]*)/g);
-      for (const part of parts) {
-        if (/^(https?:\/\/|\/[a-z0-9])/.test(part)) {
-          const a = document.createElement('a');
-          a.href = part;
-          a.textContent = part;
-          if (part.startsWith('http')) {
-            a.target = '_blank';
-            a.rel = 'noopener';
-          }
-          el.appendChild(a);
-        } else {
-          el.appendChild(document.createTextNode(part));
+      const lines = text.split('\n');
+      lines.forEach((line, i) => {
+        if (i > 0) el.appendChild(document.createTextNode('\n'));
+        const headingMatch = line.match(/^#{1,4}\s+(.*)$/);
+        if (headingMatch) {
+          const s = document.createElement('strong');
+          renderInline(s, headingMatch[1]);
+          el.appendChild(s);
+          return;
         }
-      }
+        const bulletMatch = line.match(/^(\s*)[-*•]\s+(.*)$/);
+        if (bulletMatch) {
+          el.appendChild(document.createTextNode(`${bulletMatch[1]}• `));
+          renderInline(el, bulletMatch[2]);
+          return;
+        }
+        renderInline(el, line);
+      });
     }
 
     function addMsg(cls) {

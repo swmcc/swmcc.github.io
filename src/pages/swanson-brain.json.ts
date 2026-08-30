@@ -42,7 +42,15 @@ export const GET: APIRoute = async () => {
         '/colophon': 'How this site is built',
       },
     },
-    now: nowPages[0]?.body?.trim() ?? null,
+    now: (() => {
+      // the now collection keeps history — Swanson only gets the newest
+      const current = [...nowPages].sort(
+        (a, b) => b.data.updatedDate.valueOf() - a.data.updatedDate.valueOf()
+      )[0];
+      return current
+        ? { updated: current.data.updatedDate.toISOString().slice(0, 10), text: body(current) }
+        : null;
+    })(),
     writing: writing
       .filter((p) => !p.data.draft)
       .sort(byDate)
