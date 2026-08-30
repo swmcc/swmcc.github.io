@@ -9,14 +9,17 @@ local.install:
 	npm install
 
 local.run:
-	@if [ -f worker/.dev.vars ]; then \
+	@if [ ! -f worker/.dev.vars ]; then \
+		echo "ℹ️  worker/.dev.vars not found — Swanson will use canned answers (see worker/README.md)"; \
+		npm run dev; \
+	elif curl -sf -o /dev/null -m 1 http://localhost:4321/ || curl -sf -o /dev/null -m 1 http://localhost:4322/; then \
+		echo "🥩 Site dev server already running — starting Swanson worker in the foreground"; \
+		cd worker && npx wrangler dev --port 8787; \
+	else \
 		echo "🥩 Starting Swanson worker on http://localhost:8787 ..."; \
 		( cd worker && npx wrangler dev --port 8787 ) & \
 		WORKER_PID=$$!; \
 		trap "kill $$WORKER_PID 2>/dev/null" EXIT INT TERM; \
-		npm run dev; \
-	else \
-		echo "ℹ️  worker/.dev.vars not found — Swanson will use canned answers (see worker/README.md)"; \
 		npm run dev; \
 	fi
 
