@@ -74,7 +74,9 @@ async function overBudget(request, env) {
 
 async function fetchBrain(env) {
   const res = await fetch(env.BRAIN_URL || 'https://swm.cc/swanson-brain.json', {
-    cf: { cacheTtl: 3600, cacheEverything: true },
+    // cache successes for an hour; never cache failures (a cached 404
+    // during a deploy window would gag Swanson for the full TTL)
+    cf: { cacheEverything: true, cacheTtlByStatus: { '200-299': 3600, '300-599': 0 } },
   });
   if (!res.ok) throw new Error(`brain fetch failed: ${res.status}`);
   return res.text();
