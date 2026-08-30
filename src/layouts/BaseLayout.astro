@@ -3,6 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ReadingProgress from '../components/ReadingProgress.astro';
+import SwansonModal from '../components/Swanson/SwansonModal.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -44,6 +45,7 @@ const { title, description, image } = Astro.props;
       <slot />
     </main>
     <Footer />
+    <SwansonModal />
   </body>
 </html>
 

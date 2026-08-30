@@ -1,5 +1,6 @@
 ---
 import ThemeToggle from './ThemeToggle.astro';
+import SwansonIcon from './Swanson/SwansonIcon.astro';
 
 const currentPath = Astro.url.pathname;
 
@@ -167,6 +168,7 @@ const navItems = [
       </ul>
 
       <div class="flex items-center gap-2">
+        <SwansonIcon />
         <ThemeToggle />
 
         <!-- Mobile menu button -->
