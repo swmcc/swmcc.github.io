@@ -37,3 +37,6 @@ pnpm-debug.log*
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+# Swanson worker local secrets
+worker/.dev.vars
