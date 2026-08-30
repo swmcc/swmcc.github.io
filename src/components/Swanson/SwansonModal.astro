@@ -1,0 +1,553 @@
+---
+// Swanson — Stephen's AI alter ego, summoned from the header icon.
+// A full-site overlay: spinning entrance, rotating Swanson-isms, and a chat
+// grounded in the site index. Answers come from the swanson-api worker
+// (worker/); the canned Q&A in public/swanson-qa.json is the fallback
+// whenever the worker is unset, capped or unreachable.
+const SWANSON_API =
+  import.meta.env.PUBLIC_SWANSON_API ?? (import.meta.env.DEV ? 'http://localhost:8787' : '');
+---
+
+<div id="swanson-modal" class="swanson-modal hidden" role="dialog" aria-modal="true" aria-label="Ask Swanson">
+  <div class="swanson-backdrop"></div>
+  <div class="swanson-window">
+    <div class="swanson-header">
+      <img
+        id="swanson-face"
+        src="/swanson-avatar.png"
+        alt="Swanson"
+        class="swanson-face"
+      />
+      <div class="min-w-0 flex-1">
+        <div class="swanson-title">SWANSON</div>
+        <div class="swanson-subtitle">Stephen's alter ego. All the knowledge, none of the bugs.</div>
+      </div>
+      <button id="swanson-close" class="swanson-x" aria-label="Close Swanson">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="swanson-quote-bar">
+      <span id="swanson-quote" class="swanson-quote"></span>
+    </div>
+
+    <div id="swanson-log" class="swanson-log" aria-live="polite"></div>
+
+    <form id="swanson-form" class="swanson-input-row">
+      <input
+        id="swanson-input"
+        type="text"
+        maxlength="500"
+        placeholder="Ask what to read, or what Stephen's building…"
+        autocomplete="off"
+        autocapitalize="off"
+        spellcheck="false"
+      />
+      <button type="submit" class="swanson-ask">Ask</button>
+    </form>
+    <div class="swanson-footnote">Swanson is an AI. Confident, not infallible, a bit like Stephen.</div>
+  </div>
+</div>
+
+<style is:global>
+  .swanson-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+  .swanson-modal.hidden {
+    display: none;
+  }
+  .swanson-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+  }
+  /* Mobile: total takeover — edge to edge, no chrome */
+  .swanson-window {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+    border: none;
+    border-radius: 0;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    animation: swanson-rise 0.25s ease-out;
+  }
+  /* Desktop: still a takeover, but framed — nearly the whole viewport */
+  @media (min-width: 768px) {
+    .swanson-modal {
+      padding: 2rem;
+    }
+    .swanson-window {
+      width: min(94vw, 80rem);
+      height: min(92vh, 64rem);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+    }
+    .swanson-face {
+      width: 4rem;
+      height: 4rem;
+    }
+    .swanson-quote {
+      font-size: 1rem;
+    }
+    .swanson-msg {
+      font-size: 0.95rem;
+    }
+    .swanson-log {
+      padding: 1.5rem 2rem;
+    }
+    .swanson-header,
+    .swanson-quote-bar {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .swanson-input-row {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .swanson-footnote {
+      padding-left: 2rem;
+    }
+  }
+  @keyframes swanson-rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .swanson-header {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .swanson-face {
+    width: 3.25rem;
+    height: 3.25rem;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 2px solid #b45309;
+    flex-shrink: 0;
+  }
+  .swanson-face.swanson-spin {
+    animation: swanson-spin 1.4s cubic-bezier(0.34, 1.3, 0.5, 1);
+  }
+  @keyframes swanson-spin {
+    from { transform: rotate(0deg) scale(0.3); }
+    to { transform: rotate(720deg) scale(1); }
+  }
+  .swanson-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--color-text-heading);
+  }
+  .swanson-subtitle {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+  }
+  .swanson-x {
+    color: var(--color-text-muted);
+    padding: 0.4rem;
+    border-radius: 8px;
+    transition: opacity 0.2s;
+  }
+  .swanson-x:hover {
+    opacity: 0.7;
+  }
+  .swanson-quote-bar {
+    padding: 0.75rem 1.25rem;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    min-height: 3.4rem;
+    display: flex;
+    align-items: center;
+  }
+  .swanson-quote {
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    transition: opacity 0.4s ease;
+  }
+  .swanson-quote.swanson-quote-fade {
+    opacity: 0;
+  }
+  .swanson-log {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-height: 8rem;
+  }
+  .swanson-msg {
+    border-radius: 0.75rem;
+    padding: 0.7rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+  .swanson-msg-user {
+    background: var(--color-accent);
+    color: white;
+    align-self: flex-end;
+    max-width: 85%;
+  }
+  .swanson-msg-bot {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+    align-self: flex-start;
+    max-width: 95%;
+  }
+  .swanson-msg-bot a {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+  .swanson-msg-bot strong {
+    color: var(--color-text-heading);
+  }
+  .swanson-msg-bot code {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.05rem 0.3rem;
+    font-size: 0.85em;
+  }
+  .swanson-msg-bot .swanson-code {
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    font-size: 0.8em;
+    font-family: ui-monospace, 'SF Mono', 'JetBrains Mono', monospace;
+    overflow-x: auto;
+    white-space: pre;
+  }
+  .swanson-thinking::after {
+    content: '…';
+    animation: swanson-dots 1.2s steps(4, end) infinite;
+  }
+  @keyframes swanson-dots {
+    0% { content: ''; }
+    25% { content: '.'; }
+    50% { content: '..'; }
+    75% { content: '...'; }
+  }
+  .swanson-input-row {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.9rem 1.25rem 0.4rem;
+    border-top: 1px solid var(--color-border);
+  }
+  .swanson-input-row input {
+    flex: 1;
+    border-radius: 10px;
+    padding: 0.65rem 1rem;
+    font-size: 0.875rem;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    color: var(--color-text);
+  }
+  .swanson-input-row input:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 1px;
+  }
+  .swanson-ask {
+    border-radius: 10px;
+    padding: 0.65rem 1.4rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    background: var(--color-accent);
+    color: white;
+    transition: opacity 0.2s;
+  }
+  .swanson-ask:hover {
+    opacity: 0.85;
+  }
+  .swanson-footnote {
+    padding: 0 1.25rem 0.9rem;
+    font-size: 0.68rem;
+    color: var(--color-text-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .swanson-face.swanson-spin,
+    .swanson-window {
+      animation: none;
+    }
+  }
+</style>
+
+<script define:vars={{ SWANSON_API }}>
+  // Swanson-isms: the swm.cc theme filtered through meat, fishing,
+  // woodworking and a deep distrust of committees.
+  const QUOTES = [
+    'A monolith is like a good steak. One piece, cooked properly, no garnish.',
+    'Microservices are a government: many departments, no one responsible.',
+    'Fishing is debugging the river. Patience, silence, and the occasional rewrite of your approach.',
+    'The best code, like the best breakfast, is mostly meat and no ceremony.',
+    'Never half-ship two things. Whole-ship one thing.',
+    'There is only one bug I truly fear: a committee.',
+    'JavaScript frameworks are like tofu. Enormous effort to imitate meat.',
+    'History began with git init. Everything before that is hearsay.',
+    'A website should be like a workshop: everything static until it has a reason to move.',
+    'Stephen plans meals with an AI. I plan mine with a smoker. We are both fed.',
+    'I distrust any architecture I could not explain while gutting a fish.',
+    'Ask me anything. Brevity is a virtue. So is bacon.',
+    'The cloud is just someone else’s log cabin. Stephen keeps his tidy.',
+    'Agents doing your work in parallel is fine. Agents pushing to main is anarchy, and not the good kind.',
+  ];
+
+  function initSwanson() {
+    const modal = document.getElementById('swanson-modal');
+    const toggle = document.getElementById('swanson-toggle');
+    const close = document.getElementById('swanson-close');
+    const face = document.getElementById('swanson-face');
+    const quoteEl = document.getElementById('swanson-quote');
+    const form = document.getElementById('swanson-form');
+    const input = document.getElementById('swanson-input');
+    const log = document.getElementById('swanson-log');
+    if (!modal || !toggle || !close || !form || !input || !log) return;
+    if (modal.dataset.swansonInit) return;
+    modal.dataset.swansonInit = '1';
+
+    const backdrop = modal.querySelector('.swanson-backdrop');
+    const history = [];
+    let canned = null;
+    let busy = false;
+    let hasSpun = false;
+    let quoteIndex = Math.floor(Math.random() * QUOTES.length);
+    let quoteTimer;
+
+    function showQuote(immediate) {
+      if (!quoteEl) return;
+      if (immediate) {
+        quoteEl.textContent = `“${QUOTES[quoteIndex]}”`;
+        return;
+      }
+      quoteEl.classList.add('swanson-quote-fade');
+      setTimeout(() => {
+        quoteEl.textContent = `“${QUOTES[quoteIndex]}”`;
+        quoteEl.classList.remove('swanson-quote-fade');
+      }, 400);
+    }
+
+    function startQuotes() {
+      showQuote(true);
+      clearInterval(quoteTimer);
+      quoteTimer = setInterval(() => {
+        quoteIndex = (quoteIndex + 1) % QUOTES.length;
+        showQuote(false);
+      }, 9000);
+    }
+
+    function openModal() {
+      modal.classList.remove('hidden');
+      if (!hasSpun && face) {
+        hasSpun = true;
+        face.classList.add('swanson-spin');
+        face.addEventListener('animationend', () => face.classList.remove('swanson-spin'), { once: true });
+      }
+      startQuotes();
+      input.focus();
+    }
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      clearInterval(quoteTimer);
+    }
+
+    toggle.addEventListener('click', openModal);
+    close.addEventListener('click', closeModal);
+    backdrop?.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('hidden')) closeModal();
+    });
+
+    async function loadCanned() {
+      if (canned) return canned;
+      try {
+        const res = await fetch('/swanson-qa.json');
+        canned = await res.json();
+      } catch {
+        canned = { qaPairs: [] };
+      }
+      return canned;
+    }
+
+    function similarity(a, b) {
+      const wa = a.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+      const wb = b.toLowerCase().split(/\s+/).filter((w) => w.length > 2);
+      if (!wa.length || !wb.length) return 0;
+      const overlap = wa.filter((w) => wb.includes(w)).length;
+      return overlap / Math.max(wa.length, wb.length);
+    }
+
+    async function cannedAnswer(question) {
+      const qa = await loadCanned();
+      let best = null;
+      let bestScore = 0;
+      for (const pair of qa.qaPairs || []) {
+        for (const known of pair.questions) {
+          const score = similarity(question, known);
+          if (score > bestScore) {
+            bestScore = score;
+            best = pair;
+          }
+        }
+      }
+      if (best && bestScore > 0.5) return best.answer;
+      return 'The clever half of my brain is offline, so I’ll keep it simple: essays live at /writing, projects at /projects, and what Stephen’s up to right now is at /now.';
+    }
+
+    // Safe rendering of the markdown subset the model actually emits —
+    // [text](url), **bold**, `code`, bare URLs/paths, bullets, headings.
+    // DOM nodes only, never innerHTML.
+    function makeLink(href, label) {
+      const a = document.createElement('a');
+      a.href = href;
+      a.textContent = label;
+      if (href.startsWith('http')) {
+        a.target = '_blank';
+        a.rel = 'noopener';
+      }
+      return a;
+    }
+
+    function renderInline(el, text) {
+      const re = /\[([^\]]+)\]\(([^)\s]+)\)|\*\*([^*]+)\*\*|`([^`]+)`|https?:\/\/[^\s)]+|\/[a-z0-9][a-z0-9\-/]*/g;
+      let last = 0;
+      let m;
+      while ((m = re.exec(text))) {
+        if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+        if (m[1] && m[2]) {
+          el.appendChild(makeLink(m[2], m[1]));
+        } else if (m[3]) {
+          const s = document.createElement('strong');
+          s.textContent = m[3];
+          el.appendChild(s);
+        } else if (m[4]) {
+          const c = document.createElement('code');
+          c.textContent = m[4];
+          el.appendChild(c);
+        } else {
+          el.appendChild(makeLink(m[0], m[0]));
+        }
+        last = re.lastIndex;
+      }
+      if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+    }
+
+    function renderBot(el, text) {
+      el.textContent = '';
+      let codeBlock = null;
+      const lines = text.split('\n');
+      lines.forEach((line, i) => {
+        if (/^\s*```/.test(line)) {
+          if (codeBlock) {
+            codeBlock = null; // closing fence
+          } else {
+            codeBlock = document.createElement('pre');
+            codeBlock.className = 'swanson-code';
+            el.appendChild(codeBlock);
+          }
+          return;
+        }
+        if (codeBlock) {
+          if (codeBlock.textContent) codeBlock.appendChild(document.createTextNode('\n'));
+          codeBlock.appendChild(document.createTextNode(line));
+          return;
+        }
+        if (i > 0) el.appendChild(document.createTextNode('\n'));
+        const headingMatch = line.match(/^#{1,4}\s+(.*)$/);
+        if (headingMatch) {
+          const s = document.createElement('strong');
+          renderInline(s, headingMatch[1]);
+          el.appendChild(s);
+          return;
+        }
+        const bulletMatch = line.match(/^(\s*)[-*•]\s+(.*)$/);
+        if (bulletMatch) {
+          el.appendChild(document.createTextNode(`${bulletMatch[1]}• `));
+          renderInline(el, bulletMatch[2]);
+          return;
+        }
+        renderInline(el, line);
+      });
+    }
+
+    function addMsg(cls) {
+      const el = document.createElement('div');
+      el.className = `swanson-msg ${cls}`;
+      log.appendChild(el);
+      log.scrollTop = log.scrollHeight;
+      return el;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const question = input.value.trim();
+      if (!question || busy) return;
+      busy = true;
+      input.value = '';
+
+      addMsg('swanson-msg-user').textContent = question;
+      const bot = addMsg('swanson-msg-bot swanson-thinking');
+      bot.textContent = 'Swanson is thinking';
+
+      let answer = null;
+      if (SWANSON_API) {
+        try {
+          const controller = new AbortController();
+          const timer = setTimeout(() => controller.abort(), 20000);
+          const res = await fetch(SWANSON_API, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question, history: history.slice(-6) }),
+            signal: controller.signal,
+          });
+          clearTimeout(timer);
+          if (res.ok || res.status === 429) {
+            const data = await res.json();
+            if (data.answer) answer = data.answer;
+          }
+        } catch {
+          // worker unreachable — fall through to canned
+        }
+      }
+      if (!answer) answer = await cannedAnswer(question);
+
+      bot.classList.remove('swanson-thinking');
+      renderBot(bot, answer);
+      log.scrollTop = log.scrollHeight;
+
+      history.push({ role: 'user', content: question });
+      history.push({ role: 'assistant', content: answer });
+      if (history.length > 12) history.splice(0, history.length - 12);
+      busy = false;
+      input.focus();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSwanson);
+  } else {
+    initSwanson();
+  }
+  document.addEventListener('astro:page-load', initSwanson);
+</script>

@@ -13,7 +13,15 @@ export default defineConfig({
   base: '/',
   output: 'static',
   vite: {
-    plugins: [tailwindcss()]
+    plugins: [tailwindcss()],
+    server: {
+      watch: {
+        // wrangler dev persists KV/cache state under worker/.wrangler on
+        // every request; without this, each Swanson answer triggers a
+        // full-page reload that closes the overlay before the reply lands
+        ignored: ['**/worker/**']
+      }
+    }
   },
   integrations: [mdx(), sitemap()],
   markdown: {
