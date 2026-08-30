@@ -59,7 +59,7 @@ const SWANSON_API =
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 0;
   }
   .swanson-modal.hidden {
     display: none;
@@ -67,22 +67,59 @@ const SWANSON_API =
   .swanson-backdrop {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
   }
+  /* Mobile: total takeover — edge to edge, no chrome */
   .swanson-window {
     position: relative;
     width: 100%;
-    max-width: 40rem;
-    max-height: min(85vh, 44rem);
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     background: var(--color-bg);
-    border: 1px solid var(--color-border);
-    border-radius: 16px;
+    border: none;
+    border-radius: 0;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     overflow: hidden;
     animation: swanson-rise 0.25s ease-out;
+  }
+  /* Desktop: still a takeover, but framed — nearly the whole viewport */
+  @media (min-width: 768px) {
+    .swanson-modal {
+      padding: 2rem;
+    }
+    .swanson-window {
+      width: min(94vw, 80rem);
+      height: min(92vh, 64rem);
+      border: 1px solid var(--color-border);
+      border-radius: 20px;
+    }
+    .swanson-face {
+      width: 4rem;
+      height: 4rem;
+    }
+    .swanson-quote {
+      font-size: 1rem;
+    }
+    .swanson-msg {
+      font-size: 0.95rem;
+    }
+    .swanson-log {
+      padding: 1.5rem 2rem;
+    }
+    .swanson-header,
+    .swanson-quote-bar {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .swanson-input-row {
+      padding-left: 2rem;
+      padding-right: 2rem;
+    }
+    .swanson-footnote {
+      padding-left: 2rem;
+    }
   }
   @keyframes swanson-rise {
     from { opacity: 0; transform: translateY(16px); }
