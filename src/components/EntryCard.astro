@@ -12,6 +12,8 @@ interface Props {
   icon: string;               // inline SVG markup
   index: number;              // for the entrance stagger
   date?: Date;
+  updated?: Date;             // last edit, when later than date; drives the "Updated" badge
+  showDate?: boolean;         // projects carry dates for sorting/badges but don't print them
   readMins?: number;
   description?: string;
   tags?: string[];
@@ -20,7 +22,7 @@ interface Props {
   searchText?: string;        // extra text for the search index
 }
 
-const { href, title, icon, index, date, readMins, description, tags = [], status, links = [], searchText = '' } = Astro.props;
+const { href, title, icon, index, date, updated, showDate = true, readMins, description, tags = [], status, links = [], searchText = '' } = Astro.props;
 
 const MAX_TAGS = 3;
 const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(d);
@@ -40,13 +42,14 @@ const ICONS: Record<Link['icon'], string> = {
   data-hay={hay}
   data-tags={tags.map((t) => t.toLowerCase()).join(',')}
   data-date={date?.toISOString()}
+  data-updated={updated?.toISOString()}
 >
   <a class="entry-card__stretch" href={href} aria-label={title}></a>
 
   <div class="entry-card__head">
     <div class="entry-card__tile" set:html={icon} />
     <div class="entry-card__heading">
-      {date && (
+      {date && showDate && (
         <div class="entry-card__kicker">
           <time datetime={date.toISOString()}>{fmt(date)}</time>
           {readMins && <span>· {readMins} min</span>}

@@ -1,0 +1,146 @@
+---
+/**
+ * Homepage "Recently" feed: the last few things that changed on the site,
+ * across essays, notes, projects and Now updates. Built from src/utils/recent.ts
+ * so it agrees with /whats-new.json and Swanson.
+ */
+import { getRecentEntries, KIND_LABEL } from '../utils/recent';
+
+interface Props { limit?: number }
+const { limit = 8 } = Astro.props;
+
+const entries = await getRecentEntries(limit);
+const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(d);
+---
+
+<section id="recently" class="recently max-w-6xl mx-auto" aria-labelledby="recently-title">
+  <div class="card recently__card relative overflow-hidden animate-slide-in-left" style="animation-delay: 300ms;">
+    <!-- Ribbon overlay - top left, same as the Latest Writing / Latest Note cards -->
+    <div class="absolute top-0 left-0 ribbon-top-left">
+      <span style="background: var(--color-accent-teal); color: white;" class="px-4 py-2 text-xs font-black uppercase tracking-wider shadow-lg">
+        Recent
+      </span>
+    </div>
+
+    <div class="recently__head">
+      <h2 id="recently-title">Newest first</h2>
+      <a href="/rss.xml" class="recently__rss">RSS</a>
+    </div>
+
+    <ol class="recently__list">
+      {entries.map((e) => (
+        <li class="recently__row" data-kind={e.kind} data-date={e.date.toISOString()} data-updated={e.updated?.toISOString()}>
+          <a href={e.href} class="recently__link">
+            <time class="recently__date" datetime={e.date.toISOString()}>{fmt(e.date)}</time>
+            <span class:list={['recently__kind', `recently__kind--${e.kind}`]}>{KIND_LABEL[e.kind]}</span>
+            <span class="recently__title">{e.title}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .recently { width: 100%; scroll-margin-top: 6rem; }
+  .recently__card { padding-top: 3.25rem; }
+
+  .recently__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+  .recently__head h2 {
+    margin: 0;
+    font-family: 'Space Grotesk', 'Figtree', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-heading);
+  }
+  .recently__rss {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .recently__rss:hover { color: var(--color-accent); }
+
+  .recently__list { list-style: none; margin: 0; padding: 0; }
+  .recently__row { border-top: 1px solid var(--color-border); }
+  .recently__link {
+    display: grid;
+    grid-template-columns: 5.5rem 4.8rem 1fr;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .recently__date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  .recently__kind {
+    justify-self: start;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.18rem 0.5rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    min-width: 4.6rem;
+    text-align: center;
+  }
+  .recently__kind--essay { color: var(--color-accent-blue); }
+  .recently__kind--note { color: var(--color-accent); }
+  .recently__kind--project { color: var(--color-accent-purple); }
+  .recently__kind--now { color: var(--color-accent-teal); }
+  .recently__title {
+    color: var(--color-text-heading);
+    font-weight: 500;
+    line-height: 1.35;
+    min-width: 0;
+    transition: color 0.15s;
+  }
+  .recently__link:hover .recently__title { color: var(--color-accent); }
+
+  /* "New" marker added client-side for the freshest rows (see script) */
+  .recently__row.is-fresh .recently__title::after {
+    content: attr(data-badge);
+    margin-left: 0.5rem;
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    vertical-align: middle;
+  }
+
+  @media (max-width: 560px) {
+    .recently__link { grid-template-columns: auto auto; }
+    .recently__title { grid-column: 1 / -1; }
+  }
+</style>
+
+<script>
+  const FRESH_DAYS = 5;
+  const now = Date.now();
+  const within = (iso?: string) => !!iso && (() => { const a = (now - new Date(iso).getTime()) / 864e5; return a >= 0 && a <= FRESH_DAYS; })();
+  document.querySelectorAll<HTMLElement>('.recently__row[data-date]').forEach((row) => {
+    const label = within(row.dataset.date) ? 'New' : within(row.dataset.updated) ? 'Updated' : null;
+    if (!label) return;
+    row.classList.add('is-fresh');
+    row.querySelector<HTMLElement>('.recently__title')!.dataset.badge = label;
+  });
+</script>

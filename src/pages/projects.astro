@@ -2,10 +2,22 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ListingToolbar from '../components/ListingToolbar.astro';
 import EntryCard from '../components/EntryCard.astro';
+import { getCollection } from 'astro:content';
+import { updatedAfter } from '../utils/recent';
 
 // Inline the project SVGs so they take the accent colour via currentColor (no CSS filter hacks).
 const svgs = import.meta.glob<string>('/public/projects/*.svg', { query: '?raw', import: 'default', eager: true });
 const iconFor = (path: string) => svgs[`/public${path}`] ?? '';
+
+// Dates come from each project's write-up: published from frontmatter, last edited from git.
+const writeUps = await getCollection('projects');
+const datesFor = (articleUrl: string) => {
+  const entry = writeUps.find((w) => `/projects/${w.id}` === articleUrl);
+  if (!entry) return {};
+  const date = entry.data.pubDate;
+  const updated = updatedAfter(entry.filePath, date);
+  return { date, updated, activity: updated ?? date };
+};
 
 const projects = [
   {
@@ -146,10 +158,16 @@ const projects = [
       <ListingToolbar placeholder="Search projects…" searchLabel="Search projects" filterLabel="Filter by technology" />
 
       <ul class="entry-grid" id="listing-grid">
-        {projects.map((project, i) => (
+        {projects
+          .map((project) => ({ ...project, ...datesFor(project.articleUrl) }))
+          .sort((a, b) => (b.activity?.valueOf() ?? 0) - (a.activity?.valueOf() ?? 0))
+          .map((project, i) => (
           <EntryCard
             href={project.articleUrl}
             title={project.name}
+            date={project.date}
+            updated={project.updated}
+            showDate={false}
             description={project.description}
             tags={project.tags}
             status={project.status}

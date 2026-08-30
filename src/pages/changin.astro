@@ -1,0 +1,40 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Recently from '../components/Recently.astro';
+---
+
+<BaseLayout
+  title="Changin' - Stephen McCullough"
+  description="What's new on swm.cc: essays, notes, project write-ups and Now page updates, newest first"
+>
+  <div class="max-w-6xl mx-auto space-y-8">
+    <div class="space-y-4">
+      <h1 style="color: var(--color-text-heading);" class="text-4xl md:text-5xl font-bold tracking-tight">
+        What I am changin'
+      </h1>
+      <p style="color: var(--color-text-secondary);" class="text-lg md:text-xl leading-relaxed">
+        Everything that has landed on this site, newest first. Built from the content itself, so it cannot go stale.
+      </p>
+      <p style="color: var(--color-text-secondary);" class="text-base md:text-lg leading-relaxed">
+        Too many words? <a href="#" id="ask-swanson-new" style="color: var(--color-accent);" class="font-semibold">Ask Swanson what's new</a> and he will tell you, with the enthusiasm of a man being asked to attend a meeting.
+      </p>
+    </div>
+
+    <Recently limit={30} />
+  </div>
+
+  <script>
+    // Opens Swanson with "What's new?" already asked. He answers from the same feed as this page.
+    document.getElementById('ask-swanson-new')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      document.getElementById('swanson-toggle')?.click();
+      setTimeout(() => {
+        const input = document.getElementById('swanson-input') as HTMLInputElement | null;
+        const form = document.getElementById('swanson-form') as HTMLFormElement | null;
+        if (!input || !form) return;
+        input.value = "What's new?";
+        form.requestSubmit();
+      }, 400);
+    });
+  </script>
+</BaseLayout>

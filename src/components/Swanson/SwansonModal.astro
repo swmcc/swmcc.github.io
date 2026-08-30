@@ -35,12 +35,13 @@ const SWANSON_API =
 
     <div id="swanson-log" class="swanson-log" aria-live="polite"></div>
 
+
     <form id="swanson-form" class="swanson-input-row">
       <input
         id="swanson-input"
         type="text"
         maxlength="500"
-        placeholder="Ask what to read, or what Stephen's building…"
+        placeholder="Ask what's new, what to read, or what Stephen's building…"
         autocomplete="off"
         autocapitalize="off"
         spellcheck="false"
@@ -378,7 +379,7 @@ const SWANSON_API =
       if (!greeted) {
         greeted = true;
         addMsg('swanson-msg-bot').textContent =
-          "Ask me what to read, what Stephen's building, or how anything on this site works. I've read the lot.";
+          "I am Swanson. I have read every word on this site so you do not have to. Ask what's new, what to read, or what Stephen is building. Keep it short; I will.";
       }
       if (!hasSpun && face) {
         hasSpun = true;
@@ -419,6 +420,77 @@ const SWANSON_API =
       if (!wa.length || !wb.length) return 0;
       const overlap = wa.filter((w) => wb.includes(w)).length;
       return overlap / Math.max(wa.length, wb.length);
+    }
+
+    // "What's new?" has a definite answer, so it never needs the model:
+    // read /whats-new.json (built with the site) and say it in Swanson's voice.
+    // Smart quotes (What’s) are normalised first; phrasing is deliberately loose.
+    const WHATS_NEW = /\b(what'?s|whats|what is|anything|something|any)\b[^?]{0,20}\b(new|recent|changed|latest|fresh)\b|\b(new|recent|latest)\b[^?]{0,12}\b(stuff|things|posts|content|work)\b|\brecent(ly)?\b|\bchangelog\b|\b(latest|what'?s new)\s*\??$/i;
+    const normalise = (q) => q.replace(/[\u2018\u2019\u201B`]/g, "'").replace(/[\u201C\u201D]/g, '"');
+
+    function daysAgo(iso) {
+      const days = Math.floor((Date.now() - new Date(iso).getTime()) / 864e5);
+      if (days <= 0) return 'today';
+      if (days === 1) return 'yesterday';
+      if (days < 7) return `${days} days ago`;
+      if (days < 14) return 'last week';
+      if (days < 60) return `${Math.round(days / 7)} weeks ago`;
+      return `${Math.round(days / 30)} months ago`;
+    }
+
+    // Openers and closers picked by how fresh the newest item is. Swanson does
+    // not do enthusiasm, but he respects output.
+    const NEW_LEADS = {
+      hot: [
+        'Stephen has been busy. I checked; it was not a clerical error.',
+        'Fresh. Like a trout that was swimming an hour ago.',
+        'New work has landed. I read it before you asked. That is the job.',
+      ],
+      warm: [
+        'A man is allowed to sharpen his tools. The last thing to leave the workshop:',
+        'No new meat on the grill, but the smoker was going recently:',
+        'Quiet. Not idle. Most recent:',
+      ],
+      cold: [
+        'I do not consider that a failing. The most recent output:',
+        'Stephen has been living his life instead of writing about it. Fine by me. Last seen:',
+        'Silence is a feature. What came before it:',
+      ],
+    };
+    const NEW_CLOSERS = [
+      "The full ledger is under [changin'](/changin). Ask me about any of them and I will summarise. Briefly.",
+      "All of it, in order, is under [changin'](/changin). I have read every word so you can read fewer.",
+      "The rest is under [changin'](/changin). Pick one. I will tell you whether it is worth your time.",
+    ];
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+    // "New" means the last NEW_DAYS days, judged now, in the browser, so the
+    // answer stays honest however long ago the site was built.
+    const NEW_DAYS = 5;
+
+    async function whatsNewAnswer() {
+      try {
+        const res = await fetch('/whats-new.json');
+        const data = await res.json();
+        const all = data.entries || [];
+        if (!all.length) return null;
+        const age = (iso) => (Date.now() - new Date(iso).getTime()) / 864e5;
+        const isNew = (e) => age(e.date) <= NEW_DAYS;
+        const isUpdated = (e) => !isNew(e) && e.updated && age(e.updated) <= NEW_DAYS;
+        const fresh = all.filter((e) => isNew(e) || isUpdated(e));
+        const line = (e) => isUpdated(e)
+          ? `- ${e.label}, updated: [${e.title}](${e.url}), ${daysAgo(e.updated)}`
+          : `- ${e.label}: [${e.title}](${e.url}), ${daysAgo(e.date)}`;
+
+        if (fresh.length) {
+          return `${pick(NEW_LEADS.hot)}\n${fresh.map(line).join('\n')}\n\n${pick(NEW_CLOSERS)}`;
+        }
+        const last = all[0];
+        const lead = age(last.updated || last.date) <= 30 ? pick(NEW_LEADS.warm) : pick(NEW_LEADS.cold);
+        return `Nothing in the last ${NEW_DAYS} days. ${lead}\n${line(last)}`;
+      } catch {
+        return null;
+      }
     }
 
     async function cannedAnswer(question) {
@@ -535,7 +607,8 @@ const SWANSON_API =
       bot.textContent = 'Swanson is thinking';
 
       let answer = null;
-      if (SWANSON_API) {
+      if (WHATS_NEW.test(normalise(question))) answer = await whatsNewAnswer();
+      if (!answer && SWANSON_API) {
         try {
           const controller = new AbortController();
           const timer = setTimeout(() => controller.abort(), 20000);
