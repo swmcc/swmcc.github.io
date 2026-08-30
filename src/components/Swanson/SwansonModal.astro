@@ -99,6 +99,16 @@ const SWANSON_API =
       width: 4rem;
       height: 4rem;
     }
+    .swanson-subtitle {
+      display: block;
+    }
+    .swanson-header {
+      gap: 0.9rem;
+      padding: 1rem 2rem;
+    }
+    .swanson-input-row input {
+      font-size: 0.875rem;
+    }
     .swanson-quote {
       font-size: 1rem;
     }
@@ -128,13 +138,13 @@ const SWANSON_API =
   .swanson-header {
     display: flex;
     align-items: center;
-    gap: 0.9rem;
-    padding: 1rem 1.25rem;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--color-border);
   }
   .swanson-face {
-    width: 3.25rem;
-    height: 3.25rem;
+    width: 2.5rem;
+    height: 2.5rem;
     border-radius: 12px;
     object-fit: cover;
     border: 2px solid #b45309;
@@ -154,6 +164,7 @@ const SWANSON_API =
     color: var(--color-text-heading);
   }
   .swanson-subtitle {
+    display: none;
     font-size: 0.75rem;
     color: var(--color-text-muted);
   }
@@ -167,16 +178,20 @@ const SWANSON_API =
     opacity: 0.7;
   }
   .swanson-quote-bar {
-    padding: 0.75rem 1.25rem;
+    padding: 0.6rem 1rem;
     background: var(--color-bg-secondary);
     border-bottom: 1px solid var(--color-border);
-    min-height: 3.4rem;
     display: flex;
     align-items: center;
   }
+  @media (max-width: 767px) {
+    .swanson-modal.swanson-chatting .swanson-quote-bar {
+      display: none;
+    }
+  }
   .swanson-quote {
     font-style: italic;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     line-height: 1.5;
     color: var(--color-text-secondary);
     transition: opacity 0.4s ease;
@@ -259,7 +274,7 @@ const SWANSON_API =
     flex: 1;
     border-radius: 10px;
     padding: 0.65rem 1rem;
-    font-size: 0.875rem;
+    font-size: 1rem; /* 16px stops iOS zooming the viewport on focus */
     background: var(--color-bg-secondary);
     border: 1px solid var(--color-border);
     color: var(--color-text);
@@ -281,7 +296,7 @@ const SWANSON_API =
     opacity: 0.85;
   }
   .swanson-footnote {
-    padding: 0 1.25rem 0.9rem;
+    padding: 0 1.25rem calc(0.9rem + env(safe-area-inset-bottom));
     font-size: 0.68rem;
     color: var(--color-text-muted);
   }
@@ -356,8 +371,15 @@ const SWANSON_API =
       }, 9000);
     }
 
+    let greeted = false;
     function openModal() {
       modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      if (!greeted) {
+        greeted = true;
+        addMsg('swanson-msg-bot').textContent =
+          "Ask me what to read, what Stephen's building, or how anything on this site works. I've read the lot.";
+      }
       if (!hasSpun && face) {
         hasSpun = true;
         face.classList.add('swanson-spin');
@@ -369,6 +391,7 @@ const SWANSON_API =
 
     function closeModal() {
       modal.classList.add('hidden');
+      document.body.style.overflow = '';
       clearInterval(quoteTimer);
     }
 
@@ -505,6 +528,7 @@ const SWANSON_API =
       if (!question || busy) return;
       busy = true;
       input.value = '';
+      modal.classList.add('swanson-chatting');
 
       addMsg('swanson-msg-user').textContent = question;
       const bot = addMsg('swanson-msg-bot swanson-thinking');
