@@ -51,8 +51,12 @@ No variable set → the widget quietly uses canned answers.
 ## Local dev
 
 ```bash
-cd worker && npx wrangler dev        # serves on http://localhost:8787
+make local.run    # starts the worker (and the site if not already running)
 ```
 
-The Astro dev server defaults `PUBLIC_SWANSON_API` to
-`http://localhost:8787`, so `make local.run` + `wrangler dev` just works.
+`worker/.dev.vars` needs only `ANTHROPIC_API_KEY=...`. The Astro dev server
+defaults `PUBLIC_SWANSON_API` to `http://localhost:8787`, and the local
+worker reads its brain from production swm.cc — so it works regardless of
+which port the site's dev server lands on. (Only add a `BRAIN_URL=` line to
+.dev.vars if you're editing content and want Swanson to know about it
+before it deploys.)
