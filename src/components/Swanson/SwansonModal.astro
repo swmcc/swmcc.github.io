@@ -474,15 +474,19 @@ const SWANSON_API =
         const data = await res.json();
         const all = data.entries || [];
         if (!all.length) return null;
-        const age = (e) => (Date.now() - new Date(e.date).getTime()) / 864e5;
-        const fresh = all.filter((e) => age(e) <= NEW_DAYS);
-        const line = (e) => `- ${e.label}: [${e.title}](${e.url}), ${daysAgo(e.date)}`;
+        const age = (iso) => (Date.now() - new Date(iso).getTime()) / 864e5;
+        const isNew = (e) => age(e.date) <= NEW_DAYS;
+        const isUpdated = (e) => !isNew(e) && e.updated && age(e.updated) <= NEW_DAYS;
+        const fresh = all.filter((e) => isNew(e) || isUpdated(e));
+        const line = (e) => isUpdated(e)
+          ? `- ${e.label}, updated: [${e.title}](${e.url}), ${daysAgo(e.updated)}`
+          : `- ${e.label}: [${e.title}](${e.url}), ${daysAgo(e.date)}`;
 
         if (fresh.length) {
           return `${pick(NEW_LEADS.hot)}\n${fresh.map(line).join('\n')}\n\n${pick(NEW_CLOSERS)}`;
         }
         const last = all[0];
-        const lead = age(last) <= 30 ? pick(NEW_LEADS.warm) : pick(NEW_LEADS.cold);
+        const lead = age(last.updated || last.date) <= 30 ? pick(NEW_LEADS.warm) : pick(NEW_LEADS.cold);
         return `Nothing in the last ${NEW_DAYS} days. ${lead}\n${line(last)}`;
       } catch {
         return null;

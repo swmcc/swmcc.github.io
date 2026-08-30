@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { formatDateLong } from '../../utils/formatDate';
+import { gitDates, differentDay } from '../../utils/gitDates';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
@@ -12,18 +14,22 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 const { Content } = await render(project);
+
+// Published comes from frontmatter; last edited comes from git, shown only when it's a later day.
+const published = new Date(project.data.pubDate);
+const { updated } = gitDates(project.filePath);
+const lastEdited = updated && updated > published && differentDay(updated, published) ? updated : undefined;
 ---
 
 <BaseLayout title={project.data.title} description={project.data.description}>
   <article class="prose prose-lg dark:prose-invert max-w-none">
     <h1 style="color: var(--color-text-heading);">{project.data.title}</h1>
 
-    <div style="color: var(--color-text-muted);" class="text-sm mb-8">
-      Published {new Date(project.data.pubDate).toLocaleDateString('en-GB', {
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      })}
+    <div style="color: var(--color-text-muted);" class="text-sm mb-8 space-y-1">
+      <div>Published <time datetime={published.toISOString()}>{formatDateLong(published)}</time></div>
+      {lastEdited && (
+        <div>Last edited <time datetime={lastEdited.toISOString()}>{formatDateLong(lastEdited)}</time></div>
+      )}
     </div>
 
     <div style="color: var(--color-text);">

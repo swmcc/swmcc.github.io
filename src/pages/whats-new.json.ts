@@ -15,6 +15,7 @@ export const GET: APIRoute = async () => {
         title: e.title,
         url: e.href,
         date: e.date.toISOString().slice(0, 10),
+        ...(e.updated ? { updated: e.updated.toISOString().slice(0, 10) } : {}),
         ...(e.description ? { description: e.description } : {}),
       })),
     }),

@@ -130,11 +130,10 @@
     try {
       const res = await fetch('/whats-new.json');
       const data = await res.json();
-      const fresh = (data.entries || []).filter(
-        (e: { date: string }) => (Date.now() - new Date(e.date).getTime()) / 864e5 <= FRESH_DAYS
-      );
+      const within = (iso?: string) => !!iso && (Date.now() - new Date(iso).getTime()) / 864e5 <= FRESH_DAYS;
+      const fresh = (data.entries || []).filter((e: { date: string; updated?: string }) => within(e.date) || within(e.updated));
       if (!fresh.length) return;
-      newest = fresh[0].date;
+      newest = fresh[0].updated || fresh[0].date;
     } catch {
       return;
     }

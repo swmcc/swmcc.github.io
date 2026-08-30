@@ -1,6 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
-import { getRecentEntries, KIND_LABEL } from '../utils/recent';
+import { getRecentEntries, KIND_LABEL, updatedAfter } from '../utils/recent';
 
 // Site knowledge consumed by the Swanson worker (worker/): metadata AND the
 // full text of every essay, note and project write-up, so Swanson can
@@ -28,10 +28,12 @@ export const GET: APIRoute = async () => {
   const brain = {
     generatedAt: new Date().toISOString(),
     // newest changes across the whole site, so "what's new?" has a definite answer
+    // `date` is when it was published; `updated` (when present) is a later edit
     recent: recent.map((e) => ({
       kind: KIND_LABEL[e.kind],
       title: e.title,
       date: e.date.toISOString().slice(0, 10),
+      ...(e.updated ? { updated: e.updated.toISOString().slice(0, 10) } : {}),
       url: e.href,
     })),
     about: {
@@ -80,13 +82,18 @@ export const GET: APIRoute = async () => {
       url: `/notes/${n.id}`,
       body: body(n),
     })),
-    projects: projects.sort(byDate).map((p) => ({
-      title: p.data.title,
-      description: p.data.description,
-      tags: p.data.tags ?? [],
-      url: `/projects/${p.id}`,
-      body: body(p),
-    })),
+    projects: projects.sort(byDate).map((p) => {
+      const updated = updatedAfter(p.filePath, p.data.pubDate);
+      return {
+        title: p.data.title,
+        description: p.data.description,
+        tags: p.data.tags ?? [],
+        date: p.data.pubDate.toISOString().slice(0, 10),
+        ...(updated ? { updated: updated.toISOString().slice(0, 10) } : {}),
+        url: `/projects/${p.id}`,
+        body: body(p),
+      };
+    }),
   };
 
   return new Response(JSON.stringify(brain, null, 2), {

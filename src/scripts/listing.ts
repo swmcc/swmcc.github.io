@@ -4,7 +4,7 @@
  * Runs on load; also listens for astro:page-load in case a ClientRouter is added later.
  */
 
-const FRESH_DAYS = 4;
+const FRESH_DAYS = 5;
 const VIEW_KEY = 'swm-listing-view';
 
 const cap = (s: string) => s.split(' ').map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
@@ -30,19 +30,18 @@ function init() {
   const active = new Set<string>();
   let query = '';
 
-  // ---- "New" badge + bounce for anything published in the last few days
+  // ---- "New" / "Updated" badge + bounce for recent activity.
+  // New: published in the last FRESH_DAYS. Updated: edited in that window but published earlier.
   const now = Date.now();
+  const within = (iso?: string) => !!iso && (() => { const a = (now - new Date(iso).getTime()) / 864e5; return a >= 0 && a <= FRESH_DAYS; })();
   cards.forEach((card) => {
-    const d = card.dataset.date;
-    if (!d) return;
-    const age = (now - new Date(d).getTime()) / 864e5;
-    if (age >= 0 && age <= FRESH_DAYS) {
-      card.classList.add('entry-card--fresh');
-      const badge = document.createElement('span');
-      badge.className = 'entry-card__new';
-      badge.textContent = 'New';
-      card.append(badge);
-    }
+    const label = within(card.dataset.date) ? 'New' : within(card.dataset.updated) ? 'Updated' : null;
+    if (!label) return;
+    card.classList.add('entry-card--fresh');
+    const badge = document.createElement('span');
+    badge.className = 'entry-card__new';
+    badge.textContent = label;
+    card.append(badge);
   });
 
   // ---- tag filter panel
