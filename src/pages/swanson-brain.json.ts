@@ -1,10 +1,17 @@
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
 
-// Lean site index consumed by the Swanson worker (worker/): everything the
-// model needs to recommend and link content, none of the full article
-// bodies. Regenerated on every build, so Swanson learns new content on
-// deploy without the worker being touched.
+// Site knowledge consumed by the Swanson worker (worker/): metadata AND the
+// full text of every essay, note and project write-up, so Swanson can
+// actually discuss the content rather than just point at it. Regenerated on
+// every build, so Swanson learns new content on deploy without the worker
+// being touched. Kept affordable by Anthropic prompt caching (the whole
+// blob rides in a cached system block).
+const MAX_BODY_CHARS = 12000;
+
+const body = (entry: { body?: string }) =>
+  (entry.body ?? '').trim().slice(0, MAX_BODY_CHARS);
+
 export const GET: APIRoute = async () => {
   const [writing, notes, projects, nowPages] = await Promise.all([
     getCollection('writing'),
@@ -45,18 +52,21 @@ export const GET: APIRoute = async () => {
         tags: p.data.tags ?? [],
         date: p.data.pubDate.toISOString().slice(0, 10),
         url: `/writing/${p.id}`,
+        body: body(p),
       })),
     notes: notes.sort(byDate).map((n) => ({
       title: n.data.title,
       tags: n.data.tags ?? [],
       date: n.data.pubDate.toISOString().slice(0, 10),
       url: `/notes/${n.id}`,
+      body: body(n),
     })),
     projects: projects.sort(byDate).map((p) => ({
       title: p.data.title,
       description: p.data.description,
       tags: p.data.tags ?? [],
       url: `/projects/${p.id}`,
+      body: body(p),
     })),
   };
 

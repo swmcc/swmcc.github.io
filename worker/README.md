@@ -1,8 +1,11 @@
 # swanson-api
 
-The Cloudflare Worker behind the Swanson widget on the homepage. Holds the
-Anthropic key, injects the site index (`/swanson-brain.json`) into a cached
-system prompt, and answers with Haiku. The widget falls back to canned
+The Cloudflare Worker behind the Swanson overlay (header icon, every page).
+Holds the Anthropic key, injects the site knowledge (`/swanson-brain.json` —
+metadata plus the FULL TEXT of every essay, note and project write-up,
+~60k tokens) into a cached system prompt, and answers with Haiku. Swanson
+can therefore actually discuss the content — summarise essays, explain how
+the projects work — not just link to it. The widget falls back to canned
 answers (`public/swanson-qa.json`) whenever this worker is absent, capped
 or unreachable — the site never depends on it.
 
@@ -11,15 +14,19 @@ or unreachable — the site never depends on it.
 1. **Anthropic workspace spend limit** — create a dedicated workspace +
    API key at console.anthropic.com and set a monthly spend cap (£10 is
    plenty). Enforced by Anthropic server-side: the bill *cannot* exceed it.
-2. Model fixed to Haiku, `max_tokens` 400, question truncated to 500 chars.
+2. Model fixed to Haiku, `max_tokens` 640, question truncated to 500 chars.
 3. Global cap of 300 requests/day + 20/hour per IP (KV counters). Beyond
    either, visitors get a polite in-character brush-off, costing nothing.
 4. The system prompt is identical on every request → Anthropic prompt
-   caching makes the big site-index block ~90% cheaper after the first hit.
+   caching makes the ~60k-token site-knowledge block ~90% cheaper after
+   the first hit (cache reads, not full-price input).
 
-Worst case with all caps at defaults: roughly £10–12/month, which is why
-the workspace cap at £10 makes the whole question moot. Realistic personal
-site traffic: pence.
+With full content in the prompt a request costs roughly a penny. A month
+of the daily cap maxed out every single day would exceed a £10 workspace
+cap — at which point Anthropic refuses further requests and Swanson naps
+until the 1st. That is the design working, not failing: the workspace cap
+is the ceiling, the KV caps just keep ordinary abuse from reaching it.
+Realistic personal-site traffic: pence per month.
 
 ## Deploy (one-off, ~5 minutes)
 
