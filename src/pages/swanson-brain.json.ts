@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import type { APIRoute } from 'astro';
+import { getRecentEntries, KIND_LABEL } from '../utils/recent';
 
 // Site knowledge consumed by the Swanson worker (worker/): metadata AND the
 // full text of every essay, note and project write-up, so Swanson can
@@ -22,8 +23,17 @@ export const GET: APIRoute = async () => {
 
   const byDate = (a: any, b: any) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf();
 
+  const recent = await getRecentEntries(10);
+
   const brain = {
     generatedAt: new Date().toISOString(),
+    // newest changes across the whole site, so "what's new?" has a definite answer
+    recent: recent.map((e) => ({
+      kind: KIND_LABEL[e.kind],
+      title: e.title,
+      date: e.date.toISOString().slice(0, 10),
+      url: e.href,
+    })),
     about: {
       name: 'Stephen McCullough',
       role: 'Software engineer and founder',
@@ -39,6 +49,7 @@ export const GET: APIRoute = async () => {
         '/eatin': "This week's meal plan (syndicated from Grub)",
         '/readin': "What he's reading",
         '/listenin': "What he's listening to",
+        '/changin': "What's new on the site, newest first",
         '/colophon': 'How this site is built',
       },
     },
