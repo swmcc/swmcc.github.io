@@ -1,6 +1,6 @@
 ---
-title: "Building swm.cc with Astro 5"
-description: "Why I chose Astro 5, Tailwind CSS 4, and MDX for my personal site, and the architectural decisions behind a zero-JavaScript-by-default approach"
+title: "Building swm.cc with Astro"
+description: "Why I chose Astro, Tailwind CSS 4, and MDX for my personal site, and the architectural decisions behind a zero-JavaScript-by-default approach"
 pubDate: 2025-11-01
 tags: ["astro", "tailwind", "mdx", "web-performance", "architecture"]
 ---
@@ -9,7 +9,9 @@ tags: ["astro", "tailwind", "mdx", "web-performance", "architecture"]
 
 I needed a personal site that was fast, maintainable, and reflected modern web standards. Most importantly, I wanted something I could actually update without fighting a complex build process or framework overhead.
 
-## Why Astro 5?
+## Why Astro?
+
+*(I chose Astro at version 5; Dependabot has since marched the site up to Astro 7. Every reason below has survived two major versions, which is itself a point in Astro's favour.)*
 
 **Zero-JavaScript by Default (Mostly)**
 
@@ -194,67 +196,9 @@ Lighthouse scores and Web Vitals are great, but the real metric is: can I update
 
 Most personal sites don't need JavaScript. Static HTML is faster, more accessible, more resilient, and easier to maintain. Starting from "zero JavaScript" and adding it only when necessary is a better default than the other way around.
 
-## Thoughts: GitHub Actions for Quick Posts
+## Thoughts Moved Out
 
-I've moved on from my Twitter days. I don't have much to say about social media anymore, but in the spirit of owning my own data, I wanted a way to capture quick thoughts without the overhead of writing a full blog post.
-
-**The Problem**
-
-I needed a way to post quick thoughts from my phone whilst travelling or away from my desk. Creating a markdown file, committing, and pushing via mobile is tedious. I wanted something as frictionless as posting to Twitter, but with the data living on my site.
-
-**The Solution**
-
-A password-protected form at `/quick-thought` that triggers a GitHub Actions workflow:
-
-```typescript
-// POST to GitHub API with repository_dispatch event
-await fetch('https://api.github.com/repos/swmcc/swmcc.github.io/dispatches', {
-  method: 'POST',
-  headers: {
-    'Authorization': `Bearer ${authToken}`,
-  },
-  body: JSON.stringify({
-    event_type: 'create-thought',
-    client_payload: { slug, tags, content }
-  })
-});
-```
-
-The workflow creates a markdown file, commits it, and pushes to main:
-
-```yaml
-- name: Create thought file
-  run: |
-    SLUG="${{ github.event.client_payload.slug }}"
-    CONTENT="${{ github.event.client_payload.content }}"
-    DATE="$(date +'%Y-%m-%d')"
-    TIME="$(date +'%H:%M')"
-
-    echo "---" > "src/content/thoughts/${SLUG}.md"
-    echo "pubDate: ${DATE}" >> "src/content/thoughts/${SLUG}.md"
-    echo "pubTime: \"${TIME}\"" >> "src/content/thoughts/${SLUG}.md"
-    echo "---" >> "src/content/thoughts/${SLUG}.md"
-    echo "" >> "src/content/thoughts/${SLUG}.md"
-    echo "$CONTENT" >> "src/content/thoughts/${SLUG}.md"
-
-- name: Commit and push
-  run: |
-    git add src/content/thoughts/
-    git commit -m "💭 Add thought: ${{ github.event.client_payload.slug }}"
-    git push
-```
-
-GitHub Pages redeploys automatically. The entire flow takes ~2 minutes from form submission to live content.
-
-**Why This Works**
-
-- No backend infrastructure (serverless via GitHub Actions)
-- Password is a GitHub Personal Access Token (fine-grained, repo-scoped)
-- Content lives in git history (versioned, recoverable)
-- Works from mobile browser
-- No third-party services
-
-This is what data ownership looks like in practice. I control the content, the infrastructure, and the workflow. Twitter can disappear tomorrow - my thoughts stay here.
+An earlier version of this site had a password-protected form that committed quick thoughts as markdown files via a GitHub Actions workflow. It was clever and I never used it: the round trip through a rebuild made posting feel like deploying. Quick posts now live at [thoughts.swm.cc](https://thoughts.swm.cc), a small Rails PWA built for frictionless mobile posting, and the homepage here syndicates the latest ones client-side. The full story is in [Building Thoughts](/projects/building-thoughts).
 
 ## Long-Form Writing and Notes
 
@@ -283,119 +227,17 @@ const notes = defineCollection({
 
 Different schemas, different routes, same underlying Content Collections API. As the site grows, the separation keeps things organised without adding complexity.
 
-## Interactive Terminal: Swanson AI
+## Swanson: The Site's Alter Ego
 
-One of the more experimental features of this site is the interactive terminal emulator accessible via the terminal icon in the header. It's a custom-built interface that combines shell-style navigation with an AI chat mode powered by build-time content indexing.
+The header avatar next to the theme toggle summons Swanson, my AI alter ego. He has read every essay, note and project page on this site and will tell you, with mild impatience, what's worth your time.
 
-**The Concept**
+This started life as a terminal emulator easter egg with canned, pattern-matched answers. Nobody used the terminal, so it's gone, and Swanson got a real brain instead: a Cloudflare Worker running Haiku with the full text of the site in a cached system prompt, wrapped in layered spend caps so a public AI endpoint can't run up a bill. The site itself stays fully static; if the worker is down or capped, Swanson falls back to canned answers and nothing breaks.
 
-I wanted a unique way to explore the site's content that felt more interactive than just clicking links. A terminal interface provides:
-- Familiar shell commands (ls, cd, cat, tree, pwd)
-- Natural language queries via "Swanson AI" - my digital alter ego
-- Full-text search across all writing, notes, thoughts, and projects
-- A bit of personality and humour
-
-**Technical Implementation**
-
-The terminal is written in TypeScript and integrates with Astro's content collections:
-
-```typescript
-// Generate searchable index at build time
-export const GET: APIRoute = async () => {
-  const [writing, notes, thoughts, projects] = await Promise.all([
-    getCollection('writing'),
-    getCollection('notes'),
-    getCollection('thoughts'),
-    getCollection('projects')
-  ]);
-
-  // Build file system structure
-  const fileSystem = {
-    'writing': {
-      type: 'directory',
-      children: writing.map(post => ({
-        type: 'file',
-        content: post.data.description,
-        url: `/writing/${post.slug}`
-      }))
-    }
-    // ... more collections
-  };
-
-  // Build searchable index with full content
-  const searchIndex = [...writing, ...notes, ...thoughts, ...projects].map(item => ({
-    title: item.data.title,
-    content: item.body,
-    tags: item.data.tags,
-    url: item.url
-  }));
-
-  return new Response(JSON.stringify({ fileSystem, searchIndex }));
-};
-```
-
-The `/terminal-index.json` endpoint is generated at build time and loaded lazily only when the terminal is opened. This keeps the initial page load fast whilst providing full-text search capabilities.
-
-**Swanson AI: Content-Aware Chat**
-
-The "AI" is entirely local - no external APIs, no tracking. It uses pattern matching and keyword extraction to answer questions based on the indexed content:
-
-```typescript
-// Detect skill-based questions
-if (question.includes('rails')) {
-  const railsContent = searchIndex.filter(item =>
-    item.tags.includes('rails') ||
-    item.content.toLowerCase().includes('rails')
-  );
-
-  return formatResponse(railsContent);
-}
-```
-
-Natural language detection automatically routes questions to the chat mode:
-
-```typescript
-const questionWords = ['what', 'who', 'how', 'does', 'tell me'];
-if (questionWords.some(word => input.startsWith(word))) {
-  return executeAskCommand(input);
-}
-```
-
-**Shell Commands**
-
-The terminal implements familiar Unix-style commands:
-- `ls [path]` - List directory contents
-- `cd <path>` - Navigate the virtual file system
-- `cat <file>` - Display file contents
-- `tree` - Show directory structure
-- `whoami` - Display profile with image
-- `exit` - Close terminal
-
-All commands operate on a virtual file system generated from the site's content collections. When you add a new markdown file to any collection, it automatically appears in the terminal at the next build.
-
-**Performance Characteristics**
-
-- Terminal client code: ~10KB (minified)
-- Content index: ~30KB (gzipped)
-- Loaded only when terminal opens (zero impact on initial page load)
-- Full-text search across all content
-- No external API calls
-
-The boot sequence animation includes some self-deprecating humour ("System ready. Stephen is not.") and gives the terminal personality beyond just being a functional interface.
-
-**Why Build This?**
-
-Mostly because it's fun. But also:
-- It provides an alternative navigation method for power users
-- The searchable content index makes finding specific topics easier
-- It demonstrates progressive enhancement (works without it, enhanced experience with it)
-- It's a showcase of what you can build with vanilla TypeScript and build-time data
-
-You can try it by clicking the terminal icon next to the theme toggle.
+The whole design, including the cost engineering and the shipping mishaps, is written up properly in [Giving swm.cc a Brain](/projects/giving-swm-cc-a-brain).
 
 ## Conclusion
 
-Astro 5 + Tailwind 4 + MDX gives me:
+Astro + Tailwind 4 + MDX gives me:
 - Instant page loads
 - Type-safe content
 - Minimal JavaScript

@@ -13,6 +13,16 @@ const projects = [
     icon: '/projects/swm-cc.svg'
   },
   {
+    name: 'Swanson AI',
+    url: 'https://swm.cc',
+    github: 'https://github.com/swmcc/swmcc.github.io/tree/main/worker',
+    articleUrl: '/projects/giving-swm-cc-a-brain',
+    description: 'This site\'s alter ego: the avatar in the header that has read every essay, note and project page and tells visitors what\'s worth their time. A Cloudflare Worker runs Haiku with the full site text in a cached system prompt, generated as a build artifact. Layered spend caps (workspace limit, request budgets, canned fallback) keep a public AI endpoint from ever running up a bill.',
+    tags: ['Claude Haiku', 'Cloudflare Workers', 'Prompt Caching', 'KV', 'Cost Engineering'],
+    status: 'Active',
+    icon: '/projects/swanson-ai.svg'
+  },
+  {
     name: 'whatisonthe.tv',
     url: 'https://www.whatisonthe.tv',
     github: 'https://github.com/swmcc/whatisonthe.tv',
