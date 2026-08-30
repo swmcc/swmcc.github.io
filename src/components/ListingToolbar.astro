@@ -1,0 +1,47 @@
+---
+/**
+ * Search box, tag filter dropdown, and grid/list toggle for a listing page.
+ * Behaviour lives in src/scripts/listing.ts; this only renders the controls.
+ */
+interface Props {
+  placeholder: string;
+  filterLabel?: string;
+  searchLabel: string;
+}
+const { placeholder, filterLabel = 'Filter by tag', searchLabel } = Astro.props;
+---
+
+<div class="listing-toolbar not-prose">
+  <label class="listing-search">
+    <span class="sr-only">{searchLabel}</span>
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5" stroke-linecap="round"/></svg>
+    <input type="search" id="listing-search" placeholder={placeholder} autocomplete="off" />
+  </label>
+
+  <div class="listing-filter">
+    <button type="button" class="listing-btn" id="filter-toggle" aria-expanded="false" aria-controls="filter-panel">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg>
+      <span>{filterLabel}</span>
+      <span class="listing-count" id="filter-count"></span>
+    </button>
+    <div class="listing-panel" id="filter-panel" hidden>
+      <header>
+        <span>{filterLabel}</span>
+        <button type="button" id="clear-filters">Clear all</button>
+      </header>
+      <div class="listing-panel__chips" id="tag-filters"></div>
+    </div>
+  </div>
+
+  <div class="listing-view" role="group" aria-label="Layout">
+    <button type="button" id="view-grid" aria-pressed="true" title="Grid" aria-label="Grid layout">
+      <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+    </button>
+    <button type="button" id="view-list" aria-pressed="false" title="List" aria-label="List layout">
+      <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="listing-active" id="active-filters"></div>
+<div class="listing-meta">Showing <b id="shown">0</b> of <b id="total">0</b></div>

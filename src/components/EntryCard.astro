@@ -1,0 +1,88 @@
+---
+/**
+ * One card in a listing grid (writing, notes, projects).
+ * Rendered as <li> so BaseLayout's scroll observer (which targets <article>) leaves it alone.
+ * The whole card is a link via a stretched anchor; tag chips and footer links sit above it.
+ */
+interface Link { href: string; label: string; icon: 'site' | 'github' | 'article'; external?: boolean }
+
+interface Props {
+  href: string;
+  title: string;
+  icon: string;               // inline SVG markup
+  index: number;              // for the entrance stagger
+  date?: Date;
+  readMins?: number;
+  description?: string;
+  tags?: string[];
+  status?: string;            // projects only
+  links?: Link[];             // projects only
+  searchText?: string;        // extra text for the search index
+}
+
+const { href, title, icon, index, date, readMins, description, tags = [], status, links = [], searchText = '' } = Astro.props;
+
+const MAX_TAGS = 3;
+const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }).format(d);
+const hay = [title, description ?? '', searchText, tags.join(' ')].join(' ').toLowerCase();
+const statusClass = status === 'Archived' ? 'archived' : status === 'On Hold' ? 'hold' : '';
+
+const ICONS: Record<Link['icon'], string> = {
+  site: '<svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/></svg>',
+  github: '<svg fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.39.6.11.8-.26.8-.58v-2.23c-3.34.72-4.03-1.42-4.03-1.42-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.31.76-1.61-2.66-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.13-.3-.54-1.52.12-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.25 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.3c0 .32.2.7.8.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/></svg>',
+  article: '<svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6.25v13M12 6.25C10.8 5.5 9.25 5 7.5 5S4.2 5.5 3 6.25v13c1.2-.75 2.75-1.25 4.5-1.25s3.3.5 4.5 1.25m0-13C13.2 5.5 14.75 5 16.5 5s3.3.5 4.5 1.25v13c-1.2-.75-2.75-1.25-4.5-1.25s-3.3.5-4.5 1.25"/></svg>',
+};
+---
+
+<li
+  class="entry-card"
+  style={`--i: ${index}`}
+  data-hay={hay}
+  data-tags={tags.map((t) => t.toLowerCase()).join(',')}
+  data-date={date?.toISOString()}
+>
+  <a class="entry-card__stretch" href={href} aria-label={title}></a>
+
+  <div class="entry-card__head">
+    <div class="entry-card__tile" set:html={icon} />
+    <div class="entry-card__heading">
+      {date && (
+        <div class="entry-card__kicker">
+          <time datetime={date.toISOString()}>{fmt(date)}</time>
+          {readMins && <span>· {readMins} min</span>}
+        </div>
+      )}
+      <h2 class:list={['entry-card__title', { 'entry-card__title--one': !!status }]}>{title}</h2>
+      {status && <span class:list={['entry-card__status', statusClass]}>{status}</span>}
+    </div>
+  </div>
+
+  {description && <p class="entry-card__desc">{description}</p>}
+
+  <div class="entry-card__foot">
+    {tags.length > 0 && (
+      <div class="entry-card__tags">
+        {tags.map((tag, i) => (
+          <button type="button" class:list={['chip', 'tag-chip', { 'chip--overflow': i >= MAX_TAGS }]} data-tag={tag.toLowerCase()}>
+            {tag}
+          </button>
+        ))}
+        {tags.length > MAX_TAGS && <span class="chip chip--more">+{tags.length - MAX_TAGS}</span>}
+      </div>
+    )}
+    {links.length > 0 && (
+      <div class="entry-card__links">
+        {links.map((l) => (
+          <a
+            href={l.href}
+            title={l.label}
+            aria-label={l.label}
+            target={l.external ? '_blank' : undefined}
+            rel={l.external ? 'noopener noreferrer' : undefined}
+            set:html={ICONS[l.icon]}
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</li>
