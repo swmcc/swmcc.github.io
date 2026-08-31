@@ -31,9 +31,14 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: '2-digit', mont
       {entries.map((e) => (
         <li class="recently__row" data-kind={e.kind} data-date={e.date.toISOString()} data-updated={e.updated?.toISOString()}>
           <a href={e.href} class="recently__link">
-            <time class="recently__date" datetime={e.date.toISOString()}>{fmt(e.date)}</time>
+            <time class="recently__date" datetime={e.activity.toISOString()}>{fmt(e.activity)}</time>
             <span class:list={['recently__kind', `recently__kind--${e.kind}`]}>{KIND_LABEL[e.kind]}</span>
-            <span class="recently__title">{e.title}</span>
+            <span class="recently__text">
+              <span class="recently__title">{e.title}</span>
+              {e.updated && (
+                <span class="recently__origin">first published <time datetime={e.date.toISOString()}>{fmt(e.date)}</time></span>
+              )}
+            </span>
           </a>
         </li>
       ))}
@@ -103,12 +108,17 @@ const fmt = (d: Date) => new Intl.DateTimeFormat('en-GB', { day: '2-digit', mont
   .recently__kind--note { color: var(--color-accent); }
   .recently__kind--project { color: var(--color-accent-purple); }
   .recently__kind--now { color: var(--color-accent-teal); }
+  .recently__text { min-width: 0; display: flex; flex-direction: column; gap: 0.1rem; }
   .recently__title {
     color: var(--color-text-heading);
     font-weight: 500;
     line-height: 1.35;
-    min-width: 0;
     transition: color 0.15s;
+  }
+  .recently__origin {
+    font-size: 0.72rem;
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
   }
   .recently__link:hover .recently__title { color: var(--color-accent); }
 
