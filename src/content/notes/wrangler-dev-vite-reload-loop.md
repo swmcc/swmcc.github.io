@@ -1,6 +1,6 @@
 ---
 title: "When wrangler dev Fights Your Dev Server"
-pubDate: 2026-08-30T00:00:00.000Z
+pubDate: 2026-09-03T00:00:00.000Z
 tags:
   - cloudflare-workers
   - wrangler
