@@ -9,7 +9,7 @@ tags: ["agentic-development", "claude", "orchestration", "multi-model"]
 
 Coding agents are good now. Genuinely good. But the way most of us use them hasn't caught up: one agent, one terminal, and you sit there watching it work like it's 2024. The bottleneck has stopped being the typing and become the orchestration. Deciding what to build, keeping more than one agent busy at once, reviewing what comes back and stopping any of it shipping before a human has looked at it.
 
-There's also a cost and fit problem nobody talks about enough. Running your biggest, most expensive model on every task is lazy. Renaming a function does not need the same brain as designing a schema. What I wanted was a workflow that plans with the strongest model available, then farms the actual work out to whatever model each task deserves.
+There's also a cost and fit problem nobody talks about enough. Running your biggest, most expensive model on every task is lazy. Renaming a function does not need the same brain as designing a schema. What I wanted was a workflow that plans with a model strong enough to be trusted, then farms the actual work out to whatever model each task deserves. These days that means planning on Opus with the top-tier model one config line away for the rare ticket that earns it, and a proper ladder underneath: Sonnet for ordinary work, Haiku for the mechanical stuff, Codex and Pi when the task belongs on the other subscription's quota.
 
 So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn). Named for the Grand Admiral, because the whole point is that it wins by planning and delegation rather than brute force.
 
@@ -42,11 +42,13 @@ I'm dogfooding this properly, with a ledger that records every run, and the earl
 
 My suspicion is that my personal projects are the wrong testing ground. They're small monoliths, and the tasks are chatty with each other. Where Thrawn should earn its keep is distributed work, where service boundaries give you natural task boundaries. I'll find out when I've used it in anger at work.
 
+Then in September the platform made the ledger's job easier by eating half the roadmap. An audit of my own issue tracker found that event-driven dispatch, intake grooming and the pre-ship review stage had all shipped as native Claude Code features while I wasn't looking. Twelve open issues became two in a day, and the write-up of that reckoning is [The Platform Ate My Roadmap](/writing/the-platform-ate-my-roadmap/). What survived is the moat: cross-subscription routing, the ship gate and the panes.
+
 The findings have started turning into essays. The decomposition problem became [Your Architecture Is the Bottleneck, Not the Model](/writing/your-architecture-is-the-bottleneck/), and a trial of two agent harnesses on the same five tickets became [Execution Stopped Being the Bottleneck](/writing/execution-stopped-being-the-bottleneck/). I've written the design and the findings up properly on my [experiments site](https://experiments.swm.cc/thrawn/), including the failure cases. The 30-day trial is running now and the ledger, not my enthusiasm, gets the final say on whether it survives.
 
 ## Status
 
-Actively working on it, and using it daily. Watch this space.
+Using it daily, and deliberately smaller than it was in August. Two questions stay open: whether the cross-pool routing actually pays (the ledger delivers its verdict in October) and an interactive swarm mode that leans into the panes. Everything else on the old roadmap belongs to the platform now, and it's welcome to it.
 
 ## Source
 
