@@ -1,21 +1,21 @@
 ---
-updatedDate: 2026-09-01
+updatedDate: 2026-10-01
 ---
 
-*Updated monthly. This is what I'm focused on in September 2026.*
+*Updated monthly. This is what I'm focused on in October 2026.*
 
 ## Day Job
 
-The graph database and app builder work has boiled down to one thing this month: getting it over the line for the quarterly plan by the end of September. It's not very exciting to talk about, but I still get my dopamine fix from fixing bugs, so I'm getting on with it.
+The graph database and app builder work landed for the quarterly plan, and now I'm in the middle of a bug-athon. I still get my dopamine fix from fixing bugs, and I've arranged a few hackathon quiet days to keep it interesting, which is showing results. The focus now is supporting our internal clients in building apps on the graph.
 
-I'm also running [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) in parallel at work, my AI software factory, to work out where this way of working is going. Work is distributed systems and my own stuff is wee apps, so running it in both worlds is teaching me plenty.
+[Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) is still being measured, but it's proving to be a moot point. Claude's parent company is making inroads into doing exactly what I built it for, which I've written about in [The Platform Ate My Roadmap](/writing/the-platform-ate-my-roadmap).
 
-Being housebound for the last month has left me with a proper dose of FOMO about work, not being in the room to collaborate. Hopefully that starts easing as the month goes on.
+The FOMO from being housebound did go, though the office can't really support that many of the company right now, so we're experiencing teething problems, to put it bluntly.
 
 ## After Hours
 
-The house is fully painted, which is great. I'm hanging pictures and making it feel a bit more homely. New stairs are ordered too. Not carpet in the end, the plan is to take the floor that's in the hall and extend it up, and the spare room I use as an office gets carpet for the first time in about ten years. I wasn't in my house for the first half of August and that wasn't good, but the painters needed done, and I'm starting to feel more relaxed for it. The car has been giving me trouble as well, though it's behaving a bit better now and it's in for its test next week.
+The stairs finally went in at the start of the month. There's one more carpet to be laid and then that should be it. The new curtains were measured a while back and should be getting in soon. Honestly, I'm just sick of all this. I can't wait for the big items to be done, I'm sick and tired of strangers being in the house and I just want to enjoy it for a while. The car is doing good though.
 
-The garden is coming to the end of the season, which is always a wee bit sad. The flowers just aren't as strong as they were, but that's how it goes this time of year. At some point I'll have to make the call to stop watering, recycle what can be recycled and prepare for the autumn.
+The garden is now wound down for the winter. On Saturday I'm doing one big last clean up, power washing the surfaces and putting the place to bed for the year.
 
-Thrawn has properly taken over out of hours too, I'm drinking my own champagne with it on my own projects, and there's been a real uptick in my inspiration and output. I've also put in for a few talks, a couple of meetups and maybe some internal ones at work. I used to be good at talking and it's a muscle I need to exercise again.
+All the talks I put in for were accepted, more on that next month. I'm practising them now so I'm well prepped.
