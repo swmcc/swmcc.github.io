@@ -1,21 +1,23 @@
 ---
-updatedDate: 2026-10-01
+updatedDate: 2026-11-01
 ---
 
-*Updated monthly. This is what I'm focused on in October 2026.*
+*Updated monthly. This is what I'm focused on in November 2026.*
 
 ## Day Job
 
-The graph database and app builder work landed for the quarterly plan, and now I'm in the middle of a bug-athon. I still get my dopamine fix from fixing bugs, and I've arranged a few hackathon quiet days to keep it interesting, which is showing results. The focus now is supporting our internal clients in building apps on the graph.
+I've moved on to the bug-athon. Alongside it I'm leading a major bit of work on [RBAC](https://en.wikipedia.org/wiki/Role-based_access_control) (role-based access control, what you can do depends on your role) and [GBAC](https://en.wikipedia.org/wiki/Graph-based_access_control) (graph-based access control, what you can do depends on how you're connected in the graph). I'm doing it with a few other engineers but leading the effort. I'm finding it exciting.
 
-[Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) is still being measured, but it's proving to be a moot point. Claude's parent company is making inroads into doing exactly what I built it for, which I've written about in [The Platform Ate My Roadmap](/writing/the-platform-ate-my-roadmap).
+I've put a bit of time into my workflow for this so I can stay in the terminal. I still answer questions from colleagues and give good updates every so often on where we are with the work, but it's all done inside the terminal and [Herdr](https://herdr.dev/). It's really sped my development time up.
 
-The FOMO from being housebound did go, though the office can't really support that many of the company right now, so we're experiencing teething problems, to put it bluntly.
+The office is still annoying me, but what can I do about it? Just get on with it.
+
+[Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) is still being measured, but I'm stopping that this week. More on why below.
 
 ## After Hours
 
-The stairs finally went in at the start of the month. There's one more carpet to be laid and then that should be it. The new curtains were measured a while back and should be getting in soon. Honestly, I'm just sick of all this. I can't wait for the big items to be done, I'm sick and tired of strangers being in the house and I just want to enjoy it for a while. The car is doing good though.
+The house is 99% there, well, apart from next year's front room thing. The last carpet was set to go down at the end of October, but I woke up on the day and didn't fancy having a stranger in the house on my day off. It'll get done at the end of this month. I've just had enough of running about after people. It has been a long year coming.
 
-The garden is now wound down for the winter. On Saturday I'm doing one big last clean up, power washing the surfaces and putting the place to bed for the year.
+Most of my spare time is going on prepping two talks: [Integrate with Stripe via MCP](/notes/stripe-mcp-from-401-to-tools-call) at the [Stripe Belfast launch](https://www.stripecommunity.com/public/clubs/belfast/events/belfast-stripe-community-launch-event-gbx3b7m7bo) on the 12th, and my talk at [NIDC 2026](https://nidevconf.com/) on the 21st. It's taking up a fair bit of my time, which is why Thrawn's measuring has to stop.
 
-All the talks I put in for were accepted, more on that next month. I'm practising them now so I'm well prepped.
+There's [Sightline](https://github.com/swmcc/herdr-sightline) and various other things on the go, but they're small fry at the moment.
