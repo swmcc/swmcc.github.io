@@ -2,7 +2,7 @@
 title: "Govern the Undo, Not the Headcount: Six Controls from NIDC 2026"
 description: The companion to my NIDC 2026 talk, Getting Shit Done in Two Worlds. The model, the six controls from the talk, a few more, where it all breaks, and the essays behind it.
 pubDate: 2026-11-21T00:00:00.000Z
-draft: true
+draft: false
 tags:
   - ai
   - agentic-development
@@ -12,7 +12,6 @@ tags:
 
 This is the companion to my talk at [NIDC 2026](https://nidevconf.com/), *Getting Shit Done in Two Worlds*. If you scanned the code on the screen: hello, and well done for not taking notes. Everything practical from the talk is here, with more detail than thirty minutes and a clicker allowed.
 
-<!-- TODO before 21 Nov: link the slides here (PDF export or the deck hosted on swm.cc), then set draft: false -->
 **Slides:** coming shortly after the talk.
 
 ## Two worlds
@@ -59,11 +58,11 @@ Take one change that needs a sign-off and draw it from start to done. AI shrank 
 
 We spent billions making the yellow bit smaller. **The interesting problem is the grey.**
 
-Most of my solo work barely has any grey. It goes from in progress to done in under a day. Except for one properly governed client, where the same factory, the same machine and the same me take four days. It isn't the AI that sets the speed. It's the stakes.
+Most of my solo work barely has any grey. It goes from in progress to done in under a day. Except for one properly governed client, where the same factory, the same agents and the same me take four days. It isn't the AI that sets the speed. It's the stakes.
 
 And the bit that got me: Whitespace started moving towards spec-level review, docs written for agents, and smaller tickets. That's exactly what my solo factory learned the hard way. Ten people with real governance, and one eejit at midnight, arriving at the same answer separately.
 
-The ones I don't like: Whitespace breaks a lot less than I do. Its review stops real bugs reaching production, and the governance is doing its job. I hate it. The machine is incredibly fast at going the wrong way: a Ferrari with the sat nav set to "surprise me". And code got cheap to write and expensive to read, so review time is up in both worlds.
+The ones I don't like: Whitespace breaks a lot less than I do. Its review stops real bugs reaching production, and the governance is doing its job. I hate it. An agent is incredibly fast at going the wrong way: a Ferrari with the sat nav set to "surprise me". And code got cheap to write and expensive to read, so review time is up in both worlds.
 
 So if review is where all the time goes, how much of it does each change actually deserve?
 
@@ -71,13 +70,13 @@ So if review is where all the time goes, how much of it does each change actuall
 
 You know one-way doors: go slow on decisions you can't reverse, go fast on the ones you can. That's lovely advice when you make three big decisions a year and own a rocket company.
 
-Now the machine makes a thousand changes a week. Building is nearly free. **Undo is the cost.** And the gate doesn't even need to be a person any more: in the cheap corner, the machine signs off the machine's work overnight. Middle management, asleep.
+Now agents make a thousand changes a week. Building is nearly free. **Undo is the cost.** And the gate doesn't even need to be a person any more: in the cheap corner, an agent signs off another agent's work overnight. Middle management, asleep.
 
 Two questions for every change. How bad is it if it's wrong? How hard is it to undo? Yes, it's a two-by-two. I'm a principal engineer, it's in the contract.
 
 | | **Easy to undo** | **Hard to undo** |
 |---|---|---|
-| **Cheap if wrong** | **Let it run.** Tests and an overnight agent sign it off. | **Review the plan, not the diff.** Agree the spec before the machine starts. |
+| **Cheap if wrong** | **Let it run.** Tests and an overnight agent sign it off. | **Review the plan, not the diff.** Agree the spec before the agent starts. |
 | **Costly if wrong** | **Ship it, then watch.** Behind a flag, fast rollback, a human looks after release. | **Put a human in the way.** Named sign-off before release, every time. |
 
 ### Both worlds, every corner
@@ -91,7 +90,7 @@ Two questions for every change. How bad is it if it's wrong? How hard is it to u
 
 **Let it run.** On 8 August, Dependabot bumped Rails on funeralsni and the build broke. The gate completely missed it, and it didn't matter: reverted at 08:20, properly fixed by 08:31. Eleven minutes, no meeting, nobody noticed. In this corner you don't need a perfect gate. You need a fast undo.
 
-**Review the plan.** On 18 January, a migration on a tiny landing-page app fell over in production because the tables were already there. Nobody died, but you can't un-run a migration. Agree it before the machine starts, not line by line after it's finished.
+**Review the plan.** On 18 January, a migration on a tiny landing-page app fell over in production because the tables were already there. Nobody died, but you can't un-run a migration. Agree it before the agent starts, not line by line after it's finished.
 
 **Put a human in the way.** I'll say this one straight. funeralsni publishes funeral notices for Northern Ireland, and people subscribe to them. A bug that emails the wrong death notice to everyone in a town can't be unsent. A family has already read it. That's a one-person consultancy's app, and it's the human-in-the-way corner every single time.
 
@@ -122,17 +121,17 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 1 · Correct</span><h3>An autonomy budget</h3><p class="rc-tag">Error budgets, but for agent autonomy.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>A team of one or ten</dd></div><div><dt>Quadrant</dt><dd>Let it run</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>A team of one or ten</dd></div><div><dt>Gate</dt><dd>Let it run</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A revert count per repo, per quadrant</li><li>Agents allowed to merge their own work</li><li>An honest definition of “a revert”</li><li>One stubborn human to enforce it</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>Count every revert of agent-merged work, per repo and per quadrant.</li><li>Set a budget: how many reverts a month you'll tolerate before you stop trusting it.</li><li>While reverts stay under budget, the agents merge on their own.</li><li>Blow the budget, and that kind of work moves up a gate, to a human, automatically.</li><li>Let it earn its way back down.</li></ol></div>
 </div>
-<p class="rc-note"><b>Chef's note</b> Trust isn't something you hand the machine once. It's earned per repo and per quadrant, and it can be lost. The funeralsni Rails revert counted against the budget, which is the system doing its job.</p>
+<p class="rc-note"><b>Chef's note</b> Trust isn't something you hand an agent once. It's earned per repo and per quadrant, and it can be lost. The funeralsni Rails revert counted against the budget, which is the system doing its job.</p>
 </div>
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 2 · Prevent</span><h3>The pre-mortem agent</h3><p class="rc-tag">A pre-mortem, but an agent writes it.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>Anyone with a plan</dd></div><div><dt>Quadrant</dt><dd>Review the plan</dd></div><div><dt>Prep</dt><dd>Five minutes</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>Anyone with a plan</dd></div><div><dt>Gate</dt><dd>Review the plan</dd></div><div><dt>Prep</dt><dd>Five minutes</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A <code>plan.md</code></li><li>A second agent with no stake in the plan</li><li>One brutal instruction</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>Write the plan. Don't let anything run yet.</li><li>Hand it to a second agent with one instruction: <em>“This plan shipped and caused an incident. Write the post-mortem.”</em></li><li>Read the post-mortem. Fix the plan against it.</li><li>Now a human reviews the plan.</li><li>Only then does it fan out: one agent, one worktree.</li></ol></div>
@@ -142,7 +141,7 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 3 · Detect</span><h3>The shadow run</h3><p class="rc-tag">Dark-launch the agent's code.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>Anything with real traffic</dd></div><div><dt>Quadrant</dt><dd>Ship it, then watch</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●●</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>Anything with real traffic</dd></div><div><dt>Gate</dt><dd>Ship it, then watch</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●●</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>The old code path</li><li>The agent's new code path</li><li>A diff of their outputs</li><li>Real production traffic</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>Ship the new path to production, running beside the old one.</li><li>Feed both the same real traffic. Use only the old path's output.</li><li>Diff the outputs, continuously.</li><li>When the diff is clean, flip to the new path.</li><li>Keep the old path warm until you're sure.</li></ol></div>
@@ -152,17 +151,17 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 4 · Prevent</span><h3>Separation of duties, for agents</h3><p class="rc-tag">Three agents that can't collude.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>Work you can't take back</dd></div><div><dt>Quadrant</dt><dd>Put a human in the way</dd></div><div><dt>Prep</dt><dd>A morning</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>Work you can't take back</dd></div><div><dt>Gate</dt><dd>Put a human in the way</dd></div><div><dt>Prep</dt><dd>A morning</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>An author agent</li><li>A tester agent that never sees the code</li><li>A reviewer agent from a different model</li><li>A hook to enforce it</li><li>One accountable human</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>The author writes the code from the spec.</li><li>The tester writes the tests from the same spec, in its own context, without ever seeing the implementation.</li><li>A reviewer, never the model that wrote the code, reviews both.</li><li>A hook enforces the separation, so nobody can talk their way round it.</li><li>A human signs last. In my world, a one-time code. In a governed team, QA, then product, then the customer.</li></ol></div>
 </div>
-<p class="rc-note"><b>Chef's note</b> A prompt is a suggestion. A hook is law. And there's always a human at the end, because the machine can do everything except be accountable. It can't be blamed, it can't be fired, and it can't sit in the meeting about the meeting.</p>
+<p class="rc-note"><b>Chef's note</b> A prompt is a suggestion. A hook is law. And there's always a human at the end, because an agent can do everything except be accountable. It can't be blamed, it can't be fired, and it can't sit in the meeting about the meeting.</p>
 </div>
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 5 · Detect</span><h3>The quadrant as code</h3><p class="rc-tag">The 2×2, as infrastructure.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>Everyone, always</dd></div><div><dt>Quadrant</dt><dd>All four</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>Everyone, always</dd></div><div><dt>Gate</dt><dd>All four</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A <code>Quadrant:</code> commit trailer</li><li>A <code>Gate:</code> commit trailer</li><li>A hook</li><li>A CI check</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>Every task in the plan gets a quadrant. The agent proposes it, and the plan review confirms it.</li><li>Every commit carries the quadrant and the gate it went through, as trailers next to <code>Co-Authored-By</code>.</li><li>CI fails any change whose gate doesn't match its quadrant.</li><li>When anyone asks for an audit, run one command.</li></ol></div>
@@ -178,7 +177,7 @@ Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</code></pre><pre><code>$ gi
 
 <div class="recipe-card not-prose">
 <div class="rc-head"><span class="rc-num">Control 6 · Prevent</span><h3>Turn your reviewers into standards</h3><p class="rc-tag">Write your best reviewer down once.</p></div>
-<dl class="rc-meta"><div><dt>Serves</dt><dd>Any team where review is the bottleneck</dd></div><div><dt>Quadrant</dt><dd>Review</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
+<dl class="rc-meta"><div><dt>Serves</dt><dd>Any team where review is the bottleneck</dd></div><div><dt>Gate</dt><dd>Review</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A few dozen real review comments from your own team</li><li>An agent reviewer</li><li>Somewhere to keep the doc in the repo</li></ul></div>
 <div class="rc-method"><h4>Method</h4><ol><li>Collect real review comments: the actual nitpicks real people left on real code. I used 50, from 15 merge requests.</li><li>Boil them down into a standards doc, in sections. Mine came out at 244 lines.</li><li>Give it to the agent reviewer word for word, as its checklist.</li><li>Make it cite the section in every objection, so the author can look it up and argue with it.</li></ol></div>
@@ -235,17 +234,17 @@ If you've been reading this with your arms folded thinking "hang on": you're rig
 
 The 2×2 judges each change on its own. But a thousand perfectly undoable changes can add up to an architecture nobody on earth can undo. Every change was reversible. The mess isn't.
 
-So the 2×2 governs changes, not drift. Drift needs its own gate: a human looking at the shape of the whole system on a schedule and asking, "would we build it this way today?" That's the senior engineer's job in both worlds, and the machine makes it more important, not less. Sorry, seniors. You're not getting replaced. You're getting promoted to the hard bit.
+So the 2×2 governs changes, not drift. Drift needs its own gate: a human looking at the shape of the whole system on a schedule and asking, "would we build it this way today?" That's the senior engineer's job in both worlds, and agents make it more important, not less. Sorry, seniors. You're not getting replaced. You're getting promoted to the hard bit.
 
 ## And the juniors
 
-Hello world, the blog, the terrible web server: that's how we all learned judgement. Write a lot of code, get most of it wrong, get shouted at. The machine writes the code now, so that path is disappearing. Build the apprenticeship on purpose:
+Hello world, the blog, the terrible web server: that's how we all learned judgement. Write a lot of code, get most of it wrong, get shouted at. Agents write the code now, so that path is disappearing. Build the apprenticeship on purpose:
 
-- A junior writes the plan, and a senior pulls it apart before the machine runs.
+- A junior writes the plan, and a senior pulls it apart before the agent runs.
 - Juniors own a let-it-run gate, where being wrong is cheap.
-- Review the machine's output in pairs, senior and junior, out loud.
+- Review the agent's output in pairs, senior and junior, out loud.
 
-If we don't, in five years nobody will be qualified to stand in the human-in-the-way corner. And that's the one corner the machine can't stand in.
+If we don't, in five years nobody will be qualified to stand in the human-in-the-way corner. And that's the one corner an agent can't stand in.
 
 ## By night, from my git log
 
@@ -254,7 +253,7 @@ The only figures in this post come straight from git: my own commits since 1 Jan
 - **A quarter of a million lines changed:** 183,601 added and 69,604 deleted, with lock files, vendored and generated code taken out.
 - **1,004 commits**, 472 of them with a Claude co-author line. That undercounts, because plenty of agent work doesn't get the trailer.
 
-| | Commits | With a machine's name on them |
+| | Commits | With an agent's name on them |
 |---|---|---|
 | 07:00 to midnight | 724 | 39% |
 | Midnight to 07:00 | 280 | **68%** |
@@ -270,7 +269,7 @@ Before midnight I'm an engineer. After midnight I'm middle management.
 
 ## What a team is for now
 
-Can one engineer run the work of a whole team? Yes, mostly. One person and a machine can carry a whole app. I'm the proof, and I'm not even that good.
+Can one engineer run the work of a whole team? Yes, mostly. One person and a few agents can carry a whole app. I'm the proof, and I'm not even that good.
 
 So a team isn't for typing any more. A team exists to hold judgement and accountability for the things you can't take back. Its job is to keep buying undo, to look after the shape, and to grow the people who'll stand where undo can't be bought.
 
