@@ -9,11 +9,11 @@ tags:
 
 On Saturday I'm speaking at [NIDC](https://nidevconf.com/) in the ICC Belfast. Room 1B, 11:30, thirty minutes. The talk is called Getting Shit Done in Two Worlds, and the title is about as polite as it gets.
 
-The two worlds are my two jobs.
+The two worlds are my job and my consultancy.
 
-By day I'm a principal engineer at Whitespace. Ten engineers building sovereign AI, with governance done properly: a human in the loop, guardrails, and sign-offs on the sign-offs. For what we build, that's exactly right.
+My job is principal engineer at Whitespace. Ten engineers building sovereign AI, with governance done properly: a human in the loop, guardrails, and sign-offs on the sign-offs. For what we build, that's exactly right.
 
-By night I run SkillfulGorilla. Me, sometimes one other engineer, and a pile of monoliths. The governance is less formal.
+Outside of that, I run a small consultancy called SkillfulGorilla. It's me, sometimes one other engineer, and a pile of monoliths. The governance is less formal.
 
 Both worlds went all in on coding agents in the same year. Same mix of models, too: frontier models to build with, and our own where the data isn't allowed to leave. One runs on serious compute. The other runs on a laptop in my house.
 
