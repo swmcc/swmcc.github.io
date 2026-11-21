@@ -26,7 +26,7 @@ The problem wasn't the ideas. It was the register. I'd written something to be r
 
 So I went back to [speaking.io](https://speaking.io/), Zach Holman's guide to giving talks, which I'd read years ago and mostly forgotten. It holds up. The parts that changed the talk:
 
-**Slides aren't your notes.** One idea per slide, one or two words where you can get away with it, big type, full-bleed photos. The slide is there to land the point, not carry it. Everything I wanted to say went into the speaker notes instead, along with stage directions to myself: *[Water. Breathe. Don't touch the clicker until the first laugh.]*
+**Slides aren't your notes.** One idea per slide, one or two words where you can get away with it, big type, full-bleed photos. The slide is there to land the point, not carry it. Everything I wanted to say went into the speaker notes instead.
 
 **More slides, not fewer.** My first instinct was that sixty slides was far too many for thirty minutes. The talk ended up at seventy. That sounds mad until you realise most of them are on screen for ten seconds. Pace comes from the clicker, not from talking faster.
 
@@ -79,9 +79,11 @@ The test for all of them was the same: does it make the talk better, or does it 
 
 The slides are a [reveal.js](https://revealjs.com/) deck: plain HTML and CSS in a git repo, with every dependency vendored, because a talk that needs the internet to start is a talk with a single point of failure. It runs from a laptop on a local server, at 1920×1080, with the speaker notes on a second screen.
 
-The photos are freely licensed from Wikimedia Commons and credited properly. The QR code was generated locally, so it doesn't depend on a link-shortening service still existing next year. The screenshot of my agents at two in the morning isn't a screenshot at all: it's HTML and CSS, so it's pin-sharp on a cinema-sized screen and its clock actually ticks.
+The photos are freely licensed from Wikimedia Commons and credited properly. The QR code was generated locally, so it doesn't depend on a link-shortening service still existing next year. The screenshot of my agents at two in the morning is a real one, taken from my laptop a few months ago.
 
 Treating the deck as code meant every change was a commit, I could see what changed between drafts, and nothing about the slides depended on an app I don't control.
+
+Because it's just HTML, it lives on after the day too: [the whole talk is here](/talks/nidc-2026/), playing itself, with my speaker notes running underneath as captions.
 
 ## Same factory, same rules
 
