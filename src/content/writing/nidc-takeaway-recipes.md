@@ -116,12 +116,12 @@ Now look at the gate it actually went through. If the two don't match, that's ei
 
 ## The controls
 
-The model tells you *where* each gate goes. The controls are *how* I run them. A control is anything that reduces risk: preventive controls stop a problem happening, detective controls spot it when it does, and corrective controls limit the damage. Every one of these was invented by the regulated world (error budgets, separation of duties, audit trails, least privilege), and agents have made them cheap enough for a team of one.
+The model tells you *where* each gate goes. The controls are *how* I run them. A control is anything that reduces risk: some prevent a problem happening, some detect it when it does, and some correct it by limiting the damage. Every one of these was invented by the regulated world (error budgets, separation of duties, audit trails, least privilege), and agents have made them cheap enough for a team of one.
 
 One of the organisers asked for recipes, so that's how they're written up: what you need, and the method.
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 1 · Corrective</span><h3>An autonomy budget</h3><p class="rc-tag">Error budgets, but for agent autonomy.</p></div>
+<div class="rc-head"><span class="rc-num">Control 1 · Correct</span><h3>An autonomy budget</h3><p class="rc-tag">Error budgets, but for agent autonomy.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>A team of one or ten</dd></div><div><dt>Quadrant</dt><dd>Let it run</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A revert count per repo, per quadrant</li><li>Agents allowed to merge their own work</li><li>An honest definition of “a revert”</li><li>One stubborn human to enforce it</li></ul></div>
@@ -131,7 +131,7 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 </div>
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 2 · Preventive</span><h3>The pre-mortem agent</h3><p class="rc-tag">A pre-mortem, but an agent writes it.</p></div>
+<div class="rc-head"><span class="rc-num">Control 2 · Prevent</span><h3>The pre-mortem agent</h3><p class="rc-tag">A pre-mortem, but an agent writes it.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>Anyone with a plan</dd></div><div><dt>Quadrant</dt><dd>Review the plan</dd></div><div><dt>Prep</dt><dd>Five minutes</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A <code>plan.md</code></li><li>A second agent with no stake in the plan</li><li>One brutal instruction</li></ul></div>
@@ -141,7 +141,7 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 </div>
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 3 · Detective</span><h3>The shadow run</h3><p class="rc-tag">Dark-launch the agent's code.</p></div>
+<div class="rc-head"><span class="rc-num">Control 3 · Detect</span><h3>The shadow run</h3><p class="rc-tag">Dark-launch the agent's code.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>Anything with real traffic</dd></div><div><dt>Quadrant</dt><dd>Ship it, then watch</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●●</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>The old code path</li><li>The agent's new code path</li><li>A diff of their outputs</li><li>Real production traffic</li></ul></div>
@@ -151,7 +151,7 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 </div>
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 4 · Preventive</span><h3>Separation of duties, for agents</h3><p class="rc-tag">Three agents that can't collude.</p></div>
+<div class="rc-head"><span class="rc-num">Control 4 · Prevent</span><h3>Separation of duties, for agents</h3><p class="rc-tag">Three agents that can't collude.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>Work you can't take back</dd></div><div><dt>Quadrant</dt><dd>Put a human in the way</dd></div><div><dt>Prep</dt><dd>A morning</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>An author agent</li><li>A tester agent that never sees the code</li><li>A reviewer agent from a different model</li><li>A hook to enforce it</li><li>One accountable human</li></ul></div>
@@ -161,7 +161,7 @@ One of the organisers asked for recipes, so that's how they're written up: what 
 </div>
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 5 · Detective</span><h3>The quadrant as code</h3><p class="rc-tag">The 2×2, as infrastructure.</p></div>
+<div class="rc-head"><span class="rc-num">Control 5 · Detect</span><h3>The quadrant as code</h3><p class="rc-tag">The 2×2, as infrastructure.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>Everyone, always</dd></div><div><dt>Quadrant</dt><dd>All four</dd></div><div><dt>Prep</dt><dd>A day</dd></div><div><dt>Difficulty</dt><dd>●●○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A <code>Quadrant:</code> commit trailer</li><li>A <code>Gate:</code> commit trailer</li><li>A hook</li><li>A CI check</li></ul></div>
@@ -177,7 +177,7 @@ Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</code></pre><pre><code>$ gi
 </div>
 
 <div class="recipe-card not-prose">
-<div class="rc-head"><span class="rc-num">Control 6 · Preventive</span><h3>Turn your reviewers into standards</h3><p class="rc-tag">Write your best reviewer down once.</p></div>
+<div class="rc-head"><span class="rc-num">Control 6 · Prevent</span><h3>Turn your reviewers into standards</h3><p class="rc-tag">Write your best reviewer down once.</p></div>
 <dl class="rc-meta"><div><dt>Serves</dt><dd>Any team where review is the bottleneck</dd></div><div><dt>Quadrant</dt><dd>Review</dd></div><div><dt>Prep</dt><dd>An afternoon</dd></div><div><dt>Difficulty</dt><dd>●○○</dd></div></dl>
 <div class="rc-body">
 <div class="rc-ing"><h4>Ingredients</h4><ul><li>A few dozen real review comments from your own team</li><li>An agent reviewer</li><li>Somewhere to keep the doc in the repo</li></ul></div>
