@@ -2,7 +2,7 @@
 title: Writing a Talk Like Shipping Software
 description: I've shipped software for thirty years. The hardest thing I wrote this autumn was thirty minutes of talking. On writing an NIDC talk with speaking.io open in one tab, a coding agent in another, and a bin for every clever idea that came near it.
 pubDate: 2026-11-21T00:00:00.000Z
-draft: true
+draft: false
 tags:
   - speaking
   - nidc
@@ -12,7 +12,7 @@ tags:
 
 Today I gave [Getting Shit Done in Two Worlds](/writing/nidc-takeaway-recipes) at NIDC. Thirty minutes, Room 1B, no Q&A. I've shipped software for thirty years, and the hardest thing I wrote this autumn was thirty minutes of talking.
 
-This is how it got written. Not the content, which is [over here](/writing/nidc-takeaway-recipes), but the process, because it turned out to look a lot like how I ship code now. A plan, a lot of drafts, a machine doing much of the typing and a human deciding what survives.
+This is how it got written. Not the content, which is [over here](/writing/nidc-takeaway-recipes), but the process, because it turned out to look a lot like how I ship code now. A plan, a lot of drafts, an agent doing much of the typing and a human deciding what survives.
 
 ## The first draft was a paper
 
@@ -54,11 +54,11 @@ That review found the hole. The model at the heart of the talk judges each chang
 
 With a Q&A, you'd wait for them to ask. With no Q&A, the objection sits in their head unanswered and they leave thinking you missed it. So the talk now raises its own best objection, concedes it, and says what to do about it. If you've no Q&A, kill the best objection yourself.
 
-## The organiser asked for recipes
+## The organiser asked for recipes, I gave them controls
 
 Partway through, Art, one of the organisers, asked for something practical. People like to leave a talk with a thing they can do on Monday. Art was right, and it was a useful constraint, because "here is a model" is easy to nod at and forget, while "here is a commit trailer and a CI check" is something you can actually ship.
 
-Six recipes went in. Four go past fast, fifteen seconds each, because they're twists on things the room already knows. Two get the time, because nobody else in the building will have them. The full versions live in a [companion post](/writing/nidc-takeaway-recipes) behind a QR code, so the slides can stay big and the detail can stay complete.
+Six went in, as controls rather than recipes, because that's the word engineers already use. Four go past fast, fifteen seconds each, because they're twists on things the room already knows. Two get the time, because nobody else in the building will have them. The full versions live in a [companion post](/writing/nidc-takeaway-recipes) behind a QR code, so the slides can stay big and the detail can stay complete.
 
 ## Real numbers or none
 
@@ -87,7 +87,7 @@ Treating the deck as code meant every change was a commit, I could see what chan
 
 I wrote a lot of this with a coding agent. Not "write me a talk", which gets you the first draft I binned, but the way I use one for software: plan first, critique often, rewrite constantly, keep the human on the decisions. It drafted, I cut. It suggested things, and I binned more of them than I kept. It went off and found photos, checked the git numbers, built the slides and rebuilt them every time I changed my mind, which was often.
 
-That's the talk, really. The machine can do nearly everything except be accountable. It isn't the one standing in Room 1B. My name is on the schedule, so the decisions about what goes in were mine, and so was every cut.
+That's the talk, really. An agent can do everything except be accountable. It isn't the one standing in Room 1B. My name is on the schedule, so the decisions about what goes in were mine, and so was every cut.
 
 ## If you're writing one
 
