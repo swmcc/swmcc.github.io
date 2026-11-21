@@ -2,7 +2,7 @@
    that arrive at roughly speaking pace. Built into dist/ by tools/build_play.py. */
 
 :root {
-  --cap-h: 200px;
+  --cap-h: 230px;
   --stage-h: calc(100vh - var(--cap-h));
 }
 
@@ -21,33 +21,33 @@ body.cc-off { --cap-h: 64px; }
   position: fixed; left: 0; right: 0; bottom: 0;
   height: var(--cap-h);
   box-sizing: border-box;
-  padding: 14px max(16px, 4vw) calc(12px + env(safe-area-inset-bottom, 0px));
+  padding: 26px max(16px, 4vw) calc(12px + env(safe-area-inset-bottom, 0px));
   display: flex; flex-direction: column; gap: 10px;
   background: #0b0c0e;
   border-top: 1px solid #23262b;
   color: var(--bone);
-  font-family: var(--serif);
+  font-family: 'Inter', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
   z-index: 40;
 }
 
 #cap {
   flex: 1; min-height: 0;
   position: relative; overflow: hidden;
-  display: flex; flex-direction: column; justify-content: flex-end;
-  mask-image: linear-gradient(to bottom, transparent 0, #000 38%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 38%);
 }
+#cap-in { transition: transform .45s ease; will-change: transform; }
 body.cc-off #cap { display: none; }
 
 #cap p {
-  margin: 0 0 .55em;
-  max-width: 62rem;
-  font-size: clamp(17px, 1.9vw, 28px);
-  line-height: 1.4;
-  transition: opacity .6s ease, transform .6s ease;
+  margin: 0;
+  max-width: 60rem;
+  font-size: clamp(16px, 1.65vw, 25px);
+  font-weight: 500;
+  line-height: 1.55;
+  letter-spacing: -.008em;
+  font-feature-settings: 'cv11', 'ss01';
+  animation: para-in .4s ease both;
 }
-#cap p.past { opacity: .32; }
-#cap p.leaving { opacity: 0; transform: translateY(-12px); }
+@keyframes para-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
 #cap .w {
   display: inline-block;
@@ -110,6 +110,6 @@ body.cc-off #cap { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #cap p, #cap .w { transition: none; }
+  #cap p, #cap .w, #cap-in { transition: none; animation: none; }
   #cap .w { transform: none; }
 }
