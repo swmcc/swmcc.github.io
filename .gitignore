@@ -40,3 +40,6 @@ pnpm-debug.log*
 
 # Swanson worker local secrets
 worker/.dev.vars
+
+# The NIDC talk ships reveal.js from vendor/reveal.js/dist/
+!public/talks/*/vendor/reveal.js/dist/
