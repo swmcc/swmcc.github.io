@@ -1,0 +1,232 @@
+/* NIDC 2026 — Getting Shit Done in Two Worlds
+   Shipyard palette: crane yellow, hull black, bone. One idea per slide,
+   type as big as it will go, no transitions (speaking.io). */
+
+@import url('fonts/fonts.css');
+
+:root {
+  --ink: #111214;
+  --bone: #f1ece1;
+  --crane: #f4c300;
+  --rust: #c8452c;
+  --steel: #8b949e;
+  --display: 'Big Shoulders Display', 'Arial Narrow', Impact, sans-serif;
+  --mono: 'IBM Plex Mono', Menlo, monospace;
+  --serif: 'Source Serif 4', Georgia, serif;
+}
+
+.reveal-viewport { background: var(--ink); }
+.reveal { font-family: var(--display); color: var(--bone); }
+.reveal .slides { text-align: left; }
+.reveal .slides section { height: 100%; padding: 0 140px; box-sizing: border-box; }
+.reveal .slides > section.center-v,
+.reveal .slides > section { display: flex !important; flex-direction: column; justify-content: center; }
+
+/* ---------- type ---------- */
+.reveal h1, .reveal h2, .reveal h3, .reveal p { margin: 0; font-family: var(--display); text-transform: none; letter-spacing: 0; text-shadow: none; }
+.reveal h1 { font-size: 230px; font-weight: 900; line-height: .86; letter-spacing: -2px; }
+.reveal h2 { font-size: 150px; font-weight: 800; line-height: .92; }
+.reveal h3 { font-size: 96px; font-weight: 800; line-height: 1; }
+.reveal p  { font-size: 64px; font-weight: 500; line-height: 1.15; }
+.reveal .huge { font-size: 340px; font-weight: 900; line-height: .82; letter-spacing: -4px; }
+.reveal .kicker { font-family: var(--mono); font-size: 34px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: var(--crane); margin-bottom: 40px; }
+.reveal .quiet { color: var(--steel); }
+.reveal .y { color: var(--crane); }
+.reveal .r { color: var(--rust); }
+.reveal .strike { text-decoration: line-through; text-decoration-thickness: 12px; text-decoration-color: var(--rust); }
+.reveal .serif { font-family: var(--serif); font-style: italic; font-weight: 400; }
+.reveal code, .reveal .mono { font-family: var(--mono); }
+.reveal .center { text-align: center; align-items: center; }
+
+/* ---------- full-bleed photo slides ---------- */
+/* Photos are darkened rather than boxed, per speaking.io: legibility over detail.
+   Done with data-background-opacity over the black viewport. */
+.reveal section.photo h1, .reveal section.photo h2, .reveal section.photo p { text-shadow: 0 0 2px rgba(0,0,0,.6); }
+.reveal .plate { background: rgba(17,18,20,.7); padding: 36px 48px; display: inline-block; }
+.reveal .credit { position: absolute; right: 40px; bottom: 28px; font-family: var(--mono); font-size: 16px; color: rgba(241,236,225,.55); }
+
+/* ---------- section breaks: crane yellow, the pacing cue ---------- */
+/* colour comes from data-background-color="#f4c300" on the section */
+.reveal section.section { color: var(--ink); }
+.reveal section.section .kicker { color: var(--ink); opacity: .7; }
+
+/* intro and close sit on bone, offset from the body of the talk */
+.reveal section.bone { color: var(--ink); }
+.reveal section.bone .kicker { color: var(--rust); }
+.reveal section.bone .quiet { color: #6b6457; }
+
+/* ---------- bio ---------- */
+.reveal .bio { display: flex; flex-direction: column; gap: 70px; }
+.reveal .bio ul { list-style: none; margin: 0; padding: 0; font-family: var(--mono); font-size: 44px; line-height: 1.6; }
+.reveal .bio li b { color: var(--rust); font-weight: 600; }
+
+/* ---------- the 2×2 ---------- */
+.reveal .grid22 { display: grid; grid-template-columns: 220px 1fr 1fr; grid-template-rows: 80px 1fr 1fr; gap: 14px; height: 730px; width: 100%; }
+.reveal .grid22 .ax { font-family: var(--mono); font-size: 30px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--steel); display: flex; align-items: center; }
+.reveal .grid22 .ax.top { justify-content: center; }
+.reveal .grid22 .cell { border: 4px solid #2b2e33; padding: 34px 40px; display: flex; flex-direction: column; justify-content: space-between; }
+.reveal .grid22 .cell b { font-size: 68px; white-space: nowrap; font-weight: 900; line-height: .95; display: block; }
+.reveal .grid22 .cell span { font-family: var(--mono); font-size: 34px; line-height: 1.45; color: var(--steel); }
+.reveal .grid22 .cell.on { border-color: var(--crane); }
+.reveal .grid22 .cell.on b { color: var(--crane); }
+.reveal .grid22 .cell.hot { background: var(--crane); border-color: var(--crane); }
+.reveal .grid22 .cell.hot b, .reveal .grid22 .cell.hot span { color: var(--ink); }
+.reveal .grid22 .cell.dim b { color: #3a3e45; }
+.reveal .grid22 .cell.dim span { color: #3a3e45; }
+
+/* ---------- two-column "both worlds" ---------- */
+.reveal .worlds { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+.reveal .worlds h3 { margin-bottom: 30px; }
+.reveal .worlds p { font-size: 50px; }
+.reveal .worlds .label { font-family: var(--mono); font-size: 28px; letter-spacing: 4px; text-transform: uppercase; color: var(--steel); margin-bottom: 18px; }
+
+/* ---------- recipe cards ---------- */
+.reveal section.recipe { border-left: 28px solid var(--crane); }
+.reveal .recipe-head { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; margin-bottom: 50px; }
+.reveal .recipe-head .num { font-family: var(--mono); font-size: 34px; font-weight: 600; color: var(--ink); background: var(--crane); padding: 6px 18px; letter-spacing: 3px; white-space: nowrap; }
+.reveal .recipe-rows { display: grid; grid-template-columns: 300px 1fr; row-gap: 34px; column-gap: 40px; }
+.reveal .recipe-rows dt { font-family: var(--mono); font-size: 30px; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; color: var(--crane); padding-top: 12px; }
+.reveal .recipe-rows dd { margin: 0; font-size: 60px; font-weight: 500; line-height: 1.12; }
+
+/* ---------- code ---------- */
+.reveal pre.terminal { width: 100%; margin: 0; box-shadow: none; font-family: var(--mono); font-size: 52px; line-height: 1.45; background: #0a0b0c; border-left: 10px solid var(--crane); padding: 40px 50px; color: var(--bone); white-space: pre; }
+.reveal pre.terminal .c { color: var(--steel); }
+.reveal pre.terminal .add { color: var(--crane); }
+
+/* ---------- clock (the morning it worked) ---------- */
+.reveal .clock { font-family: var(--mono); font-size: 300px; font-weight: 600; letter-spacing: -6px; color: var(--crane); line-height: 1; }
+
+/* ---------- builds: present, never animated ---------- */
+.reveal .slides section .fragment { transition: none !important; }
+.reveal .slides section .fragment.dim-after.visible ~ * { opacity: 1; }
+
+.reveal .progress { height: 6px; color: var(--crane); }
+
+/* ---------- QR to the recipe book ---------- */
+.reveal .qr { display: flex; align-items: center; gap: 36px; margin-top: 70px; justify-content: center; }
+.reveal .qr img { width: 220px; height: 220px; image-rendering: pixelated; margin: 0; }
+.reveal .qr span { font-family: var(--mono); font-size: 28px; font-weight: 600; line-height: 1.35; color: var(--ink); text-align: left; }
+.reveal .qr.corner { position: absolute; right: 80px; bottom: 70px; margin: 0; gap: 24px; }
+.reveal .qr.corner img { width: 150px; height: 150px; }
+.reveal .qr.corner span { color: var(--ink); font-size: 20px; opacity: .65; }
+
+
+/* ---------- the bar: one change, start to done ---------- */
+.reveal .bar { display: flex; width: 100%; height: 90px; margin-top: 30px; }
+.reveal .bar .build { background: var(--crane); }
+.reveal .bar .wait { background: #3a3e45; }
+.reveal .bar .watch { background: repeating-linear-gradient(90deg, #3a3e45 0 14px, transparent 14px 28px); }
+.reveal .bar-labels { display: flex; justify-content: space-between; margin-top: 24px; font-family: var(--mono); font-size: 32px; }
+.reveal .bars4 { display: grid; grid-template-columns: 420px 1fr; row-gap: 46px; align-items: center; margin-top: 30px; }
+.reveal .bars4 > span { font-family: var(--display); font-weight: 800; font-size: 56px; }
+.reveal .bars4 .bar { margin: 0; height: 70px; }
+
+/* both worlds, under the 2×2 as each quadrant lights up */
+.reveal .q-worlds { display: flex; gap: 70px; margin: 34px 0 0 234px; font-family: var(--mono); font-size: 30px; white-space: nowrap; color: var(--bone); }
+.reveal .q-worlds b { color: var(--crane); font-weight: 600; margin-right: 14px; letter-spacing: 2px; text-transform: uppercase; font-size: 26px; }
+.reveal .lessons p { font-size: 54px; line-height: 1.45; }
+
+/* the factory now: plan -> subagents -> herdr */
+.reveal .flow { display: flex; align-items: flex-start; gap: 40px; margin-top: 30px; }
+.reveal .flow > div:not(.arrow) { flex: 1; border-top: 10px solid var(--crane); padding-top: 30px; }
+.reveal .flow b { display: block; font-family: var(--display); font-size: 64px; white-space: nowrap; font-weight: 900; color: var(--crane); line-height: 1; }
+.reveal .flow span { display: block; margin-top: 22px; font-size: 44px; font-weight: 500; line-height: 1.15; }
+.reveal .flow .arrow { font-size: 90px; font-weight: 900; color: var(--steel); padding-top: 20px; }
+.reveal .bio-qr { bottom: 90px; right: 140px; }
+.reveal .bio-qr img { width: 200px; height: 200px; }
+.reveal .bio-qr span { color: var(--ink); opacity: .7; font-size: 24px; }
+
+/* punchline slides: big, but sized so a full line still fits */
+.reveal h1.punch { font-size: 190px; font-weight: 900; line-height: .9; letter-spacing: -2px; }
+
+/* ---------- the control room (a recreation of my herdr layout, built at slide scale) ---------- */
+.reveal section.cr-slide { padding: 50px 60px; justify-content: flex-start; }
+.reveal .cr { display: grid; grid-template-columns: 520px 1fr; height: 980px; font-family: var(--mono); font-size: 30px; color: #c9ced6; border: 3px solid #3a3e45; }
+.reveal .cr i { font-style: normal; display: inline-block; width: 36px; }
+.reveal .cr em { font-style: normal; color: #7d8590; font-size: 24px; display: block; margin-left: 36px; }
+.reveal .cr-side { background: #23262d; padding: 28px 30px; border-right: 3px solid #3a3e45; }
+.reveal .cr-h { font-family: var(--mono); font-size: 24px; color: #7d8590; letter-spacing: 3px; margin-bottom: 12px; }
+.reveal .cr-space { line-height: 1.55; }
+.reveal .cr-space.on { color: var(--crane); background: #2d3038; margin: 0 -30px; padding: 0 30px; }
+.reveal .cr-agent { margin-bottom: 14px; }
+.reveal .cr-agent b { font-weight: 600; color: #e6e1d6; }
+.reveal .cr-agent.wait, .reveal .cr-agent.wait b { color: var(--rust); }
+.reveal .cr-agent.wait em { color: var(--rust); opacity: .85; }
+.reveal .cr-agent.done i { color: #6fbf73; }
+.reveal .cr-main { padding: 0; display: flex; flex-direction: column; }
+.reveal .cr-tabs { display: flex; gap: 6px; background: #23262d; padding: 10px 14px; }
+.reveal .cr-tabs span { padding: 4px 22px; background: #2d3038; color: #7d8590; font-size: 26px; }
+.reveal .cr-tabs span.on { background: var(--crane); color: var(--ink); font-weight: 600; }
+.reveal .cr-file { font-family: var(--mono); font-size: 28px; color: var(--crane); padding: 30px 40px 14px; }
+.reveal .cr-task { padding: 10px 40px; font-size: 32px; }
+.reveal .cr-task span { color: #7d8590; margin-right: 10px; }
+.reveal .cr-task.done { color: #6fbf73; }
+.reveal .cr-task.done { color: #c9ced6; }
+.reveal .cr-task em { margin-left: 64px; }
+.reveal .cr-task.gate { color: var(--rust); font-weight: 600; }
+.reveal .cr-task.gate em { color: var(--rust); }
+.reveal .cr-prompt { margin: 26px 40px 0; border-left: 8px solid var(--rust); background: #23262d; padding: 22px 30px; }
+.reveal .cr-prompt p { font-family: var(--mono); font-size: 32px; line-height: 1.5; color: #e6e1d6; }
+.reveal .cr-input { color: var(--crane) !important; }
+.reveal .cursor { display: inline-block; width: 18px; height: 36px; background: var(--crane); vertical-align: middle; animation: blink 1s steps(1) infinite; }
+.reveal .cr-status { margin-top: auto; padding: 18px 40px; background: #23262d; font-family: var(--mono); font-size: 26px; color: #7d8590; }
+.reveal .spin::before { content: '⠋'; color: var(--crane); animation: spin .8s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@keyframes spin {
+  0% { content: '⠋'; } 12% { content: '⠙'; } 25% { content: '⠹'; } 37% { content: '⠸'; }
+  50% { content: '⠼'; } 62% { content: '⠴'; } 75% { content: '⠦'; } 87% { content: '⠧'; }
+}
+.reveal .cr-prompt p.y { color: var(--crane); }
+
+/* control room, jazzed: model badges, a now-playing bar */
+.reveal .cr { grid-template-rows: 1fr 150px; height: 990px; box-shadow: 0 0 0 1px #000, 0 40px 120px rgba(244,195,0,.08); border-radius: 14px; overflow: hidden; }
+.reveal .cr-player { grid-column: 1 / -1; }
+.reveal .cr .m { display: inline-block; font-family: var(--mono); font-size: 20px; font-weight: 600; letter-spacing: 1px; padding: 2px 12px; border-radius: 99px; margin-left: 14px; vertical-align: middle; text-transform: lowercase; }
+.reveal .cr .m.opus   { background: #d97757; color: #1d1410; }
+.reveal .cr .m.sonnet { background: #e8a87c; color: #1d1410; }
+.reveal .cr .m.haiku  { background: #f2d0a9; color: #1d1410; }
+.reveal .cr .m.codex  { background: #e6e1d6; color: #111214; }
+.reveal .cr .m.local  { background: #3fb68b; color: #0d1f18; }
+.reveal .cr-agent { margin-bottom: 12px; }
+.reveal .cr-agent em { margin-top: 2px; }
+.reveal .cr-task { padding: 9px 40px; }
+.reveal .cr-tabs { align-items: center; }
+.reveal .cr-tokens { margin-left: auto; background: transparent !important; color: var(--crane) !important; font-size: 22px !important; }
+.reveal .cr-prompt { box-shadow: 0 0 40px rgba(200,69,44,.18); animation: gatepulse 2.4s ease-in-out infinite; }
+@keyframes gatepulse { 50% { box-shadow: 0 0 70px rgba(200,69,44,.38); } }
+
+.reveal .cr-player { display: grid; grid-template-columns: 110px 560px 1fr 120px; align-items: center; gap: 30px; padding: 0 40px; background: linear-gradient(90deg, #121418, #1b1f26); border-top: 3px solid #3a3e45; }
+.reveal .cr-art { width: 110px; height: 110px; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; box-shadow: 0 8px 24px rgba(0,0,0,.5); }
+.reveal .cr-art span:nth-child(1) { background: #f4c300; } .reveal .cr-art span:nth-child(2) { background: #c8452c; }
+.reveal .cr-art span:nth-child(3) { background: #111214; } .reveal .cr-art span:nth-child(4) { background: #e6e1d6; }
+.reveal .cr-track p { font-family: var(--mono); margin: 0; }
+.reveal .cr-np { font-size: 18px; letter-spacing: 3px; text-transform: uppercase; color: #1ed760; display: flex; align-items: center; gap: 12px; }
+.reveal .cr-logo { width: 26px; height: 26px; border-radius: 50%; background: #1ed760; display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 3px; }
+.reveal .cr-logo b { display: block; height: 3px; background: #121418; border-radius: 3px; }
+.reveal .cr-logo b:nth-child(1) { width: 16px; } .reveal .cr-logo b:nth-child(2) { width: 13px; } .reveal .cr-logo b:nth-child(3) { width: 10px; }
+.reveal .cr-title { font-family: var(--display) !important; font-size: 44px; font-weight: 800; color: #f1ece1; line-height: 1.05; white-space: nowrap; }
+.reveal .cr-artist { font-size: 24px; color: #8b949e; }
+.reveal .cr-controls { display: flex; justify-content: center; gap: 46px; font-size: 26px; color: #8b949e; margin-bottom: 12px; }
+.reveal .cr-controls .play { width: 48px; height: 48px; border-radius: 50%; background: #f1ece1; color: #111214; display: inline-flex; align-items: center; justify-content: center; font-size: 18px; margin-top: -10px; }
+.reveal .cr-bar { display: flex; align-items: center; gap: 18px; font-family: var(--mono); font-size: 20px; color: #8b949e; }
+.reveal .cr-rail { flex: 1; height: 6px; background: #3a3e45; border-radius: 6px; overflow: hidden; }
+.reveal .cr-fill { height: 100%; width: 45%; background: #1ed760; border-radius: 6px; animation: playing 120s linear infinite; }
+@keyframes playing { from { width: 45%; } to { width: 100%; } }
+.reveal .cr-eq { display: flex; align-items: flex-end; gap: 7px; height: 60px; }
+.reveal .cr-eq b { width: 12px; background: #1ed760; border-radius: 2px; animation: eq 1s ease-in-out infinite; }
+.reveal .cr-eq b:nth-child(1) { animation-delay: -.2s; } .reveal .cr-eq b:nth-child(2) { animation-delay: -.6s; }
+.reveal .cr-eq b:nth-child(3) { animation-delay: -.4s; } .reveal .cr-eq b:nth-child(4) { animation-delay: -.8s; }
+.reveal .cr-eq b:nth-child(5) { animation-delay: -.1s; }
+@keyframes eq { 0%,100% { height: 18%; } 50% { height: 100%; } }
+
+/* ---------- table of contents ---------- */
+.reveal .toc { list-style: none; margin: 0; padding: 0; }
+.reveal .toc li { display: grid; grid-template-columns: 100px 720px 1fr; align-items: baseline; column-gap: 40px; padding: 18px 0; border-top: 2px solid rgba(241,236,225,.15); }
+.reveal .toc li:last-child { border-bottom: 2px solid rgba(241,236,225,.15); }
+.reveal .toc .n { font-family: var(--mono); font-size: 40px; font-weight: 600; color: var(--crane); }
+.reveal .toc b { font-family: var(--display); font-size: 66px; white-space: nowrap; font-weight: 800; line-height: 1; }
+.reveal .toc .d { font-family: var(--mono); font-size: 32px; line-height: 1.35; color: rgba(241,236,225,.75); }
+.reveal .toc li.toc-after .n, .reveal .toc li.toc-after b { color: var(--crane); }
+.reveal .qr.corner.essay-qr span { color: var(--bone); opacity: .85; font-size: 24px; }
+.reveal .qr.corner.essay-qr img { width: 200px; height: 200px; }
+.reveal .grey-word { color: #8b9099; }

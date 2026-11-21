@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Getting Shit Done in Two Worlds — NIDC 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="vendor/reveal.js/dist/reset.css">
+<link rel="stylesheet" href="vendor/reveal.js/dist/reveal.css">
+<link rel="stylesheet" href="deck.css">
+<link rel="stylesheet" href="play/play.css">
+<meta name="description" content="Getting Shit Done in Two Worlds, NIDC 2026. The slides, with the speaker notes playing as captions.">
+</head>
+<body>
+<div class="reveal"><div class="slides">
+
+<!--
+  Voice (not shown): Zach Holman. Experiences, not things. Blunt one-liners. You are the idiot in
+  your own stories. Joke, then the true thing lands straight after. Running jokes:
+  "the grey", "middle management", "meetings". Fast slides for gags, slow for weight.
+  The funeral notice and the close are played completely straight.
+-->
+
+<!-- ======================================================= INTRO (bone) -->
+
+<section class="photo" data-background-image="images/cranes.jpg" data-background-opacity="0.5">
+  <p class="kicker">NIDC 2026 · Room 1B</p>
+  <h1>Getting Shit Done<br><span class="y">in Two Worlds</span></h1>
+  <aside class="notes">
+<p>Morning, everyone. Thanks for coming.</p>
+<p>This talk is called Getting Shit Done in Two Worlds. For the next thirty minutes I want to show you what I've learned from running AI-heavy engineering in two very different places at the same time.</p>
+</aside>
+</section>
+
+<section data-background-color="#f1ece1" class="bone">
+  <div class="bio">
+    <div>
+      <p class="kicker">Hello</p>
+      <h1>Stephen<br>McCullough</h1>
+    </div>
+    <ul>
+      <li><b>30</b> years shipping software</li>
+      <li><b>By day</b> principal engineer, Whitespace</li>
+      <li><b>By night</b> founder, SkillfulGorilla</li>
+      <li><b>Writes</b> swm.cc</li>
+    </ul>
+  </div>
+  <div class="qr corner bio-qr"><img src="images/qr-recipes.svg" alt="QR code: swm.cc/writing/nidc-takeaway-recipes"><span>slides, controls<br>and the essays<br>behind this talk</span></div>
+  <aside class="notes">
+<p>First, a bit about me. I'm Stephen, and I've been shipping software for thirty years.</p>
+<p>In that time I've lived through a lot of things that were going to change everything. UML diagrams that would generate our code for us. Blockchain. Low-code, which was going to mean nobody needed developers any more. Most of them didn't change much at all.</p>
+<p>Agile kind of did. But in every company, and in every iteration, it turned into a bastardised Frankenstein version of itself.</p>
+<p>Agentic engineering is different. AI has changed everything.</p>
+<p>So today I want to show you what that change looks like in two very different places, and what I think it means for how we'll work from here.</p>
+<p>And by the end you'll leave with six controls. Practical things you can try on Monday.</p>
+<p>I've written all of it up, the controls and the essays behind them. It's all behind that code in the corner, along with these slides, and it'll be there after today.</p>
+</aside>
+</section>
+
+<section class="toc-slide" style="padding-top: 0">
+  <p class="kicker">Where this is going</p>
+  <ol class="toc">
+    <li><span class="n">01</span><b>The factory</b><span class="d">What I built to run agents at night, and what runs them now</span></li>
+    <li><span class="n">02</span><b>Where the time went</b><span class="d">One change, timed from start to done, in both worlds</span></li>
+    <li><span class="n">03</span><b>The model</b><span class="d">Two questions for every change, and six controls that follow</span></li>
+    <li><span class="n">04</span><b>Buy undo</b><span class="d">The cheapest governance there is</span></li>
+    <li><span class="n">05</span><b>What a team is for now</b><span class="d">What's left for people to do</span></li>
+    <li class="toc-after"><span class="n">06</span><b>Ask me after</b><span class="d">No Q&amp;A. Find me in person instead</span></li>
+  </ol>
+  <aside class="notes">
+<p>Here's where we're going.</p>
+<p>First, the factory: what I built to run agents at night, and what runs them now.</p>
+<p>Then where the time actually goes, following one change from start to done in both worlds.</p>
+<p>Then the model at the heart of this talk. Two questions you can ask of every change, and the six controls that follow from them.</p>
+<p>Then buying undo, which is the cheapest governance there is.</p>
+<p>And finally, what a team is for now.</p>
+<p>There's no Q&amp;A at the end, and that's deliberate. In a room this size, a Q&amp;A tends to become one person's conversation, or a statement with a question mark on the end. And the best questions are usually the ones people won't ask into a microphone in front of everyone.</p>
+<p>So if something here is useful, or you think I'm wrong, come and find me afterwards. I'd much rather have that conversation properly.</p>
+<p>But first, the two worlds in the title.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/cityday.jpg" data-background-opacity="0.45">
+  <p class="kicker">By day</p>
+  <h2>Ten engineers.<br>Sovereign AI.<br><span class="y">Real governance.</span></h2>
+  <aside class="notes">
+<p>My job is principal engineer at Whitespace. There are ten of us, building sovereign AI: a distributed framework on a graph.</p>
+<p>And we take governance seriously. Humans in the loop, guardrails, sign-offs.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch">Sign-offs on<br><span class="y">the sign-offs.</span></h1>
+  <aside class="notes">
+<p>In fact, we have sign-offs on the sign-offs.</p>
+<p>And for what we build, that's exactly right.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/desknight.jpg" data-background-opacity="0.5">
+  <p class="kicker">By night</p>
+  <h2>One engineer.<br>Monoliths.<br><span class="y">Barely any of that.</span></h2>
+  <aside class="notes">
+<p>Outside of that, I also run a small consultancy called SkillfulGorilla. It's me, sometimes one other engineer, and a salesperson, and we build monolithic apps.</p>
+<p>The governance policy there is a little different. It's roughly this:</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch">“Ah, fuck it,<br><span class="y">it'll be grand.”</span></h1>
+  <aside class="notes">
+<p>"Ah, fuck it, it'll be grand."</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">By night, from my git log</p>
+  <h2>A quarter of a million<br>lines changed this year.<br><span class="y">After midnight, 68% are<br>co-authored by an agent.</span></h2>
+  <aside class="notes">
+<p>Here's what that looks like in practice. These are real numbers, straight out of my git log.</p>
+<p>Across thirty-five repos, I changed a quarter of a million lines this year, and that's after taking out lock files and generated code.</p>
+<p>During the day, about a third of my commits are co-authored by a coding agent. After midnight, it's two-thirds.</p>
+</aside>
+</section>
+
+<section class="center">
+  <p class="quiet" style="font-size:56px;margin-bottom:30px">Before midnight, I'm an engineer.</p>
+  <h1 class="punch">After midnight,<br><span class="y">middle management.</span></h1>
+  <aside class="notes">
+<p>So before midnight, I'm an engineer.</p>
+<p>After midnight, I'm middle management.</p>
+</aside>
+</section>
+
+<section>
+  <h2>Two shifts.<br><span class="y">Same year.</span></h2>
+  <aside class="notes">
+<p>And here's the thing I keep coming back to.</p>
+<p>Whitespace went all in on AI in the same year it was growing. More people, more process, more ceremony, and AI, all landing at once.</p>
+<p>When a team grows, process arrives with the headcount. That's natural. But AI arrived at exactly the same moment, and it changed what the work actually is.</p>
+</aside>
+</section>
+
+<section>
+  <h2>The job didn't speed up.<br><span class="y">It changed.</span></h2>
+  <aside class="notes">
+<p>Because after thirty years, I'm sure of one thing: the job didn't speed up. It changed.</p>
+<p>We used to write code. Now we decide what gets built, we write down what we meant, and we judge what's safe to ship. The typing is nearly free.</p>
+<p>So every piece of process you have needs to answer one question. Is it there to coordinate typing, or is it there to hold judgement?</p>
+<p>Both of my worlds had to answer that this year. Here's what they found.</p>
+</aside>
+</section>
+
+<section>
+  <h2>I promised a<br><span class="y">stripped-down factory</span><br>for the governed team.</h2>
+  <aside class="notes">
+<p>If you read the abstract, you'll know I promised you two factories: the full-throttle one I run on my own, and a stripped-down version that could survive a governed team.</p>
+<p>So I went looking for the stripped-down one.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="huge">It doesn't<br><span class="y">exist.</span></h1>
+  <aside class="notes">
+<p>And it doesn't exist.</p>
+<p>There's only one factory, and it runs in both worlds. Even the model mix is the same: frontier models to build with, and our own models wherever the data can't leave. Whitespace runs that on serious compute. I run it on a laptop.</p>
+</aside>
+</section>
+
+<section>
+  <h2>Not the factory.<br><span class="y">Where the human stands.</span></h2>
+  <aside class="notes">
+<p>So if the factory is the same, what's actually different?</p>
+<p>Where the human stands. That's what changed.</p>
+<p>And this isn't a talk about how AI made me faster. We're all faster now. Speed turned out to be the least interesting thing that happened to me this year.</p>
+</aside>
+</section>
+
+<!-- ======================================================= SECTION 01 -->
+
+<section class="section" data-background-color="#f4c300">
+  <p class="kicker">01</p>
+  <h1>I built a factory.<br>Then I killed it.</h1>
+  <aside class="notes">
+<p>Let me start with the factory, and how I got there.</p>
+<p>I built one. And then I killed it.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/terminal.jpg" data-background-opacity="0.4">
+  <h2>Hello world.<br>A blog.<br>A web server.<br><span class="y">A software factory.</span></h2>
+  <aside class="notes">
+<p>Think about how most of us learned this job. Hello world. Then a blog. Then your own web server.</p>
+<p>You don't build those because the world needs another one. You build them to understand how the thing works.</p>
+<p>To me, a software factory was the next thing on that list.</p>
+<p>Now, everyone is building one. You can't open LinkedIn without someone announcing their agent orchestrator. But when I started on mine, nearly a year ago, it wasn't a product and it wasn't a startup pitch. It was an experiment. I wanted to understand how the thing works, the same way I did with my first web server.</p>
+<p>So I built one.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/thrawn-real.png" data-background-size="cover" data-background-opacity="0.2">
+  <p class="kicker">My software factory</p>
+  <h1 class="y" style="margin-bottom: 40px">thrawn</h1>
+  <h2 style="font-size: 88px; line-height: 1.1">Plan with one model. Build with many.<br>One worktree each.</h2>
+  <aside class="notes">
+<p>My software factory had a name: thrawn.</p>
+<p>It's named after Grand Admiral Thrawn, the strategist who wins every battle through planning and delegation. Keep the name in mind, because thrawn comes back later.</p>
+<p>The idea was simple. A strong model makes the plan. The work gets split into tasks, and each task goes to the model that suits it, in its own git worktree. Renaming a function doesn't need the same brain as designing a schema.</p>
+<p>None of those ideas were new on their own. Plan-and-execute, orchestrator and workers, model routing, a worktree per agent: they're all named patterns by now. What I wanted to know was what happens when you run them together, end to end, on real repos.</p>
+<p>And underneath it all was the question I couldn't stop asking: can one engineer run the work of a whole team?</p>
+</aside>
+</section>
+
+<section class="center">
+  <p class="clock">03:15</p>
+  <p class="quiet">the morning it worked</p>
+  <aside class="notes">
+<p>And then one morning, at a quarter past three, it worked.</p>
+<p>Here's what that looked like. I gave the same five tickets to two different coding agents and let them race. Each one worked through all five in parallel, so at the end I had ten finished attempts: two answers to every ticket.</p>
+<p>I read all ten and scored each one the way I'd score a colleague's work. Would I merge this as it stands? Then I opened them as ten pull requests and let the automated checks run. The checks agreed with my scoring on every single one.</p>
+<p>That was the moment I trusted it. So I pointed it at the rest of the project, a multiplayer card game I'd been building.</p>
+<p>Not a feature. The whole game engine. Every card and its rules, the scoring, real-time multiplayer, and an end-to-end test suite to prove it all works. Weeks of work, the way I used to build things.</p>
+<p>By breakfast, all of it was built, tested and merged.</p>
+<p>And the speed wasn't the interesting part. The interesting part was why it worked. Every ticket was small, every ticket had a clear spec, and every ticket had tests that defined what done meant. The agents didn't need me in the room. They needed the work to be shaped well enough to hand over.</p>
+<p>That's the skill that's left. Not writing the code. Shaping the work so it can be written without you.</p>
+<p>So thrawn worked. It did everything I'd built it to do.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/derelict.jpg" data-background-opacity="0.45">
+  <h1>And it died<br><span class="y">anyway.</span></h1>
+  <div class="qr corner essay-qr"><img src="images/qr-roadmap.svg" alt="QR code: swm.cc/writing/the-platform-ate-my-roadmap"><span>the essay:<br>The Platform<br>Ate My Roadmap</span></div>
+  <aside class="notes">
+<p>And it died anyway.</p>
+<p>It was too slow, and it used too much. And while I was busy being proud of it, the coding agents quietly shipped half my roadmap as built-in features. I wrote an essay about that, called The Platform Ate My Roadmap. That code in the corner goes straight to it, if you want the whole story later.</p>
+<p>So the strategist lost. And what it lost to was this.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch"><span class="mono y">plan.md</span></h1>
+  <aside class="notes">
+<p>A fucking markdown file.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">What replaced it</p>
+  <div class="flow">
+    <div><b>The plan</b><span>one markdown file, reviewed before anything runs</span></div>
+    <div class="arrow">→</div>
+    <div><b>The crew</b><span>the plan fans out: one agent, one worktree</span></div>
+    <div class="arrow">→</div>
+    <div><b>The control room</b><span>every agent, every repo, one screen</span></div>
+  </div>
+  <p class="quiet" style="margin-top:70px">Both laptops. Same repo. Only the repo list changes.</p>
+  <aside class="notes">
+<p>What replaced it is very plain.</p>
+<p>First, a plan: what we're building, in what order, and what we're deliberately not doing. I review it before anything runs.</p>
+<p>Then a crew. The coding agent reads the plan and fans it out to subagents. One agent, one worktree, every time.</p>
+<p>And finally a control room: one terminal screen showing every agent across every repo, so I can see who's working, who's waiting on me and who's finished.</p>
+<p>The intelligence moved out of my clever tool and into a boring file. And that's the factory that runs in both worlds. It's the same repo on both laptops.</p>
+</aside>
+</section>
+
+<section class="shot" data-background-image="images/thrawn-real.png" data-background-size="contain" data-background-color="#000">
+  <aside class="notes">
+<p>This is a real screenshot from my laptop. This is what two in the morning looks like.</p>
+<p>Down the left are my spaces. Each one is a repo: swm.cc, whatisonthe.tv, Funerals NI, Second Breakfast, Catch, and the rest.</p>
+<p>Underneath are the agents. One per repo, each in its own worktree. Every one of them has a tick beside it. They're finished.</p>
+<p>This screenshot is from a few months back. If you look at the middle, that agent is still building thrawn. thrawn's gone now. But the room around it is the part that survived.</p>
+<p>A quick word on the tooling. That's herdr, a terminal UI for running lots of agents side by side, plus a suite of agents and skills I've built up over the year. It's all on my GitHub if you want it.</p>
+<p>And I don't run one model. The hard thinking goes to the most capable model, ordinary work to a mid-range one, mechanical edits to a small fast one, some work goes to Codex on a separate subscription, and anything where the data shouldn't leave the building runs on a local model. Each task gets the cheapest model that can do it well.</p>
+<p>But honestly, the tooling isn't the interesting part. You'll find better workflows than mine from people on YouTube every week. What matters is what the job has turned into.</p>
+<p>And that's this. I'm not typing. I'm watching who's working, who's finished, and who needs a decision from me.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">What I kept</p>
+  <h2>One thing.<br><span class="y">The code gate.</span></h2>
+  <p class="quiet" style="margin-top:40px">Nothing ships until a human types the code.</p>
+  <aside class="notes">
+<p>From thrawn, I kept exactly one thing: the code gate.</p>
+<p>A gate is any point where work has to stop and get a yes before it goes any further. A code review is a gate. A QA sign-off is a gate. Mine is simple: nothing ships until I've looked at the green board and typed in a one-time code.</p>
+<p>But that's only for my own work. At Whitespace I never needed it, because the sign-offs on the sign-offs already do that job.</p>
+</aside>
+</section>
+
+<section>
+  <h2>The gate moved to<br>where <span class="y">accountability</span><br>already sat.</h2>
+  <aside class="notes">
+<p>The gate moved to wherever accountability already sat.</p>
+<p>I built a whole system to get rid of the build bottleneck. The bottleneck didn't go away. It just moved.</p>
+</aside>
+</section>
+
+<!-- ======================================================= SECTION 02 -->
+
+<section class="section" data-background-color="#f4c300">
+  <p class="kicker">02</p>
+  <h1>Where the<br>time went</h1>
+  <aside class="notes">
+<p>So where did it move to? Let's look at where the time actually goes.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">One governed change, from start to done</p>
+  <div class="bar"><div class="wait" style="width:100%"></div></div>
+  <aside class="notes">
+<p>This is one change that needs a sign-off, from the moment someone picks it up to the moment it's done. It could be at Whitespace, or for the one governed client I have at night.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">One governed change, from start to done</p>
+  <div class="bar"><div class="build" style="width:4%"></div><div class="wait" style="width:96%"></div></div>
+  <div class="bar-labels"><span class="y">build</span><span class="quiet">waiting for a human</span></div>
+  <aside class="notes">
+<p>That small yellow section is the build, and that's the part AI fixed. It went from days to hours.</p>
+<p>Everything else is waiting for a human: review, QA, sign-off. And that hasn't moved at all.</p>
+<p>As an industry, we spent billions of dollars making the yellow bit smaller.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch">This talk is about<br><span class="grey-word">the grey.</span></h1>
+  <div class="bar" style="margin-top: 70px"><div class="build" style="width:4%"></div><div class="wait" style="width:96%"></div></div>
+  <aside class="notes">
+<p>This talk is about the grey.</p>
+<p>Not the yellow bit. Everything after the code is written: the review, the QA, the sign-off, and all the waiting in between. When I say the grey from here on, that's what I mean.</p>
+</aside>
+</section>
+
+<section>
+  <div class="worlds">
+    <div><p class="label">Most solo work</p><h2 class="y">Under<br>a day</h2></div>
+    <div><p class="label">The governed client</p><h2>4 days</h2></div>
+  </div>
+  <aside class="notes">
+<p>Most of my solo work barely has any grey. It goes from in progress to done in under a day.</p>
+<p>Except for one client, a properly governed one. Same factory, same me, same agents, and it takes four days.</p>
+<p>So it isn't the AI that sets the speed. It's the stakes.</p>
+</aside>
+</section>
+
+<section>
+  <h3 style="margin-bottom:60px">A team of ten and a team of one<br><span class="y">learned the same lessons.</span></h3>
+  <div class="worlds lessons">
+    <div><p class="label">Whitespace</p><p>Spec-level review<br>Docs written for agents<br>Task-sized tickets</p></div>
+    <div><p class="label">My factory</p><p>Spec first, in the repo<br>Context files per repo<br>A plan that fans out</p></div>
+  </div>
+  <aside class="notes">
+<p>And this is the part that really struck me. Whitespace started moving to spec-level review, docs written for the agents, and smaller tickets.</p>
+<p>That's exactly what my solo factory learned the hard way: a spec in the repo, context written for the agents, and plans small enough to hand one piece to each subagent.</p>
+<p>Ten people with real governance, and one engineer at midnight, arrived at the same answer separately.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">The ones I don't like</p>
+  <h3>Whitespace breaks far less than I do.<br><span class="quiet">1 in 6 of my sessions get binned.</span><br><span class="quiet">Review time is up in both worlds.</span></h3>
+  <aside class="notes">
+<p>I also promised you the parts I don't like, so here they are.</p>
+<p>Whitespace breaks a lot less than I do. Its review stops real bugs reaching production. The governance is doing its job.</p>
+<p>One in six of my agent sessions gets thrown away. The agents are very fast at going in the wrong direction.</p>
+<p>And code got cheap to write and expensive to read, so review time is up in both worlds.</p>
+<p>Which raises the real question: if review is where the time goes, how do you decide how much review each change deserves?</p>
+</aside>
+</section>
+
+<!-- ======================================================= SECTION 03 -->
+
+<section class="section" data-background-color="#f4c300">
+  <p class="kicker">03</p>
+  <h1>The model</h1>
+  <aside class="notes">
+<p>That's the question this next section answers.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/door.jpg" data-background-opacity="0.4">
+  <h2>You know<br><span class="y">one-way doors.</span></h2>
+  <aside class="notes">
+<p>You'll all know this one. Bezos split decisions into one-way doors, where you go slowly, and two-way doors, where you go fast.</p>
+<p>That works well when you're making a handful of big decisions a year.</p>
+<p>And if you've been reading about blast radius and reversibility for agents this year, you'll have seen people arriving at the same place from different directions.</p>
+</aside>
+</section>
+
+<section>
+  <h2>Building is nearly free.<br><span class="y">Undo is the cost.</span></h2>
+  <aside class="notes">
+<p>But now agents make a thousand changes a week. Building is nearly free. The only thing that really costs anything is getting it wrong, and how hard it is to take back.</p>
+<p>And the gate, that point where the work stops and waits for a yes, doesn't have to be a person any more. When a mistake is cheap and easy to take back, one agent can sign off another agent's work, overnight.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+  </div>
+  <aside class="notes">
+<p>So there are two questions for every change. How bad is it if it's wrong? And how hard is it to undo?</p>
+<p>That's the model.</p>
+<p>And yes, it's deliberately simple. A bigger system will want more dimensions than two. How far the damage spreads. How quickly you'd even notice. Whether there's a regulator involved. Whether the data is sensitive. You can build a much richer risk model than this, and in some places you should.</p>
+<p>But two questions is where you start. Most good practice begins as an oversimplification that people can actually remember and use. The risk matrix, the one-way door, the four lines of the Agile Manifesto. Nobody applies a framework they can't hold in their head.</p>
+<p>So start with two questions, and add dimensions only when the two stop being enough.</p>
+<p>Remember this grid. Everything from here on hangs off it.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell on"><b>Let it run</b><span>tests and an overnight agent sign it off</span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+  </div>
+  <div class="q-worlds"><span><b>Whitespace</b> a nightly test run signs it off</span><span><b>Me</b> an overnight agent signs it off</span></div>
+  <aside class="notes">
+<p>Each box gets a gate: how much a human has to sign off before that change ships.</p>
+<p>If it's cheap when it's wrong and easy to undo, let it run.</p>
+<p>On the 8th of August, Dependabot bumped Rails on Funerals NI and the build broke. The gate missed it completely.</p>
+<p>And it didn't matter. It was reverted at 08:20 and properly fixed by 08:31. Eleven minutes, no meeting, and nobody noticed.</p>
+<p>In this corner you don't need a perfect gate. You need a fast undo.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell on"><b>Let it run</b><span>tests and an overnight agent sign it off</span></div>
+    <div class="cell on"><b>Review the plan</b><span>not the diff. Agree the spec before the agent starts</span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell dim"><b>?</b><span></span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+  </div>
+  <div class="q-worlds"><span><b>Whitespace</b> migrations, changes to the graph</span><span><b>Me</b> migrations</span></div>
+  <aside class="notes">
+<p>If it's cheap when it's wrong but hard to undo, review the plan, not the diff.</p>
+<p>On the 18th of January, a migration on catch, a small landing-page app, fell over in production because the tables were already there. Nobody was hurt. But you can't un-run a migration.</p>
+<p>At Whitespace, it's the same kind of change. Database migrations, and changes to how our data is structured.</p>
+<p>Easy to make. Painful to reverse.</p>
+<p>So we don't review the code afterwards. We review the plan before the agent starts.</p>
+<p>Because once the code exists, the hard decision has already been made.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell on"><b>Let it run</b><span>tests and an overnight agent sign it off</span></div>
+    <div class="cell on"><b>Review the plan</b><span>not the diff. Agree the spec before the agent starts</span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell on"><b>Ship it, then watch</b><span>behind a flag, fast rollback, a human looks after release</span></div>
+    <div class="cell dim"><b>?</b><span></span></div>
+  </div>
+  <div class="q-worlds"><span><b>Whitespace</b> QA sign-off, design QA</span><span><b>Me</b> me</span></div>
+  <aside class="notes">
+<p>If it's costly when it's wrong but easy to undo, ship it, then watch. Put it behind a flag, have a fast rollback, and have a human look at it once it's out.</p>
+<p>Earlier this year an agent rewrote the recommendations on whatisonthe.tv. Get that wrong and every user sees rubbish on the front page, so it's costly. But it went out behind a flag, to a slice of users first. I looked at it the next morning, the picks were worse than the old ones, and I switched it off. One click. Nobody outside that slice ever saw it.</p>
+<p>That change never needed to wait for anyone. It needed someone to look.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell on"><b>Let it run</b><span>tests and an overnight agent sign it off</span></div>
+    <div class="cell on"><b>Review the plan</b><span>not the diff. Agree the spec before the agent starts</span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell on"><b>Ship it, then watch</b><span>behind a flag, fast rollback, a human looks after release</span></div>
+    <div class="cell hot"><b>Put a human in the way</b><span>named sign-off before release, every time</span></div>
+  </div>
+  <div class="q-worlds"><span><b>Whitespace</b> QA, then product, then the customer</span><span><b>Me</b> the client</span></div>
+  <aside class="notes">
+<p>And if it's costly when it's wrong and you can't take it back, put a human in the way. A named person, before release, every single time.</p>
+<p>At Whitespace, that's QA, then product, and for work that truly can't come back, the customer puts their own name on it.</p>
+<p>Now, think of the last change you shipped. You don't have to tell me. Just put it in a box.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/letterbox.jpg" data-background-opacity="0.35">
+  <h2>The most irreversible change<br>in this talk isn't <span class="y">sovereign AI.</span></h2>
+  <aside class="notes">
+<p>Now, you'd probably expect the most irreversible change in this talk to be on the sovereign AI side. That's the world with the serious customers, the sensitive data, and the chain of sign-offs to match.</p>
+<p>It isn't.</p>
+<p>It's in one of my own apps, built and run by one person.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/letterbox.jpg" data-background-opacity="0.35">
+  <h2>A bug that emails the<br>wrong death notice<br>to a whole town<br><span class="y">can't be unsent.</span></h2>
+  <aside class="notes">
+<p>One of my apps, Funerals NI, publishes funeral notices for Northern Ireland, and people subscribe to them.</p>
+<p>A bug that emails the wrong death notice to everyone in a town can't be unsent. A family has already read it.</p>
+<p>That's an app run by a one-person consultancy, and it sits in the human-in-the-way corner every time. The client signs off.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1>Stakes don't come from<br><span class="y">team size.</span></h1>
+  <aside class="notes">
+<p>Stakes don't come from team size.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker grid-kicker">Four gates</p>
+  <div class="grid22">
+    <div></div><div class="ax top">Easy to undo</div><div class="ax top">Hard to undo</div>
+    <div class="ax">Cheap if wrong</div>
+    <div class="cell dim"><b>Let it run</b><span></span></div>
+    <div class="cell dim"><b>Review the plan</b><span></span></div>
+    <div class="ax">Costly if wrong</div>
+    <div class="cell hot"><b>Ship it, then watch</b><span>both worlds still gate this before release</span></div>
+    <div class="cell dim"><b>Put a human in the way</b><span></span></div>
+  </div>
+  <aside class="notes">
+<p>Now, back to that third corner, ship it, then watch, because I have a confession, and it's true in both worlds.</p>
+<p>We both still make that work wait before it ships. QA sign-off at Whitespace, and me at home. We treat it like a one-way door, but it isn't one. We can undo it.</p>
+<p>And there are good reasons we got here. For most of our careers, releases were expensive and rollbacks were slow and scary. If you couldn't take something back quickly, the only safe place to catch a problem was before it went out. So we built our habits, our process and our sign-offs around that.</p>
+<p>But for this kind of change, that's no longer true. With a feature flag, a rollback that takes one command, and someone who actually looks at it once it's live, you can catch the problem after release, faster, and with real users telling you what's wrong instead of a test plan guessing.</p>
+<p>None of that is new, by the way. Continuous delivery people have been saying it for fifteen years. What's new is two things.</p>
+<p>First, the volume. When a team shipped a handful of changes a week, holding each one for QA cost a day here and there. Now agents produce dozens of changes a day, and every one of them joins the same queue in front of the same few people. That queue is the grey.</p>
+<p>Second, the safety net got cheap. Writing the flag, the rollback and the monitoring used to be extra work that nobody had time for. Now the agent writes them as part of every change. And an agent can do a lot of the watching too: compare the numbers before and after release, and shout when something moves.</p>
+<p>So the old argument finally pays. The thing that made it too expensive has gone.</p>
+<p>Remember the recommendations on whatisonthe.tv? The agent's rewrite went out to a slice of users, I looked at it the next morning, and I switched it off with one click. That's exactly how it's meant to work, and it did. But I'll be honest: I don't do it every time. Most of the time I still hold the change back, out of habit.</p>
+<p>The review doesn't go away. It moves to after release. And the waiting goes away.</p>
+<p>That's the biggest speed-up still on the table, for a team of ten and for a team of one. Including me. Especially me.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h2>I didn't strip the factory down.<br><span class="y">I moved the gate.</span></h2>
+  <aside class="notes">
+<p>So no, I didn't strip the factory down. I moved the gate.</p>
+<p>The gates tell you where the human stands. The controls are how you actually run each gate.</p>
+<p>A control is anything that reduces risk. It's the word auditors and regulated industries use, and it comes in three kinds.</p>
+<p>Some prevent: they stop the problem happening. A lock on the door.</p>
+<p>Some detect: they tell you it's happened. The smoke alarm.</p>
+<p>Some correct: they limit the damage afterwards. The backup you restore from.</p>
+<p>Each of the next six slides tells you which kind it is, and which gate it runs on. They're all borrowed from the regulated world.</p>
+<p>Four quick ones, then two slower ones.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 1 · CORRECT</span><h3>An autonomy budget</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">Let it run.</span> Cheap if wrong, easy to undo</dd>
+    <dt>You need</dt><dd>A revert count per repo, per quadrant</dd>
+    <dt>Do</dt><dd>Agents merge alone while reverts stay under budget. <span class="y">Blow it, and the work moves up a gate.</span></dd>
+  </dl>
+  <aside class="notes">
+<p>Control one runs on the let-it-run gate.</p>
+<p>It's an autonomy budget, and it corrects. It's an error budget, but for agent autonomy.</p>
+<p>The agents merge on their own until they use up their revert budget.</p>
+<p>Then they lose the let-it-run gate and move up to review the plan, until they earn it back.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 2 · PREVENT</span><h3>The pre-mortem agent</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">Review the plan.</span> Cheap if wrong, hard to undo</dd>
+    <dt>You need</dt><dd>A plan.md, and a second agent with no stake in it</dd>
+    <dt>Do</dt><dd>Tell it: <span class="y">“This shipped and caused an incident. Write the post-mortem.”</span> Fix the plan. Then a human reviews.</dd>
+  </dl>
+  <aside class="notes">
+<p>Control two runs on the review-the-plan gate.</p>
+<p>It prevents: a pre-mortem, written by an agent.</p>
+<p>You tell it: this plan shipped and caused an incident, now write the post-mortem. It's very good at it.</p>
+<p>You fix the plan, and then a human reviews it.</p>
+<p>The plan is the thing this gate reviews, so make the plan as good as it can be first.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 3 · DETECT</span><h3>The shadow run</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">Ship it, then watch.</span> Costly if wrong, easy to undo</dd>
+    <dt>You need</dt><dd>The old path, the new path, and a diff of their outputs</dd>
+    <dt>Do</dt><dd>Run the agent's new code beside the old in production. <span class="y">Flip only when the diff is clean.</span></dd>
+  </dl>
+  <aside class="notes">
+<p>Control three runs on the ship-it-then-watch gate.</p>
+<p>It detects: the shadow run.</p>
+<p>The agent's code runs in production alongside the old path, nobody sees its output, and you switch over when the diff is clean.</p>
+<p>It's the watching, done before anyone is exposed to it.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 4 · PREVENT</span><h3>Separation of duties, for agents</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">Put a human in the way.</span> Costly if wrong, hard to undo</dd>
+    <dt>Author</dt><dd>One agent writes the code</dd>
+    <dt>Tester</dt><dd>Another writes the tests, from the spec. <span class="y">It never sees the code.</span></dd>
+    <dt>Reviewer</dt><dd>A third reviews. A hook enforces it. A human signs last.</dd>
+  </dl>
+  <aside class="notes">
+<p>Control four runs on the last gate, put a human in the way.</p>
+<p>It's separation of duties for agents, the oldest control there is for preventing mistakes.</p>
+<p>Three agents that can't collude. One writes the code. One writes the tests from the spec, without ever seeing the code. And one reviews.</p>
+<p>A hook enforces it, because a prompt is only a suggestion. A hook is law.</p>
+<p>And a human still signs last, because this is the gate where a person is always in the way.</p>
+<p>All four are written up in full behind the QR code.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h2>An agent can do everything<br>except <span class="y">be accountable.</span></h2>
+  <aside class="notes">
+<p>You'll notice there's always a human at the end of each of these. That's because an agent can do everything except be accountable.</p>
+<p>It can't be blamed, and it can't be fired.</p>
+<p>For me, accountability is one person typing a one-time code. A governed team needs a chain of named people, because more names are on the line. It's a different gate in the same corner.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 5 · DETECT</span><h3>The quadrant as code</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">All four.</span> This is the 2×2 as infrastructure.</dd>
+    <dt>You need</dt><dd>A commit trailer, a hook, a CI check</dd>
+    <dt>Do</dt><dd>Every plan task and commit carries <span class="y"><code>Quadrant:</code></span>. CI checks it went through its gate.</dd>
+  </dl>
+  <aside class="notes">
+<p>Control five is the one I want to slow down for.</p>
+<p>It doesn't run on one gate. It runs on all four.</p>
+<p>Remember the grid, with the four gates? This control takes that grid off the slide and puts it into the code.</p>
+<p>It detects. It doesn't stop anything. It makes sure you can always see which gate a change went through.</p>
+<p>Every task in the plan, and every commit, carries a Quadrant trailer, right next to Co-Authored-By.</p>
+<p>The agent proposes it. The plan review confirms it. And CI checks that the change went through the gate its quadrant requires.</p>
+<p>That makes my git history an audit trail.</p>
+<p>If you want every hard-to-undo change that skipped a human, it's one command.</p>
+<p>In a regulated company, that's an audit.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">Control 5, for real</p>
+  <pre class="terminal">Make Active Storage migration idempotent
+
+<span class="add">Quadrant: cheap-irreversible</span>
+<span class="add">Gate: plan-reviewed</span>
+Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</pre>
+  <pre class="terminal" style="margin-top:36px">$ git log --grep='Quadrant: costly-irreversible' \
+    --format='%h %s %(trailers:key=Gate)'</pre>
+  <aside class="notes">
+<p>This is what it actually looks like: two lines in the commit message, the quadrant and the gate it went through.</p>
+<p>And that command is the whole audit. Every hard-to-undo change, and who let it through.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch">Same thing.<br><span class="y">Minus four meetings.</span></h1>
+  <aside class="notes">
+<p>In my company, it's a git log. Same thing, minus four meetings.</p>
+<p>And that's why I call them controls. Every one of them is something the regulated world invented: error budgets, separation of duties, audit trails. Agents have made them cheap enough for a team of one.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/gate.jpg" data-background-opacity="0.4">
+  <h2>Guardrail,<br>or <span class="y">expensive fear?</span></h2>
+  <aside class="notes">
+<p>The two-by-two also tells you which controls to get rid of.</p>
+<p>Here's one most of you are doing: approving every single command your agent runs. It feels safe.</p>
+<p>But by the fiftieth prompt, you've stopped reading them. You're just saying yes, yes, yes.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch">The nodding dog<br><span class="y">of security.</span></h1>
+  <aside class="notes">
+<p>That isn't a gate. It's the nodding dog of security.</p>
+<p>And it's worse than having no gate, because it feels like one. I did it for months. Now a classifier waves the routine things through, so the prompts I actually see are worth reading.</p>
+<p>So for any control you have, ask which corner it's guarding. Fear puts human-in-the-way gates on let-it-run work.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/sprawl.jpg" data-background-opacity="0.4">
+  <p class="kicker">Where the model breaks</p>
+  <h2>A thousand undoable changes<br>add up to an architecture<br><span class="y">nobody can undo.</span></h2>
+  <aside class="notes">
+<p>Now, some of you have probably been sitting there with your arms folded, thinking, hang on.</p>
+<p>And you're right. The two-by-two judges each change on its own. But a thousand perfectly undoable changes can add up to an architecture that nobody can undo.</p>
+<p>Every change was reversible. The mess isn't.</p>
+</aside>
+</section>
+
+<section>
+  <h2>The 2×2 governs changes.<br><span class="y">Somebody still has to<br>govern the shape.</span></h2>
+  <aside class="notes">
+<p>So the two-by-two governs changes, but it doesn't govern drift. Drift needs its own gate: a human looking at the shape of the whole system, on a schedule, asking whether we'd build it this way today.</p>
+<p>That's the senior engineer's job in both worlds, and agents make it more important, not less. Seniors aren't being replaced. They're being moved to the hard part.</p>
+</aside>
+</section>
+
+<section class="center" data-background-color="#f4c300">
+  <h1 style="color:#111214">Govern the undo,<br>not the headcount.</h1>
+  <aside class="notes">
+<p>So if there's one thing to take away, it's this.</p>
+<p>Govern the undo, not the headcount.</p>
+<p>Most of us set our governance by headcount. A bigger team gets more process. More people, more sign-offs, more meetings. A small team gets almost none.</p>
+<p>But you've just seen why that's the wrong measure. A team of ten can ship a change that's trivial to undo. A team of one can send an email that can never be taken back.</p>
+<p>The size of the team tells you nothing about the risk of the change. How hard it is to undo tells you nearly everything.</p>
+<p>So set the gate by the undo.</p>
+<p>If you can roll it back, let the agent run.</p>
+<p>If you can't, put a human in the way.</p>
+</aside>
+</section>
+
+<!-- ======================================================= SECTION 04 -->
+
+<section class="section" data-background-color="#f4c300">
+  <p class="kicker">04</p>
+  <h1>Buy undo</h1>
+  <aside class="notes">
+<p>And that leads to the most useful thing you can do on Monday.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/tape.jpg" data-background-opacity="0.4">
+  <h2>The cheapest governance<br>is an <span class="y">undo button.</span></h2>
+  <aside class="notes">
+<p>If governance follows how hard something is to undo, then the obvious move is to make more things undoable.</p>
+<p>You've all heard of shifting left, which means doing the checks earlier. Here's another way to shift left: make the change easier to undo, and it moves left across that grid. One shifts the review. The other shifts the risk.</p>
+<p>That means feature flags, migrations that are safe to run twice, rollback in one command, and small changes.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1 class="punch"><span class="mono">⌘Z</span><br><span class="y">No steering committee.</span></h1>
+  <aside class="notes">
+<p>Undo is the most effective governance tool ever shipped.</p>
+<p>And it's never needed a steering committee.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">catch · after 18 Jan</p>
+  <pre class="terminal">class CreateActiveStorageTables &lt; ActiveRecord::Migration[7.0]
+  def change
+<span class="add">+   return if table_exists?(:active_storage_blobs)</span>
+<span class="c">    # ...</span></pre>
+  <p style="margin-top:44px">One line. <span class="y">A one-way door became two-way.</span></p>
+  <aside class="notes">
+<p>Remember the migration that fell over on catch? This is the fix. One line, and now it's safe to run twice.</p>
+<p>That's what I mean by buying undo. A one-way door became a two-way door for the cost of one line of code.</p>
+<p>And I don't trust myself to remember to do it, so every migration an agent writes has to ship with its own rollback and a test that runs it twice. The reviewer enforces that, which brings me to the best thing I did this year.</p>
+</aside>
+</section>
+
+<section class="recipe">
+  <div class="recipe-head"><span class="num">CONTROL 6 · PREVENT</span><h3>Turn your reviewers into standards</h3></div>
+  <dl class="recipe-rows">
+    <dt>Gate</dt><dd><span class="y">Every gate with a review in it</span></dd>
+    <dt>Took</dt><dd>50 real review comments, 15 merge requests</dd>
+    <dt>Made</dt><dd>A 244-line standards doc</dd>
+    <dt>Do</dt><dd>The agent reviewer gets it verbatim, and <span class="y">cites the section in every objection.</span></dd>
+  </dl>
+  <aside class="notes">
+<p>Control six prevents, and it's the strongest one I have.</p>
+<p>It runs on every gate that has a review in it, which is most of them.</p>
+<p>Remember the grey? Review is the bottleneck.</p>
+<p>So the real question is how you scale judgement.</p>
+<p>I took fifty real review comments from fifteen merge requests. The actual comments real people left on real code.</p>
+<p>And I turned them into a standards doc. It came to 244 lines.</p>
+<p>The agent reviewer gets that doc word for word and uses it as its checklist.</p>
+<p>It cites the section in every objection, so you can look it up and argue with it.</p>
+<p>And it started catching the things our best reviewers catch.</p>
+<p>An agreement promised in a comment but never enforced in the code. Constants that are only right by coincidence. Simplifications that are really just duplication.</p>
+</aside>
+</section>
+
+<section class="center">
+  <h1>Generic review finds<br><span class="y">generic things.</span></h1>
+  <aside class="notes">
+<p>Generic review finds generic things.</p>
+<p>Write down what your best reviewer knows once, and it reviews every change from then on.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/apprentices.jpg" data-background-opacity="0.4">
+  <h2>Hello world. A blog. A web server.<br><span class="y">How do juniors learn now?</span></h2>
+  <aside class="notes">
+<p>Remember hello world, the blog and the web server? That's how we all learned judgement. We wrote a lot of code, got most of it wrong, and got told so.</p>
+<p>Agents write the code now. So where do juniors learn that?</p>
+<p>Have them write the spec, and have a senior take it apart before the agent runs. Give them the let-it-run gate, where being wrong is cheap.</p>
+<p>Because if we don't build that on purpose, in five years there'll be nobody qualified to stand in the human-in-the-way corner. And that's the one corner an agent can't stand in.</p>
+</aside>
+</section>
+
+<!-- ======================================================= SECTION 05 / CLOSE -->
+
+<section class="section" data-background-color="#f4c300">
+  <p class="kicker">05</p>
+  <h1>What a team<br>is for now</h1>
+  <aside class="notes">
+<p>So let me finish where I started.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/sculler.jpg" data-background-opacity="0.45">
+  <h2>Can one engineer run<br>the work of a team?<br><span class="y">Yes. Mostly.</span></h2>
+  <aside class="notes">
+<p>Let's go back to the question that made me build thrawn. Can one engineer run the work of a whole team?</p>
+<p>Yes, mostly. One person and a team of agents can carry a whole app. I'm the proof.</p>
+</aside>
+</section>
+
+<section class="photo" data-background-image="images/eight.jpg" data-background-opacity="0.45">
+  <h2>A team holds what<br><span class="y">can't be undone.</span></h2>
+  <aside class="notes">
+<p>So what's a team for now?</p>
+<p>It isn't for typing. A team exists to hold judgement and accountability for the things you can't take back: sovereign AI, regulated clients, production at scale.</p>
+<p>Its job is to keep buying undo, to look after the shape of the system, and to grow the people who'll stand where undo can't be bought.</p>
+</aside>
+</section>
+
+<section>
+  <p class="kicker">Same change, governed by the undo</p>
+  <div class="bars4">
+    <span>Let it run</span><div class="bar"><div class="build" style="width:4%"></div><div class="wait" style="width:2%"></div></div>
+    <span>Review the plan</span><div class="bar"><div class="wait" style="width:12%"></div><div class="build" style="width:4%"></div></div>
+    <span>Ship it, then watch</span><div class="bar"><div class="build" style="width:4%"></div><div class="watch" style="width:22%"></div></div>
+    <span class="y">Human in the way</span><div class="bar"><div class="build" style="width:4%"></div><div class="wait" style="width:96%"></div></div>
+  </div>
+  <aside class="notes">
+<p>Remember the grey? Here's that same change again, run through the two-by-two.</p>
+<p>Let it run, and there's hardly any wait. Review the plan, and the wait moves to before the build, where it's cheap. Ship it, then watch, and someone still looks, but nobody's stuck waiting.</p>
+<p>And human in the way still has all its grey.</p>
+<p>That's the grey you keep, on purpose.</p>
+</aside>
+</section>
+
+<section data-background-color="#f1ece1" class="bone">
+  <h2>A team of ten. A team of one.<br>Same AI. Same factory.<br><span style="color:#c8452c">Same answer.</span></h2>
+  <aside class="notes">
+<p>A team of ten and a team of one. Same AI, same factory.</p>
+<p>Same answer.</p>
+</aside>
+</section>
+
+<section class="center" data-background-color="#f4c300">
+  <h1 style="color:#111214">Govern the undo,<br>not the headcount.</h1>
+  <div class="qr corner"><img src="images/qr-recipes.svg" alt="QR code: swm.cc/writing/nidc-takeaway-recipes"><span>the controls</span></div>
+  <aside class="notes">
+<p>So that's two worlds. A team of ten with sign-offs on the sign-offs, and a team of one at two in the morning.</p>
+<p>Different people, different stakes, the same agents. And when you strip it back, the same question decides how fast either of them can go.</p>
+<p>Not how big the team is. How hard the change is to undo.</p>
+<p>Govern the undo, not the headcount.</p>
+<p>Everything from today is behind that code: the controls, the essays, and these slides.</p>
+<p>And as I said at the start, there's no Q&amp;A. But I'm here all day, so if you've a question, or you think I've got something wrong, come and find me. I'd genuinely like to hear it.</p>
+<p>Thank you.</p>
+</aside>
+</section>
+
+<!-- after the end: never shown on stage -->
+<section data-visibility="uncounted">
+  <p class="kicker">Photo credits</p>
+  <div id="credits" class="mono" style="font-size:22px;line-height:1.5;color:#8b949e"></div>
+</section>
+
+</div></div>
+
+<script src="vendor/reveal.js/dist/reveal.js"></script>
+<script src="credits.js"></script>
+<script>
+  Reveal.initialize({
+    width: 1920, height: 1080, margin: 0, minScale: 0.1, maxScale: 3,
+    center: false, hash: true, controls: false, progress: true,
+    slideNumber: false, transition: 'none', backgroundTransition: 'none',
+    embedded: true, plugins: [],
+    keyboard: { 32: () => window.__playToggle(), 75: () => window.__playToggle() }
+  });
+  // control room: tick the clock while that slide is showing
+  let crTimer=null;
+  Reveal.on('slidechanged', e => {
+    clearInterval(crTimer);
+    const el = e.currentSlide.querySelector('.cr-clock');
+    if (!el) return;
+    let m = 14;
+    el.textContent = '02:14';
+    crTimer = setInterval(() => { m = (m + 1) % 60; el.textContent = '02:' + String(m).padStart(2,'0'); }, 4000);
+  });
+  document.getElementById('credits').innerHTML = (window.CREDITS || [])
+    .map(c => `${c.slide}: “${c.title}” by ${c.artist}, ${c.license}`).join('<br>');
+</script>
+<script src="play/play.js"></script>
+</body>
+</html>
