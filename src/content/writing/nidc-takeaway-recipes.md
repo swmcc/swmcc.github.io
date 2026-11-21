@@ -12,7 +12,7 @@ tags:
 
 This is the companion to my talk at [NIDC 2026](https://nidevconf.com/), *Getting Shit Done in Two Worlds*. If you scanned the code on the screen: hello, and well done for not taking notes. Everything practical from the talk is here, with more detail than thirty minutes and a clicker allowed.
 
-**Slides:** coming shortly after the talk.
+**Slides:** [watch the talk](/talks/nidc-2026/). The slides play with my speaker notes as captions, so it works without me.
 
 ## Two worlds
 
