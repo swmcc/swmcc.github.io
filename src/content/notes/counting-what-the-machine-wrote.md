@@ -1,5 +1,5 @@
 ---
-title: "Counting What the Machine Wrote"
+title: "Counting What the Agents Wrote"
 pubDate: 2026-11-17T00:00:00.000Z
 tags:
   - nidc
@@ -9,11 +9,11 @@ tags:
 
 One of the slides in [Saturday's talk](/notes/nidc-2026-getting-shit-done-in-two-worlds) says this:
 
-> A quarter of a million lines changed this year. After midnight, 68% have a machine's name on them.
+> A quarter of a million lines changed this year. After midnight, 68% are co-authored by an agent.
 
 Nobody recorded those numbers for me. They came out of git, and I'd rather show the working than ask anyone to take a slide on trust.
 
-## A machine's name
+## The co-author line
 
 When a coding agent commits, it signs the commit with a trailer:
 
@@ -58,7 +58,7 @@ A trailer means the agent was involved. It doesn't mean it wrote every line, and
 
 ## What it says
 
-Thirty-five repos, a thousand commits. During the day, about a third of my commits carry a machine's name. After midnight it's about two thirds.
+Thirty-five repos, a thousand commits. During the day, about a third of my commits are co-authored by an agent. After midnight it's about two thirds.
 
 I don't get lazier at one in the morning. The job changes shape. What I'm actually doing at that hour, and what that has to do with a ten-person governed team doing the same thing in daylight, is Saturday.
 
