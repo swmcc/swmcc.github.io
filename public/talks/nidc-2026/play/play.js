@@ -43,7 +43,7 @@
     const ui = document.createElement('div');
     ui.id = 'play';
     ui.innerHTML = `
-      <div id="cap" aria-live="off"></div>
+      <div id="cap" aria-live="off"><div id="cap-in"></div></div>
       <div id="bar">
         <button id="pp" type="button" aria-label="Play">Play</button>
         <button id="prev" type="button" aria-label="Previous slide">‹</button>
@@ -106,8 +106,8 @@
     clearTimeout(timer);
     paras = notesFor(slide);
     pi = 0; wi = 0; slideElapsed = 0; slideStartedAt = performance.now();
-    const cap = $('#cap');
-    cap.innerHTML = '';
+    $('#cap-in').innerHTML = '';
+    $('#cap-in').style.transform = '';
     if (paras.length) addPara();
     const idx = Reveal.getIndices().h;
     $('#count').textContent = (idx + 1) + ' / ' + durations.length;
@@ -116,12 +116,9 @@
   }
 
   function addPara() {
-    const cap = $('#cap');
-    [...cap.children].forEach((p, i, all) => {
-      p.classList.add('past');
-      if (i < all.length - 1) p.classList.add('leaving');
-    });
-    setTimeout(() => { cap.querySelectorAll('p.leaving').forEach((p) => p.remove()); }, 650);
+    const inner = $('#cap-in');
+    inner.innerHTML = '';
+    inner.style.transform = '';
     const p = document.createElement('p');
     paras[pi].split(' ').forEach((w, i) => {
       if (i) p.appendChild(document.createTextNode(' '));
@@ -130,17 +127,18 @@
       s.textContent = w;
       p.appendChild(s);
     });
-    cap.appendChild(p);
+    inner.appendChild(p);
   }
 
   function step() {
     if (!playing) return;
     if (!paras.length) { schedule(HOLD_EMPTY, advance); return; }
-    const cur = $('#cap p:last-child');
+    const cur = $('#cap p');
     const words = cur.querySelectorAll('.w');
     if (wi < words.length) {
       words.forEach((w) => w.classList.remove('now'));
       words[wi].classList.add('on', 'now');
+      follow(words[wi]);
       const ms = wordMs(words[wi].textContent);
       wi++;
       schedule(ms);
@@ -152,6 +150,15 @@
     } else {
       schedule(GAP_SLIDE, advance);
     }
+  }
+
+  // keep the spoken line in view: scroll up a line at a time, never cut the top
+  function follow(word) {
+    const box = $('#cap').clientHeight;
+    const lh = parseFloat(getComputedStyle(word.parentNode).lineHeight);
+    const bottom = word.offsetTop + lh;
+    const shift = bottom > box ? Math.ceil((bottom - box) / lh) * lh : 0;
+    $('#cap-in').style.transform = shift ? `translateY(${-shift}px)` : '';
   }
 
   function schedule(ms, fn) {
