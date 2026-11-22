@@ -1,9 +1,11 @@
 ---
 title: "Building Thrawn"
-description: "An agentic development workflow that plans deeply with a strong model, executes in parallel with cheaper ones and refuses to ship anything I haven't approved"
+description: "A retired agentic development workflow that planned deeply with a strong model, executed in parallel with cheaper ones and refused to ship anything I hadn't approved"
 pubDate: 2026-08-09
 tags: ["agentic-development", "claude", "orchestration", "multi-model"]
 ---
+
+> **Retired, November 2026.** Thrawn was too slow and too heavy on usage for real work, and the platform shipped most of what it did. A plan file, the coding agent's own subagents and Herdr replaced it. The code is frozen on the [`thrawn-archive`](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn) branch, and the full story is in [Retiring Thrawn](/writing/retiring-thrawn). What follows is the write-up as it stood.
 
 ## The Problem
 
@@ -11,7 +13,7 @@ Coding agents are good now. Genuinely good. But the way most of us use them hasn
 
 There's also a cost and fit problem nobody talks about enough. Running your biggest, most expensive model on every task is lazy. Renaming a function does not need the same brain as designing a schema. What I wanted was a workflow that plans with a model strong enough to be trusted, then farms the actual work out to whatever model each task deserves. These days that means planning on Opus with the top-tier model one config line away for the rare ticket that earns it, and a proper ladder underneath: Sonnet for ordinary work, Haiku for the mechanical stuff, Codex and Pi when the task belongs on the other subscription's quota.
 
-So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn). Named for the Grand Admiral, because the whole point is that it wins by planning and delegation rather than brute force.
+So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn). Named for the Grand Admiral, because the whole point is that it wins by planning and delegation rather than brute force.
 
 ![Thrawn, the agentic development workflow](/projects/thrawn.webp)
 
@@ -48,8 +50,8 @@ The findings have started turning into essays. The decomposition problem became 
 
 ## Status
 
-Using it daily, and deliberately smaller than it was in August. Two questions stay open: whether the cross-pool routing actually pays (the ledger delivers its verdict in October) and an interactive swarm mode that leans into the panes. Everything else on the old roadmap belongs to the platform now, and it's welcome to it.
+Retired. The runner trial that was meant to decide whether cross-pool routing paid never reached a verdict: real runs took the best part of an hour from ticket to green board, against fifteen or twenty minutes with a plain plan file and the coding agent's own subagents, and the planning and integration passes ate usage before any real work started. By the end of October the platform covered nearly everything else. The panes live on in Herdr, the ship gate is the one idea I kept, and the rest is in [Retiring Thrawn](/writing/retiring-thrawn).
 
 ## Source
 
-Thrawn lives in my [agentic-development](https://github.com/swmcc/agentic-development) repo on GitHub, alongside the Herdr configuration it pairs with.
+Thrawn is frozen on the [`thrawn-archive`](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn) branch of my [agentic-development](https://github.com/swmcc/agentic-development) repo. The Herdr configuration it paired with is still on main.

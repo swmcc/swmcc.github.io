@@ -11,7 +11,7 @@ year: 2026
 
 The graph database and app builder work has boiled down to one thing this month: getting it over the line for the quarterly plan by the end of September. It's not very exciting to talk about, but I still get my dopamine fix from fixing bugs, so I'm getting on with it.
 
-I'm also running [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) in parallel at work, my AI software factory, to work out where this way of working is going. Work is distributed systems and my own stuff is wee apps, so running it in both worlds is teaching me plenty.
+I'm also running [Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn) in parallel at work, my AI software factory, to work out where this way of working is going. Work is distributed systems and my own stuff is wee apps, so running it in both worlds is teaching me plenty.
 
 Being housebound for the last month has left me with a proper dose of FOMO about work, not being in the room to collaborate. Hopefully that starts easing as the month goes on.
 
