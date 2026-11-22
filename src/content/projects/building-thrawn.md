@@ -11,7 +11,7 @@ Coding agents are good now. Genuinely good. But the way most of us use them hasn
 
 There's also a cost and fit problem nobody talks about enough. Running your biggest, most expensive model on every task is lazy. Renaming a function does not need the same brain as designing a schema. What I wanted was a workflow that plans with a model strong enough to be trusted, then farms the actual work out to whatever model each task deserves. These days that means planning on Opus with the top-tier model one config line away for the rare ticket that earns it, and a proper ladder underneath: Sonnet for ordinary work, Haiku for the mechanical stuff, Codex and Pi when the task belongs on the other subscription's quota.
 
-So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn). Named for the Grand Admiral, because the whole point is that it wins by planning and delegation rather than brute force.
+So I built [Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn). Named for the Grand Admiral, because the whole point is that it wins by planning and delegation rather than brute force.
 
 ![Thrawn, the agentic development workflow](/projects/thrawn.webp)
 

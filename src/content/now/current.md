@@ -12,7 +12,7 @@ I've put a bit of time into my workflow for this so I can stay in the terminal. 
 
 The office is still annoying me, but what can I do about it? Just get on with it.
 
-[Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) is still being measured, but I'm stopping that this week. More on why below.
+[Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn) is still being measured, but I'm stopping that this week. More on why below.
 
 ## After Hours
 

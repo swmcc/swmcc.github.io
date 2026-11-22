@@ -11,7 +11,7 @@ year: 2026
 
 The graph database and app builder work landed for the quarterly plan, and now I'm in the middle of a bug-athon. I still get my dopamine fix from fixing bugs, and I've arranged a few hackathon quiet days to keep it interesting, which is showing results. The focus now is supporting our internal clients in building apps on the graph.
 
-[Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn) is still being measured, but it's proving to be a moot point. Claude's parent company is making inroads into doing exactly what I built it for, which I've written about in [The Platform Ate My Roadmap](/writing/the-platform-ate-my-roadmap).
+[Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn) is still being measured, but it's proving to be a moot point. Claude's parent company is making inroads into doing exactly what I built it for, which I've written about in [The Platform Ate My Roadmap](/writing/the-platform-ate-my-roadmap).
 
 The FOMO from being housebound did go, though the office can't really support that many of the company right now, so we're experiencing teething problems, to put it bluntly.
 

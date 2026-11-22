@@ -8,7 +8,7 @@ tags:
   - claude
 ---
 
-I've been building [Thrawn](https://github.com/swmcc/agentic-development/tree/main/thrawn), an orchestrator that takes a ticket, plans it with a strong model, then executes the plan as parallel agents in isolated git worktrees. The [project page](/projects/building-thrawn) covers what it does and the [experiments write-up](https://experiments.swm.cc/thrawn/) covers whether it's actually a good idea. This note is about how it's built, because the engineering turned out to be more interesting than the AI.
+I've been building [Thrawn](https://github.com/swmcc/agentic-development/tree/thrawn-archive/thrawn), an orchestrator that takes a ticket, plans it with a strong model, then executes the plan as parallel agents in isolated git worktrees. The [project page](/projects/building-thrawn) covers what it does and the [experiments write-up](https://experiments.swm.cc/thrawn/) covers whether it's actually a good idea. This note is about how it's built, because the engineering turned out to be more interesting than the AI.
 
 ## One file, stdlib only
 
